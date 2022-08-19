@@ -1,20 +1,14 @@
 const mysql = require('mysql');
-const options = require('../mysql/option');
-
-const loginData = {
-    host: options.storageConfig.HOST,
-    user: options.storageConfig.user,
-    password: options.storageConfig.password                                                         
-};
+require("dotenv").config();
 
 // DB 연결
 const connection = mysql.createConnection({
-host: loginData.host,
+host: process.env.DB_HOST,
 port:3306,
-user:loginData.user,
-password:loginData.password,
-database:'diyfood'
-})
+user:process.env.DB_USER,
+password:process.env.DB_PASSWORD,
+database:process.env.DB});
+
 connection.connect();
 
 

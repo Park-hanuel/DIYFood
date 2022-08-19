@@ -3,17 +3,17 @@ const app = express();
 const router = express.Router();
 const pbkdf2 = require('crypto');
 
-const connection = require('../mysql/mysql_connection');
+const sequelize = require('sequelize');
 
 //middleware connection
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-router.post('/signup', async function(req, res) {
+router.post('/signup', function(req, res) {
   const param= [req.body.email,req.body.password,req.body.name,req.body.reg_date];
 
   try{
-    await userInfoInsert(param[0],param[1],param[2],param[3]);
+    insertUserInfo(param[0],param[1],param[2],param[3]);
     res.send('유저 정보 삽입 성공');
   }catch(err){
     console.log(err);
@@ -21,18 +21,23 @@ router.post('/signup', async function(req, res) {
   }
 });
 
-const userInfoInsert = async(email, password, name, reg_date) =>{
-  const userInsertQuery = 'insert into user(`email`,`password`,`name`,`reg_date`) values (?,?,?,?)';
-  
+const insertUserInfo = async(email, password, name, reg_date) =>{
   const randomSalt = pbkdf2.randomBytes(32).toString("hex");
   const cryptedPassword = pbkdf2.pbkdf2Sync(password, randomSalt, 65536, 64,"sha512").toString('hex');
   const passwordWithSalt = cryptedPassword + "$" + randomSalt;
   console.log(passwordWithSalt);
-  await connection.query(userInsertQuery, [email, passwordWithSalt, name,reg_date] );
+
+  models.user.create({
+    email : email,
+    password : passwordWithSalt,
+    name : name,
+    reg_date : reg_date
+  }).then(_ => console.log("created!"));
+  
 };
 
 //비밀번호 대조
-const userPasswordVerify = async (givenPassword , encryptedPasswordWithSalt)=>{
+const verifyUserPassword = async (givenPassword , encryptedPasswordWithSalt)=>{
   const [encrypted , salt] = encryptedPasswordWithSalt.split("$");
   const givenEncrypted = pbkdf2.pbkdf2Sync(givenPassword, salt, 65536, 64, "sha512").toString("hex");
   if(givenEncrypted === encrypted){
@@ -41,6 +46,7 @@ const userPasswordVerify = async (givenPassword , encryptedPasswordWithSalt)=>{
     return 0;
   }
 }
+
 
 //중복값을 확인하여 t/f 반환 
 router.post('/checkemail', function(req, res) {
