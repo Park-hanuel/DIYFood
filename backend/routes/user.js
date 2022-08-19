@@ -1,18 +1,61 @@
-const router = require('express').Router();
-const connection = require('../mysql/mysql_connection')
-router.post('/signin', function(req, res, next) {
-  res.send('Got a Post request')
-  connection.query("select * from user", function(err,result){
-    console.log(result);
-  });
+const express = require('express');
+const app = express();
+const router = express.Router();
+const pbkdf2 = require('crypto');
 
-  // const sql = 'insert into user set ?';
-  // connection.query(sql,user, function (error, results) {
-  //   if (error) console.log(error);
-  //   res.send(results);
-  // });
+const connection = require('../mysql/mysql_connection');
+
+//middleware connection
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+router.post('/signup', async function(req, res) {
+  const param= [req.body.email,req.body.password,req.body.name,req.body.reg_date];
+
+  try{
+    await userInfoInsert(param[0],param[1],param[2],param[3]);
+    res.send('유저 정보 삽입 성공');
+  }catch(err){
+    console.log(err);
+    res.send('에러 발생');
+  }
 });
 
+const userInfoInsert = async(email, password, name, reg_date) =>{
+  const userInsertQuery = 'insert into user(`email`,`password`,`name`,`reg_date`) values (?,?,?,?)';
+  
+  const randomSalt = pbkdf2.randomBytes(32).toString("hex");
+  const cryptedPassword = pbkdf2.pbkdf2Sync(password, randomSalt, 65536, 64,"sha512").toString('hex');
+  const passwordWithSalt = cryptedPassword + "$" + randomSalt;
+  console.log(passwordWithSalt);
+  await connection.query(userInsertQuery, [email, passwordWithSalt, name,reg_date] );
+};
+
+//비밀번호 대조
+const userPasswordVerify = async (givenPassword , encryptedPasswordWithSalt)=>{
+  const [encrypted , salt] = encryptedPasswordWithSalt.split("$");
+  const givenEncrypted = pbkdf2.pbkdf2Sync(givenPassword, salt, 65536, 64, "sha512").toString("hex");
+  if(givenEncrypted === encrypted){
+    return 1;
+  }else{
+    return 0;
+  }
+}
+
+//중복값을 확인하여 t/f 반환 
+router.post('/checkemail', function(req, res) {
+  connection.connect();
+  const email= req.body.email;
+  connection.query('select email from user where email=?', email, (error, rows,fields) => {
+    let checkEmail = false;
+    if(rows.length == 0){
+      checkEmail = true;
+    }
+    
+    res.send(checkEmail);
+    
+  });
+});
 
 /*
 passport.use(

@@ -19,3 +19,11 @@ connection.connect();
 
 
 module.exports = connection;
+
+// CREATE TABLE user ( 
+//   id int NOT NULL auto_increment PRIMARY KEY,
+//   email varchar(45) not null,
+//   password varchar(200) not null,
+//   name varchar(10) not null,
+//   reg_date varchar(45)
+//   );
