@@ -37,22 +37,19 @@ const insertUserInfo = async(email, password, name) =>{
 
 
 //중복값을 확인하여 t/f 반환 
-router.get('/checkemail/:email',async function(req, res) {
-  connection.connect();
-  const email= req.body.email;
-  connection.query('select email from user where email=?', email, (error, rows,fields) => {
-    let checkEmail = false;
-    if(rows.length == 0){
-      checkEmail = true;
+router.get('/checkemail',async(req, res) => {
+  const email= req.query.email;
+  const user = await User.findOne({where: {email:email}});
+    if(user){
+      res.send('0');
+    }else{
+      res.send('1');
     }
-    
-    res.send(checkEmail);
-    
-  });
 });
 
-router.post('/login', isNotLoggedIn, (req, res, next)=>{
-  passport.authenticate('local', (authError, user, info)=>{
+
+router.post('/login', isNotLoggedIn, async (req, res, next)=>{
+  await passport.authenticate('local', (authError, user, info)=>{
     if(authError){
       console.error(authError);
       return next(authError);
