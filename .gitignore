@@ -2,3 +2,7 @@ backend/config/
 backend/node_modules/
 dist/*
 *.log
+
+# local env files
+.env.local
+.env.*.local
