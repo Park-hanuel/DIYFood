@@ -4,7 +4,7 @@ const router = express.Router();
 
 const pbkdf2 = require('crypto');
 
-const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
+const { isLoggedIn, isNotLoggedIn, isAdmin } = require('./middlewares');
 const User = require('../models/user');
 
 router.post('/signup', isNotLoggedIn, async (req, res, next) => {
@@ -50,6 +50,7 @@ router.get('/checkemail',async(req, res) => {
 
 router.post('/login', isNotLoggedIn, async (req, res, next)=>{
   await passport.authenticate('local', (authError, user, info)=>{
+    console.log(user);
     if(authError){
       console.error(authError);
       return next(authError);
@@ -72,5 +73,10 @@ router.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/');
 });
+
+
+router.get('/admin', isAdmin, async (req, res, next)=>{
+  return await User.findAll({});
+})
 
 module.exports = router;
