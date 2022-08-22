@@ -1,55 +1,43 @@
 const express = require('express');
-const app = express();
+const passport = require('passport');
 const router = express.Router();
+
 const pbkdf2 = require('crypto');
 
-const sequelize = require('sequelize');
+const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
+const User = require('../models/user');
 
-//middleware connection
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-router.post('/signup', function(req, res) {
-  const param= [req.body.email,req.body.password,req.body.name,req.body.reg_date];
-
+router.post('/signup', isNotLoggedIn, async (req, res, next) => {
+  const {email, password, name} = req.body;
   try{
-    insertUserInfo(param[0],param[1],param[2],param[3]);
+    const exUser = await User.findOne({where:{email}});
+    if(exUser){
+      return res.redirect('/join?error=exist');
+    }
+    await insertUserInfo(email,password,name);
     res.send('유저 정보 삽입 성공');
   }catch(err){
     console.log(err);
-    res.send('에러 발생');
+    next(err)
   }
 });
 
-const insertUserInfo = async(email, password, name, reg_date) =>{
+const insertUserInfo = async(email, password, name) =>{
   const randomSalt = pbkdf2.randomBytes(32).toString("hex");
   const cryptedPassword = pbkdf2.pbkdf2Sync(password, randomSalt, 65536, 64,"sha512").toString('hex');
   const passwordWithSalt = cryptedPassword + "$" + randomSalt;
   console.log(passwordWithSalt);
 
-  models.user.create({
+  User.create({
     email : email,
     password : passwordWithSalt,
     name : name,
-    reg_date : reg_date
-  }).then(_ => console.log("created!"));
-  
+  }).then(_ => console.log("created!"))  
 };
-
-//비밀번호 대조
-const verifyUserPassword = async (givenPassword , encryptedPasswordWithSalt)=>{
-  const [encrypted , salt] = encryptedPasswordWithSalt.split("$");
-  const givenEncrypted = pbkdf2.pbkdf2Sync(givenPassword, salt, 65536, 64, "sha512").toString("hex");
-  if(givenEncrypted === encrypted){
-    return 1;
-  }else{
-    return 0;
-  }
-}
 
 
 //중복값을 확인하여 t/f 반환 
-router.post('/checkemail', function(req, res) {
+router.get('/checkemail/:email',async function(req, res) {
   connection.connect();
   const email= req.body.email;
   connection.query('select email from user where email=?', email, (error, rows,fields) => {
@@ -63,71 +51,29 @@ router.post('/checkemail', function(req, res) {
   });
 });
 
-/*
-passport.use(
-  new LocalStrategy(
-    {
-      emailField: "email",
-      passwordField: "password",
-      session: true,
-      passReqToCallback: false,
-    },
-    async function (email, password, done) {
-      console.log(email, password);
-      try {
-        const result = await user.findOne({
-          where: { email: email, password: password },
-        });
-        if (!result)
-          return done(null, false, { message: "존재하지않는 아이디요" });
-        if (email == result.password) {
-          return done(null, result);
-        } else {
-          return done(null, false, { message: "비번틀렸어요" });
-        }
-      } catch (err) {
-        return done(err);
-      }
+router.post('/login', isNotLoggedIn, (req, res, next)=>{
+  passport.authenticate('local', (authError, user, info)=>{
+    if(authError){
+      console.error(authError);
+      return next(authError);
     }
-  )
-);
-
-passport.serializeUser(function (user, done) {
-  console.log("serializeUser ", user);
-  done(null, user.user_id);
+    if(!user){
+      return res.redirect(`/?loginError=${info.message}`);
+    }
+    return req.login(user, (loginError)=>{
+      if(loginError){
+        console.error(loginError);;
+        return next(loginError);
+      }
+      return res.redirect('/');
+    });
+  })(req,res,next);
 });
 
-passport.deserializeUser(async function (id, done) {
-  console.log("deserializeUser id ", id);
-  var userinfo = await user.findOne({
-    where: { user_id: id },
-  });
-  done(null, userinfo);
-});
-
-function checkLogin(req, res, next) {
-  if (req.user) {
-    console.log("login checked");
-    next();
-  } else {
-    console.log("login first");
-    res.send("로그인 안하셨는데요?");
-  }
-}
 router.get('/logout', (req, res) => {
-    res.send('This is logout page');
+  req.logout();
+  req.session.destroy();
+  res.redirect('/');
 });
-router.post("/signup", async(req, res)=>{
-  const {emial, password, name}=req.body;
 
-  try{
-      //간단한 에러 핸들링. username이 중복된 요청이 들어온다든가 하는 경우 에러가 발생함
-      const result=await userInfoInsert(username, password);
-      res.send("유저 정보 삽입 성공");
-  }
-  catch(err){
-      res.send("에러 발생");
-  }
-});
-*/
 module.exports = router;

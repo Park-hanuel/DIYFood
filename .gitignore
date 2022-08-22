@@ -1,4 +1,4 @@
-backend/routes/config.json
+backend/config/
 backend/node_modules/
 dist/*
 *.log

@@ -1,36 +1,60 @@
-const createError = require('http-errors');
 const express = require('express');
-const path = require('path');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+const morgan = require('morgan');
+const path = require('path');
+const session = require('express-session');
+const passport = require('passport');
+const dotenv = require('dotenv');
+dotenv.config();
+const createError = require('http-errors');
+
+const {sequelize} = require('./models');
+const passportConfig = require('./passport');
 
 const userRouter = require('./routes/user');
 const indexRouter = require('./routes/index')
 
 const app = express();
+passportConfig(); //패스포트 설정
+app.set('views', path.join(__dirname, 'views')); 
+app.set('view engine', 'ejs');   
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');    
+sequelize.sync({force : false})
+.then( ()=>{
+  console.log("데이터베이스 연결 성공");
+}).catch((err) =>{
+  console.error(err);
+});
 
-app.use(logger('dev'));
+
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.use(cookieParser());
-app.set('views', path.join(__dirname, 'views')); 
+app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(session({
+  resave: false,
+  secret: process.env.COOKIE_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie:{
+    httpOnly: true,
+    secure: false,
+  },
+  //store:new FileStore() // 세션 저장
+  // 기본 이름 : connect.sid
+}));
+app.use(passport.initialize());  // req 객체에 passport 설정을 담아줌
+app.use(passport.session()); //session 객체에 passport 정보를 저장
 
 app.use('/', indexRouter);
 app.use('/user', userRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
