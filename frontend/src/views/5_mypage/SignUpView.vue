@@ -22,7 +22,7 @@
                     </div>
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                      <div class="form-outline flex-fill mb-0 input_row">                      
+                      <div class="form-outline flex-fill mb-0 input_row">
                         <label class="form-label" for="name">이름</label>
                         <input type="text" id="name" class="form-control" placeholder="Name" v-model="user.name" required/>
                       </div>
@@ -64,39 +64,38 @@
         </div>
       </div>
     </div>
-  </div>        
+  </div>
 </section>
 </template>
 <script>
-
- 
+/* eslint-disable */
 export default {
   components: {},
   data: function () {
-  return {
-    user: {
-      userid: null,
-      name: null,
-      password: null
+    return {
+      user: {
+        userid: null,
+        name: null,
+        password: null
+      }
     }
-  }
-},
-  setup() {},
-  created() {},
+  },
+  setup () {},
+  created () {},
   mounted () {
   },
-  unmounted() {},
+  unmounted () {},
   methods: {
     // 회원가입 submit
-    submitForm: function() {
+    submitForm: function () {
       // API 요청시 전달할 userData 객체
       const userData = {
         username: this.user.userid,
         password: this.user.password,
-        name: this.user.name,
-      };
-      const url = `http://localhost:3000/user/signup`;
-      const headers = {"Content-Type":"application/json"};
+        name: this.user.name
+      }
+      const url = 'http://localhost:3000/user/signup'
+      const headers = { 'Content-Type':'application/json'};
       //const response = this.axios.post(url, {headers:headers});
       //const { data } = registerUser(userData);
       this.axios.post(url,userData,{headers:headers}).then((res)=>{

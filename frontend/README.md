@@ -1,4 +1,4 @@
-# frontend
+# diyfood_vue2
 
 ## Project setup
 ```

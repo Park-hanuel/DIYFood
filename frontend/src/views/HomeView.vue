@@ -29,6 +29,7 @@ export default {
     HelloWorld
   }
 }
+/* eslint-disable */
 </script>
 
 <style>

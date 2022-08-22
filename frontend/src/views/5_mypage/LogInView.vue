@@ -44,10 +44,11 @@
         </div>
       </div>
     </div>
-  </div>        
+  </div>
 </section>
 </template>
 <script>
+/* eslint-disable */
 export default {
   components: {},
   data: function () {

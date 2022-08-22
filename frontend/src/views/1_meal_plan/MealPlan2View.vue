@@ -33,15 +33,15 @@
 <script>
 export default {
   components: {},
-  data() {
+  data () {
     return {
       sampleData: ''
     }
   },
-  setup() {},
-  created() {},
-  mounted() {},
-  unmounted() {},
+  setup () {},
+  created () {},
+  mounted () {},
+  unmounted () {},
   methods: {}
 }
 </script>
