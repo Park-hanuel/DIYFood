@@ -16,7 +16,7 @@
                         <label class="form-label" for="id">이메일</label>
                         <div>
                           <input type="email" id="id" class="form-control" style="width:75%; display:inline-block;" placeholder="Email" v-model="user.userid" required />
-                          <input type="button" class="btn btn-primary" value="중복확인" style="float:right; margin: 0px;" @click="IdCheck()" required>
+                          <input type="button" class="btn btn-primary" value="중복확인" style="float:right; margin: 0px;" @click="IdCheck" required>
                         </div>
                       </div>
                     </div>
@@ -48,7 +48,7 @@
                       </label>
                     </div>
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <button class="btn btn-primary btn-lg" @click="submitForm()">가입하기</button>
+                      <button class="btn btn-primary btn-lg" @click="submitForm">가입하기</button>
                     </div>
                   </div>
                 </form>
@@ -68,13 +68,12 @@
 </section>
 </template>
 <script>
-import { registerUser } from '@/api/index';
+
  
 export default {
   components: {},
   data: function () {
   return {
-    nowDate:'',
     user: {
       userid: null,
       name: null,
@@ -85,29 +84,31 @@ export default {
   setup() {},
   created() {},
   mounted () {
-    this.timer = setInterval(() => {    
-    this.setNowTimes()
-    this.passwordConfirm
-  },1000)},
+  },
   unmounted() {},
   methods: {
     // 회원가입 submit
-    async submitForm() {
+    submitForm: function() {
       // API 요청시 전달할 userData 객체
       const userData = {
         username: this.user.userid,
         password: this.user.password,
         name: this.user.name,
-        date: this.nowDate
       };
-      const { data } = await registerUser(userData);
+      const url = `http://localhost:3000/user/signup`;
+      const headers = {"Content-Type":"application/json"};
+      //const response = this.axios.post(url, {headers:headers});
+      //const { data } = registerUser(userData);
+      this.axios.post(url,userData,{headers:headers}).then((res)=>{
+      console.log(res)
+})
       
-      this.logMessage = `${data.username} 님이 가입되었습니다.`;
+      //this.logMessage = `${data.username} 님이 가입되었습니다.`;
       
       // 가입 후 폼 초기화
-      this.initForm();
+      //this.initForm();
     },
-    initForm() {
+    initForm: function() {
       this.username = '';
       this.password = '';
       this.nickname = '';
@@ -118,23 +119,15 @@ export default {
         alert("비밀번호가 일치하지 않습니다.")
       }
     },
-    // 현재 날짜
-    setNowTimes() {
-      let myDate = new Date() 
-      let yy = String(myDate.getFullYear())  
-      let mm = myDate.getMonth() + 1  
-      let dd = String(myDate.getDate() < 10 ? '0' + myDate.getDate() : myDate.getDate())
-      this.nowDate = yy + '-' + mm + '-' + dd
-    },
     // 아이디 중복확인
-    async IdCheck(){
+    IdCheck(){
       
       console.log('SignUpView.vue => IdCheck');
       console.log('SignUpView.vue => IdCheck', this.user.userid);
 
-      const url = `/user/checkemail?uid=${this.user.userid}`;
+      const url = `http://localhost:3000/user/checkemail?email=${this.user.userid}`;
       const headers = {"Content-Type":"application/json"};
-      const response = await this.axios.get(url, {headers:headers});
+      const response = this.axios.get(url, {headers:headers});
       console.log(response);
 
       if(response.data.result === 1){
