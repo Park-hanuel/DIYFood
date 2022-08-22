@@ -19,6 +19,7 @@
           Menu
           <i class="fas fa-bars ms-1"></i>
         </button>
+        <!-- 메뉴바 -->
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                 <li class="nav-item"><a class="nav-link" href="/mealplan">Meal Plan</a></li>
