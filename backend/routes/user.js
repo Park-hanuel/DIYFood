@@ -1,11 +1,10 @@
 const express = require('express');
 const passport = require('passport');
-const router = express.Router();
-
 const pbkdf2 = require('crypto');
-
 const { isLoggedIn, isNotLoggedIn, isAdmin } = require('./middlewares');
 const User = require('../models/user');
+
+const router = express.Router();
 
 router.post('/signup', isNotLoggedIn, async (req, res, next) => {
   const {email, password, name} = req.body;
@@ -50,7 +49,9 @@ router.get('/checkemail',async(req, res) => {
 
 router.post('/login', isNotLoggedIn, async (req, res, next)=>{
   await passport.authenticate('local', (authError, user, info)=>{
-    console.log(user);
+    //local 미들웨어가 로컬 로그인 전략 수행
+    //성공하거나 실패시 콜백 함수가 실행됨, authError면 실패, 두번째 매개변수가 있으면 성공, 그러면 req.login메서드 실행
+    //Passport는 req 객체에 login, logout 메서드를 추가함, req.login은 Passport.serialzeUSer 호출!
     if(authError){
       console.error(authError);
       return next(authError);
@@ -59,11 +60,12 @@ router.post('/login', isNotLoggedIn, async (req, res, next)=>{
       return res.redirect(`/?loginError=${info.message}`);
     }
     return req.login(user, (loginError)=>{
+      //req.login이 serializeUser 호출
       if(loginError){
         console.error(loginError);;
         return next(loginError);
       }
-      return res.redirect('/');
+      return res.send(true);
     });
   })(req,res,next);
 });
@@ -76,7 +78,10 @@ router.get('/logout', (req, res) => {
 
 
 router.get('/admin', isAdmin, async (req, res, next)=>{
-  return await User.findAll({});
+  const userList = await User.findAll({
+    attributes : ['email','name','createdAt']
+  });
+  res.send(userList);
 })
 
 module.exports = router;
