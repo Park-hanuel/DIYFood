@@ -1,6 +1,6 @@
 <template>
   <div id="page">
-    <section class="page-section padding" id="MyPage" style="height:700px">
+    <section class="page-section padding" id="MyPage" style="height:100vh;">
           <div class="container">
               <div class="text-center">
                   <h2 class="section-heading text-uppercase" style="color:white ;">My Page</h2>
