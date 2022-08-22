@@ -25,7 +25,7 @@
                 <li class="nav-item"><a class="nav-link" href="/recipe">Recipe</a></li>
                 <li class="nav-item"><a class="nav-link" href="/#Groceries">Grocery Price</a></li>
                 <li class="nav-item"><a class="nav-link" href="/#Trend">Price Trend</a></li>
-                <li class="nav-item"><a class="nav-link" href="/#MyPage">My Page</a></li>
+                <li class="nav-item"><a class="nav-link" href="/user">My Page</a></li>
             </ul>
         </div>
       </div>

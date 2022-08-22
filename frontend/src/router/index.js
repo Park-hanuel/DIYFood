@@ -40,7 +40,15 @@ const routes = [
       )
   },
   {
-    path: '/member/login',
+    path: '/user',
+    name: 'User',
+    component: () =>
+      import(
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/5_mypage/UserView.vue'
+      )
+  },
+  {
+    path: '/user/login',
     name: 'LogInPage',
     component: () =>
       import(
@@ -48,7 +56,7 @@ const routes = [
       )
   },
   {
-    path: '/member/signup',
+    path: '/user/signup',
     name: 'SignUpPage',
     component: () =>
       import(
@@ -56,7 +64,7 @@ const routes = [
       )
   },
   {
-    path: '/member/myinfo',
+    path: '/user/myinfo',
     name: 'MyInfoPage',
     component: () =>
       import(
