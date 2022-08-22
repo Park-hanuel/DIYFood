@@ -47,7 +47,7 @@ const routes = [
     name: 'User',
     component: () =>
       import(
-        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/5_mypage/UserView.vue'
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/5_mypage/LogInSignUpView.vue'
       )
   },
   {
@@ -72,6 +72,14 @@ const routes = [
     component: () =>
       import(
         /* webpackChunkName: "event", webpackPrefetch:true */ '../views/5_mypage/MyInfoView.vue'
+      )
+  },
+  {
+    path: '/user/admin',
+    name: 'AdminPage',
+    component: () =>
+      import(
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/5_mypage/AdminView.vue'
       )
   }
 ]
