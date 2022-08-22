@@ -38,7 +38,6 @@ const insertUserInfo = async(email, password, name) =>{
 
 //중복값을 확인하여 t/f 반환 
 router.get('/checkemail/:email',async function(req, res) {
-  connection.connect();
   const email= req.body.email;
   connection.query('select email from user where email=?', email, (error, rows,fields) => {
     let checkEmail = false;

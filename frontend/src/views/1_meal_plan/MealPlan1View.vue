@@ -69,7 +69,7 @@
 export default {
   components: {},
   name: 'MealPlanSetting',
-  data() {
+  data () {
     return {
       numberOfMeals: 1,
       budgetOfMeals: 1,
@@ -77,10 +77,10 @@ export default {
       locationOfMeals: null
     }
   },
-  setup() {},
-  created() {},
-  mounted() {},
-  unmounted() {},
+  setup () {},
+  created () {},
+  mounted () {},
+  unmounted () {},
   methods: {}
 }
 </script>

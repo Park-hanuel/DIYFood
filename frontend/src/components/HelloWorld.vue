@@ -151,6 +151,7 @@ export default {
     msg: String
   }
 }
+/* eslint-disable */
 </script>
 
 <style>

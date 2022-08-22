@@ -15,13 +15,13 @@
                       <div class="form-outline flex-fill mb-0 input_row">
                         <label class="form-label" for="id">이메일</label>
                         <div>
-                          <input type="email" id="id" class="form-control" style="display:inline-block;" placeholder={{user.userid}} v-model="user.userid" readonly/>
+                          <input type="email" id="id" class="form-control" style="display:inline-block;" placeholder="Email" v-model="user.userid" readonly/>
                         </div>
                       </div>
                     </div>
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                      <div class="form-outline flex-fill mb-0 input_row">                      
+                      <div class="form-outline flex-fill mb-0 input_row">
                         <label class="form-label" for="name">이름</label>
                         <input type="text" id="name" class="form-control" placeholder="Name" v-model="user.name" required/>
                       </div>
@@ -57,10 +57,11 @@
         </div>
       </div>
     </div>
-  </div>        
+  </div>
 </section>
 </template>
 <script>
+/* eslint-disable */
 import { registerUser } from '@/api/index';
 
 export default {
