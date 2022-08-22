@@ -14,3 +14,13 @@ exports.isNotLoggedIn = (req,res,next) =>{
         res.redirect(`/?error=${message}`);
     }
 }
+
+exports.isAdmin = (req, res, next) =>{
+    console.log(req);
+    if(req.params.id === 'admin'){
+        next();
+    }else{
+        const message = encodeURIComponennt('관리자 권한이 필요합니다.');
+        res.redirect(`/?error=${message}`);
+    }
+}

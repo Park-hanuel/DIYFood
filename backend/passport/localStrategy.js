@@ -7,14 +7,15 @@ module.exports = () => {
     passport.use( // 로그인 인증
     new LocalStrategy(
     {
-      emailField: "email",
+      usernameField: "email",
       passwordField: "password",
       session: true,
-      passReqToCallback: false,
+      passReqToCallback: true,
     },
-    async (email, password, done) => {
+    async (username, password, done) => {
         try{
-            const exUser = await User.findOne({where:email});
+            console.log(username);
+            const exUser = await User.findOne({where:username});
             if(exUser){ //유저가 있으면
                 //비밀번호 암호화 대조
                 const [encrypted , salt] = exUser.password.split("$");
