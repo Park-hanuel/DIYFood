@@ -128,7 +128,7 @@ export default {
 
       if(response.data === 0){
           alert('중복된 아이디가 존재합니다.')
-          this.$refs.user.userid.focus();
+          this.$refs.user.email.focus();
           return false;
       }
       if(response.data === 1){
