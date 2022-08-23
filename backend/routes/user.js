@@ -14,7 +14,7 @@ router.post('/signup', isNotLoggedIn, async (req, res, next) => {
       return res.redirect('/join?error=exist');
     }
     await insertUserInfo(email,password,name);
-    res.send('유저 정보 삽입 성공');
+    res.send('유저 email 삽입 성공');
   }catch(err){
     console.log(err);
     next(err)
@@ -33,23 +33,28 @@ const insertUserInfo = async(email, password, name) =>{
   const cryptedPassword = pbkdf2.pbkdf2Sync(password, randomSalt, 65536, 64,"sha512").toString('hex');
   const passwordWithSalt = cryptedPassword + "$" + randomSalt;
 
-  User.create({
+  await User.create({
     email : email,
     password : passwordWithSalt,
     name : name,
-  }).then(_ => console.log("created!"))  
+  });
+  console.log("created!") ; 
 };
 
 
 //중복값을 확인하여 t/f 반환 
 router.get('/checkemail',async(req, res) => {
   const email= req.query.email;
-  const user = await User.findOne({where: {email:email}});
+  if(email !== undefined){
+    const user = await User.findOne({where: {email:email}});
     if(user){
       res.send('0');
     }else{
       res.send('1');
     }
+  }else{
+    res.send('fail');
+  }
 });
 
 

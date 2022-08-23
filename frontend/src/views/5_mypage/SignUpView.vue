@@ -15,7 +15,7 @@
                       <div class="form-outline flex-fill mb-0 input_row">
                         <label class="form-label" for="id">이메일</label>
                         <div>
-                          <input type="email" id="id" class="form-control" style="width:75%; display:inline-block;" placeholder="Email" v-model="user.userid" required />
+                          <input type="email" id="email" class="form-control" style="width:75%; display:inline-block;" placeholder="Email" v-model="user.email" required />
                           <input type="button" class="btn btn-primary" value="중복확인" style="float:right; margin: 0px;" @click="IdCheck" required>
                         </div>
                       </div>
@@ -74,9 +74,9 @@ export default {
   data: function () {
     return {
       user: {
-        userid: null,
-        name: null,
-        password: null
+        email: '',
+        name: '',
+        password: '',
       }
     }
   },
@@ -87,54 +87,51 @@ export default {
   unmounted () {},
   methods: {
     // 회원가입 submit
-    submitForm: function () {
+    async submitForm(){
+
       // API 요청시 전달할 userData 객체
       const userData = {
-        username: this.user.userid,
+        email: this.user.email,
         password: this.user.password,
-        name: this.user.name
+        name: this.user.name,
       }
       const url = 'http://localhost:3000/user/signup'
       const headers = { 'Content-Type':'application/json'};
-      //const response = this.axios.post(url, {headers:headers});
-      //const { data } = registerUser(userData);
-      this.axios.post(url,userData,{headers:headers}).then((res)=>{
-      console.log(res)
-})
-      
-      //this.logMessage = `${data.username} 님이 가입되었습니다.`;
-      
-      // 가입 후 폼 초기화
-      //this.initForm();
+      await this.$axios.post(url,userData);
+      alert(res);
+      //가입 후 폼 초기화
+      this.initForm();
     },
-    initForm: function() {
-      this.username = '';
+      
+
+    initForm(){
+      this.email = '';
       this.password = '';
       this.nickname = '';
     },
     // 비밀번호 확인
-    passwordConfirm: function() {
+    passwordConfirm(){
       if(this.user.password != this.user.password1) {
         alert("비밀번호가 일치하지 않습니다.")
       }
     },
     // 아이디 중복확인
-    IdCheck(){
+    async IdCheck(){
       
       console.log('SignUpView.vue => IdCheck');
-      console.log('SignUpView.vue => IdCheck', this.user.userid);
+      console.log('SignUpView.vue => IdCheck', this.user.email);
 
-      const url = `http://localhost:3000/user/checkemail?email=${this.user.userid}`;
+      const url = `http://localhost:3000/user/checkemail?email=${this.user.email}`;
       const headers = {"Content-Type":"application/json"};
-      const response = this.axios.get(url, {headers:headers});
+      const response = await this.$axios.get(url);
       console.log(response);
 
-      if(response.data.result === 1){
+      if(response.data === 0){
           alert('중복된 아이디가 존재합니다.')
           this.$refs.user.userid.focus();
           return false;
       }
-      if(response.data.result === 0){
+      if(response.data === 1){
           alert('사용가능한 아이디입니다')
           this.$refs.user.password.focus();
       }    

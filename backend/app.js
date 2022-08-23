@@ -8,6 +8,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 const createError = require('http-errors');
 
+const cors = require('cors');
+
 const {sequelize} = require('./models');
 const passportConfig = require('./passport');
 
@@ -26,7 +28,11 @@ sequelize.sync({force : false})
   console.error(err);
 });
 
+const corsOption ={
+  origin : 'http://localhost:8080'
+}
 
+app.use(cors(corsOption));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
