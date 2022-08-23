@@ -67,6 +67,14 @@ const routes = [
       )
   },
   {
+    path: '/user/signupcompleted',
+    name: 'SignUpCompletedPage',
+    component: () =>
+      import(
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/5_mypage/SignUpCompletedView.vue'
+      )
+  },
+  {
     path: '/user/myinfo',
     name: 'MyInfoPage',
     component: () =>
