@@ -21,11 +21,17 @@ router.post('/signup', isNotLoggedIn, async (req, res, next) => {
   }
 });
 
+const encryprtPassword = async function(password){
+  const randomSalt = pbkdf2.randomBytes(32).toString("hex");
+  const cryptedPassword = pbkdf2.pbkdf2Sync(password, randomSalt, 65536, 64,"sha512").toString('hex');
+  const passwordWithSalt = cryptedPassword + "$" + randomSalt;
+  return passwordWithSalt;
+}
+
 const insertUserInfo = async(email, password, name) =>{
   const randomSalt = pbkdf2.randomBytes(32).toString("hex");
   const cryptedPassword = pbkdf2.pbkdf2Sync(password, randomSalt, 65536, 64,"sha512").toString('hex');
   const passwordWithSalt = cryptedPassword + "$" + randomSalt;
-  console.log(passwordWithSalt);
 
   User.create({
     email : email,
@@ -76,7 +82,40 @@ router.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
+//회원정보 조회
+router.get('/info', isLoggedIn, (req, res)=>{
+  res.send(req.user);
+})
 
+//회원정보 수정
+router.patch('/info', async (req, res)=>{
+  const {email, password, name} = req.body;
+  await modifyUserInfo(email, password, name);
+  res.send('0');
+});
+
+const modifyUserInfo = async (email,password,name) =>{
+  const passwordWithSalt = await encryprtPassword(password);
+  await User.update({
+      password : passwordWithSalt,
+      name : name,
+    },{
+      where : {email : email}
+  });
+}
+
+//회원 정보 삭제
+router.delete('/info',async(req, res)=>{
+  await deleteUserInfo(req.user.email);
+  res.send('0');
+})
+
+const deleteUserInfo = async(email)=>{
+  await User.destroy({
+    where: {email : email}
+  });
+}
+//회원 리스트 조회
 router.get('/admin', isAdmin, async (req, res, next)=>{
   const userList = await User.findAll({
     attributes : ['email','name','createdAt']
