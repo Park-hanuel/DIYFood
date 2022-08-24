@@ -6,20 +6,18 @@
         <table class="table table-light">
           <thead class="table-bordered">
             <tr>
-              <th scope="col">No.</th>
+              <th scope="col">번호</th>
               <th scope="col">이메일</th>
               <th scope="col">이름</th>
               <th scope="col">가입일자</th>
-              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(userData, index) in userData" :key="index">
-              <th scope="row">{{ index + 1 }}</th>
-              <td>{{ userData.email }}</td>
-              <td>{{ userData.name }}</td>
-              <td>{{ userData.regDate }}</td>
-              <td><input type="checkbox" name="checkedUser" class="form-check-input"></td>
+            <tr :key="index" v-for="(data,index) in boardList">
+              <td>{{index+1}}</td>
+              <td>{{ data.email }}</td>
+              <td>{{ data.name }}</td>
+              <td>{{ data.createdAt }}</td>
             </tr>
           </tbody>
         </table>
@@ -28,27 +26,36 @@
   </div>
 </template>
 <script>
-import { getUserData } from '@/api/index'
-
 export default {
   components: {},
   data () {
     return {
-      index: 0,
-      userData: {
-        email: '',
-        name: '',
-        regDate: ''
-      }
+      boardList: []
     }
   },
   setup () {},
   created () {
-    getUserData()
+    this.getUserData()
   },
   mounted () {},
   unmounted () {},
-  methods: {}
+  methods: {
+    getUserData () {
+      // axios를 이용하여 API 호출 (component 안에서 axios를 this.$axios로 사용할 수 있습니다.)
+      this.$axios.get('http://localhost:3000/user/admin').then(response => {
+        console.log('### response: ' + JSON.stringify(response))
+        this.boardList = response.data
+        for (let i = 0; i < this.boardList.length; i++) {
+          this.boardList[i].createdAt = this.getDateWithoutTime(this.boardList[i].createdAt)
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    getDateWithoutTime (createdAt) {
+      return require('moment')(createdAt).format('YYYY-MM-DD')
+    }
+  }
 }
 </script>
 

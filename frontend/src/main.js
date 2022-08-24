@@ -4,10 +4,6 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 
-Vue.use(axios)
-Vue.prototype.$axios = axios
-
-import axios from 'axios'
 /* eslint-disable */ 
 Vue.prototype.$eventBus = new Vue();
 Vue.prototype.$axios = axios;
