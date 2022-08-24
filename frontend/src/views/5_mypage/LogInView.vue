@@ -28,7 +28,9 @@
                     </div>
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                       <button id="login" type="submit" class="btn btn-primary btn-lg">로그인</button>
-                      <a id="join" href="/user/signup" class="btn btn-primary btn-lg">회원가입</a>
+                    </div>
+                    <div style="text-align:center">
+                      <p>계정이 없다면 <a id="join" href="/user/signup">회원가입</a></p>
                     </div>
                   </div>
                 </form>
