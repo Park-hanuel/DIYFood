@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const server = require('../server');
+
 
 //for api
 const dotenv = require('dotenv');
 const axios = require('axios');
 const Grocery = require('../models/grocery');
+const server = require('../server');
 dotenv.config();
 
 router.get('/list',async function(req,res){
