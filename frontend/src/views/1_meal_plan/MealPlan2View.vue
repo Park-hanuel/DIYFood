@@ -13,19 +13,48 @@
     <!-- Side -->
     <aside id="side">
       <div style="text-align: center;">
-        <img src="@/assets/harvest.png" alt="식단계획2" height="200" width="200" >
+        <img src="@/assets/freezer.png" alt="식단계획2" height="200" width="200" >
       </div>
       <div style="margin-top: 30px; text-align: center;">
-        <h3>2. 재료 선택</h3>
+        <h3>2. 보유 재료 선택</h3>
       </div>
     </aside>
     <!-- Content -->
     <section id="content">
-      <div id="next" style="text-align:center;" >
-        <input type="button" class="next-button" value="NEXT" onClick="location.href='/mealplan/step2'">
+      <div style="text-align:center;">
+        <h1>기존 보유 재료 선택</h1>
+        <p>이미 보관 중인 재료를 선택해주세요. 선택하신 재료는 식재료 가격을 계산할 때 제외됩니다.</p>
+        <div>
+          <input type="button" class="btn btn-primary btn-lg btn-custom" value="식량작물">
+          <input type="button" class="btn btn-primary btn-lg btn-custom" value="특용작물">
+          <input type="button" class="btn btn-primary btn-lg btn-custom" value="채소류">
+          <input type="button" class="btn btn-primary btn-lg btn-custom" value="과일류">
+          <input type="button" class="btn btn-primary btn-lg btn-custom" value="축산물">
+          <input type="button" class="btn btn-primary btn-lg btn-custom" value="수산물">
+        </div>
+        <table class="table table-light">
+          <thead class="table-bordered">
+            <tr>
+              <th scope="col" style="width:45%">품목</th>
+              <th scope="col" style="width:45%">품종</th>
+              <th scope="col" style="width:10%">선택</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>사과</td>
+              <td>사과</td>
+              <td><input type="checkbox" name="checkedItem" id=""></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="next-button" style="text-align:center;" >
+        <a href="/mealplan/step3">
+          <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" onClick="location.href='/mealplan/step3'">
+        </a>
       </div>
     </section>
-    {{ numberOfMeals }}
   </div>
 </body>
 
@@ -49,4 +78,7 @@ export default {
 <style>
   @import "@/css/styles.css";
   body{background: #f3f3f3;}
+  .btn-custom {
+    margin-bottom: 20px;
+  }
 </style>
