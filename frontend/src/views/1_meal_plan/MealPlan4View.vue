@@ -24,7 +24,12 @@
       <h1>레시피 선택</h1>
       <p>선택하신 재료와 예산에 맞춰 다음 레시피를 추천합니다. 레시피를 선택해주세요.</p>
     </div>
-
+    <div name="card">
+      <div class="card-custom card-img-custom" style="text-align:center;">
+        <h4>비빔밥</h4>
+        <img src="@/assets/vicky-ng-8hCcjf2BxTk-unsplash.jpg" alt="">
+      </div>
+    </div>
     <div id="next-button" style="text-align:center;" >
       <a href="/mealplan/step2">
         <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" onClick="location.href='/mealplan/step2'">
@@ -57,4 +62,35 @@ export default {
   .btn-custom {
     margin-bottom: 20px;
   }
+  .card-custom {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    box-shadow: 3px 3px 3px 3px lightgrey;
+    width: 300px;
+    height: 500px;
+    border-radius: 1rem;
+    padding: 10px;
+    text-align: center;
+  }
+  .card-img-custom {
+    position: relative;
+    width: 150px;
+    height: 150px;
+  }
+  .card-img-custom img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(50, 50);
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+    margin: auto;
+}
 </style>

@@ -52,4 +52,4 @@ async function getTodayData(p_item_category_code){
       }
 }
 
-module.exports = server;
+module.exports = { getTodayData };

@@ -64,6 +64,7 @@
       <div>
         <progress id="progress" value="24500" max="30000"></progress>
         <h6>나의 예산 : {{budget}}원, 총 가격 : {{totalCost}}원</h6>
+        <h6>{{checkedItem}}</h6>
       </div>
     </div>
     <div id="next-button" style="text-align:center;" >
@@ -82,7 +83,7 @@ export default {
     return {
       budget: 30000,
       totalCost: 20000,
-      checkedItem: [1, 2, 3]
+      checkedItem: []
     }
   },
   setup () {},

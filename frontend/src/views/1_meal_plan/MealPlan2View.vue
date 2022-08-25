@@ -25,7 +25,7 @@
         <h1>기존 보유 재료 선택</h1>
         <p>이미 보관 중인 재료를 선택해주세요. 선택하신 재료는 식재료 가격을 계산할 때 제외됩니다.</p>
         <div>
-          <input type="button" class="btn btn-primary btn-lg btn-custom" value="식량작물">
+          <input type="button" class="btn btn-primary btn-lg btn-custom" value="식량작물" @click="searchItem1()">
           <input type="button" class="btn btn-primary btn-lg btn-custom" value="특용작물">
           <input type="button" class="btn btn-primary btn-lg btn-custom" value="채소류">
           <input type="button" class="btn btn-primary btn-lg btn-custom" value="과일류">
@@ -35,15 +35,17 @@
         <table class="table table-light">
           <thead class="table-bordered">
             <tr>
+              <th scope="col" style="width:5%">ID</th>
               <th scope="col" style="width:45%">품목</th>
               <th scope="col" style="width:45%">품종</th>
               <th scope="col" style="width:10%">선택</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>사과</td>
-              <td>사과</td>
+            <tr v-for="(data,index) in itemList" :key="index">
+              <td>{{parseInt(data.itemCode / 100)}}</td>
+              <td>{{data.itemName}}</td>
+              <td>{{data.detailItemName}}</td>
               <td><input type="checkbox" name="checkedItem" id=""></td>
             </tr>
           </tbody>
@@ -64,14 +66,32 @@ export default {
   components: {},
   data () {
     return {
-      sampleData: ''
+      itemList: []
     }
   },
   setup () {},
-  created () {},
+  created () {
+    this.getGroceryData()
+  },
   mounted () {},
   unmounted () {},
-  methods: {}
+  methods: {
+    getGroceryData () {
+      // axios를 이용하여 API 호출 (component 안에서 axios를 this.$axios로 사용할 수 있습니다.)
+      this.$axios.get('http://localhost:3000/grocery').then(response => {
+        console.log('### response: ' + JSON.stringify(response))
+        this.itemList = response.data
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    searchItem1 () {
+      console.log('hi')
+      var itemCodeN = 1
+      console.log(itemCodeN)
+      return this.itemCodeN
+    }
+  }
 }
 </script>
 
