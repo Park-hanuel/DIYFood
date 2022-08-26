@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const server = require('../server');
+
 
 //for api
 const dotenv = require('dotenv');
 const axios = require('axios');
 const Grocery = require('../models/grocery');
+const ExistGrocery = require('../models/existgrocery');
+const User = require('../models/user');
+const server = require('../server');
 dotenv.config();
 
 router.get('/list',async function(req,res){
@@ -48,5 +51,20 @@ router.get('/db', function(req, res, next) {
     res.send('i');
 });
 
-
+router.post('/existlist', async function(req, res){
+    const itemCodeList = req.body.checkedItemCode; //array (itemcode,detailItemCode)
+    const userId = res.locals.user.id;
+    try{
+        for(let item of itemCodeList){
+            ExistGrocery.create({
+                userId : userId,
+                itemCode : item.itemCode,
+                detailItemCode : item.detailItemCode,
+            });
+        }
+        res.send('done');
+    }catch(err){
+        console.error(err);
+    }
+})
 module.exports = router;
