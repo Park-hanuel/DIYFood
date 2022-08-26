@@ -26,31 +26,31 @@
           <h1>기간 및 예산 설정</h1>
           <p>식재료 선택과 레시피 추천을 위해 몇가지 조건을 설정합니다. </p>
         </div>
-        <div id="mealplan" style="margin-left: 30px">
+        <div id="mealplan" style="margin-left: 30px; margin-top: 40px;">
           <p></p>
           <form action="/mealplan/step2" method="get">
             <div>
               <h5>1. 하루 식사 횟수를 설정해주세요.</h5>
-              <label class="margin_left"><input type="radio" name="number" value=1 v-model="mealPlanData.number">  한 끼</label>
-              <label class="margin_left"><input type="radio" name="number" value=2 v-model="mealPlanData.number">  두 끼</label>
-              <label class="margin_left"><input type="radio" name="number" value=3 v-model="mealPlanData.number">  세 끼</label>
+              <label class="margin_left"><input type="radio" class="form-check-input" value=1 v-model="mealPlanData.number">  한 끼</label>
+              <label class="margin_left"><input type="radio" class="form-check-input" value=2 v-model="mealPlanData.number">  두 끼</label>
+              <label class="margin_left"><input type="radio" class="form-check-input" value=3 v-model="mealPlanData.number">  세 끼</label>
             </div>
             <p></p>
             <h5>2. 예산을 설정해주세요.</h5>
             <label class="margin_left">
-              <input type="number" min="1" max="20" name="budget" v-model="mealPlanData.budget">  만원 이내
+              <input type="number" min="1" max="20" v-model="mealPlanData.budget">  만원 이내
               <span style="margin-left:5px; color: gray;">(1인분 기준)</span>
             </label>
             <p></p>
             <div>
               <h5>3. 날짜를 설정해주세요.</h5>
-                <label class="margin_left"><input type="date" name="date" v-model="mealPlanData.date"> </label>
+                <label class="margin_left"><input type="date" v-model="mealPlanData.date"> </label>
                 <span style="margin-left:5px; color: gray;">(식재료 가격은 최신 데이터를 기준으로 계산됩니다.)</span>
             </div>
             <p></p>
             <div>
               <h5>4. 지역을 설정해주세요.</h5>
-              <select name="location" class="margin_left" v-model="mealPlanData.location">
+              <select class="margin_left" v-model="mealPlanData.location">
                   <option value="">지역</option>
                   <option value="seoul">서울</option>
               </select>

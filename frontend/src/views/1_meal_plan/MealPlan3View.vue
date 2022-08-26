@@ -31,7 +31,7 @@
         <input type="button" class="btn btn-primary btn-lg btn-custom" value="축산물">
         <input type="button" class="btn btn-primary btn-lg btn-custom" value="수산물">
       </div>
-      <table class="table table-light">
+      <table class="table table-light" style="vertical-align: middle;">
         <thead class="table-bordered">
           <tr>
             <th scope="col" style="width:35%">품목</th>
@@ -41,23 +41,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>사과</td>
-            <td>사과</td>
-            <td>2,500</td>
-            <td><input type="checkbox" name="checkedItem" v-model="checkedItem" value=2500></td>
-          </tr>
-          <tr>
-            <td>바나나</td>
-            <td>바나나</td>
-            <td>1,700</td>
-            <td><input type="checkbox" name="checkedItem" v-model="checkedItem" value=1700></td>
-          </tr>
-          <tr>
-            <td>딸기</td>
-            <td>딸기</td>
-            <td>5,000</td>
-            <td><input type="checkbox" name="checkedItem" v-model="checkedItem" value=5000></td>
+          <tr v-for="(data, index) in itemList" :key="index">
+            <td>{{data.itemName}}</td>
+            <td>{{data.detailItemCode}}</td>
+            <td>{{data.price}}</td>
+            <td><button class="btn" @click="[clickBtn(data.id - 1), itemSelection(data.id - 1)]"><img src="@/assets/check_n.png" width="25px"></button></td>
           </tr>
         </tbody>
       </table>
@@ -81,16 +69,25 @@ export default {
   components: {},
   data () {
     return {
-      budget: 30000,
-      totalCost: 20000,
-      checkedItem: []
+      itemList: []
     }
   },
   setup () {},
-  created () {},
+  created () {
+    this.getGroceryData()
+  },
   mounted () {},
   unmounted () {},
-  methods: {}
+  methods: {
+    getGroceryData () {
+      this.$axios.get('http://localhost:3000/grocery').then(response => {
+        console.log('### response: ' + JSON.stringify(response))
+        this.itemList = response.data
+      }).catch(error => {
+        console.log(error)
+      })
+    }
+  }
 }
 </script>
 
@@ -99,10 +96,11 @@ export default {
   body{background: #f3f3f3;}
   .btn-custom {
     margin-bottom: 20px;
+    width: 113px;
   }
-     #progress {
+  #progress {
     appearance: none;
-    width: 800px;
+    width: 700px;
     height: 30px;
   }
   #progress::-webkit-progress-bar {
