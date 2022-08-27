@@ -11801,7 +11801,6 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   padding-top: 120px;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   height: auto;
-  overflow: visible;
 }
 #head {
   width: 1500px;
@@ -11815,6 +11814,8 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   margin-right: 50px;
   margin-left: 100px;
   position: sticky;
+  left: 100px;
+  top: 100px;
   padding-block: 100px;
 }
 #content{
@@ -11856,4 +11857,13 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   border-radius: 5px;
   box-shadow:1px 1px 1px 1px lightgrey;
   margin-top: 0px;
+}
+.box-item {
+  width: 800px;
+  height: auto;
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 5px;
+  padding-bottom:0%;
 }

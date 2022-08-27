@@ -45,7 +45,7 @@
             <td>{{data.itemName}}</td>
             <td>{{data.detailItemCode}}</td>
             <td>{{data.price}}</td>
-            <td><button class="btn" @click="[clickBtn(data.id - 1), itemSelection(data.id - 1)]"><img src="@/assets/check_n.png" width="25px"></button></td>
+            <td><button class="btn" @click="[clickBtn(data.id - 1), itemSelection(data.id - 1)]"><img src="" width="25px"></button></td>
           </tr>
         </tbody>
       </table>
@@ -96,7 +96,6 @@ export default {
   body{background: #f3f3f3;}
   .btn-custom {
     margin-bottom: 20px;
-    width: 113px;
   }
   #progress {
     appearance: none;
