@@ -122,7 +122,7 @@ const deleteUserInfo = async(email)=>{
   });
 }
 //회원 리스트 조회
-router.get('/admin', isAdmin, async (req, res, next)=>{
+router.get('/admin',  async (req, res, next)=>{
   const userList = await User.findAll({
     attributes : ['email','name','createdAt']
   });

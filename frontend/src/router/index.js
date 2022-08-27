@@ -35,6 +35,22 @@ const routes = [
       )
   },
   {
+    path: '/mealplan/step3',
+    name: 'MealPlanStep3',
+    component: () =>
+      import(
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/1_meal_plan/MealPlan3View.vue'
+      )
+  },
+  {
+    path: '/mealplan/step4',
+    name: 'MealPlanStep4',
+    component: () =>
+      import(
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/1_meal_plan/MealPlan4View.vue'
+      )
+  },
+  {
     path: '/recipe',
     name: 'Recipe',
     component: () =>
@@ -64,6 +80,14 @@ const routes = [
     component: () =>
       import(
         /* webpackChunkName: "event", webpackPrefetch:true */ '../views/5_mypage/SignUpView.vue'
+      )
+  },
+  {
+    path: '/user/signupcompleted',
+    name: 'SignUpCompletedPage',
+    component: () =>
+      import(
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/5_mypage/SignUpCompletedView.vue'
       )
   },
   {

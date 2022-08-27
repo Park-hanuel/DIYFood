@@ -21,7 +21,6 @@
         <div style="margin-top:30px;" >
           <p>선호하는 레시피를</p>
           <p style="line-height:2px">직접 선택해서</p>
-
         </div>
       </section>
       <section id="content-box">
@@ -31,10 +30,10 @@
           <p style="line-height:2px">완성합니다.</p>
         </div>
       </section>
-      <div id="next" style="text-align:center;" >
-      <a href="/mealplan/step1">
-        <input type="button" class="next-button" value="START!">
-      </a>
+      <div id="next-button" style="text-align:center;" >
+        <a href="/mealplan/step1">
+          <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="START!">
+        </a>
       </div>
     </div>
   </body>
@@ -76,7 +75,6 @@ body{background: #f3f3f3;}
   text-align: center;
 }
 .next-button {
-  background-color: white;
   height: 50px;
   width: 150px;
   border-radius: 10px;

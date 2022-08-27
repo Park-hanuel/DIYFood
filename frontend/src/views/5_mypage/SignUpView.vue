@@ -8,14 +8,14 @@
             <div class="row justify-content-center">
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign Up</p>
-                <form class="mx-1 mx-md-4">
+                <form name="SignUpForm" class="mx-1 mx-md-4" @submit.prevent="submitForm">
                   <div>
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0 input_row">
                         <label class="form-label" for="id">이메일</label>
                         <div>
-                          <input type="email" id="email" class="form-control" style="width:75%; display:inline-block;" placeholder="Email" v-model="user.email" required />
+                          <input type="email" class="form-control" style="width:75%; display:inline-block;" placeholder="Email" v-model="user.email" required />
                           <input type="button" class="btn btn-primary" value="중복확인" style="float:right; margin: 0px;" @click="IdCheck" required>
                         </div>
                       </div>
@@ -24,31 +24,31 @@
                       <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0 input_row">
                         <label class="form-label" for="name">이름</label>
-                        <input type="text" id="name" class="form-control" placeholder="Name" v-model="user.name" required/>
+                        <input type="text" id="user.name" class="form-control" placeholder="Name" v-model="user.name" required/>
                       </div>
                     </div>
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0 input_row">
                         <label class="form-label" for="password">비밀번호</label>
-                        <input type="password" id="password" class="form-control" placeholder="Password" v-model="user.password" required/>
+                        <input type="password" class="form-control" placeholder="Password" v-model="user.password" required/>
                       </div>
                     </div>
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0 input_row">
                         <label class="form-label" for="password1">비밀번호 확인</label>
-                        <input type="password" id="password1" class="form-control" placeholder="Password Repeat" v-model="user.password1" @blur="passwordConfirm()" required/>
+                        <input type="password" class="form-control" placeholder="Password Repeat" v-model="user.password1" @blur="passwordConfirm()" required/>
                       </div>
                     </div>
                     <div class="form-check d-flex justify-content-center mb-5">
-                      <input class="form-check-input me-2" type="checkbox" value="" id="agreement" required/>
+                      <input class="form-check-input me-2" type="checkbox" id="agreement" required/>
                       <label class="form-check-label" for="agreement">
                         <a href="#!">이용약관 및 개인정보 수집 및 이용</a> 안내에 동의합니다.
                       </label>
                     </div>
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <button class="btn btn-primary btn-lg" @click="submitForm">가입하기</button>
+                      <button type="submit" class="btn btn-primary btn-lg">가입하기</button>
                     </div>
                   </div>
                 </form>
@@ -77,7 +77,8 @@ export default {
         email: '',
         name: '',
         password: '',
-      }
+      },
+      idcheck_code: 0
     }
   },
   setup () {},
@@ -88,26 +89,21 @@ export default {
   methods: {
     // 회원가입 submit
     async submitForm(){
-
-      // API 요청시 전달할 userData 객체
-      const userData = {
-        email: this.user.email,
-        password: this.user.password,
-        name: this.user.name,
+      if (this.idcheck_code===1) {
+        // API 요청시 전달할 userData 객체
+        const userData = {
+          email: this.user.email,
+          password: this.user.password,
+          name: this.user.name,
+        }
+        const url = 'http://localhost:3000/user/signup'
+        const headers = { 'Content-Type':'application/json'};
+        await this.$axios.post(url,userData);       
+        location.href = '/user/signupcompleted'; 
+      } else {
+        alert('이메일 중복을 확인해주세요')
       }
-      const url = 'http://localhost:3000/user/signup'
-      const headers = { 'Content-Type':'application/json'};
-      await this.$axios.post(url,userData);
-      alert(res);
-      //가입 후 폼 초기화
-      this.initForm();
-    },
       
-
-    initForm(){
-      this.email = '';
-      this.password = '';
-      this.nickname = '';
     },
     // 비밀번호 확인
     passwordConfirm(){
@@ -128,12 +124,11 @@ export default {
 
       if(response.data === 0){
           alert('중복된 아이디가 존재합니다.')
-          this.$refs.user.userid.focus();
           return false;
       }
       if(response.data === 1){
           alert('사용가능한 아이디입니다')
-          this.$refs.user.password.focus();
+          this.idcheck_code=1
       }    
     }
   }
