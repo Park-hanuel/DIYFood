@@ -8,14 +8,14 @@
             <div class="row justify-content-center">
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Log In</p>
-                <form id="login-form" action="/user/login" method="post" class="mx-1 mx-md-4">
+                <form id="login-form" class="mx-1 mx-md-4">
                   <div>
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0 input_row">
                         <label class="form-label" for="id">이메일</label>
                         <div>
-                          <input type="email" id="id" class="form-control" style="display:inline-block;" placeholder="Email" name="email" required autofocus/>
+                          <input type="email" id="email" class="form-control" style="display:inline-block;" placeholder="Email" name="email" required autofocus/>
                         </div>
                       </div>
                     </div>
@@ -27,7 +27,7 @@
                       </div>
                     </div>
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <button id="login" type="submit" class="btn btn-primary btn-lg">로그인</button>
+                      <button id="login" @click="login" class="btn btn-primary btn-lg">로그인</button>
                       <a id="join" href="/user/signup" class="btn btn-primary btn-lg">회원가입</a>
                     </div>
                   </div>
@@ -54,7 +54,7 @@ export default {
   data: function () {
   return {
     user: {
-      userid: null,
+      email: null,
       password: null
     }
   }
@@ -63,7 +63,19 @@ export default {
   created() {},
   mounted () {},
   unmounted() {},
-  methods: {}
+  methods: {
+    async login(){
+        const userData = {
+        email: this.user.email,
+        password: this.user.password,
+      }
+      const url = 'http://localhost:3000/user/login';
+      debugger;
+      console.log(userData);
+      await this.$axios.post(url,userData);
+      redirect('/');
+    }
+  }
 }
 </script>
 
