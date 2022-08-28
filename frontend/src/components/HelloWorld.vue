@@ -59,18 +59,18 @@
           </div>
       </section>
       <!-- Groceries-->
-      <section class="page-section" id="Groceries">
+      <section class="page-section" id="Ingredient">
           <div class="container">
               <div class="text-center">
                   <a href="grocery_price.html">
-                      <h2 class="section-heading text-uppercase">Grocery Price</h2>
+                      <h2 class="section-heading text-uppercase">Ingredients Price</h2>
                   </a>
               </div>
               <div class="row text-center">
                   <div class="col-md-4">
                       <span class="fa-stack fa-4x">
                           <a href="grocery_price.html">
-                              <img src="@/assets/basket.png" alt="grocery_price" style="width: 120px; height: 120px;">
+                              <img src="@/assets/basket.png" alt="ingredient_price" style="width: 120px; height: 120px;">
                           </a>
                       </span>
                       <h4 class="my-3">식재료 가격 정보</h4>
@@ -81,7 +81,7 @@
                   <div class="mb-4">
                       <!-- Recipe item 1-->
                       <div class="Recipe-item" style="text-align : center;">
-                          <img src="@/assets/groceryprice_banner.png" alt="grocery_price" style="max-width: 70%; height: auto;">
+                          <img src="@/assets/ingredientprice_banner.png" alt="ingredient_price" style="max-width: 70%; height: auto;">
                       </div>
                   </div>
               </div>

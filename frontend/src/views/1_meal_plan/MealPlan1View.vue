@@ -31,34 +31,34 @@
           <form action="/mealplan/step2" method="get">
             <div>
               <h5>1. 하루 식사 횟수를 설정해주세요.</h5>
-              <label class="margin_left"><input type="radio" class="form-check-input" value=1 v-model="mealPlanData.number">  한 끼</label>
-              <label class="margin_left"><input type="radio" class="form-check-input" value=2 v-model="mealPlanData.number">  두 끼</label>
-              <label class="margin_left"><input type="radio" class="form-check-input" value=3 v-model="mealPlanData.number">  세 끼</label>
+              <label class="margin_left"><input type="radio" class="form-check-input" value=1 v-model="number">  한 끼</label>
+              <label class="margin_left"><input type="radio" class="form-check-input" value=2 v-model="number">  두 끼</label>
+              <label class="margin_left"><input type="radio" class="form-check-input" value=3 v-model="number">  세 끼</label>
             </div>
             <p></p>
             <h5>2. 예산을 설정해주세요.</h5>
             <label class="margin_left">
-              <input type="number" min="1" max="20" v-model="mealPlanData.budget">  만원 이내
+              <input type="number" min="1" max="20" v-model="budget">  만원 이내
               <span style="margin-left:5px; color: gray;">(1인분 기준)</span>
             </label>
             <p></p>
             <div>
               <h5>3. 날짜를 설정해주세요.</h5>
-                <label class="margin_left"><input type="date" v-model="mealPlanData.date"> </label>
+                <label class="margin_left"><input type="date" v-model="date"> </label>
                 <span style="margin-left:5px; color: gray;">(식재료 가격은 최신 데이터를 기준으로 계산됩니다.)</span>
             </div>
             <p></p>
             <div>
               <h5>4. 지역을 설정해주세요.</h5>
-              <select class="margin_left" v-model="mealPlanData.location">
+              <select class="margin_left">
                   <option value="">지역</option>
                   <option value="seoul">서울</option>
               </select>
               <span style="margin-left:5px; color: gray;">(서울 외 지역은 추후 지원 예정입니다.)</span>
             </div>
-            <div id="next-button" style="text-align:center;" >
+            <div style="text-align:center;" >
               <a href="/mealplan/step2">
-                <input type="submit" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" onClick="location.href='/mealplan/step2'">
+                <button class="btn btn-primary btn-lg next-button text-uppercase" @click="submitSetting()">NEXT</button>
               </a>
             </div>
           </form>
@@ -72,22 +72,25 @@
 <script>
 export default {
   components: {},
-  name: 'MealPlanSetting',
   data () {
     return {
-      mealPlanData: {
-        number: 1,
-        budget: 1,
-        date: null,
-        location: null
-      }
+      number: 1,
+      budget: 1,
+      date: ''
     }
   },
   setup () {},
   created () {},
   mounted () {},
   unmounted () {},
-  methods: {}
+  methods: {
+    // localStorage에 조건값 저장
+    submitSetting () {
+      localStorage.setItem('number', this.number) // 레시피 선택 때 필요
+      localStorage.setItem('budget', this.budget) // 식재료 선택 때 필요
+      localStorage.setItem('date', this.date) // 식단 계획 완성 때 필요
+    }
+  }
 }
 </script>
 <style>
