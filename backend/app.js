@@ -15,7 +15,7 @@ const passportConfig = require('./passport');
 
 const userRouter = require('./routes/user');
 const indexRouter = require('./routes/index');
-const groceryRouter = require('./routes/grocery');
+const ingredientRouter = require('./routes/ingredient');
 
 const app = express();
 passportConfig(); //패스포트 설정
@@ -55,7 +55,7 @@ app.use(passport.session()); //session 객체에 passport 정보를 저장
 
 app.use('/', indexRouter);
 app.use('/user', userRouter);
-app.use('/grocery',groceryRouter);
+app.use('/ingredient',ingredientRouter);
 
 
 // catch 404 and forward to error handler
