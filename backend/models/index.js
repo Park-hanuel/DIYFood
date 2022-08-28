@@ -3,6 +3,7 @@ const User = require('./user');
 
 const Ingredient = require('./ingredient');
 const ExistIngredient = require('./existIngredient');
+const LiveIngredient = require('./liveIngredient')
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
 
@@ -15,13 +16,16 @@ db.Sequelize = Sequelize;
 db.User = User;
 db.ExistIngredient = ExistIngredient;
 db.Ingredient = Ingredient;
+db.LiveIngredient = LiveIngredient;
 
 User.init(sequelize);
 ExistIngredient.init(sequelize);
+LiveIngredient.init(sequelize);
 Ingredient.init(sequelize);
 
 User.associate(db);
 ExistIngredient.associate(db);
 Ingredient.associate(db);
+LiveIngredient.associate(db);
 
 module.exports = db;

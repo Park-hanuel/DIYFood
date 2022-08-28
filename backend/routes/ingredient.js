@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-
 //for api
 const dotenv = require('dotenv');
 const models = require('../models');
@@ -31,15 +30,36 @@ router.get('/list',async function(req,res){
     }
 });
 
-//원재료 정보 리스트 제공
-router.get('/',async function(req,res){
+
+//새로운 원재료(시세포함) 관련 정보 리스트 제공
+router.get('/userlist',async function(req,res){
     try{
-        const ingredientyList = await models.Ingredient.findAll({});
+        const ingredientyList = await models.LiveIngredient.findAll({});
         res.send(ingredientyList);
     }catch(err){
         console.error(err);
     }
 });
+
+//오늘 중 구현 예정
+router.post('/userlist', async function(req,res){
+    // const itemCodeList = req.body.itemList; //array (itemcode)
+    // const userId = res.locals.user.id;
+    // console.log(itemCodeList);
+    // try{
+    //     for(let item of itemCodeList){
+    //         console.log(item)
+    //         models.ExistIngredient.create({
+    //             userId : userId,
+    //             itemCode : item,
+    //         });
+    //     }
+    //     res.send('done');
+    // }catch(err){
+    //     console.error(err);
+    // }
+})
+
 
 //추후 서버 정기 호출 함수로 변경 예정 (라우팅 말고)
 router.get('/db', function(req, res, next) {
@@ -48,6 +68,16 @@ router.get('/db', function(req, res, next) {
         server.getTodayData(data[i]);
     }
     res.send('i');
+});
+
+//보유 원재료 관련 정보 리스트 제공
+router.get('/existlist',async function(req,res){
+    try{
+        const ingredientyList = await models.Ingredient.findAll({});
+        res.send(ingredientyList);
+    }catch(err){
+        console.error(err);
+    }
 });
 
 router.post('/existlist', async function(req, res){
