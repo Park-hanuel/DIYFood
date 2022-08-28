@@ -11809,8 +11809,8 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
 }
 #side {
   float: left;
-  width: 200px;
-  height: 100% ;
+  width: 20%;
+  height: auto ;
   margin-right: 50px;
   margin-left: 100px;
   position: sticky;
@@ -11820,7 +11820,7 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
 }
 #content{
   float: left;
-  width: 900px;
+  width:62.5%;
   height:fit-content;
   background-color:white;
   margin-right: 50px;
@@ -11859,7 +11859,7 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   margin-top: 0px;
 }
 .box-item {
-  width: 800px;
+  width: auto;
   height: auto;
   background-color: #f3f3f3;
   border-radius: 5px;

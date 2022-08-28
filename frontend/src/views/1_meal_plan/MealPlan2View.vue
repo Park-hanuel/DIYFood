@@ -42,24 +42,22 @@
                 <tr>
                   <th scope="col" style="width:10%">순번</th>
                   <th scope="col" style="width:40%">품목</th>
-                  <th scope="col" style="width:40%">품종</th>
                   <th scope="col" style="width:10%">선택</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(data, i) in itemList" :key="i">
                   <td>{{i + 1}}</td>
-                  <td>{{data.itemName}} {{data.itemCode}}</td>
-                  <td>{{data.detailItemName}} {{data.detailItemCode}}</td>
-                  <td><button class="btn" @click="selectItem(i)"><img src="@/assets/check_y.png" width="30px"></button></td>
+                  <td>{{data.itemName}}</td>
+                  <td><button class="btn" @click="selectItem(i)"><img src="@/assets/check_n.png" width="30px"></button></td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div id="next-button" style="text-align:center;" >
-            <!-- <a href="/mealplan/step3"> -->
+            <a href="/mealplan/step3">
               <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" @click="submitItemList()">
-            <!-- </a> -->
+            </a>
           </div>
         </section>
       </div>
@@ -80,14 +78,14 @@ export default {
   },
   setup () {},
   created () {
-    this.getGroceryData()
+    this.getIngredientData()
   },
   mounted () {},
   unmounted () {},
   methods: {
     // 식재료 목록 불러오기
-    getGroceryData () {
-      this.$axios.get('http://localhost:3000/grocery').then(response => {
+    getIngredientData () {
+      this.$axios.get('http://localhost:3000/ingredient').then(response => {
         console.log('### response: ' + JSON.stringify(response))
         this.itemList = response.data
         this.metaItemList = response.data
@@ -103,24 +101,24 @@ export default {
     },
     // 아이템 추가/삭제
     selectItem (n) {
-      if (this.checkedItemCode.includes(this.bindingCode(n)) === false) {
-        this.checkedItemCode.push(this.bindingCode(n))
+      if (this.checkedItemCode.includes(this.itemList[n].itemCode) === false) {
+        this.checkedItemCode.push(this.itemList[n].itemCode)
         this.checkedItemName.push(this.itemList[n].itemName)
         console.log(this.checkedItemCode)
       } else {
-        this.checkedItemCode.splice(this.checkedItemCode.indexOf(this.bindingCode(n)), 1)
+        this.checkedItemCode.splice(this.checkedItemCode.indexOf(this.itemList[n].itemCode), 1)
         this.checkedItemName.splice(this.checkedItemName.indexOf(this.itemList[n].itemName), 1)
         console.log(this.checkedItemCode)
       }
     },
-    // 품목코드 + 품종코드 합치기
-    bindingCode (n) {
-      var bindedCode = this.itemList[n].itemCode + '-' + this.itemList[n].detailItemCode
-      return bindedCode
-    },
+    // // 품목코드 + 품종코드 합치기
+    // bindingCode (n) {
+    //   var bindedCode = this.itemList[n].itemCode + '-' + this.itemList[n].detailItemCode
+    //   return bindedCode
+    // },
     // 선택한 식재료 리스트 보내기
     submitItemList () {
-      this.$axios.post('http://localhost:3000/grocery/existlist', this.checkedItemCode)
+      this.$axios.post('http://localhost:3000/ingredient/existlist', this.checkedItemCode)
         .then(function (response) {
           console.log(response)
         })
