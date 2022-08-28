@@ -72,8 +72,7 @@ export default {
       itemList: [],
       checkedItemCode: [],
       checkedItemName: [],
-      metaItemList: [],
-      dividedCode: []
+      metaItemList: []
     }
   },
   setup () {},
@@ -85,7 +84,7 @@ export default {
   methods: {
     // 식재료 목록 불러오기
     getIngredientData () {
-      this.$axios.get('http://localhost:3000/ingredient').then(response => {
+      this.$axios.get('http://localhost:3000/ingredient/existlist').then(response => {
         console.log('### response: ' + JSON.stringify(response))
         this.itemList = response.data
         this.metaItemList = response.data
@@ -111,11 +110,6 @@ export default {
         console.log(this.checkedItemCode)
       }
     },
-    // // 품목코드 + 품종코드 합치기
-    // bindingCode (n) {
-    //   var bindedCode = this.itemList[n].itemCode + '-' + this.itemList[n].detailItemCode
-    //   return bindedCode
-    // },
     // 선택한 식재료 리스트 보내기
     submitItemList () {
       this.$axios.post('http://localhost:3000/ingredient/existlist', this.checkedItemCode)

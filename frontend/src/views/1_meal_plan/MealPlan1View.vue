@@ -38,7 +38,7 @@
             <p></p>
             <h5>2. 예산을 설정해주세요.</h5>
             <label class="margin_left">
-              <input type="number" min="1" max="20" v-model="budget">  만원 이내
+              <input type="number" min="1" max="30" v-model="budget">  만원 이내
               <span style="margin-left:5px; color: gray;">(1인분 기준)</span>
             </label>
             <p></p>
@@ -87,7 +87,7 @@ export default {
     // localStorage에 조건값 저장
     submitSetting () {
       localStorage.setItem('number', this.number) // 레시피 선택 때 필요
-      localStorage.setItem('budget', this.budget) // 식재료 선택 때 필요
+      localStorage.setItem('budget', this.budget + '0000') // 식재료 선택 때 필요
       localStorage.setItem('date', this.date) // 식단 계획 완성 때 필요
     }
   }
