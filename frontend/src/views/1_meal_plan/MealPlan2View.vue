@@ -85,7 +85,7 @@ export default {
   methods: {
     // 식재료 목록 불러오기
     getIngredientData () {
-      this.$axios.get('http://localhost:3000/ingredient').then(response => {
+      this.$axios.get('http://localhost:3000/ingredient/existlist').then(response => {
         console.log('### response: ' + JSON.stringify(response))
         this.itemList = response.data
         this.metaItemList = response.data

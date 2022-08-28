@@ -8,6 +8,11 @@ const axios = require('axios');
 const server = require('../server');
 dotenv.config();
 
+router.use((req,res,next)=>{
+    res.locals.user = req.user;
+    next();
+  })
+
 //원재료 전일 시세 정보 리스트 제공
 router.get('/list',async function(req,res){
     //버튼 값에 따라 시세 정보 반환
@@ -81,15 +86,18 @@ router.get('/existlist',async function(req,res){
 });
 
 router.post('/existlist', async function(req, res){
-    const itemCodeList = req.body.checkedItemCode; //array (itemcode)
+    //user 세션값 받아오기 후 변경해야함
+    // const user = 4;
+    const itemCodeList = req.body; //array (itemcode)
+
+    console.log(res.locals.user);
     const userId = res.locals.user.id;
     console.log(itemCodeList);
     try{
-        for(let item of itemCodeList){
-            console.log(item)
+        for(let i = 0 ;i<itemCodeList.length;i++){
             models.ExistIngredient.create({
-                userId : userId,
-                itemCode : item,
+                userId : user,
+                itemCode : itemCodeList[i],
             });
         }
         res.send('done');
