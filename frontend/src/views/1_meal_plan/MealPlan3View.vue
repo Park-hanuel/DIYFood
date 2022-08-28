@@ -23,8 +23,8 @@
         <!-- Content -->
         <section id="content">
           <div style="text-align:center;">
-            <h1>기존 보유 재료 선택</h1>
-            <p>이미 보관 중인 재료를 선택해주세요. 선택하신 재료는 식재료 가격을 계산할 때 제외됩니다.</p>
+            <h1>새로운 식재료 선택</h1>
+            <p>새롭게 구매하실 식재료를 선택해주세요. 선택한 식재료를 포함하는 레시피를 추천합니다.</p>
             <div>
               <input type="button" class="btn btn-primary btn-lg btn-custom" value="곡류" @click="searchItem('1')">
               <input type="button" class="btn btn-primary btn-lg btn-custom" value="견과·버섯" @click="searchItem('3')">
@@ -34,34 +34,37 @@
               <input type="button" class="btn btn-primary btn-lg btn-custom" value="수산물" @click="searchItem('6')">
             </div>
             <div class="box-item" style="vertical-align: middle;">
-              <span><img src="@/assets/shopping-basket.png" width="20px">  {{this.checkedItemName}}</span>
+              <span><img src="@/assets/shopping-cart.png" width="20px">  {{this.checkedItemName}}</span>
               <p style="color:gray">* 선택 버튼을 두번 누르면 선택이 해제됩니다.</p>
             </div>
             <table class="table table-light" style="vertical-align: middle;">
               <thead class="table-bordered">
                 <tr>
                   <th scope="col" style="width:10%">순번</th>
-                  <th scope="col" style="width:40%">품목</th>
-                  <th scope="col" style="width:40%">품종</th>
+                  <th scope="col" style="width:30%">품목</th>
+                  <th scope="col" style="width:30%">품종</th>
+                  <th scope="col" style="width:20%">가격</th>
                   <th scope="col" style="width:10%">선택</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(data, i) in itemList" :key="i">
                   <td>{{i + 1}}</td>
-                  <td>{{data.itemName}} {{data.itemCode}}</td>
-                  <td>{{data.detailItemName}} {{data.detailItemCode}}</td>
+                  <td>{{data.itemName}}</td>
+                  <td>{{data.detailItemName}}</td>
+                  <td>{{data.price}}원</td>
                   <td><button class="btn" @click="selectItem(i)"><img src="@/assets/check_n.png" width="30px"></button></td>
                 </tr>
               </tbody>
             </table>
             <div>
-              <progress id="progress" value="24500" max="30000"></progress>
-              <h6>나의 예산 : {{budget}}원, 총 가격 : {{totalCost}}원</h6>
+              <progress id="progress" :value='totalCost' :max=budget></progress>
+              <p>{{parseInt((totalCost / budget) * 100)}}%</p>
+              <h6 style="width:100%">선택 식재료 가격 : {{totalCost.toLocaleString()}}원 | 나의 예산 : {{budget.toLocaleString()}}원</h6>
             </div>
           </div>
           <div id="next-button" style="text-align:center;" >
-            <!-- <a href="/mealplan/step3"> -->
+            <!-- <a href="/mealplan/step4"> -->
               <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" @click="submitItemList()">
             <!-- </a> -->
           </div>
@@ -79,7 +82,9 @@ export default {
       checkedItemCode: [],
       checkedItemName: [],
       metaItemList: [],
-      dividedCode: []
+      dividedCode: [],
+      budget: parseInt(localStorage.getItem('budget')),
+      totalCost: 0
     }
   },
   setup () {},
@@ -91,7 +96,7 @@ export default {
   methods: {
     // 식재료 목록 불러오기
     getIngredientData () {
-      this.$axios.get('http://localhost:3000/ingredient').then(response => {
+      this.$axios.get('http://localhost:3000/ingredient/userlist').then(response => {
         console.log('### response: ' + JSON.stringify(response))
         this.itemList = response.data
         this.metaItemList = response.data
@@ -110,10 +115,12 @@ export default {
       if (this.checkedItemCode.includes(this.bindingCode(n)) === false) {
         this.checkedItemCode.push(this.bindingCode(n))
         this.checkedItemName.push(this.itemList[n].itemName)
+        this.totalCost = this.totalCost + parseInt(this.itemList[n].price.replace(',', ''))
         console.log(this.checkedItemCode)
       } else {
         this.checkedItemCode.splice(this.checkedItemCode.indexOf(this.bindingCode(n)), 1)
         this.checkedItemName.splice(this.checkedItemName.indexOf(this.itemList[n].itemName), 1)
+        this.totalCost = this.totalCost - parseInt(this.itemList[n].price.replace(',', ''))
         console.log(this.checkedItemCode)
       }
     },
@@ -122,15 +129,30 @@ export default {
       var bindedCode = this.itemList[n].itemCode + '-' + this.itemList[n].detailItemCode
       return bindedCode
     },
-    // 선택한 식재료 리스트 보내기
+    // 선택한 식재료 리스트 보내기 (식재료 가격이 예산보다 높으면 확인창 뜸)
     submitItemList () {
-      this.$axios.post('http://localhost:3000/ingredient/existlist', this.checkedItemCode)
-        .then(function (response) {
-          console.log(response)
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
+      if (this.totalCost > this.budget) {
+        if (confirm('선택한 식재료의 총 가격이 예산보다 많습니다. 계속 진행하시겠습니까?')) {
+          this.$axios.post('http://localhost:3000/ingredient/existlist', this.checkedItemCode)
+            .then(function (response) {
+              console.log(response)
+            })
+            .catch(function (error) {
+              console.log(error)
+            })
+          location.href = '/mealplan/step4'
+        } else {
+          alert('예산과 식재료를 다시 한번 확인해주세요.')
+        }
+      } else {
+        this.$axios.post('http://localhost:3000/ingredient/existlist', this.checkedItemCode)
+          .then(function (response) {
+            console.log(response)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      }
     }
   }
 }
@@ -150,19 +172,19 @@ export default {
   }
   #progress {
     appearance: none;
-    width: 100%;
+    width: 90%;
     height: 30px;
+    float: left;
   }
   #progress::-webkit-progress-bar {
-      background:#f0f0f0;
-      border-radius:10px;
-      box-shadow: inset 3px 3px 10px #ccc;
+    background:#f0f0f0;
+    border-radius:10px;
+    box-shadow: inset 3px 3px 10px #ccc;
   }
   #progress::-webkit-progress-value {
-      border-radius:10px;
-      background: #138127;
-      background: -webkit-linear-gradient(to right, #d7d000, #699900);
-      background: linear-gradient(to right, #d7d000, #699900);
-
+    border-radius:10px;
+    background: #138127;
+    background: -webkit-linear-gradient(to right, #d7d000, #699900);
+    background: linear-gradient(to right, #d7d000, #699900);
   }
 </style>
