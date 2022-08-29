@@ -8,14 +8,14 @@
             <div class="row justify-content-center">
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Log In</p>
-                <form id="login-form" action="/user/login" method="post" class="mx-1 mx-md-4">
+                <form id="login-form" @submit.prevent="submitForm" class="mx-1 mx-md-4">
                   <div>
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0 input_row">
                         <label class="form-label" for="id">이메일</label>
                         <div>
-                          <input type="email" id="id" class="form-control" style="display:inline-block;" placeholder="Email" name="email" required autofocus/>
+                          <input type="text" id="email" class="form-control" style="display:inline-block;" placeholder="Email" v-model="user.email" required autofocus/>
                         </div>
                       </div>
                     </div>
@@ -23,14 +23,12 @@
                       <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0 input_row">
                         <label class="form-label" for="password">비밀번호</label>
-                        <input type="password" id="password" class="form-control" placeholder="Password" name="password" required/>
+                        <input type="password" id="password" class="form-control" placeholder="Password" v-model="user.password" required/>
                       </div>
                     </div>
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <button id="login" type="submit" class="btn btn-primary btn-lg">로그인</button>
-                    </div>
-                    <div style="text-align:center">
-                      <p>계정이 없다면 <a id="join" href="/user/signup">회원가입</a></p>
+                      <button class="btn btn-primary btn-lg">로그인</button>
+                      <a id="join" href="/user/signup" class="btn btn-primary btn-lg">회원가입</a>
                     </div>
                   </div>
                 </form>
@@ -65,7 +63,27 @@ export default {
   created() {},
   mounted () {},
   unmounted() {},
-  methods: {}
+  methods: {
+    submitForm(){
+        const userData = {
+        email: this.user.email,
+        password: this.user.password,
+      }
+      const url = 'http://localhost:3000/user/login';
+      this.$axios.post(url,userData)
+      .then((res)=>{
+        console.log(res)
+        if(res.data.user){
+          this.$store.commit("setUser",res.data.user);
+          this.$router.push({name:"home"});
+          location.href = '/'
+        }else if(res.data.message){
+          alert(res.data.message);
+        }
+      })
+
+    }
+  }
 }
 </script>
 
