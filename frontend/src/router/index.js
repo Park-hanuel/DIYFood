@@ -59,6 +59,14 @@ const routes = [
       )
   },
   {
+    path: '/ingredient',
+    name: 'IngredientPrice',
+    component: () =>
+      import(
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/3_ingredient_price/IngredientPriceView.vue'
+      )
+  },
+  {
     path: '/user',
     name: 'User',
     component: () =>

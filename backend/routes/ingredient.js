@@ -1,20 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
-
 //for api
 const dotenv = require('dotenv');
+const models = require('../models');
 const axios = require('axios');
-const Grocery = require('../models/grocery');
-const ExistGrocery = require('../models/existgrocery');
-const User = require('../models/user');
 const server = require('../server');
 dotenv.config();
 
+//원재료 전일 시세 정보 리스트 제공
 router.get('/list',async function(req,res){
+    //버튼 값에 따라 시세 정보 반환
     const p_item_category_code= req.query.category_code;
-
-
     //get Today Date
     const d =new Date();
     const p_regday = d.getFullYear() + "-" + ((d.getMonth() + 1) > 9 ? (d.getMonth() + 1).toString() : "0" + (d.getMonth() + 1)) + "-" + (d.getDate() > 9 ? d.getDate().toString() : "0" + d.getDate().toString());
@@ -33,14 +30,36 @@ router.get('/list',async function(req,res){
     }
 });
 
-router.get('/',async function(req,res){
+
+//새로운 원재료(시세포함) 관련 정보 리스트 제공
+router.get('/userlist',async function(req,res){
     try{
-        const groceryList = await Grocery.findAll({});
-        res.send(groceryList);
+        const ingredientyList = await models.LiveIngredient.findAll({});
+        res.send(ingredientyList);
     }catch(err){
         console.error(err);
     }
 });
+
+//오늘 중 구현 예정
+router.post('/userlist', async function(req,res){
+    // const itemCodeList = req.body.itemList; //array (itemcode)
+    // const userId = res.locals.user.id;
+    // console.log(itemCodeList);
+    // try{
+    //     for(let item of itemCodeList){
+    //         console.log(item)
+    //         models.ExistIngredient.create({
+    //             userId : userId,
+    //             itemCode : item,
+    //         });
+    //     }
+    //     res.send('done');
+    // }catch(err){
+    //     console.error(err);
+    // }
+})
+
 
 //추후 서버 정기 호출 함수로 변경 예정 (라우팅 말고)
 router.get('/db', function(req, res, next) {
@@ -51,15 +70,26 @@ router.get('/db', function(req, res, next) {
     res.send('i');
 });
 
+//보유 원재료 관련 정보 리스트 제공
+router.get('/existlist',async function(req,res){
+    try{
+        const ingredientyList = await models.Ingredient.findAll({});
+        res.send(ingredientyList);
+    }catch(err){
+        console.error(err);
+    }
+});
+
 router.post('/existlist', async function(req, res){
-    const itemCodeList = req.body.checkedItemCode; //array (itemcode,detailItemCode)
+    const itemCodeList = req.body.checkedItemCode; //array (itemcode)
     const userId = res.locals.user.id;
+    console.log(itemCodeList);
     try{
         for(let item of itemCodeList){
-            ExistGrocery.create({
+            console.log(item)
+            models.ExistIngredient.create({
                 userId : userId,
-                itemCode : item.itemCode,
-                detailItemCode : item.detailItemCode,
+                itemCode : item,
             });
         }
         res.send('done');

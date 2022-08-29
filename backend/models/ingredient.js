@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-module.exports = class ExistGrocery extends Sequelize.Model {
+module.exports = class Ingredient extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
@@ -8,8 +8,8 @@ module.exports = class ExistGrocery extends Sequelize.Model {
           type: Sequelize.INTEGER,
           allowNull: false,
         },
-        detailItemCode: {
-          type: Sequelize.INTEGER,
+        itemName: {
+          type: Sequelize.STRING(50),
           allowNull: false,
         },
       },
@@ -17,7 +17,7 @@ module.exports = class ExistGrocery extends Sequelize.Model {
         sequelize,
         timestamps: false,
         underscored: false,
-        modelName: "ExistGrocery",
+        modelName: "Ingredient",
         paranoid: false,
         charset: "utf8",
         collate: "utf8_general_ci",
@@ -25,6 +25,5 @@ module.exports = class ExistGrocery extends Sequelize.Model {
     );
   }
   static associate(db) {
-  db.ExistGrocery.belongsTo(db.User, {foreignKey: "userId", targetKey: 'id'})
   }
 };

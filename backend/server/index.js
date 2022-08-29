@@ -1,13 +1,13 @@
 const dotenv = require('dotenv');
 const axios = require('axios');
-const Grocery = require('../models/grocery');
+const liveIngredient = require('../models/liveIngredient');
 dotenv.config();
 
 //axios using
 async function getTodayData(p_item_category_code){
     try {
         //전날 정보 제거
-        await Grocery.destroy({where:{}});
+        await liveIngredient.destroy({where:{}});
         console.log(p_item_category_code);
         const p_regday='2022-08-24';
         let itemList = [];
@@ -42,10 +42,10 @@ async function getTodayData(p_item_category_code){
                 unit : unit,
             }
             itemList.push(item);
-            await Grocery.create(item);
+            await liveIngredient.create(item);
 
         }
-            //await Grocery.bulkCreate([itemList]);
+            //await liveIngredient.bulkCreate([itemList]);
 
       } catch (error) {
         console.error(error);
