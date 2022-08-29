@@ -15,7 +15,7 @@
                       <div class="form-outline flex-fill mb-0 input_row">
                         <label class="form-label" for="id">이메일</label>
                         <div>
-                          <input type="email" id="email" class="form-control" style="display:inline-block;" placeholder="Email" v-model="user.email" required autofocus/>
+                          <input type="text" id="email" class="form-control" style="display:inline-block;" placeholder="Email" v-model="user.email" required autofocus/>
                         </div>
                       </div>
                     </div>
@@ -27,7 +27,7 @@
                       </div>
                     </div>
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <button type="submit" class="btn btn-primary btn-lg">로그인</button>
+                      <button class="btn btn-primary btn-lg">로그인</button>
                       <a id="join" href="/user/signup" class="btn btn-primary btn-lg">회원가입</a>
                     </div>
                   </div>
@@ -70,17 +70,18 @@ export default {
         password: this.user.password,
       }
       const url = 'http://localhost:3000/user/login';
- 
       this.$axios.post(url,userData)
       .then((res)=>{
+        console.log(res)
         if(res.data.user){
           this.$store.commit("setUser",res.data.user);
-          this.$router.push({name:"indexPage"});
+          this.$router.push({name:"home"});
+          location.href = '/'
         }else if(res.data.message){
           alert(res.data.message);
         }
       })
-      location.href='/';
+
     }
   }
 }

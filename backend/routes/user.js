@@ -77,7 +77,7 @@ router.post('/login', isNotLoggedIn, async (req, res, next)=>{
         return next(loginError);
       }
       console.log('login suscess');
-      return res.send(true);
+      return res.send(user);
     });
   })(req,res,next);
 });
