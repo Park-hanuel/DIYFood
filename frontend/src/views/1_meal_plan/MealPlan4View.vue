@@ -24,15 +24,49 @@
       <h1>레시피 선택</h1>
       <p>선택하신 재료와 예산에 맞춰 다음 레시피를 추천합니다. 레시피를 선택해주세요.</p>
     </div>
+    <!-- Recipe Card -->
+    <div name="card" class="card-custom">
+      <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 5%;">
+        <img src="@/assets/vicky-ng-8hCcjf2BxTk-unsplash.jpg" width="100%" style="margin: -30%; ">
+      </div>
+      <div style="height: 10%;"><h6 style="text-align:center; margin-top: 10px;">비빔밥</h6></div>
+      <div style="height: 30%;"><span>재료 : {{ingredients}}</span></div>
+      <div style="height: 10%; width: 100%; text-align:center;">
+        <p>선택
+          <label>
+            <input type="checkbox" class="form-check-input">
+          </label>
+        </p>
+      </div>
+    </div>
     <div name="card">
-      <div class="card-custom card-img-custom" style="text-align:center;">
-        <h4>비빔밥</h4>
-        <img src="@/assets/vicky-ng-8hCcjf2BxTk-unsplash.jpg" alt="">
+      <div class="card-custom" style="text-align:center;">
+        <h5>비빔밥</h5>
+      </div>
+    </div>
+    <div name="card">
+      <div class="card-custom" style="text-align:center;">
+        <h5>비빔밥</h5>
+      </div>
+    </div>
+    <div name="card">
+      <div class="card-custom" style="text-align:center;">
+        <h5>비빔밥</h5>
+      </div>
+    </div>
+    <div name="card">
+      <div class="card-custom" style="text-align:center;">
+        <h5>비빔밥</h5>
+      </div>
+    </div>
+    <div name="card">
+      <div class="card-custom" style="text-align:center;">
+        <h5>비빔밥</h5>
       </div>
     </div>
     <div id="next-button" style="text-align:center;" >
       <a href="/mealplan/step2">
-        <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" onClick="location.href='/mealplan/step2'">
+        <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" onClick="location.href=/mealplan/step2">
       </a>
     </div>
   </section>
@@ -44,8 +78,7 @@ export default {
   components: {},
   data () {
     return {
-      budget: 30000,
-      totalCost: 20000
+      ingredients: '재료1, 재료2, 재료3, 재료4, 재료5, 재료6, 재료7'
     }
   },
   setup () {},
@@ -63,34 +96,12 @@ export default {
     margin-bottom: 20px;
   }
   .card-custom {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    box-shadow: 3px 3px 3px 3px lightgrey;
-    width: 300px;
-    height: 500px;
+    background-color: #edebeb;
+    width: 30%;
+    height: 300px;
     border-radius: 1rem;
     padding: 10px;
-    text-align: center;
+    float: left;
+    margin: 1.6%;
   }
-  .card-img-custom {
-    position: relative;
-    width: 150px;
-    height: 150px;
-  }
-  .card-img-custom img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translate(50, 50);
-    width: 80%;
-    height: 80%;
-    object-fit: cover;
-    margin: auto;
-}
 </style>

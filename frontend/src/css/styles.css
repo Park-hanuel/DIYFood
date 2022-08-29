@@ -11809,7 +11809,7 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
 .head-text {
   margin-left: 50px;
   font-weight: 500;
-  font-size:4em;
+  font-size: 4em;
   position: fixed;
   top: 150px;
   left: 0;
@@ -11819,7 +11819,6 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   margin-left: 500px;
   font-weight: 400;
   font-size:1.5em;
-  
 }
 #side {
   float: left;

@@ -53,7 +53,11 @@
                   <td>{{data.itemName}}</td>
                   <td>{{data.detailItemName}}</td>
                   <td>{{data.price}}원</td>
-                  <td><button class="btn" @click="selectItem(i)"><img src="@/assets/check_n.png" width="30px"></button></td>
+                  <td>
+                    <label>
+                      <input type="checkbox" class="form-check-input" @click="selectItem(i)">
+                    </label>
+                  </td>
                 </tr>
               </tbody>
             </table>
