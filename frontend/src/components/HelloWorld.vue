@@ -58,18 +58,18 @@
               </div>
           </div>
       </section>
-      <!-- Groceries-->
+      <!-- Ingredient-->
       <section class="page-section" id="Ingredient">
           <div class="container">
               <div class="text-center">
-                  <a href="grocery_price.html">
+                  <a href="/ingredient">
                       <h2 class="section-heading text-uppercase">Ingredients Price</h2>
                   </a>
               </div>
               <div class="row text-center">
                   <div class="col-md-4">
                       <span class="fa-stack fa-4x">
-                          <a href="grocery_price.html">
+                          <a href="/ingredient">
                               <img src="@/assets/basket.png" alt="ingredient_price" style="width: 120px; height: 120px;">
                           </a>
                       </span>

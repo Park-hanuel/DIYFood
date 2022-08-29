@@ -11803,9 +11803,23 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   height: auto;
 }
 #head {
-  width: 1500px;
   height: 100px;
   line-height: 100px;
+}
+.head-text {
+  margin-left: 50px;
+  font-weight: 500;
+  font-size:4em;
+  position: fixed;
+  top: 150px;
+  left: 0;
+  z-index: 1030;
+}
+.head-subtext {
+  margin-left: 500px;
+  font-weight: 400;
+  font-size:1.5em;
+  
 }
 #side {
   float: left;
@@ -11813,13 +11827,14 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   height: auto ;
   margin-right: 50px;
   margin-left: 100px;
-  position: sticky;
-  left: 100px;
-  top: 100px;
   padding-block: 100px;
+  position: fixed;
+  top: 200px;
+  left: 0;
+  z-index: 1030;
 }
 #content{
-  float: left;
+  float: right;
   width:62.5%;
   height:fit-content;
   background-color:white;
