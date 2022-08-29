@@ -135,7 +135,7 @@ export default {
       if (this.totalCost > this.budget) {
         if (confirm('선택한 식재료의 총 가격이 설정한 예산보다 많습니다. 계속 진행하시겠습니까?')) {
           this.codeSplit()
-          this.$axios.post('http://localhost:3000/ingredient/userlist', this.finalCodeList)
+          this.$axios.post('http://localhost:3000/ingredient/userlist', this.finalCodeList, { withCredentials: true })
             .then(function (response) {
               console.log(response)
             })
@@ -148,7 +148,7 @@ export default {
         }
       } else {
         this.codeSplit()
-        this.$axios.post('http://localhost:3000/ingredient/userlist', this.finalCodeList)
+        this.$axios.post('http://localhost:3000/ingredient/userlist', this.finalCodeList, { withCredentials: true })
           .then(function (response) {
             console.log(response)
           })

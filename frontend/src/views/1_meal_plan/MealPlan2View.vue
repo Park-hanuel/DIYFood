@@ -85,7 +85,6 @@ export default {
     // 식재료 목록 불러오기
     getIngredientData () {
       this.$axios.get('http://localhost:3000/ingredient/existlist').then(response => {
-        console.log('### response: ' + JSON.stringify(response))
         this.itemList = response.data
         this.metaItemList = response.data
         this.itemList = this.metaItemList.filter(item => parseInt(item.itemCode / 100) === 1)
@@ -111,10 +110,11 @@ export default {
       }
     },
     // 선택한 식재료 리스트 보내기
+    /* eslint-disable */
     submitItemList () {
-      this.$axios.post('http://localhost:3000/ingredient/existlist', this.checkedItemCode)
-        .then(function (response) {
-          console.log(response)
+      this.$axios.post('http://localhost:3000/ingredient/existlist', this.checkedItemCode, {withCredentials:true})
+        .then(function (res) {
+          console.log(res)
         })
         .catch(function (error) {
           console.log(error)

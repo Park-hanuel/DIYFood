@@ -70,13 +70,12 @@ export default {
         password: this.user.password,
       }
       const url = 'http://localhost:3000/user/login';
-      this.$axios.post(url,userData)
+      this.$axios.post(url,userData,{ withCredentials: true })
       .then((res)=>{
         console.log(res)
-        if(res.data.user){
-          this.$store.commit("setUser",res.data.user);
+        if(res.data.user){  
           this.$router.push({name:"home"});
-          location.href = '/'
+          // location.href = '/'
         }else if(res.data.message){
           alert(res.data.message);
         }

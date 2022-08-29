@@ -48,20 +48,17 @@ router.get('/userlist',async function(req,res){
 
 //오늘 중 구현 예정
 router.post('/userlist', async function(req,res){
-    const itemCodeList = req.body.checkedItemCode; //array (itemcode)
-    const price = req.body.price;
-    const userId = 4;
+    const itemCodeList = req.body; //array (itemcode)
     console.log(itemCodeList);
-    //itemCode랑 detailItemCode 합쳐오면 여기서 쪼개기
-    //totalPrice도 요청 필요
+    const userId = res.locals.user.id;
     try{
         //프런트랑 협의해서 저장 값 확인하기
-        for(let item of itemCodeList){
+        for(let i = 0 ;i<itemCodeList.length;i++){
             models.UserIngredient.create({
                 userId : userId,
-                itemCode : item,
-                detailItemCode : detailItemCode,
-                price : price,
+                itemCode : itemCodeList[i].splitedCode[0],
+                detailItemCode : itemCodeList[i].splitedCode[1],
+                price : itemCodeList[i].splitedCode[2],
             });
         }
         res.send('done');
@@ -91,17 +88,14 @@ router.get('/existlist',async function(req,res){
 });
 
 router.post('/existlist', async function(req, res){
-    //user 세션값 받아오기 후 변경해야함
-    // const user = 4;
+    //user 세션값 받아오기 후 변경해야
     const itemCodeList = req.body; //array (itemcode)
-
-    console.log(res.locals.user);
-    const userId = res.locals.user.id;
-    console.log(itemCodeList);
+    const userId =res.locals.user.id;
+    console.log("드디어 : "  ,res.locals.user.id);
     try{
         for(let i = 0 ;i<itemCodeList.length;i++){
             models.ExistIngredient.create({
-                userId : user,
+                userId : userId,
                 itemCode : itemCodeList[i],
             });
         }

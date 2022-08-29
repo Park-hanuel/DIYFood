@@ -11,22 +11,6 @@ module.exports = class UserIngredient extends Sequelize.Model {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      itemName : {
-        type: Sequelize.STRING(20),
-        allowNull: false
-      },
-      detailItemName : {
-        type: Sequelize.STRING(20),
-        allowNull: false
-      },
-      rank : {
-        type: Sequelize.STRING(20),
-        allowNull: false
-      },
-      unit : {
-        type: Sequelize.STRING(20),
-        allowNull: false
-      },
       price : {
         type: Sequelize.STRING(50),
         allowNull: false
@@ -41,5 +25,7 @@ module.exports = class UserIngredient extends Sequelize.Model {
       collate: 'utf8_general_ci'
     } );
 }
-  static associate(db) {}
+  static associate(db) {
+    db.ExistIngredient.belongsTo(db.User, {foreignKey: "userId", targetKey: 'id'})
+  }
 };

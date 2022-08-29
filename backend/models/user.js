@@ -29,5 +29,6 @@ module.exports = class User extends Sequelize.Model {
 }
   static associate(db) {
     db.User.hasMany(db.ExistIngredient, {foreignKey :'userId', sourceKey:'id'});
+    db.User.hasMany(db.UserIngredient, {foreignKey :'userId', sourceKey:'id'});
   }
 };

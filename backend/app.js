@@ -30,6 +30,7 @@ sequelize.sync({force : false})
 });
 
 const corsOption ={
+  credentials: true,
   origin : 'http://localhost:8080'
 }
 
@@ -43,7 +44,7 @@ app.use(session({
   secret: process.env.COOKIE_SECRET,
   saveUninitialized: true,
   cookie:{
-    httpOnly: true,
+    httpOnly: false,
     secure: false,
   },
   //store:new FileStore() // 세션 저장
