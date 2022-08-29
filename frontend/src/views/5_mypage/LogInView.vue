@@ -15,7 +15,7 @@
                       <div class="form-outline flex-fill mb-0 input_row">
                         <label class="form-label" for="id">이메일</label>
                         <div>
-                          <input type="email" id="email" class="form-control" style="display:inline-block;" placeholder="Email" name="email" required autofocus/>
+                          <input type="text" id="email" class="form-control" style="display:inline-block;" placeholder="Email" v-model="user.email" required autofocus/>
                         </div>
                       </div>
                     </div>
@@ -23,11 +23,11 @@
                       <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0 input_row">
                         <label class="form-label" for="password">비밀번호</label>
-                        <input type="password" id="password" class="form-control" placeholder="Password" name="password" required/>
+                        <input type="password" id="password" class="form-control" placeholder="Password" v-model="user.password" required/>
                       </div>
                     </div>
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <button type="submit" class="btn btn-primary btn-lg">로그인</button>
+                      <button class="btn btn-primary btn-lg">로그인</button>
                       <a id="join" href="/user/signup" class="btn btn-primary btn-lg">회원가입</a>
                     </div>
                   </div>
@@ -64,16 +64,23 @@ export default {
   mounted () {},
   unmounted() {},
   methods: {
-    async submitForm(){
+    submitForm(){
         const userData = {
         email: this.user.email,
         password: this.user.password,
       }
       const url = 'http://localhost:3000/user/login';
-      debugger;
-      console.log(userData);
-      await this.$axios.post(url,userData);
-      location.href='/';
+      this.$axios.post(url,userData,{ withCredentials: true })
+      .then((res)=>{
+        console.log(res)
+        if(res.data.user){  
+          this.$router.push({name:"home"});
+          // location.href = '/'
+        }else if(res.data.message){
+          alert(res.data.message);
+        }
+      })
+
     }
   }
 }

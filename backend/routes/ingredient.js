@@ -8,6 +8,11 @@ const axios = require('axios');
 const server = require('../server');
 dotenv.config();
 
+router.use((req,res,next)=>{
+    res.locals.user = req.user;
+    next();
+  })
+
 //원재료 전일 시세 정보 리스트 제공
 router.get('/list',async function(req,res){
     //버튼 값에 따라 시세 정보 반환
@@ -43,21 +48,23 @@ router.get('/userlist',async function(req,res){
 
 //오늘 중 구현 예정
 router.post('/userlist', async function(req,res){
-    // const itemCodeList = req.body.itemList; //array (itemcode)
-    // const userId = res.locals.user.id;
-    // console.log(itemCodeList);
-    // try{
-    //     for(let item of itemCodeList){
-    //         console.log(item)
-    //         models.ExistIngredient.create({
-    //             userId : userId,
-    //             itemCode : item,
-    //         });
-    //     }
-    //     res.send('done');
-    // }catch(err){
-    //     console.error(err);
-    // }
+    const itemCodeList = req.body; //array (itemcode)
+    console.log(itemCodeList);
+    const userId = res.locals.user.id;
+    try{
+        //프런트랑 협의해서 저장 값 확인하기
+        for(let i = 0 ;i<itemCodeList.length;i++){
+            models.UserIngredient.create({
+                userId : userId,
+                itemCode : itemCodeList[i].splitedCode[0],
+                detailItemCode : itemCodeList[i].splitedCode[1],
+                price : itemCodeList[i].splitedCode[2],
+            });
+        }
+        res.send('done');
+    }catch(err){
+        console.error(err);
+    }
 })
 
 
@@ -81,15 +88,15 @@ router.get('/existlist',async function(req,res){
 });
 
 router.post('/existlist', async function(req, res){
-    const itemCodeList = req.body.checkedItemCode; //array (itemcode)
-    const userId = res.locals.user.id;
-    console.log(itemCodeList);
+    //user 세션값 받아오기 후 변경해야
+    const itemCodeList = req.body; //array (itemcode)
+    const userId =res.locals.user.id;
+    console.log("드디어 : "  ,res.locals.user.id);
     try{
-        for(let item of itemCodeList){
-            console.log(item)
+        for(let i = 0 ;i<itemCodeList.length;i++){
             models.ExistIngredient.create({
                 userId : userId,
-                itemCode : item,
+                itemCode : itemCodeList[i],
             });
         }
         res.send('done');

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-module.exports = class Grocery extends Sequelize.Model {
+module.exports = class IiveIngredient extends Sequelize.Model {
   static init(sequelize){
     return super.init({
       itemCode : {
