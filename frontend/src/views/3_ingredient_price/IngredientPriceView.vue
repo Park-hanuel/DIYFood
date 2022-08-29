@@ -8,26 +8,19 @@
         식재료 시세를 안내합니다.
       </p>
     </div>
-    <div></div>
+    <div>
+    </div>
   </body>
 </template>
 <script>
-export default {
-  components: {},
-  data () {
-    return {
-      sampleData: ''
-    }
-  },
-  setup () {},
-  created () {},
-  mounted () {},
-  unmounted () {},
-  methods: {}
-}
+
 </script>
 
 <style>
   @import "@/css/styles.css";
   body{background: #f3f3f3;}
+  .chart-style {
+    width: 50%;
+    padding: 50px;
+  }
 </style>
