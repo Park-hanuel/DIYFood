@@ -12,22 +12,19 @@
       <section id="content-box" style="margin-left:50px">
         <img src="@/assets/check-list.png" alt="" class="img_style">
         <div style="margin-top:30px;">
-          <p>기간, 재료, 예산을</p>
-          <p style="line-height:2px">설정하고</p>
+          <p>기간, 예산, 재료를<br>설정하고</p>
         </div>
       </section>
       <section id="content-box">
         <img src="@/assets/recipe-book.png" alt="" class="img_style">
         <div style="margin-top:30px;" >
-          <p>선호하는 레시피를</p>
-          <p style="line-height:2px">직접 선택해서</p>
+          <p>추천 레시피를<br>선택해서</p>
         </div>
       </section>
       <section id="content-box">
         <img src="@/assets/calendar.png" alt="" class="img_style">
         <div style="margin-top:30px;">
-          <p>식단 계획을</p>
-          <p style="line-height:2px">완성합니다.</p>
+          <p>식단 계획을<br>완성합니다.</p>
         </div>
       </section>
       <div id="next-button" style="text-align:center;" >

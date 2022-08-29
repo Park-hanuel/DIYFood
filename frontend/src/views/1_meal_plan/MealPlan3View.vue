@@ -3,10 +3,10 @@
     <div>
       <!-- Head -->
       <div style="margin-top: 30px; " id="head">
-        <span style="margin-left: 100px; font-size:4em; font-weight:500;">
+        <span class="head-text">
           MEAL PLAN
         </span>
-        <span style="margin-left: 20px; font-size:1.5em; font-weight:400;">
+        <span class="head-subtext">
           설정된 예산에 맞춰 건강하고 신선한 식단을 추천합니다.
         </span>
       </div>
@@ -14,7 +14,7 @@
         <!-- Side -->
           <div id="side">
             <div style="text-align: center;">
-              <img src="@/assets/basket.png" alt="식단계획3" height="200" width="200" >
+              <img src="@/assets/basket.png" alt="식단계획3" height="75%" width="75%">
             </div>
             <div style="margin-top: 30px; text-align: center;">
               <h3>3. 새로운 재료 선택</h3>
@@ -84,7 +84,8 @@ export default {
       metaItemList: [],
       dividedCode: [],
       budget: parseInt(localStorage.getItem('budget')),
-      totalCost: 0
+      totalCost: 0,
+      finalCodeList: []
     }
   },
   setup () {},
@@ -126,33 +127,43 @@ export default {
     },
     // 품목코드 + 품종코드 합치기
     bindingCode (n) {
-      var bindedCode = this.itemList[n].itemCode + '-' + this.itemList[n].detailItemCode
+      var bindedCode = this.itemList[n].itemCode + '-' + this.itemList[n].detailItemCode + '-' + this.itemList[n].price.replace(',', '')
       return bindedCode
     },
     // 선택한 식재료 리스트 보내기 (식재료 가격이 예산보다 높으면 확인창 뜸)
     submitItemList () {
       if (this.totalCost > this.budget) {
-        if (confirm('선택한 식재료의 총 가격이 예산보다 많습니다. 계속 진행하시겠습니까?')) {
-          this.$axios.post('http://localhost:3000/ingredient/existlist', this.checkedItemCode)
+        if (confirm('선택한 식재료의 총 가격이 설정한 예산보다 많습니다. 계속 진행하시겠습니까?')) {
+          this.codeSplit()
+          this.$axios.post('http://localhost:3000/ingredient/userlist', this.finalCodeList)
             .then(function (response) {
               console.log(response)
             })
             .catch(function (error) {
               console.log(error)
             })
-          location.href = '/mealplan/step4'
+          // location.href = '/mealplan/step4'
         } else {
           alert('예산과 식재료를 다시 한번 확인해주세요.')
         }
       } else {
-        this.$axios.post('http://localhost:3000/ingredient/existlist', this.checkedItemCode)
+        this.codeSplit()
+        this.$axios.post('http://localhost:3000/ingredient/userlist', this.finalCodeList)
           .then(function (response) {
             console.log(response)
           })
           .catch(function (error) {
             console.log(error)
           })
+        // location.href = '/mealplan/step4'
       }
+    },
+    codeSplit () {
+      for (var i = 0; i < this.checkedItemCode.length; i++) {
+        var splitedCode = this.checkedItemCode[i].split('-')
+        this.finalCodeList.push({ splitedCode })
+      }
+      console.log(this.finalCodeList)
     }
   }
 }
@@ -172,7 +183,7 @@ export default {
   }
   #progress {
     appearance: none;
-    width: 90%;
+    width: 93%;
     height: 30px;
     float: left;
   }
