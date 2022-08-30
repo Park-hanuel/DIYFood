@@ -4,9 +4,12 @@ const morgan = require('morgan');
 const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
+
 const dotenv = require('dotenv');
 dotenv.config();
 const createError = require('http-errors');
+
+const swaggerUi = require('swagger-ui-express');
 
 const cors = require('cors');
 
@@ -18,6 +21,7 @@ const indexRouter = require('./routes/index');
 const ingredientRouter = require('./routes/ingredient');
 
 const app = express();
+
 passportConfig(); //패스포트 설정
 app.set('views', path.join(__dirname, 'views')); 
 app.set('view engine', 'ejs');   
@@ -57,6 +61,7 @@ app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/ingredient',ingredientRouter);
 
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(require('./config/swaggerDoc')));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
