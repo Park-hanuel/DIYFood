@@ -75,6 +75,14 @@ const routes = [
       )
   },
   {
+    path: '/user/mypage',
+    name: 'MyPage',
+    component: () =>
+      import(
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/5_mypage/MyPageView.vue'
+      )
+  },
+  {
     path: '/user/login',
     name: 'LogInPage',
     component: () =>
