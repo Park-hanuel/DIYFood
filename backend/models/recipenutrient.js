@@ -49,6 +49,7 @@ module.exports = class RecipeNutrient extends Sequelize.Model {
       collate: 'utf8_general_ci',
     });
   }
-  static associate(recipe) {
+  static associate(db) {
+    db.RecipeNutrient.hasMany(db.Recipe, {foreignKey: 'itemCode', targetKey: 'foodCode'})
   }
 };
