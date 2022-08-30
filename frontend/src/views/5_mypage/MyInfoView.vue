@@ -8,14 +8,14 @@
             <div class="row justify-content-center">
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">My Info</p>
-                <form class="mx-1 mx-md-4">
+                <form class="mx-1 mx-md-4" @submit.prevent="submitForm">
                   <div>
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0 input_row">
                         <label class="form-label" for="id">이메일</label>
                         <div>
-                          <input type="email" id="id" class="form-control" style="display:inline-block;" placeholder="Email" v-model="user.userid" readonly/>
+                          <input type="email" id="email" class="form-control" style="display:inline-block;" v-model="user.email" readonly/>
                         </div>
                       </div>
                     </div>
@@ -41,7 +41,7 @@
                       </div>
                     </div>
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <button class="btn btn-primary btn-lg" @click="submitForm()">회원정보 수정</button>
+                      <button class="btn btn-primary btn-lg">회원정보 수정</button>
                     </div>
                   </div>
                 </form>
@@ -61,14 +61,11 @@
 </section>
 </template>
 <script>
-/* eslint-disable */
-import { registerUser } from '@/api/index';
-
+/* eslint-disable */ 
 export default {
   components: {},
   data: function () {
   return {
-    nowDate:'',
     user: {
       userid: null,
       name: null,
@@ -77,40 +74,50 @@ export default {
   }
 },
   setup() {},
-  created() {},
+  created() {
+    this.getUserInfo()
+  },
   mounted () {
-    this.timer = setInterval(() => {    
-    this.setNowTimes()
     this.passwordConfirm
-  },1000)},
+  },
   unmounted() {},
   methods: {
-    // 회원가입 submit
-    async submitForm() {
+    getUserInfo(){
+      const url = 'http://localhost:3000/user/info';
+      this.$axios.get(url, { withCredentials: true })
+      .then((res)=> {
+        if(res.data){
+          this.user.email = res.data.email;
+          this.user.name = res.data.name;
+        }else if(res.data.message){
+          alert(res.data.message);
+        }
+      });
+    },
+    // user info modify submit
+    submitForm(){
       // API 요청시 전달할 userData 객체
       const userData = {
-        username: this.user.userid,
+        email: this.user.email,
         password: this.user.password,
         name: this.user.name,
-        date: this.nowDate
       };
-      const { data } = await registerUser(userData);
-      
-      this.logMessage = `${data.username} 님의 회원정보가 수정되었습니다.`;
+      const url = 'http://localhost:3000/user/info';
+      this.$axios.patch(url, userData, { withCredentials: true })
+      .then((res)=> {
+        console.log(res);
+        if(res.data===0){
+          alert("회원정보가 수정되었습니다.")
+        }else{
+          alert("다시 시도해주세요");
+        }
+      });
     },
-    // 비밀번호 확인
-    passwordConfirm: function() {
+    //비밀번호 확인
+    passwordConfirm(){
       if(this.user.password != this.user.password1) {
         alert("비밀번호가 일치하지 않습니다.")
       }
-    },
-    // 현재 날짜
-    setNowTimes() {
-      let myDate = new Date() 
-      let yy = String(myDate.getFullYear())  
-      let mm = myDate.getMonth() + 1  
-      let dd = String(myDate.getDate() < 10 ? '0' + myDate.getDate() : myDate.getDate())
-      this.nowDate = yy + '-' + mm + '-' + dd
     },
   }
 }

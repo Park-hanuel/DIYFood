@@ -99,7 +99,7 @@ const routes = [
       )
   },
   {
-    path: '/user/myinfo',
+    path: '/user/info',
     name: 'MyInfoPage',
     component: () =>
       import(

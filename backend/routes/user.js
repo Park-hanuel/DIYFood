@@ -101,9 +101,13 @@ router.get('/info', isLoggedIn, (req, res)=>{
 
 //회원정보 수정
 router.patch('/info', async (req, res)=>{
-  const {email, password, name} = req.body;
-  await modifyUserInfo(email, password, name);
-  res.send('0');
+  try{
+    const {email, password, name} = req.body;
+    await modifyUserInfo(email, password, name);
+    res.send('0');
+  }catch(err){
+    res.send(err.message);
+  }
 });
 
 const modifyUserInfo = async (email,password,name) =>{
