@@ -6,6 +6,7 @@ module.exports = class RecipeNutrient extends Sequelize.Model {
       foodCode: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        unique : true
       }, 
       foodName: { 
         type: Sequelize.STRING(100),
@@ -50,6 +51,6 @@ module.exports = class RecipeNutrient extends Sequelize.Model {
     });
   }
   static associate(db) {
-    db.RecipeNutrient.hasMany(db.Recipe, {foreignKey: 'itemCode', targetKey: 'foodCode'})
+    db.RecipeNutrient.hasMany(db.Recipe, {foreignKey: 'foodCode', sourceKey: 'foodCode'})
   }
 };
