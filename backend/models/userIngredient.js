@@ -18,9 +18,7 @@ module.exports = class UserIngredient extends Sequelize.Model {
     },{
       sequelize,
       timestamps: false,
-      underscored: false,
       modelName : 'UserIngredient',
-      paranoid: false,
       charset:'utf8',
       collate: 'utf8_general_ci'
     } );
