@@ -51,9 +51,9 @@ router.post('/userlist', async function(req,res){
         for(let i = 0 ;i<itemCodeList.length;i++){
             models.UserIngredient.create({
                 userId : userId,
-                itemCode : itemCodeList[i].splitedCode[0],
-                detailItemCode : itemCodeList[i].splitedCode[1],
-                price : itemCodeList[i].splitedCode[2],
+                itemCode : itemCodeList[i].itemCode,
+                detailItemCode : itemCodeList[i].detailItemCode,
+                price : itemCodeList[i].price,
             });
         }
         res.send('done');
