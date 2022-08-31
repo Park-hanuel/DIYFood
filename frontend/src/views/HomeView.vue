@@ -7,8 +7,8 @@
     <div class="home">
       <header class="masthead">
           <div class="container">
-              <div class="masthead-subheading">"집밥김선생"에 오신걸 환영합니다!</div>
-              <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
+              <div class="masthead-subheading">with DIY Food</div>
+              <div class="masthead-heading text-uppercase">Make Your Day Healthier</div>
               <a class="btn btn-primary btn-xl text-uppercase margin-space" href="#MealPlan">더 알아보기</a>
           </div>
       </header>

@@ -37,29 +37,32 @@
             </p>
           </div>
         </div>
-        <div name="card">
-          <div class="card-custom" style="text-align:center;">
-            <h5>비빔밥</h5>
+        <div name="card" class="card-custom">
+          <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 5%;">
+            <img src="@/assets/vicky-ng-8hCcjf2BxTk-unsplash.jpg" width="100%" style="margin: -30%; ">
+          </div>
+          <div style="height: 10%;"><h6 style="text-align:center; margin-top: 10px;">비빔밥</h6></div>
+          <div style="height: 30%;"><span>재료 : {{ingredients}}</span></div>
+          <div style="height: 10%; width: 100%; text-align:center;">
+            <p>선택
+              <label>
+                <input type="checkbox" class="form-check-input">
+              </label>
+            </p>
           </div>
         </div>
-        <div name="card">
-          <div class="card-custom" style="text-align:center;">
-            <h5>비빔밥</h5>
+        <div name="card" class="card-custom">
+          <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 5%;">
+            <img src="@/assets/vicky-ng-8hCcjf2BxTk-unsplash.jpg" width="100%" style="margin: -30%; ">
           </div>
-        </div>
-        <div name="card">
-          <div class="card-custom" style="text-align:center;">
-            <h5>비빔밥</h5>
-          </div>
-        </div>
-        <div name="card">
-          <div class="card-custom" style="text-align:center;">
-            <h5>비빔밥</h5>
-          </div>
-        </div>
-        <div name="card">
-          <div class="card-custom" style="text-align:center;">
-            <h5>비빔밥</h5>
+          <div style="height: 10%;"><h6 style="text-align:center; margin-top: 10px;">비빔밥</h6></div>
+          <div style="height: 30%;"><span>재료 : {{ingredients}}</span></div>
+          <div style="height: 10%; width: 100%; text-align:center;">
+            <p>선택
+              <label>
+                <input type="checkbox" class="form-check-input">
+              </label>
+            </p>
           </div>
         </div>
         <div id="next-button" style="text-align:center;" >
@@ -98,7 +101,7 @@ export default {
   .card-custom {
     background-color: #f3f3f3;
     width: 30%;
-    height: 300px;
+    height: 350px;
     border-radius: 1rem;
     padding: 10px;
     float: left;
