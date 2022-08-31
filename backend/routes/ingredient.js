@@ -8,11 +8,6 @@ const axios = require('axios');
 const server = require('../server');
 dotenv.config();
 
-router.use((req,res,next)=>{
-    res.locals.user = req.user;
-    next();
-  })
-
 //원재료 전일 시세 정보 리스트 제공
 router.get('/list',async function(req,res){
     //버튼 값에 따라 시세 정보 반환
