@@ -1,25 +1,21 @@
 <template>
   <body id="page">
     <div>
-      <!-- Head -->
-      <div style="margin-top: 30px; " id="head">
-        <span class="head-text">
-          MEAL PLAN
-        </span>
-        <span class="head-subtext">
-          설정된 예산에 맞춰 건강하고 신선한 식단을 추천합니다.
-        </span>
-      </div>
       <div>
         <!-- Side -->
-        <aside id="side">
-          <div style="text-align: center;">
-            <img src="https://cdn-icons-png.flaticon.com/512/1028/1028496.png" alt="식단계획2" height="75%" width="75%">
+          <div id="side">
+            <div style="margin-top: 30px; " id="head">
+              <h1>
+                MEAL PLAN
+              </h1>
+            </div>
+            <div style="text-align: center;">
+              <img src="https://cdn-icons-png.flaticon.com/512/1028/1028496.png" alt="식단계획2" height="50%" width="50%">
           </div>
           <div style="margin-top: 30px; text-align: center;">
-            <h3>2. 보유 재료 선택</h3>
+            <h4>2. 보유 재료 선택</h4>
+            </div>
           </div>
-        </aside>
         <!-- Content -->
         <section id="content">
           <div style="text-align:center;">
@@ -49,7 +45,11 @@
                 <tr v-for="(data, i) in itemList" :key="i">
                   <td>{{i + 1}}</td>
                   <td>{{data.itemName}}</td>
-                  <td><button class="btn" @click="selectItem(i)"><img src="@/assets/check_n.png" width="30px"></button></td>
+                  <td>
+                    <label class="form-checkbox">
+                      <input type="checkbox" class="form-check-input" :value="data.itemCode" v-model="checkedItemCode" @click="selectItem(i)">
+                    </label>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -72,7 +72,8 @@ export default {
       itemList: [],
       checkedItemCode: [],
       checkedItemName: [],
-      metaItemList: []
+      metaItemList: [],
+      selected: []
     }
   },
   setup () {},
@@ -99,14 +100,19 @@ export default {
     },
     // 아이템 추가/삭제
     selectItem (n) {
-      if (this.checkedItemCode.includes(this.itemList[n].itemCode) === false) {
-        this.checkedItemCode.push(this.itemList[n].itemCode)
+      if (this.checkedItemName.includes(this.itemList[n].itemName) === false) {
         this.checkedItemName.push(this.itemList[n].itemName)
         console.log(this.checkedItemCode)
       } else {
-        this.checkedItemCode.splice(this.checkedItemCode.indexOf(this.itemList[n].itemCode), 1)
         this.checkedItemName.splice(this.checkedItemName.indexOf(this.itemList[n].itemName), 1)
         console.log(this.checkedItemCode)
+      }
+    },
+    changeBtnColor () {
+      if (this.btnNum === 1) {
+        this.btnColor = 'src="@/assets/check_y.png"'
+      } else if (this.btnNum === 0) {
+        this.btnColor = 'src="@/assets/check_n.png"'
       }
     },
     // 선택한 식재료 리스트 보내기

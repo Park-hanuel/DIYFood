@@ -76,7 +76,7 @@ body{background: #f3f3f3;}
   width: 150px;
   border-radius: 10px;
   box-shadow: 5px 5px 5px 5px lightgray;
-  margin-top: 30px;
+  margin-top: 50px;
   border: none;
 }
 </style>

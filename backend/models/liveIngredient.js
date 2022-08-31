@@ -34,9 +34,7 @@ module.exports = class IiveIngredient extends Sequelize.Model {
     },{
       sequelize,
       timestamps: false,
-      underscored: false,
       modelName : 'LiveIngredient',
-      paranoid: false,
       charset:'utf8',
       collate: 'utf8_general_ci'
     } );
