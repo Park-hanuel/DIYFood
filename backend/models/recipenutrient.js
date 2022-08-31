@@ -16,11 +16,11 @@ module.exports = class RecipeNutrient extends Sequelize.Model {
         type: Sequelize.INTEGER,
         allowNull: false,
       },     
-     foodCar: {
+     foodCarbohydrate: {
         type: Sequelize.INTEGER,
         allowNull: false,
       }, 
-     foodPro: {
+     foodProtein: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },         
@@ -28,7 +28,7 @@ module.exports = class RecipeNutrient extends Sequelize.Model {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-     foodNat: {
+     foodNatrium: {
         type: Sequelize.INTEGER,
         allowNull: false,
       }, 

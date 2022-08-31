@@ -1,11 +1,11 @@
 const Sequelize = require('sequelize');
 const User = require('./user');
-const RecipeNutrient = require('./recipenutrient');
-const Recipe = require('./recipe');
-const Ingredient = require('./ingredient');
-const ExistIngredient = require('./existIngredient');
-const LiveIngredient = require('./liveIngredient');
-const UserIngredient = require('./userIngredient');
+const RecipeNutrient = require('./Recipenutrient');
+const Recipe = require('./Recipe');
+const Ingredient = require('./Ingredient');
+const ExistIngredient = require('./ExistIngredient');
+const LiveIngredient = require('./LiveIngredient');
+const UserIngredient = require('./UserIngredient');
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
 
