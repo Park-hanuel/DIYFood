@@ -27,6 +27,12 @@ module.exports = class Recipe extends Sequelize.Model {
       paranoid: false,
       charset: 'utf8',
       collate: 'utf8_general_ci',
+      index: [
+        {
+            name: 'foodName_index',
+            fields: ['foodName'],
+        },
+      ],
     });
   }
   static associate(db) {
