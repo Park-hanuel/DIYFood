@@ -4,10 +4,10 @@
       <p style="font-size:4em; font-weight:500; line-height:70px;">
         MY PAGE
       </p>
-      <p style="font-size:1.5em">______님 환영합니다!</p>
+      <p style="font-size:1.5em"><b>{{username}}</b> 님 환영합니다!</p>
     </div>
     <div style="display: inline-block;">
-      <a href="/user/myinfo/">
+      <a href="/user/info/">
         <section class="content-box">
           <img src="https://cdn-icons-png.flaticon.com/512/668/668709.png" alt="" class="img_style">
           <div style="margin-top:30px;">
@@ -32,26 +32,43 @@
         </section>
       </a>
     </div>
-    <div style="display: inline-block; width:100%;">
+    <div style="display: inline-block;">
       <a href="/user/signout">
-        <input type="button" class="btn btn-lg next-button" value="회원 탈퇴">
+        <input type="button" class="btn btn-lg next-button" value="회원 탈퇴" style="color:dimgrey">
       </a>
     </div>
   </body>
 </template>
 <script>
+/* eslint-disable */
+
 export default {
   components: {},
   data () {
     return {
-      sampleData: ''
+      username: ''
     }
   },
   setup () {},
-  created () {},
+  created () {
+    this.getUserInfo()
+  },
   mounted () {},
   unmounted () {},
-  methods: {}
+  methods: {
+    getUserInfo () {
+      const url = 'http://localhost:3000/user/info'
+      this.$axios.get(url, { withCredentials: true })
+        .then((res) => {
+          if (res.data) {
+            console.log(res.data)
+            this.username = res.data.name
+          } else if (res.data.message) {
+            alert(res.data.message)
+          }
+        })
+    },
+  }
 }
 </script>
 
@@ -83,6 +100,8 @@ body{background: #f3f3f3;}
   border-radius: 10px;
   box-shadow: 5px 5px 5px 5px lightgray;
   margin: 20px;
+  margin-left: 500px;
+  margin-right:500px;
   background-color: #ffffff;
   float: left;
 }

@@ -13,10 +13,13 @@
         <img src="@/assets/logo.png" alt="" width="30%">
       </div>
     </section>
-    <div style="display: inline-block; width:100%;">
-      <a href="/user/signout">
-        <input type="button" class="btn btn-lg next-button" value="탈퇴하기">
+    <div style="display: inline-block;">
+      <a href="/">
+        <input type="button" class="btn btn-lg next-button" value="돌아가기" style="color:#326b23; font-weight:500">
       </a>
+      <!-- <a href="/"> -->
+        <input type="button" class="btn btn-lg next-button" value="탈퇴하기" style="color:grey" @click="signOut()">
+      <!-- </a> -->
     </div>
   </body>
 </template>
@@ -25,14 +28,43 @@ export default {
   components: {},
   data () {
     return {
-      sampleData: ''
+      user: {
+        email: '',
+        name: ''
+      }
     }
   },
   setup () {},
-  created () {},
+  created () {
+    this.getUserInfo()
+  },
   mounted () {},
   unmounted () {},
-  methods: {}
+  methods: {
+    getUserInfo () {
+      const url = 'http://localhost:3000/user/info'
+      this.$axios.get(url, { withCredentials: true })
+        .then((res) => {
+          if (res.data) {
+            console.log(res.data)
+            this.user.email = res.data.email
+            this.user.name = res.data.name
+          } else if (res.data.message) {
+            alert(res.data.message)
+          }
+        })
+    },
+    signOut () {
+      if (confirm('탈퇴 처리는 취소할 수 없습니다. 정말 탈퇴하시겠습니까?')) {
+        const url = 'http://localhost:3000/user/info'
+        this.$axios.delete(url, { withCredentials: true })
+        alert('회원 탈퇴 처리가 완료되었습니다.')
+        location.href = '/'
+      } else {
+        console.log('다행 휴..')
+      }
+    }
+  }
 }
 </script>
 
@@ -48,17 +80,14 @@ body{background: #f3f3f3;}
   margin-left: 20%;
   border-radius: 20px;
   box-shadow: 5px 5px 5px 5px lightgray;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding: 30px;
 }
 .next-button {
   height: 50px;
-  width: 10%;
   border-radius: 10px;
   box-shadow: 5px 5px 5px 5px lightgray;
-  margin: 40px;
-  margin-left:45%;
-  margin-right:45%;
+  margin: 20px;
+  margin-top:40px;
   background-color: #ffffff;
   float: left;
 }

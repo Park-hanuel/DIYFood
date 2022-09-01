@@ -98,12 +98,11 @@ export default {
         }
         const url = 'http://localhost:3000/user/signup'
         const headers = { 'Content-Type':'application/json'};
-        await this.$axios.post(url,userData);       
+        await this.$axios.post(url,userData, { withCredentials: true });       
         location.href = '/user/signupcompleted'; 
       } else {
         alert('이메일 중복을 확인해주세요')
       }
-      
     },
     // 비밀번호 확인
     passwordConfirm(){

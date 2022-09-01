@@ -61,7 +61,7 @@ export default {
     logOut () {
       this.$axios.get('http://localhost:3000/user/logout').then(response => {
         this.deleteAllCookies()
-        location.href = '/'
+        location.reload()
       }).catch(error => {
         console.log(error)
       })
