@@ -83,9 +83,11 @@ router.post('/login', isNotLoggedIn, async (req, res, next)=>{
 });
 
 router.get('/logout', (req, res) => {
-  req.logout();
-  req.session.destroy();
-  res.redirect('/');
+  req.logOut();
+  req.session.destroy(()=>{
+    res.clearCookie('connect.sid');
+    res.redirect('/');
+  });
 });
 
 //회원정보 조회
