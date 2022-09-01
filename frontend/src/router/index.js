@@ -115,6 +115,14 @@ const routes = [
       )
   },
   {
+    path: '/user/signout',
+    name: 'SignOutPage',
+    component: () =>
+      import(
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/5_mypage/SignOutView.vue'
+      )
+  },
+  {
     path: '/user/admin',
     name: 'AdminPage',
     component: () =>

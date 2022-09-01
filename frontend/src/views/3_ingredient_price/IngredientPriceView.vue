@@ -142,7 +142,7 @@ export default {
       this.selectedItem = this.itemList[i].item_name
       this.chartData.datasets[0].data = [Number(this.itemList[i].dpr6.replace(',', '')), Number(this.itemList[i].dpr5.replace(',', '')), Number(this.itemList[i].dpr4.replace(',', '')), Number(this.itemList[i].dpr3.replace(',', '')), Number(this.itemList[i].dpr2.replace(',', ''))]
       console.log(this.selectedItem)
-      window.scrollTo({ top: 170, behavior: 'smooth' })
+      window.scrollTo({ top: 150, behavior: 'smooth' })
     }
   }
 }

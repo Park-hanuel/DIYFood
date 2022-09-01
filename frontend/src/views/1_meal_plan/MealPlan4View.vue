@@ -22,70 +22,85 @@
           <h1>레시피 선택</h1>
           <p>선택하신 재료를 가장 많이 포함한 순서대로 레시피들을 추천합니다. 레시피를 선택해주세요.</p>
         </div>
-        <!-- Recipe Card -->
-        <div v-for="(data, index) in recipeList" :key="index">
-          <div name="card" class="card-custom">
-            <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 5%;">
-              <img :src=data.foodImageURL width="100%" style="margin: -18%;" onerror="this.src='https://ifh.cc/g/RXYY1z.png'">
+        <!-- Loading -->
+        <div style="width:100%">
+          <div v-if="isLoading" class="loading-container">
+            <div class="loading">
+              <Fade-loader />
             </div>
-            <div style="height: 10%;"><h6 style="text-align:center; margin-top: 10px;">{{data.foodName}}</h6></div>
-            <div class="word" style="height: 30%;"><span>재료 : {{data.foodIngredient}}</span></div>
-            <div style="height: 10%; width: 100%; text-align:center;">
-              <p>선택
-                <label>
-                  <input type="checkbox" class="form-check-input">
-                </label>
-              </p>
+            <div class="loading-text">
+              <h4>레시피를 불러오는 중입니다.</h4>
+            </div>
+          </div>
+          <!-- Recipe Card -->
+          <div v-for="(data, index) in recipeList" :key="index">
+            <div name="card" class="card-custom">
+              <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 5%;">
+                <img :src=data.foodImage width="100%" style="margin: -18%;" onerror="this.src='https://ifh.cc/g/RXYY1z.png'">
+              </div>
+              <div style="height: 10%;"><h6 style="text-align:center; margin-top: 10px;">{{data.foodName}}</h6></div>
+              <div class="word" style="height: 30%;"><span>재료 : {{data.foodIngredient}}</span></div>
+              <div style="height: 10%; width: 100%; text-align:center;">
+                <span style="float:left;">재료 매칭률 : {{parseInt(data.percent)}}%</span>
+                <span style="float:right;"><b style="margin-right:5px">선택</b>
+                  <label>
+                    <input type="checkbox" class="form-check-input" :value="data.foodCode" v-model="checkedList">
+                  </label>
+                </span>
+              </div>
             </div>
           </div>
         </div>
-        <div id="next-button" style="text-align:center;" >
-          <a href="/mealplan/step2">
-            <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" onClick="location.href=/mealplan/step2">
-          </a>
+        <div style="text-align:center; width:100%" >
+          <!-- <a href="/mealplan/step2"> -->
+            <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" @click="submitRecipeList()">
+          <!-- </a> -->
         </div>
       </section>
     </div>
   </div>
 </body>
-
 </template>
+
 <script>
+import FadeLoader from 'vue-spinner/src/FadeLoader.vue'
+
 export default {
-  components: {},
+  components: { FadeLoader },
   data () {
     return {
-      ingredients: '재료1, 재료2, 재료3, 재료4, 재료5, 재료6, 재료7',
-      recipeList: [
-        {
-          foodName: '죽',
-          foodImageURL: 'http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00017_2.png',
-          foodIngredient: '고구마죽, 고구마 100g(2/3개), 설탕 2g(1/3작은술), 찹쌀가루 3g(2/3작은술),물 200ml(1컵), 잣 8g(8알)',
-          intersectionIngredientList: ['고구마', '잣'],
-          persent: '30'
-        },
-        {
-          foodName: '누룽지 두부 계란죽',
-          foodImageURL: 'http://http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00016_2.png.foodsafetykorea.go.kr/uploadimg/cook/10_00017_2.png',
-          foodIngredient: '채소준비 애호박 30g(1/6개), 표고버섯 20g(2개), 당근 5g(3×2×1cm)  누룽지 죽 누룽지 70g(1/3컵), 순두부 100g(1/4모), 달걀 50g(1개),참기름 3g(2/3작은술), 소금 약간, 참깨 약간, 흰 후추 약간)',
-          intersectionIngredientList: ['달걀', '애호박'],
-          persent: '40'
-        },
-        {
-          foodName: '고구마죽',
-          foodImageURL: 'http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00017_2.png',
-          foodIngredient: '고구마죽, 고구마 100g(2/3개), 설탕 2g(1/3작은술), 찹쌀가루 3g(2/3작은술),물 200ml(1컵), 잣 8g(8알)',
-          intersectionIngredientList: ['고구마', '잣'],
-          persent: '30'
-        }
-      ]
+      isLoading: true,
+      recipeList: [],
+      checkedList: [],
+      date: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()
     }
   },
   setup () {},
-  created () {},
+  created () {
+    this.getRecipeData()
+  },
   mounted () {},
   unmounted () {},
-  methods: {}
+  methods: {
+    getRecipeData () {
+      this.$axios.get('http://localhost:3000/recipe/userlist', { withCredentials: true }).then(response => {
+        console.log('### response: ' + JSON.stringify(response))
+        this.recipeList = response.data
+        this.isLoading = false
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    submitRecipeList () {
+      this.$axios.post('http://localhost:3000/recipe/userlist', { recipeList: this.checkedList, date: this.date }, { withCredentials: true })
+        .then(function (response) {
+          console.log(response)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
+  }
 }
 </script>
 
@@ -113,5 +128,21 @@ export default {
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
+  }
+  .loading {
+    z-index: 2;
+    position: fixed;
+    top: 50%;
+    left: 62.6%;
+    transform: translate(-50%, -50%);
+  }
+  .loading-text {
+    text-align: center;
+    position:relative;
+    top: 70%;
+  }
+  .loading-container {
+    width: 100%;
+    height: 230px;
   }
 </style>

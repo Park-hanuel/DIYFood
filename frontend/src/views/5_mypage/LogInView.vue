@@ -72,7 +72,7 @@ export default {
       .then((res)=>{
         console.log(res)
         if(res.data.user){  
-          this.$router.push({name:"home"});
+          location.href='/'
         }else if(res.data.message){
           alert(res.data.message);
         }
