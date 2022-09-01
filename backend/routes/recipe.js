@@ -63,7 +63,7 @@ router.get('/userlist', async function(req, res, next){
 
         const recipeList =[];
 
-        Promise.all()
+        //Promise.all()
         //foodCodeList.length 
         for(let i = 0 ; i< 30; i++){
             const foodItemCode = await models.Recipe.findAll({
@@ -108,13 +108,13 @@ router.get('/userlist', async function(req, res, next){
 })
 
 router.post('/userlist', async function(req, res, next){ 
-    //const userId = res.locals.user.id;
+    const userId = res.locals.user.id;
     const userRecipeList = req.body.recipeList;
     const date = req.body.date;
 
     for(let i = 0 ; i<userRecipeList.length;i++){
         await models.UserRecipe.create({
-            userId : 4,
+            userId : userId,
             foodCode : userRecipeList[i],
             date : date,   
         })
