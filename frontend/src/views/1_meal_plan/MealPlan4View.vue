@@ -53,7 +53,7 @@
         </div>
         <div style="text-align:center; width:100%" >
           <!-- <a href="/mealplan/step2"> -->
-            <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" @click="submitRecipeList()">
+            <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" style="margin-left:30%; margin-right: 30%" @click="submitRecipeList()">
           <!-- </a> -->
         </div>
       </section>

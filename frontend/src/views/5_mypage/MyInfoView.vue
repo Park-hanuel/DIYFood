@@ -67,9 +67,9 @@ export default {
   data: function () {
   return {
     user: {
-      userid: null,
-      name: null,
-      password: null
+      email: '',
+      name: '',
+      password: ''
     }
   }
 },
@@ -82,17 +82,18 @@ export default {
   },
   unmounted() {},
   methods: {
-    getUserInfo(){
-      const url = 'http://localhost:3000/user/info';
+    getUserInfo () {
+      const url = 'http://localhost:3000/user/info'
       this.$axios.get(url, { withCredentials: true })
-      .then((res)=> {
-        if(res.data){
-          this.user.email = res.data.email;
-          this.user.name = res.data.name;
-        }else if(res.data.message){
-          alert(res.data.message);
-        }
-      });
+        .then((res) => {
+          if (res.data) {
+            console.log(res.data)
+            this.user.email = res.data.email
+            this.user.name = res.data.name
+          } else if (res.data.message) {
+            alert(res.data.message)
+          }
+        })
     },
     // user info modify submit
     submitForm(){
