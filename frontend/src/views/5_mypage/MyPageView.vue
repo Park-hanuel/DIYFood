@@ -32,11 +32,8 @@
         </section>
       </a>
     </div>
-    <div style="display: inline-block;">
-      <a href="">
-        <input type="button" class="btn btn-lg next-button" value="로그아웃">
-      </a>
-      <a href="">
+    <div style="display: inline-block; width:100%;">
+      <a href="/user/signout">
         <input type="button" class="btn btn-lg next-button" value="회원 탈퇴">
       </a>
     </div>

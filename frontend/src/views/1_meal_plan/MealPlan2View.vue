@@ -53,6 +53,7 @@
                 </tr>
               </tbody>
             </table>
+            {{checkedItemCode}}
           </div>
           <div id="next-button" style="text-align:center;" >
             <a href="/mealplan/step3">

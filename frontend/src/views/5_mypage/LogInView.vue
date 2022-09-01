@@ -27,7 +27,7 @@
                         </div>
                       </div>
                       <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                        <button type="submit" class="btn btn-primary btn-lg" @click="submitForm()">로그인</button>
+                        <a href="/"><button type="submit" class="btn btn-primary btn-lg" @click="submitForm()">로그인</button></a>
                         <a href="/user/signup" class="btn btn-primary btn-lg">회원가입</a>
                       </div>
                     </div>
@@ -72,7 +72,7 @@ export default {
       .then((res)=>{
         console.log(res)
         if(res.data.user){  
-          this.$router.push({name:"home"});
+          location.href='/'
         }else if(res.data.message){
           alert(res.data.message);
         }
