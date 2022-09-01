@@ -28,38 +28,76 @@ const launch = async function() {
 
 const goto = async function(url) {
     return await page.goto(url)
+    
 }
 
-const getData = async function (i) {
+const getData = async function () {
 
     // for(var i=1; i < 8; i++) {
+    let x = 10
+    console.log(x)
 
         await page.waitForSelector('#searchForm > div > div.table-wrap.mb100 > div > table')
 
-        const livestock_price = await page.evaluate(function(i){
-            
+        const livestock_price = await page.evaluate(async function(){
+            // await foo();
             var num = document.querySelector("#searchCondition2");
             returnData = []
 
+
             for(var i=1; i < 8; i++) {
+                let y = 10
+                console.log(y)
                 document.querySelector(`#searchCondition1 > option:nth-child(${i})`).selected = true;
+                setTimeout(10000);
+                console.log('before waiting');
+
+                setTimeout(function(){
+                    console.log('waiting');
+                }, 4000)
+
+                console.log('after waiting');
                 // document.querySelector("#ipt_search").click();
-                
 
                 for(var j=1; j < num.options.length; j++) {
-                    document.querySelector(`#searchCondition2 > option:nth-child(${j})`)
-                    document.querySelector("#ipt_search").click();
 
                     var Price = document.querySelector('#searchForm > div > div.table-wrap.mb100 > div > table > tbody > tr:nth-child(4) > td:nth-child(6)').innerText
+                    console.log(Price)
 
+                    document.querySelector(`#searchCondition2 > option:nth-child(${j})`)
+                    document.querySelector("#ipt_search").click();
+                    
                     var jsonData = {
                         Price
                     }
-                    console.log(Price)
+                    // console.log(Price)
     
                     if(jsonData.Price != undefined) {
                         returnData.push(jsonData)  
                     }
+
+                    function sleep(t){
+                        return new Promise(resolve=>setTimeout(resolve,t));
+                     }
+                      
+                      
+                      
+                     (async function(){
+                       //메인 코드
+                       console.log("시작!");
+                       await sleep(5000);
+                       console.log("1초 뒤에 찍힘");
+                     })();
+                    
+
+                    // var jsonData = {
+                    //     Price
+                    // }
+                    // // console.log(Price)
+    
+                    // if(jsonData.Price != undefined) {
+                    //     returnData.push(jsonData)  
+                    // }
 
 
                 }
@@ -72,7 +110,7 @@ const getData = async function (i) {
             }
             return returnData
             
-        },i)
+        })
         finalData = finalData.concat(livestock_price)
 
         // await page.evaluate(function(i){
