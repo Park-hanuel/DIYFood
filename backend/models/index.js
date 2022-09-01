@@ -6,6 +6,7 @@ const Ingredient = require('./Ingredient');
 const ExistIngredient = require('./ExistIngredient');
 const LiveIngredient = require('./LiveIngredient');
 const UserIngredient = require('./UserIngredient');
+const UserRecipe = require('./UserRecipe');
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
 
@@ -22,6 +23,7 @@ db.LiveIngredient = LiveIngredient;
 db.UserIngredient = UserIngredient;
 db.RecipeNutrient = RecipeNutrient;
 db.Recipe = Recipe;
+db.UserRecipe = UserRecipe;
 
 User.init(sequelize);
 ExistIngredient.init(sequelize);
@@ -30,6 +32,7 @@ Ingredient.init(sequelize);
 UserIngredient.init(sequelize);
 RecipeNutrient.init(sequelize);
 Recipe.init(sequelize);
+UserRecipe.init(sequelize);
 
 User.associate(db);
 ExistIngredient.associate(db);
@@ -38,5 +41,6 @@ LiveIngredient.associate(db);
 UserIngredient.associate(db);
 RecipeNutrient.associate(db);
 Recipe.associate(db);
+UserRecipe.associate(db);
 
 module.exports = db;
