@@ -6,12 +6,6 @@ const User = require('../models/user');
 
 const router = express.Router();
 
-//해당 라우터 모든 요청에 대해 값 집어넣기
-router.use((req,res,next)=>{
-  res.locals.user = req.user;
-  next();
-})
-
 router.post('/signup', isNotLoggedIn, async (req, res, next) => {
   const {email, password, name} = req.body;
   try{
@@ -89,9 +83,11 @@ router.post('/login', isNotLoggedIn, async (req, res, next)=>{
 });
 
 router.get('/logout', (req, res) => {
-  req.logout();
-  req.session.destroy();
-  res.redirect('/');
+  req.logOut();
+  req.session.destroy(()=>{
+    res.clearCookie('connect.sid');
+    res.redirect('/');
+  });
 });
 
 //회원정보 조회
