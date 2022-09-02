@@ -2,20 +2,17 @@ const express = require('express');
 const passport = require('passport');
 const pbkdf2 = require('crypto');
 const { isLoggedIn, isNotLoggedIn, isAdmin } = require('./middlewares');
-const User = require('../models/user');
-
+const models = require('../models');
+const { RecipeNutrient } = require('../models');
+const sequelize = require("sequelize");
 const router = express.Router();
 
-//해당 라우터 모든 요청에 대해 값 집어넣기
-router.use((req,res,next)=>{
-  res.locals.user = req.user;
-  next();
-})
+const Op = sequelize.Op;
 
 router.post('/signup', isNotLoggedIn, async (req, res, next) => {
   const {email, password, name} = req.body;
   try{
-    const exUser = await User.findOne({where:{email}});
+    const exUser = await models.User.findOne({where:{email}});
     if(exUser){
       return res.redirect('/join?error=exist');
     }
@@ -39,7 +36,7 @@ const insertUserInfo = async(email, password, name) =>{
   const cryptedPassword = pbkdf2.pbkdf2Sync(password, randomSalt, 65536, 64,"sha512").toString('hex');
   const passwordWithSalt = cryptedPassword + "$" + randomSalt;
 
-  await User.create({
+  await models.User.create({
     email : email,
     password : passwordWithSalt,
     name : name,
@@ -52,7 +49,7 @@ const insertUserInfo = async(email, password, name) =>{
 router.get('/checkemail',async(req, res) => {
   const email= req.query.email;
   if(email !== undefined){
-    const user = await User.findOne({where: {email:email}});
+    const user = await models.User.findOne({where: {email:email}});
     if(user){
       res.send('0');
     }else{
@@ -74,7 +71,7 @@ router.post('/login', isNotLoggedIn, async (req, res, next)=>{
       return next(authError);
     }
     if(!user){
-      return res.redirect(`/?loginError=${info.message}`);
+      return res.send(info.message);
     }
     return req.login(user, (loginError)=>{
       //req.login이 serializeUser 호출
@@ -89,14 +86,16 @@ router.post('/login', isNotLoggedIn, async (req, res, next)=>{
 });
 
 router.get('/logout', (req, res) => {
-  req.logout();
-  req.session.destroy();
-  res.redirect('/');
+  req.logOut();
+  req.session.destroy(()=>{
+    res.clearCookie('connect.sid');
+    res.redirect('/');
+  });
 });
 
 //회원정보 조회
 router.get('/info', isLoggedIn, (req, res)=>{
-  res.send(req.user);
+  res.send(res.locals.user);
 })
 
 //회원정보 수정
@@ -112,7 +111,7 @@ router.patch('/info', async (req, res)=>{
 
 const modifyUserInfo = async (email,password,name) =>{
   const passwordWithSalt = await encryprtPassword(password);
-  await User.update({
+  await models.User.update({
       password : passwordWithSalt,
       name : name,
     },{
@@ -120,23 +119,65 @@ const modifyUserInfo = async (email,password,name) =>{
   });
 }
 
-//회원 정보 삭제
+//회원 정보 및 전체 정보 삭제
 router.delete('/info',async(req, res)=>{
-  await deleteUserInfo(req.user.email);
+  const id = req.user.email;
+  await deleteAllInfo(id); 
   res.send('0');
 })
 
-const deleteUserInfo = async(email)=>{
-  await User.destroy({
+const deleteAllInfo = async(email)=>{
+  const user = await models.User.findOne({
+    where: {email:email}
+  })
+  await models.ExistIngredient.destroy({
+    where: {userId : user.id}
+  })
+  await models.UserIngredient.destroy({
+    where: {userId : user.id}
+  })
+  await models.UserRecipe.destroy({
+    where: {userId : user.id}
+  })
+  await models.User.destroy({
     where: {email : email}
   });
 }
+
 //회원 리스트 조회
 router.get('/admin',  async (req, res, next)=>{
-  const userList = await User.findAll({
+  const userList = await models.User.findAll({
     attributes : ['email','name','createdAt']
   });
   res.send(userList);
+})
+
+//회원 월별 식단 리스트 제공
+router.get('/recipelist',  async (req, res)=>{
+  const id = req.user.id;
+  const month = req.query.month;
+  const recipeList = await models.UserRecipe.findAll({
+    include: [
+      {
+        model: RecipeNutrient,
+        attributes: ['foodImage', 'foodName']
+      }
+    ],
+    where: {userId : userId,
+          date: {[Op.like]: `%${month}%`}} 
+  })
+  res.send(recipeList);
+})
+
+//사용자 식단 삭제
+router.delete('/recipelist',async (req, res)=>{
+  const userId = req.user.id;
+  const date = req.body.date;
+  const recipeList = await models.UserRecipe.destroy({
+    where: {
+      userId : userId,
+      date: date} 
+  })
 })
 
 module.exports = router;

@@ -11,71 +11,138 @@
     <!-- 그래프, 시세표 영역 -->
     <div style="width:100%">
       <div class="graph-ingredient">
-        <LineChart
-        ref="LineChart"/>
-      </div>
-      <div style="width: 50%; float: right;">
-        <div>
-          <input type="button" class="btn btn-primary btn-lg btn-custom" value="곡류" @click="searchItem('1')">
-          <input type="button" class="btn btn-primary btn-lg btn-custom" value="견과·버섯" @click="searchItem('3')">
-          <input type="button" class="btn btn-primary btn-lg btn-custom" value="채소류" @click="searchItem('2')">
-          <input type="button" class="btn btn-primary btn-lg btn-custom" value="과일류" @click="searchItem('4')">
-          <input type="button" class="btn btn-primary btn-lg btn-custom" value="축산물" @click="searchItem('5')">
-          <input type="button" class="btn btn-primary btn-lg btn-custom" value="수산물" @click="searchItem('6')">
+        <div style="height:40px">
+          <h2>{{selectedItem}}</h2>
         </div>
-        <table class="table table-light table-custom">
-          <thead class="table-bordered">
-            <tr>
-              <th scope="col" style="width:14%;">품목</th>
-              <th scope="col" style="width:14%;">1일 전</th>
-              <th scope="col" style="width:14%;">1주일 전</th>
-              <th scope="col" style="width:14%;">2주일 전</th>
-              <th scope="col" style="width:14%;">1개월 전</th>
-              <th scope="col" style="width:14%;">1년 전</th>
-              <th scope="col" style="width:14%;">그래프</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td scope="row">쌀</td>
-              <td>47784</td>
-              <td>48882</td>
-              <td>48322</td>
-              <td>50534</td>
-              <td>61637</td>
-              <td><button class="btn" @click="selectGraph()"><img src="https://cdn-icons-png.flaticon.com/512/2652/2652234.png" style="width:30px"></button></td>
-            </tr>
-            <tr>
-              <td scope="row">찹쌀</td>
-              <td>3770</td>
-              <td>3850</td>
-              <td>3885</td>
-              <td>3836</td>
-              <td>5000</td>
-              <td><button class="btn"><img src="https://cdn-icons-png.flaticon.com/512/2652/2652234.png" style="width:30px"></button></td>
-            </tr>
-          </tbody>
-        </table>
+        <LineChartGenerator
+          :chart-options="chartOptions"
+          :chart-data="chartData"
+          :chart-id="chartId"
+          :dataset-id-key="datasetIdKey"
+          :plugins="plugins"
+          :css-classes="cssClasses"
+          :styles="styles"
+          :width="width"
+          :height="height"
+        />
+      </div>
+      <div style="width: 60%; float: right; text-align: center;">
+        <div>
+          <input type="button" class="btn btn-primary btn-lg btn-custom" value="곡류" @click="getPriceData(100)">
+          <input type="button" class="btn btn-primary btn-lg btn-custom" value="견과·버섯" @click="getPriceData(300)">
+          <input type="button" class="btn btn-primary btn-lg btn-custom" value="채소류" @click="getPriceData(200)">
+          <input type="button" class="btn btn-primary btn-lg btn-custom" value="과일류" @click="getPriceData(400)">
+          <input type="button" class="btn btn-primary btn-lg btn-custom" value="수산물" @click="getPriceData(600)">
+        </div>
+        <div style="padding: 1%">
+          <table class="table table-light table-custom">
+            <thead class="table-bordered">
+              <tr>
+                <th scope="col" style="width:10%;">품목</th>
+                <th scope="col" style="width:15%;">품종</th>
+                <th scope="col" style="width:10%;">1일 전</th>
+                <th scope="col" style="width:10%;">1주일 전</th>
+                <th scope="col" style="width:10%;">2주일 전</th>
+                <th scope="col" style="width:10%;">1개월 전</th>
+                <th scope="col" style="width:10%;">1년 전</th>
+                <th scope="col" style="width:10%;">그래프</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(data, index) in itemList" :key="index">
+                <td>{{data.item_name}}</td>
+                <td>{{data.kind_name}}</td>
+                <td>{{data.dpr2}}</td>
+                <td>{{data.dpr3}}</td>
+                <td>{{data.dpr4}}</td>
+                <td>{{data.dpr5}}</td>
+                <td>{{data.dpr6}}</td>
+                <td><button class="btn" @click="selectGraph(index)"><img src="https://cdn-icons-png.flaticon.com/512/2652/2652234.png" style="width:30px"></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </body>
 </template>
 
 <script>
-import LineChart from '@/components/LineChart'
+import { Line as LineChartGenerator } from 'vue-chartjs/legacy'
+import { Chart as ChartJS, Title, Tooltip, Legend, LineElement, LinearScale, CategoryScale, PointElement } from 'chart.js'
+ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, CategoryScale, PointElement)
 
 export default {
-  name: 'App',
-  components: { LineChart },
+  name: 'IngredientPage',
+  components: { LineChartGenerator },
+  created () {
+    this.getPriceData(100)
+  },
+  props: {
+    chartId: {
+      type: String,
+      default: 'line-chart'
+    },
+    datasetIdKey: {
+      type: String,
+      default: 'label'
+    },
+    width: {
+      type: Number,
+      default: 400
+    },
+    height: {
+      type: Number,
+      default: 400
+    },
+    cssClasses: {
+      default: '',
+      type: String
+    },
+    styles: {
+      type: Object,
+      default: () => {}
+    },
+    plugins: {
+      type: Array,
+      default: () => []
+    }
+  },
+  data () {
+    return {
+      chartData: {
+        labels: ['1년 전', '1개월 전', '2주일 전', '1주일 전', '1일 전'],
+        datasets: [
+          {
+            label: '최근 1년 동안의 시세 그래프',
+            backgroundColor: '#ffc803',
+            data: []
+          }
+        ]
+      },
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false
+      },
+      itemList: [],
+      selectedItem: '품목을 선택해주세요'
+    }
+  },
   methods: {
-    // 종류 버튼 아이템 필터링 이벤트
-    searchItem (code) {
-      // eslint-disable-next-line
-      this.itemList = this.metaItemList.filter(item => parseInt(item.itemCode / 100) == code)
+    getPriceData (code) {
+      this.$axios.get('http://localhost:3000/ingredient/list?category_code=' + code).then(response => {
+        console.log('### response: ' + JSON.stringify(response))
+        this.itemList = response.data
+      }).catch(error => {
+        console.log(error)
+      })
     },
     // 그래프 조회
-    selectGraph () {
-      this.$refs.LineChart.changeData()
+    selectGraph (i) {
+      this.selectedItem = this.itemList[i].item_name
+      this.chartData.datasets[0].data = [Number(this.itemList[i].dpr6.replace(',', '')), Number(this.itemList[i].dpr5.replace(',', '')), Number(this.itemList[i].dpr4.replace(',', '')), Number(this.itemList[i].dpr3.replace(',', '')), Number(this.itemList[i].dpr2.replace(',', ''))]
+      console.log(this.selectedItem)
+      window.scrollTo({ top: 150, behavior: 'smooth' })
     }
   }
 }
@@ -92,14 +159,16 @@ export default {
     padding: 50px;
   }
   .graph-ingredient {
-    width: 50%;
+    width: 40%;
+    padding:4px;
+    padding-right: 10px;
     float: left;
   }
   .btn-custom {
-    width: 15%;
+    width: 18%;
     font-size: 100%;
     padding: auto;
-    margin: 0.8%;
+    margin: 1%;
   }
   .table-custom {
     vertical-align: middle;

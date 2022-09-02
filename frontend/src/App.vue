@@ -17,7 +17,7 @@
         <div>
           <div v-if="cookie">
             <!--cookie가 true일 때 즉, 쿠키가 있다면 보여줄 목록-->
-            <button class="btn navbtn-custom" style="margin-right: 70px;" type="button" onclick="location.href='/user/login'">LOG OUT</button>
+            <button class="btn navbtn-custom" style="margin-right: 70px;" type="button" @click="logOut()">LOG OUT</button>
             <button class="btn navbtn-custom" type="button" onclick="location.href='/user/mypage'">MY PAGE</button>
           </div>
           <div v-else>  <!--쿠키가 없다면 보여줄 목록-->
@@ -51,10 +51,31 @@
 
 <script>
 export default {
-  methods: {
+  created () {},
+  computed: {
     cookie () {
-      const cookie = document.cookie
-      return cookie.includes('connect.sid')
+      return document.cookie
+    }
+  },
+  methods: {
+    logOut () {
+      this.$axios.get('http://localhost:3000/user/logout').then(response => {
+        this.deleteAllCookies()
+        location.reload()
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    /* eslint-disable */
+    deleteAllCookies () {
+      var cookies = document.cookie.split(";")
+
+      for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i]
+          var eqPos = cookie.indexOf("=")
+          var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie
+          document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT"
+      }
     }
   }
 }

@@ -22,73 +22,91 @@
           <h1>레시피 선택</h1>
           <p>선택하신 재료를 가장 많이 포함한 순서대로 레시피들을 추천합니다. 레시피를 선택해주세요.</p>
         </div>
-        <!-- Recipe Card -->
-        <div name="card" class="card-custom">
-          <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 5%;">
-            <img src="@/assets/vicky-ng-8hCcjf2BxTk-unsplash.jpg" width="100%" style="margin: -30%; ">
+        <!-- Loading -->
+        <div style="width:100%">
+          <div v-if="isLoading" class="loading-container">
+            <div class="loading">
+              <Fade-loader />
+            </div>
+            <div class="loading-text">
+              <h4>레시피를 불러오는 중입니다.</h4>
+            </div>
           </div>
-          <div style="height: 10%;"><h6 style="text-align:center; margin-top: 10px;">비빔밥</h6></div>
-          <div style="height: 30%;"><span>재료 : {{ingredients}}</span></div>
-          <div style="height: 10%; width: 100%; text-align:center;">
-            <p>선택
-              <label>
-                <input type="checkbox" class="form-check-input">
-              </label>
-            </p>
-          </div>
-        </div>
-        <div name="card" class="card-custom">
-          <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 5%;">
-            <img src="@/assets/vicky-ng-8hCcjf2BxTk-unsplash.jpg" width="100%" style="margin: -30%; ">
-          </div>
-          <div style="height: 10%;"><h6 style="text-align:center; margin-top: 10px;">비빔밥</h6></div>
-          <div style="height: 30%;"><span>재료 : {{ingredients}}</span></div>
-          <div style="height: 10%; width: 100%; text-align:center;">
-            <p>선택
-              <label>
-                <input type="checkbox" class="form-check-input">
-              </label>
-            </p>
-          </div>
-        </div>
-        <div name="card" class="card-custom">
-          <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 5%;">
-            <img src="@/assets/vicky-ng-8hCcjf2BxTk-unsplash.jpg" width="100%" style="margin: -30%; ">
-          </div>
-          <div style="height: 10%;"><h6 style="text-align:center; margin-top: 10px;">비빔밥</h6></div>
-          <div style="height: 30%;"><span>재료 : {{ingredients}}</span></div>
-          <div style="height: 10%; width: 100%; text-align:center;">
-            <p>선택
-              <label>
-                <input type="checkbox" class="form-check-input">
-              </label>
-            </p>
+          <!-- Recipe Card -->
+          <div v-for="(data, index) in recipeList" :key="index">
+            <div name="card" class="card-custom">
+              <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 5%;">
+                <img :src=data.foodImage width="100%" style="margin: -18%;" onerror="this.src='https://ifh.cc/g/RXYY1z.png'">
+              </div>
+              <div style="height: 10%;"><h6 style="text-align:center; margin-top: 10px;">{{data.foodName}}</h6></div>
+              <div class="word" style="height: 30%;"><span>재료 : {{data.foodIngredient}}</span></div>
+              <div style="height: 10%; width: 100%; text-align:center;">
+                <span style="float:left;">재료 매칭률 : {{parseInt(data.percent)}}%</span>
+                <span style="float:right;"><b style="margin-right:5px">선택</b>
+                  <label>
+                    <input type="checkbox" class="form-check-input" :value="data.foodCode" v-model="checkedList" @click="selectItem(index)">
+                  </label>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
-        <div id="next-button" style="text-align:center;" >
-          <a href="/mealplan/step2">
-            <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" onClick="location.href=/mealplan/step2">
-          </a>
+        <div style="text-align:center; width:100%" >
+          <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" style="margin-left:30%; margin-right: 30%" @click="submitRecipeList()">
         </div>
       </section>
     </div>
   </div>
 </body>
-
 </template>
+
 <script>
+import FadeLoader from 'vue-spinner/src/FadeLoader.vue'
+
 export default {
-  components: {},
+  components: { FadeLoader },
   data () {
     return {
-      ingredients: '재료1, 재료2, 재료3, 재료4, 재료5, 재료6, 재료7'
+      isLoading: true,
+      recipeList: [],
+      checkedList: [],
+      checkedItemName: [],
+      date_start: localStorage.getItem('date_start')
     }
   },
   setup () {},
-  created () {},
+  created () {
+    this.getRecipeData()
+  },
   mounted () {},
   unmounted () {},
-  methods: {}
+  methods: {
+    // 아이템 추가/삭제
+    selectItem (n) {
+      if (this.checkedItemName.includes(this.recipeList[n].foodName) === false) {
+        this.checkedItemName.push(this.recipeList[n].foodName)
+      } else {
+        this.checkedItemName.splice(this.checkedItemName.indexOf(this.recipeList[n].foodName), 1)
+      }
+    },
+    getRecipeData () {
+      this.$axios.get('http://localhost:3000/recipe/userlist', { withCredentials: true }).then(response => {
+        console.log('### response: ' + JSON.stringify(response))
+        this.recipeList = response.data
+        this.isLoading = false
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    submitRecipeList () {
+      const url = 'http://localhost:3000/recipe/userlist'
+      const data = { recipeList: this.checkedList, date: this.date_start }
+      this.$axios.post(url, data, { withCredentials: true })
+      console.log(data)
+      localStorage.setItem('recipe', this.checkedItemName)
+      location.href = '/mealplan/step5'
+    }
+  }
 }
 </script>
 
@@ -106,5 +124,31 @@ export default {
     padding: 10px;
     float: left;
     margin: 1.6%;
+  }
+  .word {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-wrap : break-word;
+    text-align : left;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }
+  .loading {
+    z-index: 2;
+    position: fixed;
+    top: 50%;
+    left: 62.6%;
+    transform: translate(-50%, -50%);
+  }
+  .loading-text {
+    text-align: center;
+    position:relative;
+    top: 70%;
+  }
+  .loading-container {
+    width: 100%;
+    height: 230px;
   }
 </style>

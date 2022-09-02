@@ -51,6 +51,14 @@ const routes = [
       )
   },
   {
+    path: '/mealplan/step5',
+    name: 'MealPlanStep5',
+    component: () =>
+      import(
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/1_meal_plan/MealPlan5View.vue'
+      )
+  },
+  {
     path: '/recipe',
     name: 'Recipe',
     component: () =>
@@ -67,19 +75,19 @@ const routes = [
       )
   },
   {
-    path: '/user',
-    name: 'User',
-    component: () =>
-      import(
-        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/5_mypage/LogInSignUpView.vue'
-      )
-  },
-  {
     path: '/user/mypage',
     name: 'MyPage',
     component: () =>
       import(
         /* webpackChunkName: "event", webpackPrefetch:true */ '../views/5_mypage/MyPageView.vue'
+      )
+  },
+  {
+    path: '/user/mymealplan',
+    name: 'MyMealPlan',
+    component: () =>
+      import(
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/5_mypage/MyMealPlanView.vue'
       )
   },
   {
@@ -112,6 +120,14 @@ const routes = [
     component: () =>
       import(
         /* webpackChunkName: "event", webpackPrefetch:true */ '../views/5_mypage/MyInfoView.vue'
+      )
+  },
+  {
+    path: '/user/signout',
+    name: 'SignOutPage',
+    component: () =>
+      import(
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/5_mypage/SignOutView.vue'
       )
   },
   {

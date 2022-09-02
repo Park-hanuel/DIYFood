@@ -1,29 +1,26 @@
 const Sequelize = require('sequelize');
 
-module.exports = class UserIngredient extends Sequelize.Model {
+module.exports = class UserRecipe extends Sequelize.Model {
   static init(sequelize){
     return super.init({
-      itemCode : {
+      foodCode : {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      detailItemCode: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      price : {
+      date: {
         type: Sequelize.STRING(50),
-        allowNull: false
+        allowNull: false,
       },
     },{
       sequelize,
       timestamps: false,
-      modelName : 'UserIngredient',
+      modelName : 'UserRecipe',
       charset:'utf8',
       collate: 'utf8_general_ci'
     } );
 }
   static associate(db) {
-    db.UserIngredient.belongsTo(db.User, {foreignKey: "userId", targetKey: 'id'})
+    db.UserRecipe.belongsTo(db.User, {foreignKey: "userId", targetKey: 'id'})
+    db.UserRecipe.belongsTo(db.RecipeNutrient, {foreignKey: "foodCode", targetKey: 'foodCode'})
   }
 };

@@ -118,7 +118,21 @@
         </section>
         <!-- MyPage-->
         <section class="page-section padding" id="MyPage">
-            <div class="container">
+            <div class="container" v-if="cookie">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase" style="color:white ;">My Page</h2>
+                    <h3 class="section-subheading " style="color: white ;">마이페이지 | 로그아웃</h3>
+                </div>
+                <form id="MyPageForm">
+                    <div class="row align-items-stretch mb-5">
+                        <div class="text-center">
+                            <button class="btn btn-primary btn-xl text-uppercase" type="button" onclick="location.href='/user/mypage'">My Page</button>
+                            <button class="btn btn-primary btn-xl text-uppercase" type="button" @click="logOut()">Log Out</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="container" v-else>
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase" style="color:white ;">My Page</h2>
                     <h3 class="section-subheading " style="color: white ;">로그인 | 회원가입</h3>
@@ -134,7 +148,7 @@
             </div>
         </section>
         <!-- Footer-->
-        <footer class="footer py-4">
+        <footer class="footer py-4 footer-custom">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-4 text-lg-start">Copyright &copy; DIY Food 2022</div>
@@ -149,6 +163,32 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  computed: {
+    cookie () {
+      return document.cookie
+    }
+  },
+  methods: {
+    logOut () {
+      this.$axios.get('http://localhost:3000/user/logout').then(response => {
+        this.deleteAllCookies()
+        location.reload('/')
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    /* eslint-disable */
+    deleteAllCookies () {
+      var cookies = document.cookie.split(";")
+
+      for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i]
+          var eqPos = cookie.indexOf("=")
+          var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie
+          document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT"
+      }
+    }
   }
 }
 /* eslint-disable */
@@ -158,6 +198,10 @@ export default {
 @import "../css/styles.css";
 .padding {
     padding-block: 160px;
+}
+.footer-custom {
+    background-color: #676767;
+    color:white
 }
 </style>
   

@@ -8,11 +8,6 @@ const axios = require('axios');
 const server = require('../server');
 dotenv.config();
 
-router.use((req,res,next)=>{
-    res.locals.user = req.user;
-    next();
-  })
-
 //원재료 전일 시세 정보 리스트 제공
 router.get('/list',async function(req,res){
     //버튼 값에 따라 시세 정보 반환
@@ -56,9 +51,9 @@ router.post('/userlist', async function(req,res){
         for(let i = 0 ;i<itemCodeList.length;i++){
             models.UserIngredient.create({
                 userId : userId,
-                itemCode : itemCodeList[i].splitedCode[0],
-                detailItemCode : itemCodeList[i].splitedCode[1],
-                price : itemCodeList[i].splitedCode[2],
+                itemCode : itemCodeList[i].itemCode,
+                detailItemCode : itemCodeList[i].detailItemCode,
+                price : itemCodeList[i].price,
             });
         }
         res.send('done');

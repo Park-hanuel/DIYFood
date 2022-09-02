@@ -37,9 +37,10 @@
               <thead class="table-bordered">
                 <tr>
                   <th scope="col" style="width:10%">순번</th>
-                  <th scope="col" style="width:30%">품목</th>
-                  <th scope="col" style="width:30%">품종</th>
+                  <th scope="col" style="width:25%">품목</th>
+                  <th scope="col" style="width:25%">품종</th>
                   <th scope="col" style="width:20%">가격</th>
+                  <th scope="col" style="width:10%">수량</th>
                   <th scope="col" style="width:10%">선택</th>
                 </tr>
               </thead>
@@ -49,6 +50,11 @@
                   <td>{{data.itemName}}</td>
                   <td>{{data.detailItemName}}</td>
                   <td>{{data.price}}원</td>
+                  <td>
+                    <label>
+                      <input type="number" min="1" max="10" value="1">
+                    </label>
+                  </td>
                   <td>
                     <label>
                       <input type="checkbox" class="form-check-input" :value="data.id" v-model="checkedID" @click="selectItem(i)">
@@ -86,7 +92,8 @@ export default {
       totalCost: 0,
       subCodeList: [],
       finalCodeList: [],
-      checkedID: []
+      checkedID: [],
+      unit: 0
     }
   },
   setup () {},
@@ -158,6 +165,7 @@ export default {
           })
         // location.href = '/mealplan/step4'
       }
+      localStorage.setItem('newItem', this.checkedItemName)
     },
     codeSplit () {
       for (var i = 0; i < this.checkedItemCode.length; i++) {

@@ -16,9 +16,7 @@ const cors = require('cors');
 const {sequelize} = require('./models');
 const passportConfig = require('./passport');
 
-const userRouter = require('./routes/user');
-const indexRouter = require('./routes/index');
-const ingredientRouter = require('./routes/ingredient');
+const routes = require('./routes');
 
 const app = express();
 
@@ -57,11 +55,9 @@ app.use(session({
 app.use(passport.initialize());  // req 객체에 passport 설정을 담아줌
 app.use(passport.session()); //session 객체에 passport 정보를 저장
 
-app.use('/', indexRouter);
-app.use('/user', userRouter);
-app.use('/ingredient',ingredientRouter);
+app.use('/', routes);
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(require('./config/swaggerDoc')));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(require('./config/swaggerdoc')));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
