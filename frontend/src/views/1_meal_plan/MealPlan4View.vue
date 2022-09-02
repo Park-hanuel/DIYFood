@@ -44,7 +44,7 @@
                 <span style="float:left;">재료 매칭률 : {{parseInt(data.percent)}}%</span>
                 <span style="float:right;"><b style="margin-right:5px">선택</b>
                   <label>
-                    <input type="checkbox" class="form-check-input" :value="data.foodCode" v-model="checkedList">
+                    <input type="checkbox" class="form-check-input" :value="data.foodCode" v-model="checkedList" @click="selectItem(index)">
                   </label>
                 </span>
               </div>
@@ -52,9 +52,7 @@
           </div>
         </div>
         <div style="text-align:center; width:100%" >
-          <!-- <a href="/mealplan/step2"> -->
-            <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" style="margin-left:30%; margin-right: 30%" @click="submitRecipeList()">
-          <!-- </a> -->
+          <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" style="margin-left:30%; margin-right: 30%" @click="submitRecipeList()">
         </div>
       </section>
     </div>
@@ -72,7 +70,8 @@ export default {
       isLoading: true,
       recipeList: [],
       checkedList: [],
-      date: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()
+      checkedItemName: [],
+      date_start: localStorage.getItem('date_start')
     }
   },
   setup () {},
@@ -82,6 +81,14 @@ export default {
   mounted () {},
   unmounted () {},
   methods: {
+    // 아이템 추가/삭제
+    selectItem (n) {
+      if (this.checkedItemName.includes(this.recipeList[n].foodName) === false) {
+        this.checkedItemName.push(this.recipeList[n].foodName)
+      } else {
+        this.checkedItemName.splice(this.checkedItemName.indexOf(this.recipeList[n].foodName), 1)
+      }
+    },
     getRecipeData () {
       this.$axios.get('http://localhost:3000/recipe/userlist', { withCredentials: true }).then(response => {
         console.log('### response: ' + JSON.stringify(response))
@@ -92,13 +99,12 @@ export default {
       })
     },
     submitRecipeList () {
-      this.$axios.post('http://localhost:3000/recipe/userlist', { recipeList: this.checkedList, date: this.date }, { withCredentials: true })
-        .then(function (response) {
-          console.log(response)
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
+      const url = 'http://localhost:3000/recipe/userlist'
+      const data = { recipeList: this.checkedList, date: this.date_start }
+      this.$axios.post(url, data, { withCredentials: true })
+      console.log(data)
+      localStorage.setItem('recipe', this.checkedItemName)
+      location.href = '/mealplan/step5'
     }
   }
 }

@@ -32,8 +32,8 @@
               <p></p>
               <div>
                 <p>2. 기간을 설정해주세요.</p>
-                <p class="margin_left">기간은 <strong>일주일</strong> 기준으로 설정할 수 있습니다.
-                <br>식재료 가격은 <strong>현 시세</strong>를 기준으로 계산됩니다.</p>
+                <p class="margin_left">기간은 <strong>일주일</strong>기준으로 설정할 수 있습니다.
+                <br>식재료 가격은 <strong>현재 시장 가격</strong>을 기준으로 계산됩니다.</p>
                 <div class="container" style="margin-left:10px">
                   <date-picker
                     inline
@@ -45,6 +45,7 @@
                     :value="weekTime"
                     :disabled-date="dislabedDate"
                     @pick="calendarPick"
+                    is-expanded
                   />
                   <br />
                   선택 기간 : {{ dateRange.start }} - {{ dateRange.end }}

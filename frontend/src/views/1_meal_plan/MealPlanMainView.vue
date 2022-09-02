@@ -28,9 +28,7 @@
         </div>
       </section>
       <div id="next-button" style="text-align:center;" >
-        <a href="/mealplan/step1">
-          <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="START!">
-        </a>
+        <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" @click="click()" value="START!">
       </div>
     </div>
   </body>
@@ -43,11 +41,25 @@ export default {
       sampleData: ''
     }
   },
+  computed: {
+    cookie () {
+      return document.cookie
+    }
+  },
   setup () {},
   created () {},
   mounted () {},
   unmounted () {},
-  methods: {}
+  methods: {
+    click () {
+      if (this.cookie) {
+        location.href = '/mealplan/step1'
+      } else {
+        alert('로그인이 필요한 기능입니다.')
+        location.href = 'user/login'
+      }
+    }
+  }
 }
 </script>
 
