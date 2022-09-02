@@ -2,22 +2,9 @@ import time
 import csv
 import json
 from dotenv import load_dotenv;
-import os 
-# import mysql.connector
 import pandas as pd
 import numpy as np
 
-# dotenv_file =dotenv.find_dotenv()
-# dotenv.load_dotenv(dotenv_file)
-# dotenv.config();
-
-# load_dotenv()
-# conn_aws = mysql.connector.connect(
-#     host= "diy-food.c04sxzppt9dy.us-west-1.rds.amazonaws.com",
-#     user = "admin",  
-#     password = "Kskim0319!",
-#     database = "diyfood",
-# )
 from sqlalchemy import create_engine
 import pymysql
 import pandas as pd
