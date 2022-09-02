@@ -1,20 +1,16 @@
 const express = require('express');
 const { sequelize } = require('../models');
+const { QueryTypes } = require("sequelize"); 
 const router = express.Router();
 
 const models = require('../models');
-
-const getUserIngridentList = async function(){
-    
-}
-
 
 //유저 선택 재료 기반 레시피 선정
 router.get('/userlist', async function(req, res, next){  
     try{
         //1.유저 재료 리스트 만들기
         const userId = res.locals.user.id;
-        //const userId = 6; for test
+        // const userId = 4; 
         const userIngredientList  = [];
 
         // 기존 재료와 선택 재료 리스트를 합칩니다.
@@ -41,31 +37,31 @@ router.get('/userlist', async function(req, res, next){
         //2. 레시피 별 재료 갯수 확인
         const recipeIngredientCountList = [];
         const recipeIngredientCount = await models.Recipe.findAll({
-            attributes : [[sequelize.fn('count', sequelize.col('foodCode')),'count']],
+            attributes : [[sequelize.fn('count', sequelize.col('*')),'count']],
             group: [ 'foodCode' ],
             order: ['foodCode'],
         });
 
+
         recipeIngredientCount.forEach((item,idx)=>{
             recipeIngredientCountList.push(item.dataValues.count)
         });
+
         console.log(recipeIngredientCountList);
 
         //3. 사용자의 userIngredient list 중 한개라도 포함된 foodCode를 배열로 받아온다.
         foodCodeList =[];
-        const foodCode = await models.Recipe.findAll({
-            attributes: [sequelize.fn('DISTINCT', sequelize.col('foodCode')), 'foodCode'],
-            where: {itemCode: uniqueList}
-        })
+        const query = `select foodCode from Recipes where itemCode in (?) group by foodCode having count(*) >= 4 order by foodCode`;
+        const foodCode = await sequelize.query(query, {type: QueryTypes.SELECT, replacements: [uniqueList]});
+
         foodCode.forEach((item,idx)=>{
             foodCodeList.push(item.foodCode)
         });
 
         const recipeList =[];
 
-        //Promise.all()
         //foodCodeList.length 
-        for(let i = 0 ; i< 30; i++){
+        for(let i = 0 ; i< 100  ; i++){
             const foodItemCode = await models.Recipe.findAll({
                 attributes: ['itemCode'],
                 where: {foodCode: foodCodeList[i]}
@@ -76,8 +72,6 @@ router.get('/userlist', async function(req, res, next){
             });
 
             let intersectionIngredientList  = uniqueList.filter(x => foodIngredientList.includes(x));
-
-            if(intersectionIngredientList.length < 3) continue;
 
             const percent = (intersectionIngredientList.length/recipeIngredientCountList[foodCodeList[i]]) * 100;
 
