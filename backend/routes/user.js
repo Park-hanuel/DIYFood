@@ -173,11 +173,27 @@ router.get('/recipelist',  async (req, res)=>{
 router.delete('/recipelist',async (req, res)=>{
   const userId = req.user.id;
   const date = req.body.date;
-  const recipeList = await models.UserRecipe.destroy({
+  await models.UserRecipe.destroy({
     where: {
       userId : userId,
       date: date} 
   })
+  res.status(200);
 })
 
+//사용자 레시피 삭제
+router.delete('/recipe',async (req, res)=>{
+  const userId = req.user.id;
+  const date = req.body.date;
+  const foodCode = req.body.foodCode;
+
+  await models.UserRecipe.destroy({
+    where: {
+      userId : userId,
+      date: date,
+      foodCode : foodCode
+    }
+  })
+  res.status(200);
+})
 module.exports = router;

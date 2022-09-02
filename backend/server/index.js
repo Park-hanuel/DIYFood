@@ -1,15 +1,11 @@
 const dotenv = require('dotenv');
 const axios = require('axios');
-const liveIngredient = require('../models/liveIngredient');
+const models = require('../models');
 dotenv.config();
 
 //axios using
-async function getTodayData(p_item_category_code){
+async function getTodayData(p_item_category_code, p_regday){
     try {
-        //전날 정보 제거
-        await liveIngredient.destroy({where:{}});
-        console.log(p_item_category_code);
-        const p_regday='2022-08-24';
         let itemList = [];
         const p_cert_key = process.env.GROCERY_APIKEY;
         const p_cert_id = 2676; 
@@ -42,7 +38,7 @@ async function getTodayData(p_item_category_code){
                 unit : unit,
             }
             itemList.push(item);
-            await liveIngredient.create(item);
+            await models.LiveIngredient.create(item);
 
         }
             //await liveIngredient.bulkCreate([itemList]);

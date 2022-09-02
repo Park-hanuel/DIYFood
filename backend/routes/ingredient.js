@@ -12,6 +12,7 @@ dotenv.config();
 router.get('/list',async function(req,res){
     //버튼 값에 따라 시세 정보 반환
     const p_item_category_code= req.query.category_code;
+    
     //get Today Date
     const d =new Date();
     const p_regday = d.getFullYear() + "-" + ((d.getMonth() + 1) > 9 ? (d.getMonth() + 1).toString() : "0" + (d.getMonth() + 1)) + "-" + (d.getDate() > 9 ? d.getDate().toString() : "0" + d.getDate().toString());
@@ -41,13 +42,11 @@ router.get('/userlist',async function(req,res){
     }
 });
 
-//오늘 중 구현 예정
 router.post('/userlist', async function(req,res){
     const itemCodeList = req.body; //array (itemcode)
     console.log(itemCodeList);
     const userId = res.locals.user.id;
     try{
-        //프런트랑 협의해서 저장 값 확인하기
         for(let i = 0 ;i<itemCodeList.length;i++){
             models.UserIngredient.create({
                 userId : userId,
@@ -64,10 +63,15 @@ router.post('/userlist', async function(req,res){
 
 
 //추후 서버 정기 호출 함수로 변경 예정 (라우팅 말고)
-router.get('/db', function(req, res, next) {
+router.get('/db', async function(req, res, next) {
     const data = [100,200,300,400,500,600];
+    await models.LiveIngredient.destroy({where:{}});
+
+    const d =new Date();
+    const p_regday = d.getFullYear() + "-" + ((d.getMonth() + 1) > 9 ? (d.getMonth() + 1).toString() : "0" + (d.getMonth() + 1)) + "-" + (d.getDate() > 9 ? d.getDate().toString() : "0" + d.getDate().toString());
+
     for(let i = 0 ;i < 6; i++){
-        server.getTodayData(data[i]);
+        server.getTodayData(data[i],p_regday);
     }
     res.send('i');
 });
@@ -83,13 +87,16 @@ router.get('/existlist',async function(req,res){
 });
 
 router.post('/existlist', async function(req, res){
-    //user 세션값 받아오기 후 변경해야
     const itemCodeList = req.body; //array (itemcode)
     const userId =res.locals.user.id;
-    console.log("드디어 : "  ,res.locals.user.id);
+    
+    // 기존 저장 재료를 제거 후 새롭게 이번주 보유 재료를 저장
     try{
+        await models.ExistIngredient.destroy({
+            where: { userId : userId}
+        })
         for(let i = 0 ;i<itemCodeList.length;i++){
-            models.ExistIngredient.create({
+            await models.ExistIngredient.create({
                 userId : userId,
                 itemCode : itemCodeList[i],
             });
