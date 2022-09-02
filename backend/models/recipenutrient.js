@@ -50,5 +50,6 @@ module.exports = class RecipeNutrient extends Sequelize.Model {
   }
   static associate(db) {
     db.RecipeNutrient.hasMany(db.Recipe, {foreignKey: 'foodCode', sourceKey: 'foodCode'})
+    db.RecipeNutrient.hasMany(db.UserRecipe, {foreignKey: 'foodCode', sourceKey: 'foodCode'})
   }
 };
