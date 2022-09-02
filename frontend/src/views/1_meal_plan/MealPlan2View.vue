@@ -125,6 +125,7 @@ export default {
         .catch(function (error) {
           console.log(error)
         })
+      localStorage.setItem('haveItem', this.checkedItemName)
     }
   }
 }

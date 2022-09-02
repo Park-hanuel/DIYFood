@@ -165,6 +165,7 @@ export default {
           })
         // location.href = '/mealplan/step4'
       }
+      localStorage.setItem('newItem', this.checkedItemName)
     },
     codeSplit () {
       for (var i = 0; i < this.checkedItemCode.length; i++) {

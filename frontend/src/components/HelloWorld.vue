@@ -148,7 +148,7 @@
             </div>
         </section>
         <!-- Footer-->
-        <footer class="footer py-4">
+        <footer class="footer py-4 footer-custom">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-4 text-lg-start">Copyright &copy; DIY Food 2022</div>
@@ -173,7 +173,7 @@ export default {
     logOut () {
       this.$axios.get('http://localhost:3000/user/logout').then(response => {
         this.deleteAllCookies()
-        location.href = '/'
+        location.reload('/')
       }).catch(error => {
         console.log(error)
       })
@@ -198,6 +198,10 @@ export default {
 @import "../css/styles.css";
 .padding {
     padding-block: 160px;
+}
+.footer-custom {
+    background-color: #676767;
+    color:white
 }
 </style>
   
