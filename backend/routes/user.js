@@ -154,7 +154,8 @@ router.get('/admin',  async (req, res, next)=>{
 
 //회원 월별 식단 리스트 제공
 router.get('/recipelist',  async (req, res)=>{
-  const id = req.user.id;
+  console.log(req.user)
+  const userId = 4;
   const month = req.query.month;
   const recipeList = await models.UserRecipe.findAll({
     include: [
@@ -171,7 +172,7 @@ router.get('/recipelist',  async (req, res)=>{
 
 //사용자 식단 삭제
 router.delete('/recipelist',async (req, res)=>{
-  const userId = req.user.id;
+  const userId = 4;
   const date = req.body.date;
   await models.UserRecipe.destroy({
     where: {

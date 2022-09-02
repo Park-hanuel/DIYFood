@@ -39,7 +39,7 @@
                   <th scope="col" style="width:10%">순번</th>
                   <th scope="col" style="width:25%">품목</th>
                   <th scope="col" style="width:25%">품종</th>
-                  <th scope="col" style="width:20%">가격</th>
+                  <th scope="col" style="width:20%">가격(100g)</th>
                   <th scope="col" style="width:10%">수량</th>
                   <th scope="col" style="width:10%">선택</th>
                 </tr>
@@ -49,10 +49,10 @@
                   <td>{{i + 1}}</td>
                   <td>{{data.itemName}}</td>
                   <td>{{data.detailItemName}}</td>
-                  <td>{{data.price}}원</td>
+                  <td>{{data.price}} 원</td>
                   <td>
                     <label>
-                      <input type="number" min="1" max="10" value="1">
+                      <input type="number" min="1" max="10" :value=unit>
                     </label>
                   </td>
                   <td>
@@ -93,7 +93,7 @@ export default {
       subCodeList: [],
       finalCodeList: [],
       checkedID: [],
-      unit: 0
+      unit: 1
     }
   },
   setup () {},
