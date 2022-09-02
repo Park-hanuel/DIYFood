@@ -15,7 +15,7 @@
           </div>
         </section>
       </a>
-      <a href="">
+      <a href="/user/mymealplan">
         <section class="content-box">
           <img src="https://cdn-icons-png.flaticon.com/512/735/735742.png" alt="" class="img_style">
           <div style="margin-top:30px;">

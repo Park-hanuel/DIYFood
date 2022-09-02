@@ -71,7 +71,8 @@ export default {
       recipeList: [],
       checkedList: [],
       checkedItemName: [],
-      date_start: localStorage.getItem('date_start')
+      // date_start: localStorage.getItem('date_start')
+      date_start: '2022-9-14'
     }
   },
   setup () {},
