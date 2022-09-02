@@ -3,8 +3,11 @@ const passport = require('passport');
 const pbkdf2 = require('crypto');
 const { isLoggedIn, isNotLoggedIn, isAdmin } = require('./middlewares');
 const models = require('../models');
-
+const { RecipeNutrient } = require('../models');
+const sequelize = require("sequelize");
 const router = express.Router();
+
+const Op = sequelize.Op;
 
 router.post('/signup', isNotLoggedIn, async (req, res, next) => {
   const {email, password, name} = req.body;
@@ -147,6 +150,34 @@ router.get('/admin',  async (req, res, next)=>{
     attributes : ['email','name','createdAt']
   });
   res.send(userList);
+})
+
+//회원 월별 식단 리스트 제공
+router.get('/recipelist',  async (req, res)=>{
+  const id = req.user.id;
+  const month = req.query.month;
+  const recipeList = await models.UserRecipe.findAll({
+    include: [
+      {
+        model: RecipeNutrient,
+        attributes: ['foodImage', 'foodName']
+      }
+    ],
+    where: {userId : userId,
+          date: {[Op.like]: `%${month}%`}} 
+  })
+  res.send(recipeList);
+})
+
+//사용자 식단 삭제
+router.delete('/recipelist',async (req, res)=>{
+  const userId = req.user.id;
+  const date = req.body.date;
+  const recipeList = await models.UserRecipe.destroy({
+    where: {
+      userId : userId,
+      date: date} 
+  })
 })
 
 module.exports = router;

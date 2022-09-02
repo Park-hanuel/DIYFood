@@ -20,6 +20,7 @@ module.exports = class UserRecipe extends Sequelize.Model {
     } );
 }
   static associate(db) {
-    db.ExistIngredient.belongsTo(db.User, {foreignKey: "userId", targetKey: 'id'})
+    db.UserRecipe.belongsTo(db.User, {foreignKey: "userId", targetKey: 'id'})
+    db.UserRecipe.belongsTo(db.RecipeNutrient, {foreignKey: "foodCode", targetKey: 'foodCode'})
   }
 };
