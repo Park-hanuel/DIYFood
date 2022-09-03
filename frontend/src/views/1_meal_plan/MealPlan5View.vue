@@ -37,17 +37,17 @@
             </tr>
             <tr>
               <th scope="row">보유 식재료</th>
-              <td>{{haveItem}}</td>
+              <td>{{haveItem.replace(/,/gi,", ")}}</td>
               <td><button class="btn" @click="modifyPlan('2')"><img src="https://cdn-icons-png.flaticon.com/512/5328/5328208.png" style="width:35px; text-align: center;"></button></td>
             </tr>
             <tr>
               <th scope="row">새로운 식재료</th>
-              <td>{{newItem}}</td>
+              <td>{{newItem.replace(/,/gi,", ")}}</td>
               <td><button class="btn" @click="modifyPlan('3')"><img src="https://cdn-icons-png.flaticon.com/512/5328/5328208.png" style="width:35px; text-align: center;"></button></td>
             </tr>
             <tr>
               <th scope="row">레시피</th>
-              <td>{{recipe}}</td>
+              <td>{{recipe.replace(/,/gi,", ")}}</td>
               <td><button class="btn" @click="modifyPlan('4')"><img src="https://cdn-icons-png.flaticon.com/512/5328/5328208.png" style="width:35px; text-align: center;"></button></td>
             </tr>
           </tbody>

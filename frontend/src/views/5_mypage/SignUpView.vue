@@ -15,8 +15,8 @@
                       <div class="form-outline flex-fill mb-0 input_row">
                         <label class="form-label" for="id">이메일</label>
                         <div>
-                          <input type="email" class="form-control" style="width:75%; display:inline-block;" placeholder="Email" v-model="user.email" required />
-                          <input type="button" class="btn btn-primary" value="중복확인" style="float:right; margin: 0px;" @click="IdCheck" required>
+                          <input type="email" class="form-control" style="width:73%; display:inline-block;" placeholder="Email" v-model="user.email" required />
+                          <input type="button" class="btn btn-primary" value="중복확인" style="float:right; margin: 0px; width:25%;" @click="IdCheck" required>
                         </div>
                       </div>
                     </div>

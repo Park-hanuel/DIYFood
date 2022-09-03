@@ -52,7 +52,7 @@
           </div>
         </div>
         <div style="text-align:center; width:100%" >
-          <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" style="margin-left:30%; margin-right: 30%" @click="submitRecipeList()">
+          <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" style="width: 10%; position: fixed; left: 58%; bottom:5%; margin:0; box-shadow: 3px 3px 3px 3px white;" @click="submitRecipeList()">
         </div>
       </section>
     </div>
@@ -138,15 +138,15 @@ export default {
   }
   .loading {
     z-index: 2;
-    position: fixed;
-    top: 50%;
-    left: 62.6%;
+    position: relative;
+    top: 30%;
+    left: 100%;
     transform: translate(-50%, -50%);
   }
   .loading-text {
     text-align: center;
     position:relative;
-    top: 70%;
+    top: 80%;
   }
   .loading-container {
     width: 100%;

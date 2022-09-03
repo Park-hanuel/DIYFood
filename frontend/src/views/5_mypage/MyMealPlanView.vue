@@ -32,14 +32,15 @@
         <h3 style="margin: 20px">2022년 9월 2일 - 2022년 9월 8일</h3>
         <div v-for="(data, i) in userRecipeList" :key="i">
           <div class="recipe-box" >
-            <a href="/recipe">
-               <div class="recipe-card">
+            <div class="recipe-card">
+              <a href="/recipe">
                 <img :src=data.RecipeNutrient.foodImage class="food-img" onerror="this.src='https://ifh.cc/g/RXYY1z.png'">
                 <div class="word" style="vertical-align: middle; margin-left: 110px; margin-right:15px; margin-top: 8px;">
                   <p style="font-weight: 500; font-size:1.3rem">{{data.RecipeNutrient.foodName}}</p>
                 </div>
-              </div>
-            </a>
+              </a>
+              <button @click="deleteRecipe(data.date, data.foodCode)">삭제</button>
+            </div>
           </div>
         </div>
       <!-- </div> -->
@@ -52,7 +53,8 @@ export default {
   data () {
     return {
       month: '',
-      userRecipeList: []
+      userRecipeList: [],
+      deletedRecipe: []
     }
   },
   setup () {},
@@ -70,6 +72,22 @@ export default {
       }).catch(error => {
         console.log(error)
       })
+    },
+    deleteClick (date, foodCode) {
+      this.deletedRecipe.push(date, foodCode)
+      console.log(this.deletedRecipe)
+    },
+    deleteRecipe (date, foodCode) {
+      if (confirm('선택하신 레시피를 삭제하시겠습니까?')) {
+        this.deleteClick(date, foodCode)
+        const url = 'http://localhost:3000/user/recipe'
+        const data = this.deletedRecipe
+        this.$axios.delete(url, data, { withCredentials: true })
+        alert('레시피가 삭제되었습니다.')
+        // location.reload()
+      } else {
+        console.log('다행 휴..')
+      }
     }
   }
 }
@@ -120,6 +138,7 @@ body{
 .food-img {
   margin: -18%;
   height: 90px;
+  width: 90px;
   border-radius: 50%;
   position:relative;
   top: 36%;
@@ -127,7 +146,7 @@ body{
 }
 a {
   color: #212121;
-  text-decoration: underline;
+  text-decoration: none
 }
 a:hover {
   color: #1a8051;
