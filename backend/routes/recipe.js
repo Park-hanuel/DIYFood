@@ -1,9 +1,26 @@
 const express = require('express');
 const { sequelize } = require('../models');
-const { QueryTypes } = require("sequelize"); 
 const router = express.Router();
-
 const models = require('../models');
+const axios = require('axios');
+const server = require('../server');
+const dotenv = require('dotenv');
+dotenv.config();
+
+//각 레시피 상세 조회 페이지
+router.get('/list', async function(req, res){
+    const recipeId = req.query.foodCode;
+    const url = `https://openapi.foodsafetykorea.go.kr/api/${process.env.RECIPE_APIKEY}/COOKRCP01/json/${recipeId}/${recipeId}/`
+    try{
+        const response = await axios.get(url);
+        const itemData = response.data.COOKRCP01.row;
+        console.log(itemData);
+        res.send(itemData);
+    }catch(err){
+        console.error(err);
+    }
+})
+
 
 //유저 선택 재료 기반 레시피 선정
 router.get('/userlist', async function(req, res, next){  
