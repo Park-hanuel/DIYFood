@@ -29,14 +29,15 @@
               <Fade-loader />
             </div>
             <div class="loading-text">
-              <h4>레시피를 불러오는 중입니다.</h4>
+              <h5>선택하신 재료를 기준으로 레시피를 조회하는 중입니다.</h5>
+              <h5>약 30초의 시간이 소요됩니다.</h5>
             </div>
           </div>
           <!-- Recipe Card -->
           <div v-for="(data, index) in recipeList" :key="index">
             <div name="card" class="card-custom">
               <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 5%;">
-                <img :src=data.foodImage width="100%" style="margin: -18%;" onerror="this.src='https://ifh.cc/g/RXYY1z.png'">
+                <img :src=data.foodImage width="100%" style="margin: -25%;" onerror="this.src='https://ifh.cc/g/RXYY1z.png'">
               </div>
               <div style="height: 10%;"><h6 style="text-align:center; margin-top: 10px;">{{data.foodName}}</h6></div>
               <div class="word" style="height: 30%;"><span>재료 : {{data.foodIngredient}}</span></div>
@@ -139,14 +140,15 @@ export default {
   .loading {
     z-index: 2;
     position: relative;
-    top: 30%;
+    top: 25%;
     left: 100%;
     transform: translate(-50%, -50%);
   }
   .loading-text {
     text-align: center;
     position:relative;
-    top: 80%;
+    top: 65%;
+    margin-bottom: 50px;
   }
   .loading-container {
     width: 100%;

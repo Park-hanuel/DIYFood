@@ -124,12 +124,20 @@ export default {
       if (this.checkedItemCode.includes(this.bindingCode(n)) === false) {
         this.checkedItemCode.push(this.bindingCode(n))
         this.checkedItemName.push(this.itemList[n].itemName)
-        this.totalCost = this.totalCost + parseInt(this.itemList[n].price.replace(',', ''))
+        if (this.itemList[n].price === '-') {
+          return this.totalCost
+        } else {
+          this.totalCost = this.totalCost + parseInt(this.itemList[n].price.replace(',', ''))
+        }
         console.log(this.checkedItemCode)
       } else {
         this.checkedItemCode.splice(this.checkedItemCode.indexOf(this.bindingCode(n)), 1)
         this.checkedItemName.splice(this.checkedItemName.indexOf(this.itemList[n].itemName), 1)
-        this.totalCost = this.totalCost - parseInt(this.itemList[n].price.replace(',', ''))
+        if (this.itemList[n].price === '-') {
+          return this.totalCost
+        } else {
+          this.totalCost = this.totalCost - parseInt(this.itemList[n].price.replace(',', ''))
+        }
         console.log(this.checkedItemCode)
       }
     },
