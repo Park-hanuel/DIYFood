@@ -25,6 +25,7 @@
           :width="width"
           :height="height"
         />
+        <p style="text-align:center; margin-top:5px">주말 및 공휴일에는 직전 평일 데이터로 조회됩니다.</p>
       </div>
       <div style="width: 60%; float: right; text-align: center;">
         <div>
