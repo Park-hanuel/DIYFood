@@ -10,7 +10,11 @@ module.exports = class Recipe extends Sequelize.Model {
       foodName: {
         type: Sequelize.STRING(100),
         allowNull: false,
-      },     
+      }, 
+      foodCategory: { 
+        type: Sequelize.STRING(30),
+        allowNull: false,
+      },
       itemCode: { 
         type: Sequelize.INTEGER,
         allowNull: false,

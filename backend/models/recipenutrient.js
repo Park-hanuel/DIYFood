@@ -12,6 +12,10 @@ module.exports = class RecipeNutrient extends Sequelize.Model {
         type: Sequelize.STRING(100),
         allowNull: false,
       },
+      foodCategory: { 
+        type: Sequelize.STRING(30),
+        allowNull: false,
+      },
       foodEnergy: {
         type: Sequelize.INTEGER,
         allowNull: false,
