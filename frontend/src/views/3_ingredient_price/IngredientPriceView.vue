@@ -1,12 +1,12 @@
 <template>
   <body id="page">
-    <div style="margin-top: 40px; margin-bottom: 30px; text-align: center;">
-      <p style="font-size:4em; font-weight:500; line-height:70px;">
+    <div style="margin-top: 40px; margin-bottom: 30px;">
+      <span style="font-size:4em; font-weight:500; line-height:70px;">
         INGREDIENT PRICE
-      </p>
-      <p style="font-size:1.5em; font-weight:400;">
+      </span>
+      <span style="font-size:1.5em; font-weight:400;">
         식재료 시세를 안내합니다.
-      </p>
+      </span>
     </div>
     <!-- 그래프, 시세표 영역 -->
     <div style="width:100%">
