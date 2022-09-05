@@ -5,7 +5,6 @@ const router = express.Router();
 const dotenv = require('dotenv');
 const models = require('../models');
 const axios = require('axios');
-const server = require('../server');
 dotenv.config();
 
 //원재료 전일 시세 정보 리스트 제공
@@ -50,8 +49,8 @@ router.get('/userlist',async function(req,res){
 });
 
 router.post('/userlist', async function(req,res){
-    const itemCodeList = req.body; //array (itemcode)
-    console.log(itemCodeList);
+    const itemCodeList = req.body.itemCodeList; //array (itemcode)
+    const date = req.body.date; 
     const userId = res.locals.user.id;
     try{
         for(let i = 0 ;i<itemCodeList.length;i++){
@@ -60,6 +59,7 @@ router.post('/userlist', async function(req,res){
                 itemCode : itemCodeList[i].itemCode,
                 detailItemCode : itemCodeList[i].detailItemCode,
                 price : itemCodeList[i].price,
+                date : date,
             });
         }
         res.send('done');

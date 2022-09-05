@@ -54,40 +54,31 @@ router.get('/list', async function(req, res){
 router.get('/userlist', async function(req, res, next){  
     try{
         const date = req.query.date;
+        const category = req.query.category;
+
+        const foodCategory =  ['밥', '반찬', '국&찌개', '일품', '기타', '후식'];
         //1.유저 재료 리스트 만들기
         const userId = res.locals.user.id;
-        // const userId = 7; 
-        const userIngredientList  = [];
+        const userIngredients  = [];
 
         // 기존 재료와 선택 재료 리스트를 합칩니다.
-        const userList = await models.UserIngredient.findAll({
-            attributes : [sequelize.fn('DISTINCT', sequelize.col('itemCode')), 'itemCode'],
-            where: { userId : userId },
-        });
-        const existList = await models.ExistIngredient.findAll({
-            attributes : ['itemCode'],
-            where: { userId : userId,
-                date : date },
-        });
+        const userQuery = `select itemCode from UserIngredients where date = ${date} AND userId = ${userId} union select itemCode from ExistIngredients where userId = ${userId}`;
+        const userList = await sequelize.query(userQuery);
 
-        userList.forEach((item,idx)=>{
-            userIngredientList.push(item.itemCode)
+        userList[0].forEach((item,idx)=>{
+            userIngredients.push(item.itemCode);
         });
-        existList.forEach((item,idx)=>{
-            userIngredientList.push(item.itemCode)
-        });
-
-        const userListSet = new Set(userIngredientList);
-        const uniqueList = [...userListSet];
-        if(uniqueList.length < 4){
-            res.send('최소 4개 이상의 재료를 담아주세요!');
+        
+        if(userIngredients.length < 2){
+            res.send('최소 2개 이상의 재료를 담아주세요!');
         }
-        uniqueList.sort();
+        userIngredients.sort();
 
         //2. 레시피 별 재료 갯수 확인
         const recipeIngredientCountList = [];
         const recipeIngredientCount = await models.Recipe.findAll({
             attributes : [[sequelize.fn('count', sequelize.col('*')),'count']],
+            where: { foodCategory : foodCategory[category]},
             group: [ 'foodCode' ],
             order: ['foodCode'],
         });
@@ -97,31 +88,33 @@ router.get('/userlist', async function(req, res, next){
             recipeIngredientCountList.push(item.dataValues.count)
         });
 
-        console.log(recipeIngredientCountList);
-
-        //3. 사용자의 userIngredient list 중 한개라도 포함된 foodCode를 배열로 받아온다.
+        //3. 사용자의 userIngredient list 중 2개 이상 포함된 foodCode를 배열로 받아온다.
         foodCodeList =[];
-        const query = `select foodCode from Recipes where itemCode in (?) group by foodCode having count(*) >= 4 order by foodCode`;
-        const foodCode = await sequelize.query(query, {type: QueryTypes.SELECT, replacements: [uniqueList]});
+        const query = `select foodCode from Recipes where itemCode in (?) AND foodCategory = '${foodCategory[category]}' group by foodCode having count(*) >= 2 order by foodCode`;
+        const foodCode = await sequelize.query(query, {type: QueryTypes.SELECT, replacements: [userIngredients]});
 
         foodCode.forEach((item,idx)=>{
             foodCodeList.push(item.foodCode)
         });
 
+        if(foodCodeList.length == 0){
+            res.send('레시피를 찾을 수 없습니다.재료를 더 추가해주세요.')
+        }
         const recipeList =[];
 
         //foodCodeList.length 
         for(let i = 0 ; i< foodCodeList.length ; i++){
             const foodItemCode = await models.Recipe.findAll({
                 attributes: ['itemCode'],
-                where: {foodCode: foodCodeList[i]}
+                where: {foodCategory : foodCategory[category],
+                        foodCode: foodCodeList[i]}
             })
             foodIngredientList = [];
             foodItemCode.forEach((item,idx)=>{
                 foodIngredientList.push(item.itemCode)
             });
 
-            let intersectionIngredientList  = uniqueList.filter(x => foodIngredientList.includes(x));
+            let intersectionIngredientList  = userIngredients.filter(x => foodIngredientList.includes(x));
 
             const percent = (intersectionIngredientList.length/recipeIngredientCountList[foodCodeList[i]]) * 100;
 
@@ -146,8 +139,10 @@ router.get('/userlist', async function(req, res, next){
             });
             if(recipeResult == null){
                 res.send('일치하는 레시피가 없습니다!');
+            }else{
+                res.send(recipeResult);
             }
-            res.send(recipeResult);
+
     }catch(err){
         console.error(err);
     }

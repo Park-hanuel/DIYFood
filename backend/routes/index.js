@@ -15,9 +15,5 @@ router.use('/user', user);
 router.use('/ingredient',ingredient);
 router.use('/recipe', recipe);
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-    res.send('Hi');
-});
 
 module.exports = router;
