@@ -70,7 +70,6 @@ cron.schedule('0 16 * * 2-6', async function(){
 
     const d =new Date();
     const p_regday = d.getFullYear() + "-" + ((d.getMonth() + 1) > 9 ? (d.getMonth() + 1).toString() : "0" + (d.getMonth() + 1)) + "-" + (d.getDate() > 9 ? d.getDate().toString() : "0" + d.getDate().toString());
-
     for(let i = 0 ;i < 6; i++){
         await server.getTodayData(data[i],p_regday);
     }
