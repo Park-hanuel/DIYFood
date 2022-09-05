@@ -15,6 +15,7 @@ const cors = require('cors');
 
 const {sequelize} = require('./models');
 const passportConfig = require('./passport');
+const cron = require('node-cron');
 
 const routes = require('./routes');
 
@@ -58,6 +59,23 @@ app.use(passport.session()); //session 객체에 passport 정보를 저장
 app.use('/', routes);
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(require('./config/swaggerdoc')));
+
+
+const models = require('./models');
+const server = require('./server');
+//오후 16시마다 업데이트 (화 ~ 토) 
+cron.schedule('0 16 * * 2-6', async function(){
+  const data = [100,200,300,400,500,600];
+    await models.LiveIngredient.destroy({where:{}}).then(console.log("liveIngredinet destoryed."));
+
+    const d =new Date();
+    const p_regday = d.getFullYear() + "-" + ((d.getMonth() + 1) > 9 ? (d.getMonth() + 1).toString() : "0" + (d.getMonth() + 1)) + "-" + (d.getDate() > 9 ? d.getDate().toString() : "0" + d.getDate().toString());
+
+    for(let i = 0 ;i < 6; i++){
+        await server.getTodayData(data[i],p_regday);
+    }
+    console.log("update is done!")
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

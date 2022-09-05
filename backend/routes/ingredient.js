@@ -15,8 +15,15 @@ router.get('/list',async function(req,res){
     
     //get Today Date
     const d =new Date();
-    const p_regday = d.getFullYear() + "-" + ((d.getMonth() + 1) > 9 ? (d.getMonth() + 1).toString() : "0" + (d.getMonth() + 1)) + "-" + (d.getDate() > 9 ? d.getDate().toString() : "0" + d.getDate().toString());
-
+    let p_regday = null;
+    //일요일, 월요일의 경우 토요일 데이터 호출
+    if(d.getDay() === 0 || d.getDay()===7){
+        p_regday = d.getFullYear() + "-" + ((d.getMonth() + 1) > 9 ? (d.getMonth() + 1).toString() : "0" + (d.getMonth() + 1)) + "-" + ((d.getDate())-1 > 9 ? (d.getDate()-1).toString() : "0" + (d.getDate()-1).toString());
+    }else if(d.getDay() === 1){
+        p_regday = d.getFullYear() + "-" + ((d.getMonth() + 1) > 9 ? (d.getMonth() + 1).toString() : "0" + (d.getMonth() + 1)) + "-" + ((d.getDate())-2 > 9 ? (d.getDate()-1).toString() : "0" + (d.getDate()-2).toString());
+    }else{
+        p_regday = d.getFullYear() + "-" + ((d.getMonth() + 1) > 9 ? (d.getMonth() + 1).toString() : "0" + (d.getMonth() + 1)) + "-" + (d.getDate() > 9 ? d.getDate().toString() : "0" + d.getDate().toString());
+    }
     let itemList = [];
     const p_cert_key = process.env.GROCERY_APIKEY;
     const p_cert_id = 2676; 
@@ -60,21 +67,6 @@ router.post('/userlist', async function(req,res){
         console.error(err);
     }
 })
-
-
-//추후 서버 정기 호출 함수로 변경 예정 (라우팅 말고)
-router.get('/db', async function(req, res, next) {
-    const data = [100,200,300,400,500,600];
-    await models.LiveIngredient.destroy({where:{}});
-
-    const d =new Date();
-    const p_regday = d.getFullYear() + "-" + ((d.getMonth() + 1) > 9 ? (d.getMonth() + 1).toString() : "0" + (d.getMonth() + 1)) + "-" + (d.getDate() > 9 ? d.getDate().toString() : "0" + d.getDate().toString());
-
-    for(let i = 0 ;i < 6; i++){
-        server.getTodayData(data[i],p_regday);
-    }
-    res.send('i');
-});
 
 //보유 원재료 관련 정보 리스트 제공
 router.get('/existlist',async function(req,res){

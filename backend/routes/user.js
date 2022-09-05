@@ -145,7 +145,7 @@ const deleteAllInfo = async(email)=>{
 }
 
 //회원 리스트 조회
-router.get('/admin',  async (req, res, next)=>{
+router.get('/admin', isAdmin, async (req, res, next)=>{
   const userList = await models.User.findAll({
     attributes : ['email','name','createdAt']
   });
@@ -153,9 +153,8 @@ router.get('/admin',  async (req, res, next)=>{
 })
 
 //회원 월별 식단 리스트 제공
-router.get('/recipelist',  async (req, res)=>{
-  console.log(req.user)
-  const userId = 4;
+router.get('/recipelist',  async (req, res, next)=>{
+  const userId = res.locals.user;
   const month = req.query.month;
   const recipeList = await models.UserRecipe.findAll({
     include: [
@@ -171,9 +170,9 @@ router.get('/recipelist',  async (req, res)=>{
 })
 
 //사용자 식단 삭제
-router.delete('/recipelist',async (req, res)=>{
-  const userId = 4;
-  const date = req.body.date;
+router.delete('/recipelist',async (req, res, next)=>{
+  const userId = res.locals.user;
+  const date = req.query.date;
   await models.UserRecipe.destroy({
     where: {
       userId : userId,
@@ -183,10 +182,10 @@ router.delete('/recipelist',async (req, res)=>{
 })
 
 //사용자 레시피 삭제
-router.delete('/recipe',async (req, res)=>{
-  const userId = req.user.id;
-  const date = req.body.date;
-  const foodCode = req.body.foodCode;
+router.delete('/recipe',async (req, res, next)=>{
+  const userId = res.locals.user;
+  const date = req.query.date;
+  const foodCode = req.query.foodCode;
 
   await models.UserRecipe.destroy({
     where: {
