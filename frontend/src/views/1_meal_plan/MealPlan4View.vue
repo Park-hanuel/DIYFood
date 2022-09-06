@@ -22,6 +22,14 @@
           <h1>레시피 선택</h1>
           <p>선택하신 재료를 가장 많이 포함한 순서대로 레시피들을 추천합니다. 레시피를 선택해주세요.</p>
         </div>
+        <div style="text-align:center;">
+          <input type="button" class="btn btn-primary btn-lg btn-custom" value="밥" @click="getRecipeData(date_start, 0)">
+          <input type="button" class="btn btn-primary btn-lg btn-custom" value="반찬" @click="getRecipeData(date_start, 1)">
+          <input type="button" class="btn btn-primary btn-lg btn-custom" value="국 · 찌개" @click="getRecipeData(date_start, 2)">
+          <input type="button" class="btn btn-primary btn-lg btn-custom" value="일품" @click="getRecipeData(date_start, 3)">
+          <input type="button" class="btn btn-primary btn-lg btn-custom" value="후식" @click="getRecipeData(date_start, 5)">
+          <input type="button" class="btn btn-primary btn-lg btn-custom" value="기타" @click="getRecipeData(date_start, 4)">
+        </div>
         <!-- Loading -->
         <div style="width:100%">
           <div v-if="isLoading" class="loading-container">
@@ -30,7 +38,6 @@
             </div>
             <div class="loading-text">
               <h5>선택하신 재료를 기준으로 레시피를 조회하는 중입니다.</h5>
-              <h5>약 30초의 시간이 소요됩니다.</h5>
             </div>
           </div>
           <!-- Recipe Card -->
@@ -73,12 +80,12 @@ export default {
       checkedList: [],
       checkedItemName: [],
       date_start: localStorage.getItem('date_start'),
-      category: '0'
+      category: 0
     }
   },
   setup () {},
   created () {
-    this.getRecipeData()
+    this.getRecipeData(this.date_start, 0)
   },
   mounted () {},
   unmounted () {},
@@ -92,9 +99,10 @@ export default {
       }
     },
     // 레시피 조회하기
-    getRecipeData () {
+    getRecipeData (date, code) {
+      this.isLoading = true
       // eslint-disable-next-line
-      this.$axios.get(`http://localhost:3000/recipe/userlist?date=${this.date_start}&category=${this.category}`, { withCredentials: true }).then(response => {
+      this.$axios.get(`http://localhost:3000/recipe/userlist?date=${date}&category=${code}`, { withCredentials: true }).then(response => {
         console.log('### response: ' + JSON.stringify(response))
         this.recipeList = response.data
         this.isLoading = false
@@ -120,6 +128,7 @@ export default {
   body{background: #f3f3f3;}
   .btn-custom {
     margin-bottom: 20px;
+    width: 110px;
   }
   .card-custom {
     background-color: #f3f3f3;

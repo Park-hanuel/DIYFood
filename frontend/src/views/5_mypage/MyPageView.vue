@@ -23,7 +23,7 @@
           </div>
         </section>
       </a>
-      <a href="">
+      <a href="/user/analysis/survey">
         <section class="content-box">
           <img src="https://cdn-icons-png.flaticon.com/512/2041/2041643.png" alt="" class="img_style">
           <div style="margin-top:30px;">
@@ -56,6 +56,7 @@ export default {
   mounted () {},
   unmounted () {},
   methods: {
+    // 사용자 정보 가져오기
     getUserInfo () {
       const url = 'http://localhost:3000/user/info'
       this.$axios.get(url, { withCredentials: true })

@@ -80,6 +80,7 @@
   </body>
 </template>
 <script>
+/* eslint-disable */
 export default {
   components: {},
   data () {
@@ -94,7 +95,8 @@ export default {
       subCodeList: [],
       finalCodeList: [],
       checkedID: [],
-      unit: 1
+      finalData: {},
+      unit: 0,
     }
   },
   setup () {},
@@ -144,7 +146,7 @@ export default {
     },
     // 품목코드 + 품종코드 합치기
     bindingCode (n) {
-      var bindedCode = this.itemList[n].itemCode + '-' + this.itemList[n].detailItemCode + '-' + this.itemList[n].price.replace(',', '')
+      var bindedCode= this.itemList[n].itemCode + '-' + this.itemList[n].detailItemCode + '-' + this.itemList[n].price.replace(',', '')
       return bindedCode
     },
     // 선택한 식재료 리스트 보내기 (식재료 가격이 예산보다 높으면 확인창 뜸)
@@ -152,27 +154,27 @@ export default {
       if (this.totalCost > this.budget) {
         if (confirm('선택한 식재료의 총 가격이 설정한 예산보다 많습니다. 계속 진행하시겠습니까?')) {
           this.codeSplit()
-          this.$axios.post('http://localhost:3000/ingredient/userlist', this.finalCodeList, { withCredentials: true })
+          this.$axios.post('http://localhost:3000/ingredient/userlist', this.finalData, { withCredentials: true })
             .then(function (response) {
               console.log(response)
             })
             .catch(function (error) {
               console.log(error)
             })
-          // location.href = '/mealplan/step4'
+          location.href = '/mealplan/step4'
         } else {
           alert('예산과 식재료를 다시 한번 확인해주세요.')
         }
       } else {
         this.codeSplit()
-        this.$axios.post('http://localhost:3000/ingredient/userlist', this.finalCodeList, { withCredentials: true })
+        this.$axios.post('http://localhost:3000/ingredient/userlist', this.finalData, { withCredentials: true })
           .then(function (response) {
             console.log(response)
           })
           .catch(function (error) {
             console.log(error)
           })
-        // location.href = '/mealplan/step4'
+        location.href = '/mealplan/step4'
       }
       localStorage.setItem('newItem', this.checkedItemName)
     },
@@ -186,16 +188,15 @@ export default {
         }
         this.finalCodeList.push(obj)
       }
-      var obj2 = {
+      this.finalData = {
+        finalCodeList: this.finalCodeList,
         date: this.date
       }
-      this.finalCodeList.push(obj2)
-      console.log(this.finalCodeList)
+      console.log(this.finalData)
     }
   }
 }
 </script>
-
 <style>
   @import "@/css/styles.css";
   body{
