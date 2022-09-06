@@ -11,6 +11,10 @@ router.use((req,res,next)=>{
     next();
 })
 
+router.get('/' ,(req,res,next) =>{
+    res.send('hi');
+})
+
 router.use('/user', user);
 router.use('/ingredient',ingredient);
 router.use('/recipe', recipe);
