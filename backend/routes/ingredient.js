@@ -49,11 +49,12 @@ router.get('/userlist',async function(req,res){
 });
 
 router.post('/userlist', async function(req,res){
-    const itemCodeList = req.body.itemCodeList; //array (itemcode)
+    const itemCodeList = req.body.finalCodeList; //array (itemcode)
     const date = req.body.date; 
     const userId = res.locals.user.id;
+    console.log(itemCodeList);
     try{
-        for(let i = 0 ;i<itemCodeList.length;i++){
+        for(let i = 0 ; i < itemCodeList.length ; i++){
             models.UserIngredient.create({
                 userId : userId,
                 itemCode : itemCodeList[i].itemCode,
