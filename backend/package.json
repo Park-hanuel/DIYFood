@@ -22,9 +22,7 @@
     "node-cron": "^3.0.2",
     "passport": "^0.5.3",
     "request": "^2.88.2",
-    "sequelize": "^6.21.4",
-    "swagger-jsdoc": "^6.2.5",
-    "swagger-ui-express": "^4.5.0"
+    "sequelize": "^6.21.4"
   },
   "devDependencies": {
     "connect-flash": "^0.1.1",
