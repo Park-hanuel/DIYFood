@@ -16,7 +16,7 @@ module.exports = class UserIngredient extends Sequelize.Model {
         allowNull: false
       },
       date : {
-        type : Sequelize.INTEGER,
+        type : Sequelize.STRING(50),
         allowNull: false
       }
     },{

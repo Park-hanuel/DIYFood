@@ -9,8 +9,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 const createError = require('http-errors');
 
-const swaggerUi = require('swagger-ui-express');
-
 const cors = require('cors');
 
 const {sequelize} = require('./models');
@@ -57,9 +55,6 @@ app.use(passport.initialize());  // req 객체에 passport 설정을 담아줌
 app.use(passport.session()); //session 객체에 passport 정보를 저장
 
 app.use('/', routes);
-
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(require('./config/swaggerdoc')));
-
 
 const models = require('./models');
 const server = require('./server');

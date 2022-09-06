@@ -16,15 +16,14 @@
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
+    "lodash": "^4.17.21",
     "morgan": "~1.9.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "node-cron": "^3.0.2",
     "passport": "^0.5.3",
     "request": "^2.88.2",
-    "sequelize": "^6.21.4",
-    "swagger-jsdoc": "^6.2.5",
-    "swagger-ui-express": "^4.5.0"
+    "sequelize": "^6.21.4"
   },
   "devDependencies": {
     "connect-flash": "^0.1.1",

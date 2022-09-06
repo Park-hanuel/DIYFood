@@ -7,10 +7,10 @@ module.exports = class UserRecipe extends Sequelize.Model {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      date: {
-        type: Sequelize.STRING(50),
-        allowNull: false,
-      },
+      date : {
+        type : Sequelize.STRING(50),
+        allowNull: false
+      }
     },{
       sequelize,
       timestamps: false,
