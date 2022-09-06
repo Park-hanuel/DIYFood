@@ -10,7 +10,7 @@
     </div>
     <div class="content-box">
       <!-- <div v-for="(data, index) in recipeList" :key="index"> -->
-        <a href="">
+        <a href="/recipe/1">
           <div name="card" class="card-custom">
             <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 5%;">
               <img src='https://images.unsplash.com/photo-1662028529443-28a65ad24811?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80' width="100%" style="margin: -30%;">
@@ -26,11 +26,11 @@
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   components: {},
   data () {
     return {
-      sampleData: ''
     }
   },
   setup () {},
