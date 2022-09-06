@@ -60,18 +60,18 @@ const routes = [
   },
   {
     path: '/recipe',
-    name: 'Recipe',
+    name: 'RecipeList',
     component: () =>
       import(
-        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/2_recipe/RecipeView.vue'
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/2_recipe/RecipeListView.vue'
       )
   },
   {
-    path: '/recipe/1',
-    name: 'Recipe1',
+    path: '/recipe/:foodCode',
+    name: 'DetailRecipe',
     component: () =>
       import(
-        /* webpackChunkName: "event", webpackPrefetch:true */ '../components/DetailRecipe.vue'
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/2_recipe/DetailRecipe.vue'
       )
   },
   {
@@ -136,6 +136,14 @@ const routes = [
     component: () =>
       import(
         /* webpackChunkName: "event", webpackPrefetch:true */ '../views/5_mypage/SignOutView.vue'
+      )
+  },
+  {
+    path: '/user/analysis/survey',
+    name: 'AnalysisSurvey',
+    component: () =>
+      import(
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/5_mypage/AnalysisSurveyView.vue'
       )
   },
   {
