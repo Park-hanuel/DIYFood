@@ -72,7 +72,8 @@ export default {
       recipeList: [],
       checkedList: [],
       checkedItemName: [],
-      date_start: localStorage.getItem('date_start')
+      date_start: localStorage.getItem('date_start'),
+      category: '0'
     }
   },
   setup () {},
@@ -90,8 +91,10 @@ export default {
         this.checkedItemName.splice(this.checkedItemName.indexOf(this.recipeList[n].foodName), 1)
       }
     },
+    // 레시피 조회하기
     getRecipeData () {
-      this.$axios.get('http://localhost:3000/recipe/userlist', { withCredentials: true }).then(response => {
+      // eslint-disable-next-line
+      this.$axios.get(`http://localhost:3000/recipe/userlist?date=${this.date_start}&category=${this.category}`, { withCredentials: true }).then(response => {
         console.log('### response: ' + JSON.stringify(response))
         this.recipeList = response.data
         this.isLoading = false
@@ -99,6 +102,7 @@ export default {
         console.log(error)
       })
     },
+    // 선택 레시피 제출
     submitRecipeList () {
       const url = 'http://localhost:3000/recipe/userlist'
       const data = { recipeList: this.checkedList, date: this.date_start }

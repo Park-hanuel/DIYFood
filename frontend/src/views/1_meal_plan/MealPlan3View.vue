@@ -4,7 +4,7 @@
       <div>
         <!-- Side -->
           <div id="side">
-            <div style="margin-top: 30px; " id="head">
+            <div style="margin-top: 30px;" id="head">
               <h1>
               MEAL PLAN
               </h1>
@@ -70,9 +70,9 @@
             </div>
           </div>
           <div id="next-button" style="text-align:center;" >
-            <a href="/mealplan/step4">
+            <!-- <a href="/mealplan/step4"> -->
               <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" @click="submitItemList()">
-            </a>
+            <!-- </a> -->
           </div>
         </section>
       </div>
@@ -89,6 +89,7 @@ export default {
       checkedItemName: [],
       metaItemList: [],
       budget: parseInt(localStorage.getItem('budget')),
+      date: localStorage.getItem('date_start'),
       totalCost: 0,
       subCodeList: [],
       finalCodeList: [],
@@ -185,6 +186,10 @@ export default {
         }
         this.finalCodeList.push(obj)
       }
+      var obj2 = {
+        date: this.date
+      }
+      this.finalCodeList.push(obj2)
       console.log(this.finalCodeList)
     }
   }

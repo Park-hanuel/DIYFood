@@ -75,6 +75,7 @@ export default {
     }
   },
   methods: {
+    // 수정 버튼 클릭 이벤트
     modifyPlan (index) {
       if (index === '1') {
         if (confirm('1단계(예산 및 기간 설정)부터 다시 시작합니다. 수정하시겠습니까?')) {

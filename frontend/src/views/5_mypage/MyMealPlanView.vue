@@ -77,6 +77,7 @@ export default {
   mounted () {},
   unmounted () {},
   methods: {
+    // 월별로 식단 계획 불러오기
     getUserRecipe (index) {
       this.month = index
       this.$axios.get(`http://localhost:3000/user/recipelist?month=${this.month}`).then(response => {
@@ -86,6 +87,7 @@ export default {
         console.log(error)
       })
     },
+    // 단일 레시피 삭제
     deleteRecipe (date, foodCode) {
       if (confirm('선택하신 레시피를 삭제하시겠습니까?')) {
         const url = `http://localhost:3000/user/recipe?date=${date}&foodCode=${foodCode}`
@@ -96,6 +98,7 @@ export default {
         console.log('다행 휴..')
       }
     },
+    // 기간별 식단 계획 삭제
     deletePlan (date) {
       if (confirm('선택하신 기간의 식단 계획을 모두 삭제하시겠습니까?')) {
         const url = `http://localhost:3000/user/recipelist?date=${date}`
@@ -106,6 +109,7 @@ export default {
         console.log('다행 휴..')
       }
     },
+    // 오브젝트 groupBy
     groupBy (objectArray, property) {
       return objectArray.reduce((acc, obj) => {
         const key = obj[property]
