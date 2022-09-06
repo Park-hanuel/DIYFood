@@ -24,14 +24,14 @@
           </div>
           <div id="mealplan" style="margin-left: 30px; margin-top: 40px;">
             <form action="/mealplan/step2" method="get">
-              <p>1. 일주일 식재료 예산을 설정해주세요.</p>
+              <p style="font-size:1.1rem">1. 일주일 식재료 예산을 설정해주세요.</p>
               <label class="margin_left">
                 <input type="number" min="1" max="30" v-model="budget">  만원 이내
                 <span style="margin-left:5px; color: gray;">(1인분 기준)</span>
               </label>
               <p></p>
               <div>
-                <p>2. 기간을 설정해주세요.</p>
+                <p style="font-size:1.1rem">2. 기간을 설정해주세요.</p>
                 <p class="margin_left">기간은 <strong>일주일</strong>기준으로 설정할 수 있습니다.
                 <br>식재료 가격은 <strong>현재 시장 가격</strong>을 기준으로 계산됩니다.</p>
                 <div class="container" style="margin-left:10px">
@@ -45,7 +45,6 @@
                     :value="weekTime"
                     :disabled-date="dislabedDate"
                     @pick="calendarPick"
-                    is-expanded
                   />
                   <br />
                   선택 기간 : {{ dateRange.start }} - {{ dateRange.end }}
@@ -53,7 +52,7 @@
               </div>
               <p></p>
               <div>
-                <p>3. 지역을 설정해주세요.</p>
+                <p style="font-size:1.1rem">3. 지역을 설정해주세요.</p>
                 <select class="margin_left">
                     <option value="seoul">서울</option>
                 </select>

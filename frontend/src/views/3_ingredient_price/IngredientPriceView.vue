@@ -1,12 +1,12 @@
 <template>
   <body id="page">
-    <div style="margin-top: 40px; margin-bottom: 30px; text-align: center;">
-      <p style="font-size:4em; font-weight:500; line-height:70px;">
+    <div style="margin-top: 40px; margin-bottom: 30px;">
+      <span style="font-size:4em; font-weight:500; line-height:70px;">
         INGREDIENT PRICE
-      </p>
-      <p style="font-size:1.5em; font-weight:400;">
+      </span>
+      <span style="font-size:1.5em; font-weight:400;">
         식재료 시세를 안내합니다.
-      </p>
+      </span>
     </div>
     <!-- 그래프, 시세표 영역 -->
     <div style="width:100%">
@@ -25,7 +25,10 @@
           :width="width"
           :height="height"
         />
-        <p style="text-align:center; margin-top:5px">주말 및 공휴일에는 직전 평일 데이터로 조회됩니다.</p>
+        <div style="margin-top:20px">
+          <p>- 주말 및 공휴일에는 직전 평일 데이터로 조회됩니다.
+          <br>- 당일 시세는 평일 오후에 업데이트됩니다.</p>
+        </div>
       </div>
       <div style="width: 60%; float: right; text-align: center;">
         <div>
@@ -41,6 +44,7 @@
               <tr>
                 <th scope="col" style="width:10%;">품목</th>
                 <th scope="col" style="width:15%;">품종</th>
+                <th scope="col" style="width:10%;">당일</th>
                 <th scope="col" style="width:10%;">1일 전</th>
                 <th scope="col" style="width:10%;">1주일 전</th>
                 <th scope="col" style="width:10%;">2주일 전</th>
@@ -53,6 +57,7 @@
               <tr v-for="(data, index) in itemList" :key="index">
                 <td>{{data.item_name}}</td>
                 <td>{{data.kind_name}}</td>
+                <td>{{data.dpr1}}</td>
                 <td>{{data.dpr2}}</td>
                 <td>{{data.dpr3}}</td>
                 <td>{{data.dpr4}}</td>
@@ -112,7 +117,7 @@ export default {
   data () {
     return {
       chartData: {
-        labels: ['1년 전', '1개월 전', '2주일 전', '1주일 전', '1일 전'],
+        labels: ['1년 전', '1개월 전', '2주일 전', '1주일 전', '1일 전', '당일'],
         datasets: [
           {
             label: '최근 1년 동안의 시세 그래프',
@@ -130,6 +135,7 @@ export default {
     }
   },
   methods: {
+    // 식재료 시세 불러오기
     getPriceData (code) {
       this.$axios.get('http://localhost:3000/ingredient/list?category_code=' + code).then(response => {
         console.log('### response: ' + JSON.stringify(response))
@@ -141,9 +147,9 @@ export default {
     // 그래프 조회
     selectGraph (i) {
       this.selectedItem = this.itemList[i].item_name
-      this.chartData.datasets[0].data = [Number(this.itemList[i].dpr6.replace(',', '')), Number(this.itemList[i].dpr5.replace(',', '')), Number(this.itemList[i].dpr4.replace(',', '')), Number(this.itemList[i].dpr3.replace(',', '')), Number(this.itemList[i].dpr2.replace(',', ''))]
+      this.chartData.datasets[0].data = [Number(this.itemList[i].dpr6.replace(',', '')), Number(this.itemList[i].dpr5.replace(',', '')), Number(this.itemList[i].dpr4.replace(',', '')), Number(this.itemList[i].dpr3.replace(',', '')), Number(this.itemList[i].dpr2.replace(',', '')), Number(this.itemList[i].dpr1.replace(',', ''))]
       console.log(this.selectedItem)
-      window.scrollTo({ top: 150, behavior: 'smooth' })
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
 }

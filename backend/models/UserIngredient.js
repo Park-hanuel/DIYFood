@@ -15,6 +15,10 @@ module.exports = class UserIngredient extends Sequelize.Model {
         type: Sequelize.STRING(50),
         allowNull: false
       },
+      date : {
+        type : Sequelize.INTEGER,
+        allowNull: false
+      }
     },{
       sequelize,
       timestamps: false,
