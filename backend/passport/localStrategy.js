@@ -2,7 +2,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const pbkdf2 = require('crypto');
 
-const User = require('../models/user');
+const User = require('../models/User');
 module.exports = () => {
     passport.use( // 로그인 인증
     new LocalStrategy(
