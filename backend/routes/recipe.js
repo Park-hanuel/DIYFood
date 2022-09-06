@@ -53,8 +53,9 @@ router.get("/list", async function (req, res) {
 router.get("/userlist", async function (req, res, next) {
   try {
     const date = req.query.date;
+    const categoryCode = req.query.category;
     const foodCategory = ["밥", "반찬", "국&찌개", "일품", "기타", "후식"];
-    const category = foodCategory[req.query.category];
+    const category = foodCategory[categoryCode];
 
     const userId = res.locals.user.id;
     const userQuery = `SELECT itemCode FROM UserIngredients WHERE date = ${date} AND userId = ${userId} UNION SELECT itemCode FROM ExistIngredients WHERE userId = ${userId} ORDER BY itemCode`;
@@ -71,7 +72,7 @@ router.get("/userlist", async function (req, res, next) {
         return res.status(400).send("최소 2개 이상의 재료를 담아주세요!");
       }
       // TODO. 쿼리에 category 적용 필요
-      const totalCountQuery = `SELECT foodCode, COUNT(*) AS total_count FROM Recipes WHERE foodCategory IN ${category} GROUP BY foodCode ORDER BY foodCode;`;
+      const totalCountQuery = `SELECT foodCode, COUNT(*) AS total_count FROM Recipes WHERE foodCategory = '${category}' GROUP BY foodCode ORDER BY foodCode;`;
       connection.query(totalCountQuery, (error2, results2) => {
         if (error2) {
           return res.status(404).send(error2);
