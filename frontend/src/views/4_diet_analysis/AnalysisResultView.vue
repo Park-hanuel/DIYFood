@@ -9,12 +9,15 @@
       </span>
     </div>
     <div class="content-box">
-      <div style="width:100%; height:100px; padding: 30px; padding-right: 50px; padding-left: 50px; vertical-align: middle;">
-        <h2 style="float: left;">기간 {{date}}</h2>
-        <div style="float: right;">
-          <select name="date">
+      <div style="width:100%; height:100px; padding: 30px; padding-right: 50px; padding-left: 50px; vertical-align: middle; display: inline-block;">
+        <div style="text-align: center; width: 83%; float: left; padding-left: 18%;">
+          <h2 v-if="this.date === ''" >기간을 선택해주세요 → </h2>
+          <h2 v-else>{{new Date(Date.parse(date)).toLocaleDateString()}} - {{new Date(Date.parse(date)+518400000).toLocaleDateString()}}</h2>
+        </div>
+        <div style="position: relative; width: 17%; float: left;">
+          <select name="date" v-model="date">
             <option value="">기간을 선택해주세요.</option>
-            <option v-for="item in Object.keys(this.groupBy(this.userRecipeList, 'date'))" :key="item" :value='item' @click="selectDate(item)">{{new Date(Date.parse(item)).toLocaleDateString()}} - {{new Date(Date.parse(item)+518400000).toLocaleDateString()}}</option>
+            <option v-for="item in Object.keys(this.groupBy(this.userRecipeList, 'date'))" :key="item" :value='item'>{{new Date(Date.parse(item)).toLocaleDateString()}} - {{new Date(Date.parse(item)+518400000).toLocaleDateString()}}</option>
           </select>
         </div>
       </div>
@@ -88,6 +91,7 @@ export default {
     },
     selectDate (item) {
       this.date = item
+      console.log(this.date)
     },
     // 오브젝트 groupBy
     groupBy (objectArray, property) {
@@ -100,6 +104,13 @@ export default {
         acc[key].push(obj)
         return acc
       }, {})
+    },
+    // 날짜 더하기
+    AddDays (date, days) {
+      // date는 문자열로 받는다 ex, '2020-10-15'
+      var result = new Date(date)
+      result.setDate(result.getDate() + days)
+      return result
     }
   }
 }
@@ -129,6 +140,8 @@ body{
   width: 50%;
   height: auto;
   padding: 50px;
+  padding-top: none;
+  padding-bottom: none;
   display: inline-block;
   float: left;
   font-size: 1.3rem;

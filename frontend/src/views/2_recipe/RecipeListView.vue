@@ -21,6 +21,17 @@
           </div>
         </a>
       <!-- </div> -->
+      <div class="pagination-wrapper">
+        <div class="pagination">
+          <a class="prev page-numbers" href="javascript:;">prev</a>
+          <span aria-current="page" class="page-numbers current">1</span>
+          <a class="page-numbers" href="javascript:;">2</a>
+          <a class="page-numbers" href="javascript:;">3</a>
+          <a class="page-numbers" href="javascript:;">4</a>
+          <a class="page-numbers" href="javascript:;">5</a>
+          <a class="next page-numbers" href="javascript:;">next</a>
+        </div>
+      </div>
     </div>
   </body>
 </template>
@@ -98,4 +109,86 @@ a {
 a:hover {
   color: #1a8051;
 }
+.pagination-wrapper {
+  text-align: center;
+  margin: 40px 0;
+  display: inline-block;
+  width:80%;
+  margin-left:10%
+}
+
+.pagination {
+	display: inline-block;
+	height: 70px;
+	margin-top: 70px;
+	padding: 0 25px;
+	border-radius: 35px;
+	background-color: #f3f3f3;
+
+	@include breakpoint(1199px) {
+		height: 50px;
+		margin-top: 50px;
+		padding: 0 10px;
+		border-radius: 25px;
+	}
+}
+
+.page-numbers {
+	display: block;
+	padding: 0 25px;
+	float: left;
+	transition: duration easing;
+	color: rgb(0, 0, 0);
+	font-size: 1rem;
+	letter-spacing: 0.1em;
+	line-height: 70px;
+  }
+	.page-numbers:hover,
+	.page-numbers.current {
+		background-color: rgb(88, 169, 88);
+		color: white;
+	}
+
+	.page-numbers.prev:hover,
+	.page-numbers.next:hover {
+		background-color: transparent;
+    color: green;
+	}
+
+	@include breakpoint(1199px) {
+		padding: 0 15px;
+		font-size: 16px;
+		line-height: 50px;
+	}
+
+	@include breakpoint(touch) {
+		padding: 0 14px;
+		display: none;
+
+		.page-numbers:nth-of-type(2) {
+			position: relative;
+			padding-right: 50px;
+
+			::after {
+				content: '...';
+				position: absolute;
+				font-size: 25px;
+				top: 0;
+				left: 45px;
+			}
+		}
+
+		.page-numbers:nth-child(-n+3),
+		.page-numbers:nth-last-child(-n+3) {
+			display: block;
+		}
+
+		.page-numbers:nth-last-child(-n+4) {
+			padding-right: 14px;
+
+			::after {
+				content: none;
+			}
+		}
+	}
 </style>
