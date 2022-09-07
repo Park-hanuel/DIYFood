@@ -8,17 +8,32 @@ const _ = require("lodash");
 dotenv.config();
 
 const recipe = {
-  //레시피 리스트 조회 (진행중)
+  //레시피 리스트 조회
   getList: async (req, res) => {
     try {
-      const result = await getRecipeList(1, 1000);
-      const result2 = await getRecipeList(1001, 1500);
-      console.log(Object.keys(result).length);
-      console.log(result2);
-      console.log(Object.keys(result2).length);
-      Object.assign(result, result2);
-      const total = Object.keys(result).length;
-      console.log(total);
+        const pageNum = Number(req.query.pageNum) || 1;
+        const contentSize = 20;
+        const pnSize = 10; // NOTE: 페이지네이션 개수 설정.
+        const skipSize = (pageNum - 1) * contentSize;
+
+        const totalCount = 1061;
+        const pnTotal = Math.ceil(totalCount / contentSize);
+        const pnStart = ((Math.ceil(pageNum / pnSize) - 1) * pnSize) + 1; // NOTE: 현재 페이지의 페이지네이션 시작 번호
+        let pnEnd = (pnStart + pnSize) - 1; // NOTE: 현재 페이지의 페이지네이션 끝 번호.
+
+        const url = `https://openapi.foodsafetykorea.go.kr/api/${process.env.RECIPE_APIKEY}/COOKRCP01/json/${skipSize}/${skipSize+contentSize}/`;
+
+        const response = await axios.get(url);
+        const itemData = response.data.COOKRCP01.row;
+
+        const result = {
+            pageNum,
+            pnStart,
+            pnEnd,
+            pnTotal,
+            contents: itemData
+        }
+        res.send(result);
     } catch (err) {
       console.error(err);
     }
@@ -26,8 +41,65 @@ const recipe = {
 
   //각 레시피 상세 조회
   getRecipe: async (req, res) => {
-    const recipeId = req.params.foodCode;
-    const url = `https://openapi.foodsafetykorea.go.kr/api/${process.env.RECIPE_APIKEY}/COOKRCP01/json/${recipeId}/${recipeId}/`;
+    const { foodCode } = req.params;
+
+    const foodResult = await models.RecipeNutrient.findOne({
+        attribute :  ['foodName'],
+        where : { foodCode : foodCode}
+    }
+    )
+    const foodName = foodResult.dataValues.foodName;
+    const url1 = `https://openapi.foodsafetykorea.go.kr/api/${process.env.RECIPE_APIKEY}/COOKRCP01/json/1/1000/RCP_NM=${encodeURI(foodName)}`;
+    const url2 = `https://openapi.foodsafetykorea.go.kr/api/${process.env.RECIPE_APIKEY}/COOKRCP01/json/1001/1500/RCP_NM=${encodeURI(foodName)}`;
+    try {
+        let itemData ='';
+      const response = await axios.get(url1);
+      if(response.data.COOKRCP01.row !== undefined){
+        itemData = response.data.COOKRCP01.row;
+      }else{
+        const response2 = await axios.get(url2);
+         itemData= response2.data.COOKRCP01.row;
+      }
+      res.send(itemData);
+    } catch (err) {
+      console.error(err);
+    }
+  },
+
+  searchRecipe: async(req,res) => {
+    //검색 결과 갯수 조회
+    let result = '';
+    let totalCount = 0;
+    if(req.query.recipeName !== undefined){
+        const recipeName = req.query.recipeName;
+        const url = `https://openapi.foodsafetykorea.go.kr/api/${process.env.RECIPE_APIKEY}/COOKRCP01/json/1/1000/RCP_NM=${recipeName}`;
+        try{    
+            result = await axios.get(url);
+            totalCount = result.data.COOKRCP01.row.length;
+        }catch(err){
+            console.error(err);
+        }
+    }else{
+        const ingredientName = req.query.ingredientName;
+        const url = `https://openapi.foodsafetykorea.go.kr/api/${process.env.RECIPE_APIKEY}/COOKRCP01/json/1/1000/RCP_PARTS_DTLS=${ingredientName}`;
+        try{    
+            result = await axios.get(url);
+            totalCount = result.data.COOKRCP01.row.length;
+        }catch(err){
+            console.error(err);
+        }
+    }
+
+    const pageNum = Number(req.query.pageNum) || 1;
+    const contentSize = 20;
+    const pnSize = 10; // NOTE: 페이지네이션 개수 설정.
+    const skipSize = (pageNum - 1) * contentSize;
+    const pnTotal = Math.ceil(totalCount / contentSize);
+    const pnStart = ((Math.ceil(pageNum / pnSize) - 1) * pnSize) + 1; // NOTE: 현재 페이지의 페이지네이션 시작 번호
+    let pnEnd = (pnStart + pnSize) - 1; // NOTE: 현재 페이지의 페이지네이션 끝 번호.   
+
+    //검색 페이징 해서 반환
+
     try {
       const response = await axios.get(url);
       const itemData = response.data.COOKRCP01.row;
@@ -38,7 +110,7 @@ const recipe = {
     }
   },
 
-  getRecommendList: (async) => {
+  getRecommendList: async(req,res) => {
     try {
       const date = req.query.date;
       const categoryCode = req.query.category;
@@ -109,7 +181,19 @@ const recipe = {
                 ["percent"],
                 ["desc"]
               );
-              res.send(recipes);
+
+              const pageNum = Number(req.query.pageNum) || 1;
+              const contentSize = 20;
+              const pnSize = 10; // NOTE: 페이지네이션 개수 설정.
+              const skipSize = (pageNum - 1) * contentSize;
+      
+              const totalCount = recipes.length;
+              const pnTotal = Math.ceil(totalCount / contentSize);
+              const pnStart = ((Math.ceil(pageNum / pnSize) - 1) * pnSize) + 1; // NOTE: 현재 페이지의 페이지네이션 시작 번호
+              let pnEnd = (pnStart + pnSize) - 1; // NOTE: 현재 페이지의 페이지네이션 끝 번호.
+
+              const pagingRecipes = recipes.slice(skipSize, skipSize+contentSize)
+              res.send(pagingRecipes);
             });
           });
         });
@@ -118,7 +202,7 @@ const recipe = {
       console.error(err);
     }
   },
-  
+
   setRecommendList: async (req, res) => {
     const userId = res.locals.user.id;
     const userRecipeList = req.body.recipeList;

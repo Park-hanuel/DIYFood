@@ -86,6 +86,18 @@ const ingredient = {
       console.error(err);
     }
   },
+
+  getUserExistList : async (req, res) => {
+    try {
+      const userId = res.locals.user.id;
+      const ingredientyList = await models.Ingredient.findAll({
+        where: {userId : userId}
+      });
+      res.send(ingredientyList);
+    } catch (err) {
+      console.error(err);
+    }
+  },
   getExistList: async (req, res) => {
     try {
       const ingredientyList = await models.Ingredient.findAll({});
