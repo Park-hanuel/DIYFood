@@ -24,7 +24,7 @@
                       <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0 input_row">
                         <label class="form-label" for="name">이름</label>
-                        <input type="text" id="user.name" class="form-control" placeholder="Name" v-model="user.name" required/>
+                        <input type="text" id="user.name" class="form-control" style='ime-mode:active' placeholder="Name" v-model="user.name" required/>
                       </div>
                     </div>
                     <div class="d-flex flex-row align-items-center mb-4">

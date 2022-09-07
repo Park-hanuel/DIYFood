@@ -23,7 +23,7 @@
           </div>
         </section>
       </a>
-      <a href="/user/analysis/survey">
+      <a href="/analysis/survey">
         <section class="content-box">
           <img src="https://cdn-icons-png.flaticon.com/512/2041/2041643.png" alt="" class="img_style">
           <div style="margin-top:30px;">
@@ -85,7 +85,7 @@ body{background: #f3f3f3;}
   margin-bottom: 10px;
   margin-top:10px;
   border-radius: 20px;
-  box-shadow: 5px 5px 5px 5px lightgray;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   padding-top: 30px;
   padding-bottom: 10px;
 }
@@ -99,7 +99,7 @@ body{background: #f3f3f3;}
   height: 50px;
   width: 150px;
   border-radius: 10px;
-  box-shadow: 5px 5px 5px 5px lightgray;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   margin: 20px;
   margin-left: 500px;
   margin-right:500px;

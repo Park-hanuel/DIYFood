@@ -74,7 +74,7 @@ body{background: #f3f3f3;}
   margin-top: 10px;
   margin-bottom: 0px;
   border-radius: 20px;
-  box-shadow: 5px 5px 5px 5px lightgray;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   padding-top: 30px;
   padding-bottom: 10px;
 }
@@ -85,9 +85,9 @@ body{background: #f3f3f3;}
 }
 .next-button {
   height: 50px;
-  width: 150px;
+  width: 20%;
   border-radius: 10px;
-  box-shadow: 5px 5px 5px 5px lightgray;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   margin-top: 50px;
   border: none;
 }

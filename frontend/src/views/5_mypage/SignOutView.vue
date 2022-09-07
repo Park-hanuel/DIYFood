@@ -79,13 +79,13 @@ body{background: #f3f3f3;}
   margin-right:20%;
   margin-left: 20%;
   border-radius: 20px;
-  box-shadow: 5px 5px 5px 5px lightgray;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   padding: 30px;
 }
 .next-button {
   height: 50px;
   border-radius: 10px;
-  box-shadow: 5px 5px 5px 5px lightgray;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   margin: 20px;
   margin-top:40px;
   background-color: #ffffff;

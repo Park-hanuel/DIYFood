@@ -39,7 +39,7 @@
                   <th scope="col" style="width:10%">순번</th>
                   <th scope="col" style="width:25%">품목</th>
                   <th scope="col" style="width:25%">품종</th>
-                  <th scope="col" style="width:20%">가격(100g)</th>
+                  <th scope="col" style="width:20%">가격</th>
                   <th scope="col" style="width:10%">수량</th>
                   <th scope="col" style="width:10%">선택</th>
                 </tr>

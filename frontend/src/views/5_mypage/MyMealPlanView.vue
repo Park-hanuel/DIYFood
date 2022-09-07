@@ -36,7 +36,7 @@
               <div class="recipe-box" >
                 <div class="recipe-card" style="display: flex;">
                   <div style="width:85%; height:100%;">
-                    <a href="/recipe">
+                    <a href='/recipe/'>
                       <img :src=data.RecipeNutrient.foodImage class="food-img" onerror="this.src='https://ifh.cc/g/RXYY1z.png'">
                       <div class="word" style="vertical-align: middle; margin-left: 110px; margin-right:15px; margin-top: 8px;">
                         <p style="font-weight: 400; font-size:1.2rem">{{data.RecipeNutrient.foodName}}</p>
@@ -80,7 +80,7 @@ export default {
     // 월별로 식단 계획 불러오기
     getUserRecipe (index) {
       this.month = index
-      this.$axios.get(`http://localhost:3000/user/recipelist?month=${this.month}`).then(response => {
+      this.$axios.get(`http://localhost:3000/user/recipelist?month=${this.month}`, { withCredentials: true }).then(response => {
         console.log('### response: ' + JSON.stringify(response))
         this.userRecipeList = response.data
       }).catch(error => {
@@ -139,7 +139,7 @@ body{
   margin-right:10%;
   margin-left: 10%;
   border-radius: 20px;
-  box-shadow: 5px 5px 5px 5px lightgray;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   padding: 3%;
   padding-top: 1%;
 }

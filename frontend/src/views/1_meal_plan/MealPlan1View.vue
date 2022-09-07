@@ -30,11 +30,9 @@
                 <span style="margin-left:5px; color: gray;">(1인분 기준)</span>
               </label>
               <p></p>
-              <div>
+              <div style="display:inline-block">
                 <p style="font-size:1.1rem">2. 기간을 설정해주세요.</p>
-                <p class="margin_left">기간은 <strong>일주일</strong>기준으로 설정할 수 있습니다.
-                <br>식재료 가격은 <strong>현재 시장 가격</strong>을 기준으로 계산됩니다.</p>
-                <div class="container" style="margin-left:10px">
+                <div style="margin-left:10px; float: left;">
                   <date-picker
                     inline
                     :editable="false"
@@ -46,8 +44,11 @@
                     :disabled-date="dislabedDate"
                     @pick="calendarPick"
                   />
-                  <br />
-                  선택 기간 : {{ dateRange.start }} - {{ dateRange.end }}
+                  <div style="float: right">
+                    <p class="margin_left">기간은 <strong>일주일</strong>기준으로 설정할 수 있습니다.
+                    <br>식재료 가격은 <strong>현재 시장 가격</strong>을 기준으로 계산됩니다.</p>
+                    <p class="margin_left">선택 기간 : {{ dateRange.start }} - {{ dateRange.end }}</p>
+                  </div>
                 </div>
               </div>
               <p></p>

@@ -12,7 +12,7 @@
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
                         <a href="/mealplan">
-                            <img src="https://cdn-icons-png.flaticon.com/512/561/561611.png" alt="MealPlan" style="width: 120px; height: 120px;">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3476/3476015.png" alt="MealPlan" style="width: 120px; height: 120px;">
                         </a>
                     </span>
                     <h4 class="my-3">식단 계획하기</h4>
@@ -41,7 +41,7 @@
                     <div class="col-md-4">
                         <span class="fa-stack fa-4x">
                             <a href="/recipe">
-                                <img src="https://cdn-icons-png.flaticon.com/512/3565/3565418.png" alt="MealPlan" style="width: 120px; height: 120px;">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3565/3565407.png" alt="recipe" style="width: 120px; height: 120px;">
                             </a>
                         </span>
                         <h4 class="my-3">레시피</h4>
@@ -70,7 +70,7 @@
                     <div class="col-md-4">
                         <span class="fa-stack fa-4x">
                             <a href="/ingredient">
-                                <img src="https://cdn-icons-png.flaticon.com/512/3362/3362707.png" alt="ingredient_price" style="width: 120px; height: 120px;">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3514/3514242.png" alt="ingredient_price" style="width: 120px; height: 120px;">
                             </a>
                         </span>
                         <h4 class="my-3">식재료 가격 정보</h4>
@@ -87,30 +87,30 @@
                 </div>
             </div>
         </section>
-        <!--Price Trend-->
+        <!--Diet Analysis-->
         <section class="page-section bg-light" id="Trend">
             <div class="container">
                 <div class="text-center">
-                    <a href="price_trend.html">
-                        <h2 class="section-heading text-uppercase">Price Trend</h2>
+                    <a href="/analysis/survey">
+                        <h2 class="section-heading text-uppercase">Diet Analysis</h2>
                     </a>
                 </div>
                 <div class="row text-center">
                     <div class="col-md-4">
                         <span class="fa-stack fa-4x">
-                            <a href="price_trend.html">
-                                <img src="@/assets/graph.png" alt="price_trend" style="width: 120px; height: 120px;">
+                            <a href="/analysis/survey">
+                                <img src="https://cdn-icons-png.flaticon.com/512/1162/1162489.png" alt="price_trend" style="width: 120px; height: 120px;">
                             </a>
                         </span>
-                        <h4 class="my-3">시세 동향</h4>
-                        <p class="text-muted">농수축산물 거래에 대한 국내 동향 정보를 제공합니다.</p>
+                        <h4 class="my-3">식단 분석</h4>
+                        <p class="text-muted">회원님의 식단 계획 데이터를 기반으로 필수 영양소 섭취를 비교·분석합니다.</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="mb-4">
                         <!-- Recipe item 1-->
                         <div class="Recipe-item" style="text-align : center;">
-                            <img src="@/assets/Trend_banner.png" alt="price_trend" style="max-width: 50%; height: auto;">
+                            <img src="@/assets/analysis_banner.png" alt="price_trend" style="max-width: 77%; height: auto;">
                         </div>
                     </div>
                 </div>

@@ -39,7 +39,7 @@
                   <li class="nav-item"><a class="nav-link" href="/mealplan">Meal Plan</a></li>
                   <li class="nav-item"><a class="nav-link" href="/recipe">Recipe</a></li>
                   <li class="nav-item"><a class="nav-link" href="/ingredient">Ingredients Price</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/#Trend">Price Trend</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/analysis/survey">Diet Analysis</a></li>
               </ul>
           </div>
         </div>
