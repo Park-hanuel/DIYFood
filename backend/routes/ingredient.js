@@ -10,6 +10,8 @@ router.get('/list', IngredientController.getLiveList);
 router.get('/userlist', IngredientController.getUserList);
 router.post('/userlist', IngredientController.setUserList)
 
+router.get('/userexistlist', IngredientController.getUserExistList)
+
 //보유 원재료 관련 정보 리스트 제공
 router.get('/existlist', IngredientController.getExistList);
 router.post('/existlist', IngredientController.setExistList);

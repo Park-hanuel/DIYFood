@@ -68,12 +68,38 @@ const recipe = {
 
   searchRecipe: async(req,res) => {
     //검색 결과 갯수 조회
-    if(req.query.recipeName){
-        const url = `https://openapi.foodsafetykorea.go.kr/api/${process.env.RECIPE_APIKEY}/COOKRCP01/json/${foodCode}/${foodCode}/`;
+    let result = '';
+    let totalCount = 0;
+    if(req.query.recipeName !== undefined){
+        const recipeName = req.query.recipeName;
+        const url = `https://openapi.foodsafetykorea.go.kr/api/${process.env.RECIPE_APIKEY}/COOKRCP01/json/1/1000/RCP_NM=${recipeName}`;
+        try{    
+            result = await axios.get(url);
+            totalCount = result.data.COOKRCP01.row.length;
+        }catch(err){
+            console.error(err);
+        }
     }else{
-
+        const ingredientName = req.query.ingredientName;
+        const url = `https://openapi.foodsafetykorea.go.kr/api/${process.env.RECIPE_APIKEY}/COOKRCP01/json/1/1000/RCP_PARTS_DTLS=${ingredientName}`;
+        try{    
+            result = await axios.get(url);
+            totalCount = result.data.COOKRCP01.row.length;
+        }catch(err){
+            console.error(err);
+        }
     }
-    const url = `https://openapi.foodsafetykorea.go.kr/api/${process.env.RECIPE_APIKEY}/COOKRCP01/json/${foodCode}/${foodCode}/`;
+
+    const pageNum = Number(req.query.pageNum) || 1;
+    const contentSize = 20;
+    const pnSize = 10; // NOTE: 페이지네이션 개수 설정.
+    const skipSize = (pageNum - 1) * contentSize;
+    const pnTotal = Math.ceil(totalCount / contentSize);
+    const pnStart = ((Math.ceil(pageNum / pnSize) - 1) * pnSize) + 1; // NOTE: 현재 페이지의 페이지네이션 시작 번호
+    let pnEnd = (pnStart + pnSize) - 1; // NOTE: 현재 페이지의 페이지네이션 끝 번호.   
+
+    //검색 페이징 해서 반환
+
     try {
       const response = await axios.get(url);
       const itemData = response.data.COOKRCP01.row;
@@ -155,7 +181,19 @@ const recipe = {
                 ["percent"],
                 ["desc"]
               );
-              res.send(recipes);
+
+              const pageNum = Number(req.query.pageNum) || 1;
+              const contentSize = 20;
+              const pnSize = 10; // NOTE: 페이지네이션 개수 설정.
+              const skipSize = (pageNum - 1) * contentSize;
+      
+              const totalCount = recipes.length;
+              const pnTotal = Math.ceil(totalCount / contentSize);
+              const pnStart = ((Math.ceil(pageNum / pnSize) - 1) * pnSize) + 1; // NOTE: 현재 페이지의 페이지네이션 시작 번호
+              let pnEnd = (pnStart + pnSize) - 1; // NOTE: 현재 페이지의 페이지네이션 끝 번호.
+
+              const pagingRecipes = recipes.slice(skipSize, skipSize+contentSize)
+              res.send(pagingRecipes);
             });
           });
         });
