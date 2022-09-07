@@ -28,22 +28,19 @@ router.get('/analysis/result', async function(req, res, next) {
     let sumNatrium =0;
 
     console.log(userSelectFood[0].dataValues)
-    // res.send(userSelectFood)
 
     for(const item in userSelectFood){
-        // count.append = userSelectFood[item].dataValues.foodCode
+        
         count.push(userSelectFood[item].dataValues.foodCode);
     }
     
     console.log(count)
-    // let foodCode = '855'
 
     const selectFoodNutrient = await models.RecipeNutrient.findAll({
         attribute : ['foodCode'],
         where : {foodCode : count}
     })
     console.log(selectFoodNutrient[1].dataValues)
-    // res.send(selectFoodNutrient)
 
     for(const item in selectFoodNutrient){
         sumEnergy += selectFoodNutrient[item].dataValues.foodEnergy;
@@ -52,10 +49,9 @@ router.get('/analysis/result', async function(req, res, next) {
         sumFat += selectFoodNutrient[item].dataValues.foodFat;
         sumNatrium += selectFoodNutrient[item].dataValues.foodNatrium;
 
-        // totalNutrient.push(sumEnergy,sumCarbohydrate,sumProtein,sumFat,sumNatrium);
     }
     totalNutrient.push(sumEnergy,sumCarbohydrate,sumProtein,sumFat,sumNatrium);
-    // res.send(selectFoodNutrient)
+    
     console.log(totalNutrient)
 
     const userInformation = await models.UserInfo.findOne({
@@ -64,8 +60,6 @@ router.get('/analysis/result', async function(req, res, next) {
             userId : userId// 아이디, 날짜
         }
     })
-    // console.log(userInformation)
-    // console.log(userInformation.dataValues.gender)
 
     let man_BasicMetabolicRate = 0;
     let woman_BasicMetabolicRate = 0;
