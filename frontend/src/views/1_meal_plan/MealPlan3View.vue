@@ -36,12 +36,13 @@
             <table class="table table-light" style="vertical-align: middle;">
               <thead class="table-bordered">
                 <tr>
-                  <th scope="col" style="width:10%">순번</th>
-                  <th scope="col" style="width:25%">품목</th>
-                  <th scope="col" style="width:25%">품종</th>
-                  <th scope="col" style="width:20%">가격</th>
-                  <th scope="col" style="width:10%">수량</th>
-                  <th scope="col" style="width:10%">선택</th>
+                  <th scope="col" style="width:15%">순번</th>
+                  <th scope="col" style="width:15%">품목</th>
+                  <th scope="col" style="width:20%">품종</th>
+                  <th scope="col" style="width:15%">등급</th>
+                  <th scope="col" style="width:15%">가격</th>
+                  <th scope="col" style="width:15%">수량</th>
+                  <th scope="col" style="width:15%">선택</th>
                 </tr>
               </thead>
               <tbody>
@@ -49,6 +50,7 @@
                   <td>{{i + 1}}</td>
                   <td>{{data.itemName}}</td>
                   <td>{{data.detailItemName}}</td>
+                  <td>{{data.rank}}</td>
                   <td>{{data.price}} 원</td>
                   <td>
                     <label>

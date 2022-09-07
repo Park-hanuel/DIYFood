@@ -85,7 +85,7 @@ export default {
   methods: {
     // 상세 레시피 불러오기
     getDetailRecipe (foodCode) {
-      this.$axios.get(`http://localhost:3000/recipe/list?foodCode=${foodCode}`, { withCredentials: true }).then(response => {
+      this.$axios.get(`http://localhost:3000/recipe/list/${foodCode}`, { withCredentials: true }).then(response => {
         console.log('### response: ' + JSON.stringify(response))
         this.recipe = response.data
       }).catch(error => {
@@ -111,11 +111,12 @@ body{
   padding-left: 2%;
   overflow: auto;
   white-space: normal;
-  border-left: 1px solid gray;
+  border-left: 1px solid lightgray;
   text-align: center;
 }
 .recipe-box {
   width:80%;
+  height:200px;
   display: inline-block;
   margin: 20px;
 }
@@ -129,13 +130,13 @@ body{
   text-align: left;
 }
 .recipe-text {
-  height: 200px;
+  height: 100%;
   padding: 10px;
   float: left;
   vertical-align: middle;
 }
 .recipe-img {
-  width: 300px;
+  width: 40%;
   height: 200px;
   float:left;
   border-radius: 30px;
