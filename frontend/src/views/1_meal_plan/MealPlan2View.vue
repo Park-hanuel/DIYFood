@@ -73,7 +73,8 @@ export default {
       checkedItemCode: [],
       checkedItemName: [],
       metaItemList: [],
-      selected: []
+      selected: [],
+      userExistList: []
     }
   },
   setup () {},
@@ -85,10 +86,18 @@ export default {
   methods: {
     // 식재료 목록 불러오기
     getIngredientData () {
-      this.$axios.get('http://localhost:3000/ingredient/existlist').then(response => {
+      this.$axios.get('http://localhost:3000/ingredient/existlist', { withCredentials: true }).then(response => {
         this.itemList = response.data
         this.metaItemList = response.data
         this.itemList = this.metaItemList.filter(item => parseInt(item.itemCode / 100) === 1)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    getUserExistList () {
+      this.$axios.get('http://localhost:3000/ingredient/userexistlist', { withCredentials: true }).then(response => {
+        this.userExistList = response.data
+        console.log(this.userExistList)
       }).catch(error => {
         console.log(error)
       })
