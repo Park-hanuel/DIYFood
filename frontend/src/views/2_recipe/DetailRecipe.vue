@@ -9,7 +9,7 @@
       <div style="margin-bottom: 30px; margin-right: 30px; width: 90%;">
         <img :src=recipe[0].ATT_FILE_NO_MAIN :alt=recipe[0].RCP_NM style="border-radius: 5%; float: left;" width="100%"  onerror="this.src='https://ifh.cc/g/RXYY1z.png'">
       </div>
-      <div style="float:left; margin-top: 30px; margin-right: 30px;">
+      <div style="float:left; margin-top: 30px; margin-right: 20px;">
         <h3>재료</h3>
         <p style="font-size:1.2rem; margin-bottom: 30px;">{{recipe[0].RCP_PARTS_DTLS}}</p>
         <h3>영양 정보</h3>
@@ -22,7 +22,7 @@
     <div class="content-box">
       <div>
         <h2>조리 순서</h2>
-          <div style="font-size:1.3rem;">
+          <div style="font-size:1.2rem;">
             <div class="recipe-box">
               <img class="recipe-img" :src=recipe[0].MANUAL_IMG01>
               <div class="recipe-card">
@@ -103,7 +103,7 @@ body{
   padding-left: 3%;
   padding-right: 3%;}
 .content-box{
-  width:68%;
+  width:70%;
   float: right;
   height:fit-content;
   background-color: transparent;

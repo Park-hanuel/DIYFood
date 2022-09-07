@@ -30,6 +30,10 @@
           <input type="button" class="btn btn-primary btn-lg btn-custom" value="후식" @click="getRecipeData(date_start, 5)">
           <input type="button" class="btn btn-primary btn-lg btn-custom" value="기타" @click="getRecipeData(date_start, 4)">
         </div>
+        <div class="box-item" style="vertical-align: middle; text-align: center;">
+          <span><img src="https://cdn-icons-png.flaticon.com/128/308/308556.png" width="20px">  {{this.checkedItemName}}</span>
+          <p style="color:gray">* 선택 버튼을 두번 누르면 선택이 해제됩니다.</p>
+        </div>
         <!-- Loading -->
         <div style="width:100%">
           <div v-if="isLoading" class="loading-container">
@@ -43,7 +47,7 @@
           <!-- Recipe Card -->
           <div v-for="(data, index) in recipeList" :key="index">
             <div name="card" class="card-custom">
-              <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 5%;">
+              <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 10px;">
                 <img :src=data.foodImage width="100%" style="margin: -25%;" onerror="this.src='https://ifh.cc/g/RXYY1z.png'">
               </div>
               <div style="height: 10%;"><h6 style="text-align:center; margin-top: 10px;">{{data.foodName}}</h6></div>
@@ -60,7 +64,7 @@
           </div>
         </div>
         <div style="text-align:center; width:100%" >
-          <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" style="width: 10%; position: fixed; left: 58%; bottom:5%; margin:0; box-shadow: 3px 3px 3px 3px white;" @click="submitRecipeList()">
+          <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" style="width: 10%; position: fixed; left: 58%; bottom:5%; margin:0;   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);" @click="submitRecipeList()">
         </div>
       </section>
     </div>
@@ -129,6 +133,7 @@ export default {
   .btn-custom {
     margin-bottom: 20px;
     width: 110px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   }
   .card-custom {
     background-color: #f3f3f3;

@@ -37,7 +37,17 @@ export default {
   created () {},
   mounted () {},
   unmounted () {},
-  methods: {}
+  methods: {
+    getRecipeData () {
+      // eslint-disable-next-line
+      this.$axios.get(`http://localhost:3000/recipe/list?date=${date}&category=${code}`, { withCredentials: true }).then(response => {
+        console.log('### response: ' + JSON.stringify(response))
+        this.recipeList = response.data
+      }).catch(error => {
+        console.log(error)
+      })
+    }
+  }
 }
 </script>
 
@@ -54,7 +64,7 @@ body{
   margin-top: 30px;
   margin-bottom: 30px;
   border-radius: 20px;
-  box-shadow: 5px 5px 5px 5px lightgray;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   padding: 50px;
   text-align: left;
   overflow: auto;

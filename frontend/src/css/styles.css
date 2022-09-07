@@ -11411,6 +11411,7 @@ p {
   }
 }
 header.masthead {
+  margin-top: 100px;
   padding-top: 10.5rem;
   padding-bottom: 6rem;
   text-align: center;
@@ -11796,7 +11797,7 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   height: 50px;
   width: 150px;
   border-radius: 10px;
-  box-shadow: 3px 3px 3px 3px lightgray;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   margin-block: 20px;
   border: none;
 }
@@ -11845,7 +11846,7 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   margin-top: 30px;
   margin-bottom: 30px;
   border-radius: 20px;
-  box-shadow: 5px 5px 5px 5px lightgray;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   padding: 50px;
   padding-bottom: 10px;
   text-align: left;
@@ -11859,7 +11860,7 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   margin-top: 10px;
   margin-bottom: 50px;
   border-radius: 20px;
-  box-shadow: 5px 5px 5px 5px lightgray;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   padding: 50px;
   padding-bottom: 10px;
   text-align: left;
@@ -11872,15 +11873,16 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   width: 500px;
   border:slategray;
   border-radius: 5px;
-  box-shadow:1px 1px 1px 1px lightgrey;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   margin-top: 0px;
 }
 .box-item {
-  width: auto;
+  width: 96%;
+  margin-left: 2%;
+  margin-right: 2%;
   height: auto;
   background-color: #f3f3f3;
   border-radius: 5px;
-  margin-bottom: 10px;
   padding: 5px;
   padding-bottom:0%;
 }
