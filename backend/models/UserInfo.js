@@ -43,7 +43,5 @@ module.exports = class UserInfo extends Sequelize.Model {
 }
   static associate(db) {
     db.UserInfo.belongsTo(db.User, {foreignKey: "userId", targetKey: 'id'})
-    // db.UserInfo.belongsTo(db.UserRecipe, {foreignKey: "date", targetKey: 'userId'})
-    //userid date
   }
 };
