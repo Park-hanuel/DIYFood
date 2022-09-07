@@ -60,7 +60,7 @@ const models = require('./models');
 const server = require('./server');
 //오후 16시마다 업데이트 (화 ~ 토) 
 cron.schedule('0 16 * * 2-6', async function(){
-  const data = [100,200,300,400,500,600];
+  const data = [100,200,300,400,600];
     await models.LiveIngredient.destroy({where:{}}).then(console.log("liveIngredinet destoryed."));
 
     const d =new Date();

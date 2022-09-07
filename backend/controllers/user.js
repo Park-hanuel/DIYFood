@@ -2,6 +2,7 @@ const models = require("../models");
 const sequelize = require("sequelize");
 const passport = require("passport");
 const pbkdf2 = require("crypto");
+const { RecipeNutrient } = require("../models");
 const Op = sequelize.Op;
 
 const user = {
