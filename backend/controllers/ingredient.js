@@ -90,7 +90,7 @@ const ingredient = {
   getUserExistList : async (req, res) => {
     try {
       const userId = res.locals.user.id;
-      const ingredientyList = await models.Ingredient.findAll({
+      const ingredientyList = await models.ExistIngredient.findAll({
         where: {userId : userId}
       });
       res.send(ingredientyList);
