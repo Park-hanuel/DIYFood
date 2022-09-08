@@ -19,8 +19,7 @@ async function getTodayData(p_item_category_code, p_regday) {
             const itemCode = itemData[i].item_code;
             const detailItemCode = itemData[i].kind_code;
             const rank = itemData[i].rank;
-            const price = itemData[i].dpr2;
-            let unit = itemData[i].unit;
+            const price = itemData[i].dpr1;
 
             // 값이 없는 경우 해당 값은 기존 데이터 사용
             if(price === '-')
