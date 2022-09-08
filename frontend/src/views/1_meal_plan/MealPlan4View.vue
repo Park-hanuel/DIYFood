@@ -30,9 +30,8 @@
           <input type="button" class="btn btn-primary btn-lg btn-custom" value="후식" @click="getRecipeData(date_start, 5)">
           <input type="button" class="btn btn-primary btn-lg btn-custom" value="기타" @click="getRecipeData(date_start, 4)">
         </div>
-        <div class="box-item" style="vertical-align: middle; text-align: center;">
-          <span><img src="https://cdn-icons-png.flaticon.com/128/308/308556.png" width="20px">  {{this.checkedItemName}}</span>
-          <p style="color:gray">* 선택 버튼을 두번 누르면 선택이 해제됩니다.</p>
+        <div class="box-item" style="text-align: center;">
+          <p><img src="https://cdn-icons-png.flaticon.com/128/308/308556.png" width="20px">  {{this.checkedItemName}}</p>
         </div>
         <!-- Loading -->
         <div style="width:100%">
@@ -106,7 +105,7 @@ export default {
     getRecipeData (date, code) {
       this.isLoading = true
       // eslint-disable-next-line
-      this.$axios.get(`http://localhost:3000/recipe/userlist?date=${date}&category=${code}`, { withCredentials: true }).then(response => {
+      this.$axios.get(`http://localhost:3000/recipe/recommendlist?date=${date}&category=${code}`, { withCredentials: true }).then(response => {
         console.log('### response: ' + JSON.stringify(response))
         this.recipeList = response.data
         this.isLoading = false
@@ -116,7 +115,7 @@ export default {
     },
     // 선택 레시피 제출
     submitRecipeList () {
-      const url = 'http://localhost:3000/recipe/userlist'
+      const url = 'http://localhost:3000/recipe/recommendlist'
       const data = { recipeList: this.checkedList, date: this.date_start }
       this.$axios.post(url, data, { withCredentials: true })
       console.log(data)
