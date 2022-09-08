@@ -29,9 +29,8 @@
               <input type="button" class="btn btn-primary btn-lg btn-custom" value="축산물" @click="searchItem('5')">
               <input type="button" class="btn btn-primary btn-lg btn-custom" value="수산물" @click="searchItem('6')">
             </div>
-            <div class="box-item" style="vertical-align: middle;">
-              <span><img src="@/assets/shopping-basket.png" width="20px">  {{this.checkedItemName}}</span>
-              <p style="color:gray">* 선택 버튼을 두번 누르면 선택이 해제됩니다.</p>
+            <div class="box-item">
+              <p><img src="@/assets/shopping-basket.png" width="20px">  {{this.checkedItemName}}</p>
             </div>
             <table class="table table-light" style="vertical-align: middle;">
               <thead class="table-bordered">
@@ -73,13 +72,13 @@ export default {
       checkedItemCode: [],
       checkedItemName: [],
       metaItemList: [],
-      selected: [],
-      userExistList: []
+      selected: []
     }
   },
   setup () {},
   created () {
     this.getIngredientData()
+    this.getUserExistList()
   },
   mounted () {},
   unmounted () {},

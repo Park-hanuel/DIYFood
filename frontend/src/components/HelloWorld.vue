@@ -15,7 +15,7 @@
                             <img src="https://cdn-icons-png.flaticon.com/512/3476/3476015.png" alt="MealPlan" style="width: 120px; height: 120px;">
                         </a>
                     </span>
-                    <h4 class="my-3">식단 계획하기</h4>
+                    <h4 class="my-3">식단 계획</h4>
                     <p class="text-muted">설정된 예산에 맞춰 건강하고 신선한 식단을 추천합니다.</p>
                 </div>
             </div>

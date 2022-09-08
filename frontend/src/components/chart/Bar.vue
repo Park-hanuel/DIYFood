@@ -66,6 +66,7 @@ export default {
     return {
       chartData: {
         labels: [
+          '기초대사량',
           '열량',
           '나트륨',
           '탄수화물',
@@ -76,13 +77,13 @@ export default {
           {
             label: '권장 섭취량',
             backgroundColor: '#4ac1c0',
-            data: [100, 35, 42, 53, 54],
+            data: [150, 100, 35, 42, 53, 54],
             borderRadius: 5
           },
           {
             label: '나의 섭취량',
             backgroundColor: '#9565f9',
-            data: [120, 52, 41, 23, 35],
+            data: [130, 120, 52, 41, 23, 35],
             borderRadius: 5
           }
         ]

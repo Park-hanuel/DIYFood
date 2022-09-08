@@ -9,83 +9,83 @@
       </span>
     </div>
     <div class="content-box">
-      <div class="half-box">
-        <div style="text-align: center; margin-top: 20%;">
-          <img src="https://cdn-icons-png.flaticon.com/512/668/668709.png" width="50%">
-          <h1 style="margin-top: 50px">나의 정보</h1>
+      <form>
+        <div class="half-box">
+          <div style="text-align: center; margin-top: 20%;">
+            <img src="https://cdn-icons-png.flaticon.com/512/668/668709.png" width="50%">
+            <h1 style="margin-top: 50px">나의 정보</h1>
+          </div>
         </div>
-      </div>
-      <div class="half-box">
-        <div>
-          <span><b>성별</b></span>
-          <label>
-            <input type="radio" class="form-check-input margin-left" name="gender" value="male" v-model="gender" required> 남성
-            <input type="radio" class="form-check-input margin-left" name="gender" value="female" v-model="gender" required> 여성
+        <div class="half-box">
+          <div>
+            <span><b>성별</b></span>
+            <label>
+              <input type="radio" class="form-check-input margin-left" name="gender" value="male" v-model="userdata.gender" required> 남성
+              <input type="radio" class="form-check-input margin-left" name="gender" value="female" v-model="userdata.gender" required> 여성
+            </label>
+          </div>
+          <p></p>
+          <div>
+            <span><b>나이</b></span>
+            <input type="number" class="margin-left" min="1" max="100" v-model="userdata.age" required>
+            <span> 세</span>
+          </div>
+          <p></p>
+          <div>
+            <span><b>신장</b></span>
+            <input type="number" class="margin-left" min="1" max="300" v-model="userdata.height" required>
+            <span> cm</span>
+          </div>
+          <p></p>
+          <div>
+            <span><b>체중</b></span>
+            <input type="number" class="margin-left" min="1" max="200" v-model="userdata.weight" required>
+            <span> kg</span>
+          </div>
+          <p></p>
+          <div>
+            <span><b>목표</b></span>
+            <label>
+              <input type="radio" class="form-check-input margin-left" name="purpose" value="0" v-model="userdata.purpose" required> 벌크업
+            </label>
+            <label>
+              <input type="radio" class="form-check-input margin-left" name="purpose" value="1" v-model="userdata.purpose" required> 유지
+            </label>
+            <label>
+              <input type="radio" class="form-check-input margin-left" name="purpose" value="2" v-model="userdata.purpose" required> 다이어트
+            </label>
+          </div>
+          <p></p>
+          <div>
+            <span><b>활동량</b></span><br>
+            <label style="margin-top:10px">
+              <input type="radio" class="form-check-input margin-left" name="activeMass" value="0" v-model="userdata.activeMass" required> 거의 없다 (운동 안함)
+            </label><br>
+            <label>
+              <input type="radio" class="form-check-input margin-left" name="activeMass" value="1" v-model="userdata.activeMass" required> 조금 있다 (주 1-2회 운동)
+            </label><br>
+            <label>
+              <input type="radio" class="form-check-input margin-left" name="activeMass" value="2" v-model="userdata.activeMass" required> 보통이다 (주 3-4회 운동)
+            </label><br>
+            <label>
+              <input type="radio" class="form-check-input margin-left" name="activeMass" value="3" v-model="userdata.activeMass" required> 꽤 있다 (주 5-6회 운동)
+            </label><br>
+            <label>
+              <input type="radio" class="form-check-input margin-left" name="activeMass" value="4" v-model="userdata.activeMass" required> 매우 활동적이다 (매일 운동)
+            </label>
+          </div>
+        </div>
+        <div class="agreement-box">
+          <p>수집된 개인정보는 식단 분석을 위한 1일 권장 영양소 섭취량 계산에 사용됩니다.</p>
+          <input class="form-check-input" type="checkbox" id="agreement" required/>
+          <label class="form-check-label" style="margin-left: 10px" for="agreement" required>
+            <b>개인정보 수집 및 이용 안내</b>에 동의합니다.
           </label>
         </div>
-        <p></p>
-        <div>
-          <span><b>나이</b></span>
-          <input type="number" class="margin-left" min="1" max="100" v-model="age" required>
-          <span> 세</span>
-        </div>
-        <p></p>
-        <div>
-          <span><b>신장</b></span>
-          <input type="number" class="margin-left" min="1" max="100" v-model="height" required>
-          <span> cm</span>
-        </div>
-        <p></p>
-        <div>
-          <span><b>체중</b></span>
-          <input type="number" class="margin-left" min="1" max="100" v-model="weight" required>
-          <span> kg</span>
-        </div>
-        <p></p>
-        <div>
-          <span><b>목표</b></span>
-          <label>
-            <input type="radio" class="form-check-input margin-left" name="purpose" value="0" v-model="purpose" required> 벌크업
-          </label>
-          <label>
-            <input type="radio" class="form-check-input margin-left" name="purpose" value="1" v-model="purpose" required> 유지
-          </label>
-          <label>
-            <input type="radio" class="form-check-input margin-left" name="purpose" value="2" v-model="purpose" required> 다이어트
-          </label>
-        </div>
-        <p></p>
-        <div>
-          <span><b>활동량</b></span><br>
-          <label style="margin-top:10px">
-            <input type="radio" class="form-check-input margin-left" name="activeMass" value="0" v-model="activeMass" required> 거의 없다 (운동 안함)
-          </label><br>
-          <label>
-            <input type="radio" class="form-check-input margin-left" name="activeMass" value="1" v-model="activeMass" required> 조금 있다 (주 1-2회 운동)
-          </label><br>
-          <label>
-            <input type="radio" class="form-check-input margin-left" name="activeMass" value="2" v-model="activeMass" required> 보통이다 (주 3-4회 운동)
-          </label><br>
-          <label>
-            <input type="radio" class="form-check-input margin-left" name="activeMass" value="3" v-model="activeMass" required> 꽤 있다 (주 5-6회 운동)
-          </label><br>
-          <label>
-            <input type="radio" class="form-check-input margin-left" name="activeMass" value="4" v-model="activeMass" required> 매우 활동적이다 (매일 운동)
-          </label>
-        </div>
-      </div>
-      <div class="agreement-box">
-        <p>수집된 개인정보는 식단 분석을 위한 1일 권장 영양소 섭취량 계산에 사용됩니다.</p>
-        <input class="form-check-input" type="checkbox" id="agreement" required/>
-        <label class="form-check-label" style="margin-left: 10px" for="agreement" required>
-          <b>개인정보 수집 및 이용 안내</b>에 동의합니다.
-        </label>
-      </div>
-      <a href="/analysis/result">
         <div style="text-align:center;" >
           <button type="submit" class="btn btn-primary btn-lg next-button btn-custom">NEXT</button>
         </div>
-      </a>
+      </form>
     </div>
   </body>
 </template>
@@ -97,7 +97,7 @@ export default {
   data () {
     return {
       username: '',
-      user: {
+      userdata: {
         gender: '',
         age: '',
         height: '',
@@ -125,6 +125,16 @@ export default {
           } else if (res.data.message) {
             alert(res.data.message)
           }
+        })
+    },
+    submitForm () {
+      this.$axios.post('http://localhost:3000/analysis/survey', this.userdata, { withCredentials: true })
+        .then(function (response) {
+          console.log(response)
+          location.href = '/analysis/result'
+        })
+        .catch(function (error) {
+          console.log(error)
         })
     }
   }

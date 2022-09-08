@@ -8,28 +8,57 @@
         요리법 정보를 제공합니다.
       </span>
     </div>
+    <!-- 레시피 목록 -->
     <div class="content-box">
-      <!-- <div v-for="(data, index) in recipeList" :key="index"> -->
-        <a href="/recipe/1">
+      <!-- Loading -->
+      <div style="width:100%">
+        <div v-if="isLoading" class="loading-container">
+          <div class="loading">
+            <Fade-loader />
+          </div>
+          <div class="loading-text">
+            <h5>레시피를 불러오고 있습니다.</h5>
+          </div>
+        </div>
+      </div>
+      <div v-for="(contents, i) in recipeList" :key="i">
+        <a :href="`/recipe/${contents.RCP_SEQ}`">
           <div name="card" class="card-custom">
             <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 5%;">
-              <img src='https://images.unsplash.com/photo-1662028529443-28a65ad24811?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80' width="100%" style="margin: -30%;">
+              <img :src=contents.ATT_FILE_NO_MAIN width="100%" style="margin: -10%;">
             </div>
-            <div style="height: 7%;"><h6 style="text-align:center; margin-top: 10px;">음식 이름</h6></div>
-            <div class="word" style="height: 20%;"><span>재료 : 음식 재료 fdljd slfiu dslf jdslkjf ldkjf lsdjf lskdjf sdjflds fjlskldsjflksjf;fj; ir;oi al fldkfj ldkfj kldsf jlsdjf ldskfj lsdj sd</span></div>
-            <div class="word" style="height: 20%;"><span>조리법 : 조리법 dslfjdsk sdjfhksd fkh fsdhkjf skdf dskf sdkfhksdfh dskjfhdskjhf kds fds hfkdh fkjdhf lksdjfl sdjlfj sdl jflsdj flsdkj flksdjf lkdsj flksdj fsd lfksdl jflksdj lfj sdlf jsdf</span></div>
+            <div style="height: 7%;"><h6 style="text-align:center; margin-top: 10px;">{{contents.RCP_NM}}</h6></div>
+            <div class="word" style="height: 20%;"><span>재료 : {{contents.RCP_PARTS_DTLS}}</span></div>
+            <div class="word" style="height: 20%;"><span>조리법 : {{contents.MANUAL01}}{{contents.MANUAL02}}</span></div>
           </div>
         </a>
-      <!-- </div> -->
+      </div>
       <div class="pagination-wrapper">
         <div class="pagination">
-          <a class="prev page-numbers" href="javascript:;">prev</a>
-          <span aria-current="page" class="page-numbers current">1</span>
-          <a class="page-numbers" href="javascript:;">2</a>
-          <a class="page-numbers" href="javascript:;">3</a>
-          <a class="page-numbers" href="javascript:;">4</a>
-          <a class="page-numbers" href="javascript:;">5</a>
-          <a class="next page-numbers" href="javascript:;">next</a>
+          <button v-if="pnStart - 1 > 0" class="btn prev page-numbers" @click="pageClick(pnStart - 1)">prev</button>
+          <button v-if="pnStart - 1 < 0" class="btn prev page-numbers" disabled>prev</button>
+
+          <button v-if="this.pageNum === this.pnStart" aria-current="page" class="btn page-numbers current">{{pnStart}}</button>
+          <button v-if="this.pageNum !== this.pnStart" class="btn page-numbers" @click="pageClick(pnStart)">{{pnStart}}</button>
+
+          <button v-if="this.pageNum === this.pnStart + 1" aria-current="page" class="btn page-numbers current">{{pnStart + 1}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 <= pnTotal" class="btn page-numbers" @click="pageClick(pnStart + 1)">{{pnStart + 1}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 > pnTotal" class="btn" disabled></button>
+
+          <button v-if="this.pageNum === this.pnStart + 2" aria-current="page" class="btn page-numbers current">{{pnStart + 2}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 <= pnTotal" class="btn page-numbers" @click="pageClick(pnStart + 2)">{{pnStart + 2}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 > pnTotal" class="btn" disabled></button>
+
+          <button v-if="this.pageNum === this.pnStart + 3" aria-current="page" class="btn page-numbers current">{{pnStart + 3}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 <= pnTotal" class="btn page-numbers" @click="pageClick(pnStart + 3)">{{pnStart + 3}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 > pnTotal" class="btn" disabled></button>
+
+          <button v-if="this.pageNum === this.pnEnd" aria-current="page" class="btn page-numbers current">{{pnEnd}}</button>
+          <button v-if="this.pageNum !== this.pnEnd && this.pnEnd <= pnTotal" class="btn page-numbers" @click="pageClick(pnEnd)">{{pnEnd}}</button>
+          <button v-if="this.pageNum !== this.pnEnd && this.pnEnd > pnTotal" class="btn" disabled></button>
+
+          <button v-if="pnEnd < pnTotal" class="btn next page-numbers" @click="pageClick(pnEnd + 1)">next</button>
+          <button v-if="pnEnd > pnTotal" class="btn next page-numbers" disabled></button>
         </div>
       </div>
     </div>
@@ -37,26 +66,44 @@
 </template>
 
 <script>
-/* eslint-disable */
+import FadeLoader from 'vue-spinner/src/FadeLoader.vue'
+
 export default {
-  components: {},
+  components: { FadeLoader },
   data () {
     return {
+      isLoading: true,
+      recipeList: [],
+      pageNum: '',
+      pnStart: '',
+      pnEnd: '',
+      pnTotal: ''
     }
   },
   setup () {},
-  created () {},
+  created () {
+    this.pageClick(1)
+  },
   mounted () {},
   unmounted () {},
   methods: {
-    getRecipeData () {
-      // eslint-disable-next-line
-      this.$axios.get(`http://localhost:3000/recipe/list?date=${date}&category=${code}`, { withCredentials: true }).then(response => {
-        console.log('### response: ' + JSON.stringify(response))
-        this.recipeList = response.data
-      }).catch(error => {
-        console.log(error)
-      })
+    pageClick (index) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      this.isLoading = true
+      const url = `http://localhost:3000/recipe/list?pageNum=${index}`
+      this.$axios.get(url, { withCredentials: true })
+        .then((response) => {
+          console.log('### response: ' + JSON.stringify(response))
+          this.recipeList = response.data.contents
+          this.pageNum = response.data.pageNum
+          this.pnStart = response.data.pnStart
+          this.pnEnd = response.data.pnEnd
+          this.pnTotal = response.data.pnTotal
+          console.log(this.recipeList)
+          this.isLoading = false
+        }).catch(error => {
+          console.log(error)
+        })
     }
   }
 }
@@ -109,86 +156,103 @@ a {
 a:hover {
   color: #1a8051;
 }
+.loading {
+  z-index: 2;
+  position: relative;
+  top: 25%;
+  left: 100%;
+  transform: translate(-50%, -50%);
+}
+.loading-text {
+  text-align: center;
+  position:relative;
+  top: 65%;
+  margin-bottom: 50px;
+}
+.loading-container {
+  width: 100%;
+  height: 230px;
+}
 .pagination-wrapper {
   text-align: center;
-  margin: 40px 0;
   display: inline-block;
   width:80%;
-  margin-left:10%
+  margin-left:10%;
+  margin-right: 10%;
 }
 
 .pagination {
-	display: inline-block;
-	height: 70px;
-	margin-top: 70px;
-	padding: 0 25px;
-	border-radius: 35px;
-	background-color: #f3f3f3;
+  display: inline-block;
+  height: 70px;
+  margin-top: 50px;
+  padding: 0 25px;
+  border-radius: 35px;
+  background-color: #f3f3f3;
 
-	@include breakpoint(1199px) {
-		height: 50px;
-		margin-top: 50px;
-		padding: 0 10px;
-		border-radius: 25px;
-	}
+  @include breakpoint(1199px) {
+    height: 50px;
+    margin-top: 50px;
+    padding: 0 10px;
+    border-radius: 25px;
+  }
 }
 
 .page-numbers {
-	display: block;
-	padding: 0 25px;
-	float: left;
-	transition: duration easing;
-	color: rgb(0, 0, 0);
-	font-size: 1rem;
-	letter-spacing: 0.1em;
-	line-height: 70px;
+  display: block;
+  padding: 0 25px;
+  float: left;
+  transition: duration easing;
+  color: rgb(0, 0, 0);
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  line-height: 70px;
   }
-	.page-numbers:hover,
-	.page-numbers.current {
-		background-color: rgb(88, 169, 88);
-		color: white;
-	}
+  .page-numbers:hover,
+  .page-numbers.current {
+    background-color: rgb(88, 169, 88);
+    color: white;
+  }
 
-	.page-numbers.prev:hover,
-	.page-numbers.next:hover {
-		background-color: transparent;
+  .page-numbers.prev:hover,
+  .page-numbers.next:hover {
+    background-color: transparent;
     color: green;
-	}
+  }
 
-	@include breakpoint(1199px) {
-		padding: 0 15px;
-		font-size: 16px;
-		line-height: 50px;
-	}
+  @include breakpoint(1199px) {
+    padding: 0 15px;
+    font-size: 16px;
+    line-height: 50px;
+  }
 
-	@include breakpoint(touch) {
-		padding: 0 14px;
-		display: none;
+  @include breakpoint(touch) {
+    padding: 0 14px;
+    display: none;
 
-		.page-numbers:nth-of-type(2) {
-			position: relative;
-			padding-right: 50px;
+    .page-numbers:nth-of-type(2) {
+      position: relative;
+      padding-right: 50px;
 
-			::after {
-				content: '...';
-				position: absolute;
-				font-size: 25px;
-				top: 0;
-				left: 45px;
-			}
-		}
+      ::after {
+        content: '...';
+        position: absolute;
+        font-size: 25px;
+        top: 0;
+        left: 45px;
+      }
+    }
 
-		.page-numbers:nth-child(-n+3),
-		.page-numbers:nth-last-child(-n+3) {
-			display: block;
-		}
+    .page-numbers:nth-child(-n+3),
+    .page-numbers:nth-last-child(-n+3) {
+      display: block;
+    }
 
-		.page-numbers:nth-last-child(-n+4) {
-			padding-right: 14px;
+    .page-numbers:nth-last-child(-n+4) {
+      padding-right: 14px;
 
-			::after {
-				content: none;
-			}
-		}
-	}
+      ::after {
+        content: none;
+      }
+    }
+  }
 </style>

@@ -139,9 +139,9 @@ body{
 .half-box {
   width: 50%;
   height: auto;
-  padding: 50px;
-  padding-top: none;
-  padding-bottom: none;
+  padding-right: 50px;
+  padding-left: 50px;
+  padding-top: 10px;
   display: inline-block;
   float: left;
   font-size: 1.3rem;
