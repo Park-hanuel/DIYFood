@@ -32,11 +32,20 @@
       </div>
       <div style="width: 60%; float: right; text-align: center;">
         <div>
-          <input type="button" class="btn btn-primary btn-lg btn-custom" value="곡류" @click="getPriceData(100)">
-          <input type="button" class="btn btn-primary btn-lg btn-custom" value="견과·버섯" @click="getPriceData(300)">
-          <input type="button" class="btn btn-primary btn-lg btn-custom" value="채소류" @click="getPriceData(200)">
-          <input type="button" class="btn btn-primary btn-lg btn-custom" value="과일류" @click="getPriceData(400)">
-          <input type="button" class="btn btn-primary btn-lg btn-custom" value="수산물" @click="getPriceData(600)">
+          <input v-if="this.categoryCode !== 100" type="button" class="btn btn-primary btn-lg btn-custom" value="곡류" @click="getPriceData(100)">
+          <input v-if="this.categoryCode === 100" type="button" class="btn btn-clicked btn-lg btn-custom" value="곡류" @click="getPriceData(100)">
+
+          <input v-if="this.categoryCode !== 300" type="button" class="btn btn-primary btn-lg btn-custom" value="견과·버섯" @click="getPriceData(300)">
+          <input v-if="this.categoryCode === 300" type="button" class="btn btn-clicked btn-lg btn-custom" value="견과·버섯" @click="getPriceData(300)">
+
+          <input v-if="this.categoryCode !== 200" type="button" class="btn btn-primary btn-lg btn-custom" value="채소류" @click="getPriceData(200)">
+          <input v-if="this.categoryCode === 200" type="button" class="btn btn-clicked btn-lg btn-custom" value="채소류" @click="getPriceData(200)">
+
+          <input v-if="this.categoryCode !== 400" type="button" class="btn btn-primary btn-lg btn-custom" value="과일류" @click="getPriceData(400)">
+          <input v-if="this.categoryCode === 400" type="button" class="btn btn-clicked btn-lg btn-custom" value="과일류" @click="getPriceData(400)">
+
+          <input v-if="this.categoryCode !== 600" type="button" class="btn btn-primary btn-lg btn-custom" value="수산물" @click="getPriceData(600)">
+          <input v-if="this.categoryCode === 600" type="button" class="btn btn-clicked btn-lg btn-custom" value="수산물" @click="getPriceData(600)">
         </div>
         <div style="padding: 1%">
           <table class="table table-light table-custom">
@@ -69,6 +78,10 @@
           </table>
         </div>
       </div>
+    </div>
+    <div>
+      <button class="btn-up" @click="upClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
+      <button class="btn-down" @click="downClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
     </div>
   </body>
 </template>
@@ -131,7 +144,8 @@ export default {
         maintainAspectRatio: false
       },
       itemList: [],
-      selectedItem: '품목을 선택해주세요'
+      selectedItem: '품목을 선택해주세요',
+      categoryCode: 100
     }
   },
   methods: {
@@ -140,6 +154,7 @@ export default {
       this.$axios.get('http://localhost:3000/ingredient/list?category_code=' + code).then(response => {
         console.log('### response: ' + JSON.stringify(response))
         this.itemList = response.data
+        this.categoryCode = code
       }).catch(error => {
         console.log(error)
       })
@@ -150,6 +165,12 @@ export default {
       this.chartData.datasets[0].data = [Number(this.itemList[i].dpr6.replace(',', '')), Number(this.itemList[i].dpr5.replace(',', '')), Number(this.itemList[i].dpr4.replace(',', '')), Number(this.itemList[i].dpr3.replace(',', '')), Number(this.itemList[i].dpr2.replace(',', '')), Number(this.itemList[i].dpr1.replace(',', ''))]
       console.log(this.selectedItem)
       window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    upClick () {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    downClick () {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }
   }
 }

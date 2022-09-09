@@ -9,7 +9,7 @@
       </span>
     </div>
     <div class="content-box">
-      <form>
+      <!-- <form> -->
         <div class="half-box">
           <div style="text-align: center; margin-top: 20%;">
             <img src="https://cdn-icons-png.flaticon.com/512/668/668709.png" width="50%">
@@ -83,9 +83,13 @@
           </label>
         </div>
         <div style="text-align:center;" >
-          <button type="submit" class="btn btn-primary btn-lg next-button btn-custom">NEXT</button>
+          <button class="btn btn-primary btn-lg next-button btn-custom" @click="submitForm()">NEXT</button>
         </div>
-      </form>
+      <!-- </form> -->
+    </div>
+    <div>
+        <button class="btn-up" @click="upClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
+        <button class="btn-down" @click="downClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
     </div>
   </body>
 </template>
@@ -131,11 +135,17 @@ export default {
       this.$axios.post('http://localhost:3000/analysis/survey', this.userdata, { withCredentials: true })
         .then(function (response) {
           console.log(response)
-          location.href = '/analysis/result'
+          // location.href = '/analysis/result'
         })
         .catch(function (error) {
           console.log(error)
         })
+    },
+    upClick () {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    downClick () {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }
   }
 }

@@ -155,6 +155,10 @@
                 </div>
             </div>
         </footer>
+        <div>
+            <button class="btn-up" @click="upClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
+            <button class="btn-down" @click="downClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
+        </div>
     </body>
 </template>
 
@@ -188,6 +192,12 @@ export default {
           var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie
           document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT"
       }
+    },
+    upClick () {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    downClick () {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }
   }
 }

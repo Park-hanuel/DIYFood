@@ -36,7 +36,7 @@
               <div class="recipe-box" >
                 <div class="recipe-card" style="display: flex;">
                   <div style="width:85%; height:100%;">
-                    <a href='/recipe/'>
+                    <a :href="`/recipe/${data.foodCode}`">
                       <img :src=data.RecipeNutrient.foodImage class="food-img" onerror="this.src='https://ifh.cc/g/RXYY1z.png'">
                       <div class="word" style="vertical-align: middle; margin-left: 110px; margin-right:15px; margin-top: 8px;">
                         <p style="font-weight: 400; font-size:1.2rem">{{data.RecipeNutrient.foodName}}</p>
@@ -57,6 +57,10 @@
           <button class="btn" style="float:left" value="식단 지우기" @click="deletePlan('2022-9-14')"><img src="https://cdn-icons-png.flaticon.com/512/6460/6460112.png" width="30px"></button>
         </div> -->
     </section>
+    <div>
+        <button class="btn-up" @click="upClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
+        <button class="btn-down" @click="downClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
+    </div>
   </body>
 </template>
 <script>
@@ -120,6 +124,12 @@ export default {
         acc[key].push(obj)
         return acc
       }, {})
+    },
+    upClick () {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    downClick () {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }
   }
 }
