@@ -22,16 +22,16 @@
             <h1>기간 및 예산 설정</h1>
             <p>식재료 선택과 레시피 추천을 위해 몇가지 조건을 설정합니다. </p>
           </div>
-          <div id="mealplan" style="margin-left: 30px; margin-top: 40px;">
+          <div id="mealplan" style="margin-left: 30px; margin-top: 40px; font-size:1.15rem">
             <form action="/mealplan/step2" method="get">
-              <p style="font-size:1.1rem">1. 일주일 식재료 예산을 설정해주세요.</p>
+              <p style="font-size:1.3rem">1. 일주일 식재료 예산을 설정해주세요.</p>
               <label class="margin_left">
                 <input type="number" min="1" max="30" v-model="budget">  만원 이내
                 <span style="margin-left:5px; color: gray;">(1인분 기준)</span>
               </label>
               <p></p>
               <div style="display:inline-block">
-                <p style="font-size:1.1rem">2. 기간을 설정해주세요.</p>
+                <p style="font-size:1.3rem">2. 기간을 설정해주세요.</p>
                 <div style="margin-left:10px; float: left;">
                   <date-picker
                     inline
@@ -53,7 +53,7 @@
               </div>
               <p></p>
               <div>
-                <p style="font-size:1.1rem">3. 지역을 설정해주세요.</p>
+                <p style="font-size:1.3rem">3. 지역을 설정해주세요.</p>
                 <select class="margin_left">
                     <option value="seoul">서울</option>
                 </select>
@@ -68,6 +68,10 @@
           </div>
         </section>
       </div>
+    </div>
+    <div>
+        <button class="btn-up" @click="upClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
+        <button class="btn-down" @click="downClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
     </div>
   </body>
 </template>
@@ -150,6 +154,12 @@ export default {
       this.dateRange.end = moment(item)
         .endOf("week")
         .format("YYYY-MM-DD");
+    },
+    upClick () {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    downClick () {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }
   }
 }

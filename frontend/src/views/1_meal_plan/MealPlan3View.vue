@@ -22,12 +22,23 @@
             <h1>새로운 식재료 선택</h1>
             <p>새롭게 구매하실 식재료를 선택해주세요. 선택한 식재료를 포함하는 레시피를 추천합니다.</p>
             <div>
-              <input type="button" class="btn btn-primary btn-lg btn-custom" value="곡류" @click="searchItem('1')">
-              <input type="button" class="btn btn-primary btn-lg btn-custom" value="견과·버섯" @click="searchItem('3')">
-              <input type="button" class="btn btn-primary btn-lg btn-custom" value="채소류" @click="searchItem('2')">
-              <input type="button" class="btn btn-primary btn-lg btn-custom" value="과일류" @click="searchItem('4')">
-              <input type="button" class="btn btn-primary btn-lg btn-custom" value="축산물" @click="searchItem('5')">
-              <input type="button" class="btn btn-primary btn-lg btn-custom" value="수산물" @click="searchItem('6')">
+              <input v-if="this.categoryCode !== '1'" type="button" class="btn btn-primary btn-lg btn-custom" value="곡류" @click="searchItem('1')">
+              <input v-if="this.categoryCode === '1'" type="button" class="btn btn-clicked btn-lg btn-custom" value="곡류" @click="searchItem('1')">
+
+              <input v-if="this.categoryCode !== '3'" type="button" class="btn btn-primary btn-lg btn-custom" value="견과·버섯" @click="searchItem('3')">
+              <input v-if="this.categoryCode === '3'" type="button" class="btn btn-clicked btn-lg btn-custom" value="견과·버섯" @click="searchItem('3')">
+
+              <input v-if="this.categoryCode !== '2'" type="button" class="btn btn-primary btn-lg btn-custom" value="채소류" @click="searchItem('2')">
+              <input v-if="this.categoryCode === '2'" type="button" class="btn btn-clicked btn-lg btn-custom" value="채소류" @click="searchItem('2')">
+
+              <input v-if="this.categoryCode !== '4'" type="button" class="btn btn-primary btn-lg btn-custom" value="과일류" @click="searchItem('4')">
+              <input v-if="this.categoryCode === '4'" type="button" class="btn btn-clicked btn-lg btn-custom" value="과일류" @click="searchItem('4')">
+
+              <input v-if="this.categoryCode !== '5'" type="button" class="btn btn-primary btn-lg btn-custom" value="축산물" @click="searchItem('5')">
+              <input v-if="this.categoryCode === '5'" type="button" class="btn btn-clicked btn-lg btn-custom" value="축산물" @click="searchItem('5')">
+
+              <input v-if="this.categoryCode !== '6'" type="button" class="btn btn-primary btn-lg btn-custom" value="수산물" @click="searchItem('6')">
+              <input v-if="this.categoryCode === '6'" type="button" class="btn btn-clicked btn-lg btn-custom" value="수산물" @click="searchItem('6')">
             </div>
             <div class="box-item">
               <p><img src="@/assets/shopping-cart.png" width="20px">  {{this.checkedItemName}}</p>
@@ -78,6 +89,10 @@
         </section>
       </div>
     </div>
+    <div>
+        <button class="btn-up" @click="upClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
+        <button class="btn-down" @click="downClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
+    </div>
   </body>
 </template>
 <script>
@@ -98,6 +113,7 @@ export default {
       checkedID: [],
       finalData: {},
       unit: 0,
+      categoryCode: '1'
     }
   },
   setup () {},
@@ -122,6 +138,7 @@ export default {
     searchItem (code) {
       // eslint-disable-next-line
       this.itemList = this.metaItemList.filter(item => parseInt(item.itemCode / 100) == code)
+      this.categoryCode = code
     },
     // 아이템 추가/삭제
     selectItem (n) {
@@ -194,6 +211,12 @@ export default {
         date: this.date
       }
       console.log(this.finalData)
+    },
+    upClick () {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    downClick () {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }
   }
 }
@@ -206,6 +229,7 @@ export default {
   .btn-custom {
     margin-bottom: 20px;
     width: 110px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   }
   .btn-warning {
     color:black

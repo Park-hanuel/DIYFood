@@ -1,15 +1,28 @@
 <template>
   <body id="page">
     <div style="margin-top: 40px; margin-bottom: 30px;">
-      <span style="font-size:4em; font-weight:500; line-height:70px;">
-        RECIPE
-      </span>
+      <a href="/recipe">
+        <span style="font-size:4em; font-weight:500; line-height:70px;">
+          RECIPE
+        </span>
+      </a>
       <span style="font-size:1.5em; font-weight:400;">
         요리법 정보를 제공합니다.
       </span>
     </div>
     <!-- 레시피 목록 -->
     <div class="content-box">
+      <!-- 검색창 -->
+      <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4 search-box">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <button id="button-addon2" class="btn btn-link text-warning" @click="searchRecipe(keyword, 1)"><img src="https://cdn-icons-png.flaticon.com/512/4643/4643998.png" width="25px"></button>
+          </div>
+          <input type="search" placeholder="음식명 또는 재료를 검색해주세요" aria-describedby="button-addon2" class="form-control border-0 bg-light" v-model="keyword">
+          <button id="button-addon2" class="search-btn" @click="searchFood(keyword, 1)">음식</button>
+          <button id="button-addon2" class="search-btn" style="margin-right:10px" @click="searchIngredient(keyword, 1)">재료</button>
+        </div>
+      </div>
       <!-- Loading -->
       <div style="width:100%">
         <div v-if="isLoading" class="loading-container">
@@ -22,7 +35,7 @@
         </div>
       </div>
       <div v-for="(contents, i) in recipeList" :key="i">
-        <a :href="`/recipe/${contents.RCP_SEQ}`">
+        <a :href="`/recipe/${contents.RCP_SEQ}`" target="_blank">
           <div name="card" class="card-custom">
             <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 5%;">
               <img :src=contents.ATT_FILE_NO_MAIN width="100%" style="margin: -10%;">
@@ -33,34 +46,68 @@
           </div>
         </a>
       </div>
-      <div class="pagination-wrapper">
+      <!-- 페이지네이션 -->
+      <div v-if="this.isLoading === false && this.keyword === ''" class="pagination-wrapper">
         <div class="pagination">
-          <button v-if="pnStart - 1 > 0" class="btn prev page-numbers" @click="pageClick(pnStart - 1)">prev</button>
-          <button v-if="pnStart - 1 < 0" class="btn prev page-numbers" disabled>prev</button>
+          <button v-if="pnStart > 1" class="btn prev page-numbers" @click="pageClick(pnStart - 1)">prev</button>
+          <button v-if="pnStart === 1" class="btn prev page-numbers" disabled>prev</button>
 
           <button v-if="this.pageNum === this.pnStart" aria-current="page" class="btn page-numbers current">{{pnStart}}</button>
           <button v-if="this.pageNum !== this.pnStart" class="btn page-numbers" @click="pageClick(pnStart)">{{pnStart}}</button>
 
           <button v-if="this.pageNum === this.pnStart + 1" aria-current="page" class="btn page-numbers current">{{pnStart + 1}}</button>
           <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 <= pnTotal" class="btn page-numbers" @click="pageClick(pnStart + 1)">{{pnStart + 1}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 > pnTotal" class="btn" disabled></button>
+          <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 > pnTotal" class="btn page-numbers" disabled>{{pnStart + 1}}</button>
 
           <button v-if="this.pageNum === this.pnStart + 2" aria-current="page" class="btn page-numbers current">{{pnStart + 2}}</button>
           <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 <= pnTotal" class="btn page-numbers" @click="pageClick(pnStart + 2)">{{pnStart + 2}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 > pnTotal" class="btn" disabled></button>
+          <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 > pnTotal" class="btn page-numbers" disabled>{{pnStart + 2}}</button>
 
           <button v-if="this.pageNum === this.pnStart + 3" aria-current="page" class="btn page-numbers current">{{pnStart + 3}}</button>
           <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 <= pnTotal" class="btn page-numbers" @click="pageClick(pnStart + 3)">{{pnStart + 3}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 > pnTotal" class="btn" disabled></button>
+          <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 > pnTotal" class="btn page-numbers" disabled>{{pnStart + 3}}</button>
 
           <button v-if="this.pageNum === this.pnEnd" aria-current="page" class="btn page-numbers current">{{pnEnd}}</button>
           <button v-if="this.pageNum !== this.pnEnd && this.pnEnd <= pnTotal" class="btn page-numbers" @click="pageClick(pnEnd)">{{pnEnd}}</button>
-          <button v-if="this.pageNum !== this.pnEnd && this.pnEnd > pnTotal" class="btn" disabled></button>
+          <button v-if="this.pageNum !== this.pnEnd && this.pnEnd > pnTotal" class="btn page-numbers" disabled>{{pnEnd}}</button>
 
           <button v-if="pnEnd < pnTotal" class="btn next page-numbers" @click="pageClick(pnEnd + 1)">next</button>
-          <button v-if="pnEnd > pnTotal" class="btn next page-numbers" disabled></button>
+          <button v-if="pnEnd > pnTotal" class="btn next page-numbers" disabled>next</button>
         </div>
       </div>
+      <!-- 검색 페이지네이션 -->
+      <div v-if="this.isLoading === false && this.keyword != ''" class="pagination-wrapper">
+        <div class="pagination">
+          <button v-if="pnStart > 1" class="btn prev page-numbers" @click="searchRecipe(keyword, pnStart - 1)">prev</button>
+          <button v-if="pnStart === 1" class="btn prev page-numbers" disabled>prev</button>
+
+          <button v-if="this.pageNum === this.pnStart" aria-current="page" class="btn page-numbers current">{{pnStart}}</button>
+          <button v-if="this.pageNum !== this.pnStart" class="btn page-numbers" @click="searchRecipe(keyword,pnStart)">{{pnStart}}</button>
+
+          <button v-if="this.pageNum === this.pnStart + 1" aria-current="page" class="btn page-numbers current">{{pnStart + 1}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 <= pnTotal" class="btn page-numbers" @click="searchRecipe(keyword,pnStart + 1)">{{pnStart + 1}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 > pnTotal" class="btn page-numbers" disabled>{{pnStart + 1}}</button>
+
+          <button v-if="this.pageNum === this.pnStart + 2" aria-current="page" class="btn page-numbers current">{{pnStart + 2}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 <= pnTotal" class="btn page-numbers" @click="searchRecipe(keyword,pnStart + 2)">{{pnStart + 2}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 > pnTotal" class="btn page-numbers" disabled>{{pnStart + 2}}</button>
+
+          <button v-if="this.pageNum === this.pnStart + 3" aria-current="page" class="btn page-numbers current">{{pnStart + 3}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 <= pnTotal" class="btn page-numbers" @click="searchRecipe(keyword,pnStart + 3)">{{pnStart + 3}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 > pnTotal" class="btn page-numbers" disabled>{{pnStart + 3}}</button>
+
+          <button v-if="this.pageNum === this.pnEnd" aria-current="page" class="btn page-numbers current">{{pnEnd}}</button>
+          <button v-if="this.pageNum !== this.pnEnd && this.pnEnd <= pnTotal" class="btn page-numbers" @click="searchRecipe(keyword,pnEnd)">{{pnEnd}}</button>
+          <button v-if="this.pageNum !== this.pnEnd && this.pnEnd > pnTotal" class="btn page-numbers" disabled>{{pnEnd}}</button>
+
+          <button v-if="pnEnd < pnTotal" class="btn next page-numbers" @click="searchRecipe(keyword,pnEnd + 1)">next</button>
+          <button v-if="pnEnd > pnTotal" class="btn next page-numbers" disabled>next</button>
+        </div>
+      </div>
+    </div>
+    <div>
+        <button class="btn-up" @click="upClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
+        <button class="btn-down" @click="downClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
     </div>
   </body>
 </template>
@@ -77,7 +124,9 @@ export default {
       pageNum: '',
       pnStart: '',
       pnEnd: '',
-      pnTotal: ''
+      pnTotal: '',
+      keyword: '',
+      searchCode: ''
     }
   },
   setup () {},
@@ -87,6 +136,48 @@ export default {
   mounted () {},
   unmounted () {},
   methods: {
+    searchFood (keyword, page) {
+      if (keyword === '') {
+        alert('검색어를 입력해주세요.')
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+        this.isLoading = true
+        this.$axios.get(`http://localhost:3000/recipe/list/search?recipeName=${keyword}&pageNum=${page}`, { withCredentials: true })
+          .then((response) => {
+            console.log('### response: ' + JSON.stringify(response))
+            this.recipeList = response.data.contents
+            this.pageNum = response.data.pageNum
+            this.pnStart = response.data.pnStart
+            this.pnEnd = response.data.pnEnd
+            this.pnTotal = response.data.pnTotal
+            console.log(this.recipeList)
+            this.isLoading = false
+          }).catch(error => {
+            console.log(error)
+          })
+      }
+    },
+    searchIngredient (keyword, page) {
+      if (keyword === '') {
+        alert('검색어를 입력해주세요.')
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+        this.isLoading = true
+        this.$axios.get(`http://localhost:3000/recipe/list/search?ingredientName=${keyword}&pageNum=${page}`, { withCredentials: true })
+          .then((response) => {
+            console.log('### response: ' + JSON.stringify(response))
+            this.recipeList = response.data.contents
+            this.pageNum = response.data.pageNum
+            this.pnStart = response.data.pnStart
+            this.pnEnd = response.data.pnEnd
+            this.pnTotal = response.data.pnTotal
+            console.log(this.recipeList)
+            this.isLoading = false
+          }).catch(error => {
+            console.log(error)
+          })
+      }
+    },
     pageClick (index) {
       window.scrollTo({ top: 0, behavior: 'smooth' })
       this.isLoading = true
@@ -104,6 +195,12 @@ export default {
         }).catch(error => {
           console.log(error)
         })
+    },
+    upClick () {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    downClick () {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }
   }
 }
@@ -156,103 +253,19 @@ a {
 a:hover {
   color: #1a8051;
 }
-.loading {
-  z-index: 2;
-  position: relative;
-  top: 25%;
-  left: 100%;
-  transform: translate(-50%, -50%);
+.form-control:focus {
+  box-shadow: none;
 }
-.loading-text {
-  text-align: center;
-  position:relative;
-  top: 65%;
-  margin-bottom: 50px;
+.search-box {
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+  box-shadow: none;
 }
-.loading-container {
-  width: 100%;
-  height: 230px;
+.search-btn {
+  border-radius: 10px;
+  border:none;
+  color:#1a8051;
+  background-color: transparent;
 }
-.pagination-wrapper {
-  text-align: center;
-  display: inline-block;
-  width:80%;
-  margin-left:10%;
-  margin-right: 10%;
-}
-
-.pagination {
-  display: inline-block;
-  height: 70px;
-  margin-top: 50px;
-  padding: 0 25px;
-  border-radius: 35px;
-  background-color: #f3f3f3;
-
-  @include breakpoint(1199px) {
-    height: 50px;
-    margin-top: 50px;
-    padding: 0 10px;
-    border-radius: 25px;
-  }
-}
-
-.page-numbers {
-  display: block;
-  padding: 0 25px;
-  float: left;
-  transition: duration easing;
-  color: rgb(0, 0, 0);
-  font-size: 1rem;
-  letter-spacing: 0.1em;
-  line-height: 70px;
-  }
-  .page-numbers:hover,
-  .page-numbers.current {
-    background-color: rgb(88, 169, 88);
-    color: white;
-  }
-
-  .page-numbers.prev:hover,
-  .page-numbers.next:hover {
-    background-color: transparent;
-    color: green;
-  }
-
-  @include breakpoint(1199px) {
-    padding: 0 15px;
-    font-size: 16px;
-    line-height: 50px;
-  }
-
-  @include breakpoint(touch) {
-    padding: 0 14px;
-    display: none;
-
-    .page-numbers:nth-of-type(2) {
-      position: relative;
-      padding-right: 50px;
-
-      ::after {
-        content: '...';
-        position: absolute;
-        font-size: 25px;
-        top: 0;
-        left: 45px;
-      }
-    }
-
-    .page-numbers:nth-child(-n+3),
-    .page-numbers:nth-last-child(-n+3) {
-      display: block;
-    }
-
-    .page-numbers:nth-last-child(-n+4) {
-      padding-right: 14px;
-
-      ::after {
-        content: none;
-      }
-    }
-  }
 </style>
