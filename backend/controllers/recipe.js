@@ -186,7 +186,7 @@ const recipe = {
               );
                 
               const pageNum = Number(req.query.pageNum) || 1;
-              const contentSize = 20;
+              const contentSize = 15;
               const pnSize = 5; // NOTE: 페이지네이션 개수 설정.
               const skipSize = (pageNum - 1) * contentSize;
       
