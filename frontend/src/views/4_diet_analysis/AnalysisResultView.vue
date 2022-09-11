@@ -41,6 +41,10 @@
         </div>
       </div>
     </div>
+    <div>
+        <button class="btn-up" @click="upClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
+        <button class="btn-down" @click="downClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
+    </div>
   </body>
 </template>
 
@@ -111,6 +115,12 @@ export default {
       var result = new Date(date)
       result.setDate(result.getDate() + days)
       return result
+    },
+    upClick () {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    downClick () {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }
   }
 }

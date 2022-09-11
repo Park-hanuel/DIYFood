@@ -64,11 +64,13 @@
     </div>
   </body>
 </template>
+
 <script>
+
 /* eslint-disable */
 export default {
   name: 'DetailRecipe',
-  components: {},
+  components: { },
   data () {
     return {
       recipe: [],

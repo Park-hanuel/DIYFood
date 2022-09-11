@@ -3023,7 +3023,7 @@ textarea.form-control-lg {
 }
 .btn-check:focus + .btn, .btn:focus {
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(86, 86, 86, 0.25);
+  /* box-shadow: 0 0 0 0.25rem rgba(86, 86, 86, 0.25); */
 }
 .btn:disabled, .btn.disabled, fieldset:disabled .btn {
   pointer-events: none;
@@ -3039,19 +3039,19 @@ textarea.form-control-lg {
 }
 .btn-primary:hover {
   color: #fff;
-  background-color: #3c7e28;
-  border-color: #3c7e28;
+  background-color: #48a238;
+  border-color: #48a238;
 }
 .btn-check:focus + .btn-primary, .btn-primary:focus {
   color: #fff;
-  background-color: #3c7e28;
-  border-color: #3c7e28;
+  background-color: #48a238;
+  border-color: #48a238;
   box-shadow: 0 0 0 0.25rem rgba(146, 146, 146, 0.5);
 }
 .btn-check:checked + .btn-primary, .btn-check:active + .btn-primary, .btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #3c7e28;
-  border-color: #3c7e28;
+  background-color: #48a238;
+  border-color: #48a238;
 }
 .btn-check:checked + .btn-primary:focus, .btn-check:active + .btn-primary:focus, .btn-primary:active:focus, .btn-primary.active:focus, .show > .btn-primary.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.25rem rgba(146, 146, 146, 0.5);
@@ -3066,6 +3066,8 @@ textarea.form-control-lg {
   color: #fff;
   background-color: #6c757d;
   border-color: #6c757d;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .btn-secondary:hover {
   color: #fff;
@@ -3126,6 +3128,8 @@ textarea.form-control-lg {
   color: #fff;
   background-color: #0dcaf0;
   border-color: #0dcaf0;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .btn-info:hover {
   color: #fff;
@@ -3156,6 +3160,8 @@ textarea.form-control-lg {
   color: #fff;
   background-color: #ffc800;
   border-color: #ffc800;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .btn-warning:hover {
   color: #fff;
@@ -3186,6 +3192,8 @@ textarea.form-control-lg {
   color: #fff;
   background-color: #dc3545;
   border-color: #dc3545;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .btn-danger:hover {
   color: #fff;
@@ -3216,6 +3224,8 @@ textarea.form-control-lg {
   color: #000;
   background-color: #f8f9fa;
   border-color: #f8f9fa;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .btn-light:hover {
   color: #000;
@@ -3246,6 +3256,8 @@ textarea.form-control-lg {
   color: #fff;
   background-color: #212529;
   border-color: #212529;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .btn-dark:hover {
   color: #fff;
@@ -11729,6 +11741,7 @@ section#MyPage {
   background-repeat: no-repeat;
   background-position: center;
   background-attachment:fixed;
+  height: 600px;
 }
 section#MyPage .section-heading {
   color: #fff;
@@ -11827,7 +11840,7 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
 }
 #side {
   float: left;
-  width: 28%;
+  width: 30%;
   height: auto ;
   padding-block: 100px;
   position: fixed;
@@ -11838,13 +11851,13 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
 }
 #content{
   float: right;
-  width:70%;
+  width:65%;
   height:fit-content;
   background-color:white;
-  margin-right: 30px;
-  margin-left: 30px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-right: 5.8%;
+  margin-left: 10%;
+  margin-top: 50px;
+  margin-bottom: 50px;
   border-radius: 20px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   padding: 50px;
@@ -11884,4 +11897,161 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   padding: 5px;
   padding-bottom:0%;
   margin-bottom: 10px;
+}
+.btn-clicked {
+  color: #fff;
+  background-color: #48a238;
+  border-color: #48a238;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.btn-clicked:hover {
+  color: #fff;
+  background-color: #5ccf47;
+  border-color: #5ccf47;
+}
+.btn-check:focus + .btn-clicked, .btn-clicked:focus {
+  color: #fff;
+  background-color: #5ccf47;
+  border-color: #5ccf47;
+  box-shadow: 0 0 0 0.25rem rgba(146, 146, 146, 0.5);
+}
+.btn-check:checked + .btn-clicked, .btn-check:active + .btn-clicked, .btn-clicked:active, .btn-clicked.active, .show > .btn-clicked.dropdown-toggle {
+  color: #fff;
+  background-color: #5ccf47;
+  border-color: #5ccf47;
+}
+.btn-check:checked + .btn-clicked:focus, .btn-check:active + .btn-clicked:focus, .btn-clicked:active:focus, .btn-clicked.active:focus, .show > .btn-clicked.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.25rem rgba(146, 146, 146, 0.5);
+}
+.btn-clicked:disabled, .btn-clicked.disabled {
+  color: #fff;
+  background-color: #48a238;
+  border-color: #48a238;
+}
+
+.loading {
+  z-index: 2;
+  position: relative;
+  top: 25%;
+  left: 100%;
+  transform: translate(-50%, -50%);
+}
+.loading-text {
+  text-align: center;
+  position:relative;
+  top: 65%;
+  margin-bottom: 50px;
+}
+.loading-container {
+  width: 100%;
+  height: 230px;
+}
+.pagination-wrapper {
+  text-align: center;
+  display: inline-block;
+  width:90%;
+  margin-left:5%;
+  margin-right: 5%;
+}
+
+.pagination {
+  display: inline-block;
+  height: 70px;
+  margin-top: 50px;
+  padding: 0 25px;
+  border-radius: 35px;
+  background-color: #f3f3f3;
+
+  @include breakpoint(1199px) {
+    height: 50px;
+    margin-top: 50px;
+    padding: 0 10px;
+    border-radius: 25px;
+  }
+}
+
+.page-numbers {
+  display: block;
+  padding: 0 25px;
+  float: left;
+  transition: duration easing;
+  color: rgb(0, 0, 0);
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  line-height: 70px;
+  }
+  .page-numbers:hover,
+  .page-numbers.current {
+    background-color: rgb(88, 169, 88);
+    color: white;
+  }
+
+  .page-numbers.prev:hover,
+  .page-numbers.next:hover {
+    background-color: transparent;
+    color: green;
+  }
+
+  .page-numbers:disabled {
+    color: lightgray;
+  }
+
+  @include breakpoint(1199px) {
+    padding: 0 15px;
+    font-size: 16px;
+    line-height: 50px;
+  }
+
+  @include breakpoint(touch) {
+    padding: 0 14px;
+    display: none;
+
+    .page-numbers:nth-of-type(2) {
+      position: relative;
+      padding-right: 50px;
+
+      ::after {
+        content: '...';
+        position: absolute;
+        font-size: 25px;
+        top: 0;
+        left: 45px;
+      }
+    }
+
+    .page-numbers:nth-child(-n+3),
+    .page-numbers:nth-last-child(-n+3) {
+      display: block;
+    }
+
+    .page-numbers:nth-last-child(-n+4) {
+      padding-right: 14px;
+
+      ::after {
+        content: none;
+      }
+    }
+  }
+.btn-up {
+  position: fixed;
+  right: 1.5%;
+  bottom: 70px;
+  background-color: transparent;
+  height: 40px;
+  width: 40px;
+  vertical-align: middle;
+  border: none;
+  border-radius: 20px;
+}
+.btn-down {
+  position: fixed;
+  right: 1.5%;
+  bottom: 35px;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  vertical-align: middle;
+  border: none;
+  background-color: transparent;
 }

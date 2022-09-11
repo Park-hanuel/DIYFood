@@ -39,7 +39,7 @@
                   <li class="nav-item"><a class="nav-link" href="/mealplan">Meal Plan</a></li>
                   <li class="nav-item"><a class="nav-link" href="/recipe">Recipe</a></li>
                   <li class="nav-item"><a class="nav-link" href="/ingredient">Ingredients Price</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/analysis/survey">Diet Analysis</a></li>
+                  <li class="nav-item"><a class="nav-link" @click="click()">Diet Analysis</a></li>
               </ul>
           </div>
         </div>
@@ -60,21 +60,22 @@ export default {
   methods: {
     logOut () {
       this.$axios.get('http://localhost:3000/user/logout').then(response => {
-        this.deleteAllCookies()
-        location.reload()
+        this.deleteCookie('connect.sid')
+        location.href = '/'
+        this.deleteCookie('connect.sid')
       }).catch(error => {
         console.log(error)
       })
     },
-    /* eslint-disable */
-    deleteAllCookies () {
-      var cookies = document.cookie.split(";")
-
-      for (var i = 0; i < cookies.length; i++) {
-          var cookie = cookies[i]
-          var eqPos = cookie.indexOf("=")
-          var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie
-          document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT"
+    deleteCookie (name) {
+      document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+    },
+    click () {
+      if (this.cookie) {
+        location.href = '/analysis/survey'
+      } else {
+        alert('로그인이 필요한 기능입니다.')
+        location.href = 'user/login'
       }
     }
   }

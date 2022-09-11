@@ -61,13 +61,11 @@ const server = require('./server');
 //오후 16시마다 업데이트 (화 ~ 토) 
 cron.schedule('0 16 * * 2-6', async function(){
   const data = [100,200,300,400,600];
-    await models.LiveIngredient.destroy({where:{}}).then(console.log("liveIngredinet destoryed."));
-
-    const d =new Date();
-    const p_regday = d.getFullYear() + "-" + ((d.getMonth() + 1) > 9 ? (d.getMonth() + 1).toString() : "0" + (d.getMonth() + 1)) + "-" + (d.getDate() > 9 ? d.getDate().toString() : "0" + d.getDate().toString());
-    for(let i = 0 ;i < 6; i++){
-        await server.getTodayData(data[i],p_regday);
-    }
+  const d =new Date();
+  const p_regday = d.getFullYear() + "-" + ((d.getMonth() + 1) > 9 ? (d.getMonth() + 1).toString() : "0" + (d.getMonth() + 1)) + "-" + (d.getDate() > 9 ? d.getDate().toString() : "0" + d.getDate().toString());
+  for(let i = 0 ;i < 5; i++){
+      await server.getTodayData(data[i],p_regday);
+  }
     console.log("update is done!")
 });
 
