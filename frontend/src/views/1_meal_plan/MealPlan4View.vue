@@ -20,7 +20,9 @@
       <section id="content">
         <div style="text-align:center;">
           <h1>레시피 선택</h1>
-          <p>선택하신 재료를 가장 많이 포함한 순서대로 레시피들을 추천합니다. 레시피를 선택해주세요.</p>
+          <p>선택하신 재료를 가장 많이 포함한 순서대로 레시피들을 추천합니다. 레시피를 선택해주세요.
+            <br>사진을 클릭하면 해당 레시피가 새 창으로 열립니다.
+          </p>
         </div>
         <!-- 푸드카테고리 버튼 -->
         <div style="text-align:center;">
@@ -58,9 +60,11 @@
           <!-- Recipe Card -->
           <div v-for="(contents, index) in recipeList" :key="index">
             <div name="card" class="card-custom">
-              <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 10px;">
-                <img :src=contents.foodImage width="100%" style="margin: -25%;" onerror="this.src='https://ifh.cc/g/RXYY1z.png'">
-              </div>
+              <a :href="`/recipe/${contents.foodCode}`" target="_blank">
+                <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 10px;">
+                  <img :src=contents.foodImage width="100%" style="margin: -25%;" onerror="this.src='https://ifh.cc/g/RXYY1z.png'">
+                </div>
+              </a>
               <div style="height: 10%;"><h6 style="text-align:center; margin-top: 10px;">{{contents.foodName}}</h6></div>
               <div class="word" style="height: 30%;"><span>재료 : {{contents.foodIngredient}}</span></div>
               <div style="height: 10%; width: 100%; text-align:center;">
@@ -110,8 +114,8 @@
     </div>
   </div>
   <div>
-    <button class="btn-up" @click="window.scrollTo({ top: 0, behavior: 'smooth' })"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
-    <button class="btn-down" @click="window.scrollTo({ bottom: 0, behavior: 'smooth' })"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
+    <button class="btn-up" @click="upClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
+    <button class="btn-down" @click="downClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
   </div>
 </body>
 </template>
@@ -176,6 +180,12 @@ export default {
       console.log(data)
       localStorage.setItem('recipe', this.checkedItemName)
       location.href = '/mealplan/step5'
+    },
+    upClick () {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    downClick () {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }
   }
 }

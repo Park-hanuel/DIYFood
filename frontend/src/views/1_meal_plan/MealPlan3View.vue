@@ -20,7 +20,7 @@
         <section id="content">
           <div style="text-align:center;">
             <h1>새로운 식재료 선택</h1>
-            <p>새롭게 구매하실 식재료를 선택해주세요. 선택한 식재료를 포함하는 레시피를 추천합니다.</p>
+            <p>새롭게 구매하실 식재료를 선택해주세요. 선택한 식재료를 포함하는 레시피를 추천합니다. {{checkedID}}</p>
             <div>
               <input v-if="this.categoryCode !== '1'" type="button" class="btn btn-primary btn-lg btn-custom" value="곡류" @click="searchItem('1')">
               <input v-if="this.categoryCode === '1'" type="button" class="btn btn-clicked btn-lg btn-custom" value="곡류" @click="searchItem('1')">
@@ -46,13 +46,13 @@
             <table class="table table-light" style="vertical-align: middle;">
               <thead class="table-bordered">
                 <tr>
-                  <th scope="col" style="width:15%">순번</th>
+                  <th scope="col" style="width:10%">순번</th>
                   <th scope="col" style="width:15%">품목</th>
                   <th scope="col" style="width:20%">품종</th>
                   <th scope="col" style="width:15%">등급</th>
                   <th scope="col" style="width:15%">가격</th>
                   <th scope="col" style="width:15%">수량</th>
-                  <th scope="col" style="width:15%">선택</th>
+                  <th scope="col" style="width:10%">선택</th>
                 </tr>
               </thead>
               <tbody>
@@ -64,7 +64,8 @@
                   <td>{{data.price}} 원</td>
                   <td>
                     <label>
-                      <input type="number" min="1" max="10" :value=unit>
+                      <input v-if="checkedID.includes(data.id)" type="number" min="1" max="10" value="1" v-model="unit">
+                      <input v-else type="number" min="1" max="10" disabled>
                     </label>
                   </td>
                   <td>
@@ -112,7 +113,7 @@ export default {
       finalCodeList: [],
       checkedID: [],
       finalData: {},
-      unit: 0,
+      unit: [],
       categoryCode: '1'
     }
   },

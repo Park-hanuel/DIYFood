@@ -112,7 +112,13 @@ export default {
     }
   },
   setup () {},
+  computed: {
+    cookie () {
+      return document.cookie
+    }
+  },
   created () {
+    this.start()
     this.getUserInfo()
   },
   mounted () {},
@@ -130,6 +136,14 @@ export default {
             alert(res.data.message)
           }
         })
+    },
+    start () {
+      if (this.cookie) {
+        // pass
+      } else {
+        alert('로그인이 필요한 기능입니다.')
+        location.href = '/user/login'
+      }
     },
     submitForm () {
       this.$axios.post('http://localhost:3000/analysis/survey', this.userdata, { withCredentials: true })

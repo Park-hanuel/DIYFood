@@ -13,7 +13,7 @@
     </head>
     <body>
       <!-- 로그인 / 로그아웃 / 회원가입 / 마이페이지 -->
-      <nav class="navbar-custom fixed-custom" style="background-color: #87a46a;">
+      <nav class="navbar-custom fixed-custom" style="background-color: #aac458;">
         <div>
           <div v-if="cookie">
             <!--cookie가 true일 때 즉, 쿠키가 있다면 보여줄 목록-->
@@ -39,7 +39,7 @@
                   <li class="nav-item"><a class="nav-link" href="/mealplan">Meal Plan</a></li>
                   <li class="nav-item"><a class="nav-link" href="/recipe">Recipe</a></li>
                   <li class="nav-item"><a class="nav-link" href="/ingredient">Ingredients Price</a></li>
-                  <li class="nav-item"><a class="nav-link" @click="click()">Diet Analysis</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/analysis/survey">Diet Analysis</a></li>
               </ul>
           </div>
         </div>
