@@ -56,7 +56,7 @@ export default {
         location.href = '/mealplan/step1'
       } else {
         alert('로그인이 필요한 기능입니다.')
-        location.href = 'user/login'
+        location.href = '/user/login'
       }
     }
   }

@@ -23,8 +23,8 @@
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0 input_row">
-                        <label class="form-label" for="name">이름</label>
-                        <input type="text" class="form-control" placeholder="Name" v-model="user.name" required/>
+                        <label class="form-label" for="name">이름 <span style="color:red">{{namecheck_msg}}</span></label>
+                        <input type="text" class="form-control" placeholder="Name" v-model="user.name" @blur="characterCheck(user.name)" required/>
                       </div>
                     </div>
                     <div class="d-flex flex-row align-items-center mb-4">
@@ -78,7 +78,9 @@ export default {
         name: '',
         password: '',
       },
-      idcheck_code: 0
+      idcheck_code: 0,
+      namecheck_code: 0,
+      namecheck_msg: ''
     }
   },
   setup () {},
@@ -89,7 +91,7 @@ export default {
   methods: {
     // 회원가입 submit
     async submitForm(){
-      if (this.idcheck_code===1) {
+      if (this.idcheck_code===1 && this.namecheck_code===1) {
         // API 요청시 전달할 userData 객체
         const userData = {
           email: this.user.email,
@@ -100,8 +102,10 @@ export default {
         const headers = { 'Content-Type':'application/json'};
         await this.$axios.post(url,userData, { withCredentials: true });       
         location.href = '/user/signupcompleted'; 
-      } else {
+      } else if (this.idcheck_code!=1) {
         alert('이메일 중복을 확인해주세요')
+      } else if (this.namecheck_code !=1) {
+        alert('이름은 한글 또는 영어로 입력해주세요.')
       }
     },
     // 비밀번호 확인
@@ -129,6 +133,21 @@ export default {
           alert('사용가능한 아이디입니다')
           this.idcheck_code=1
       }    
+    },
+    characterCheck (str) {
+      var reg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
+      //특수문자 검증
+      if(reg.test(str)){
+        alert('이름에 특수문자는 입력할 수 없습니다.')
+        this.namecheck_msg = '특수문자는 입력할 수 없습니다.'
+        //특수문자 제거후 리턴
+        return str.replace(reg, "");
+      } else {
+        //특수문자가 없으므로 본래 문자 리턴
+        this.namecheck_msg = ''
+        this.namecheck_code = 1
+        return str;
+      }  
     }
   }
 }

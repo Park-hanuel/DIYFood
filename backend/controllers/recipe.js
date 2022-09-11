@@ -13,7 +13,7 @@ const recipe = {
     try {
         const pageNum = Number(req.query.pageNum) || 1;
         const contentSize = 20;
-        const pnSize = 10; // NOTE: 페이지네이션 개수 설정.
+        const pnSize = 5; // NOTE: 페이지네이션 개수 설정.
         const skipSize = (pageNum - 1) * contentSize;
 
         const totalCount = 1061;

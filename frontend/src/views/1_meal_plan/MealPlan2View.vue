@@ -11,9 +11,9 @@
             </div>
             <div style="text-align: center;">
               <img src="https://cdn-icons-png.flaticon.com/512/1028/1028496.png" alt="식단계획2" height="50%" width="50%">
-          </div>
-          <div style="margin-top: 30px; text-align: center;">
-            <h4>2. 보유 재료 선택</h4>
+            </div>
+            <div style="margin-top: 30px; text-align: center;">
+              <h4>2. 보유 재료 선택</h4>
             </div>
           </div>
         <!-- Content -->
@@ -21,6 +21,9 @@
           <div style="text-align:center;">
             <h1>기존 보유 재료 선택</h1>
             <p>이미 보관 중인 재료를 선택해주세요. 선택하신 재료는 식재료 가격을 계산할 때 제외됩니다.</p>
+            checkedItemCode {{checkedItemCode}}
+            checkedItemName {{checkedItemName}}
+            userExistList {{userExistList}}
             <div>
               <input v-if="this.categoryCode !== '1'" type="button" class="btn btn-primary btn-lg btn-custom" value="곡류" @click="searchItem('1')">
               <input v-if="this.categoryCode === '1'" type="button" class="btn btn-clicked btn-lg btn-custom" value="곡류" @click="searchItem('1')">
@@ -110,6 +113,7 @@ export default {
         console.log(error)
       })
     },
+    // 사용자 보유재료 리스트 가져오기
     getUserExistList () {
       this.$axios.get('http://localhost:3000/ingredient/userexistlist', { withCredentials: true }).then(response => {
         this.userExistList = response.data
@@ -132,13 +136,6 @@ export default {
       } else {
         this.checkedItemName.splice(this.checkedItemName.indexOf(this.itemList[n].itemName), 1)
         console.log(this.checkedItemCode)
-      }
-    },
-    changeBtnColor () {
-      if (this.btnNum === 1) {
-        this.btnColor = 'src="@/assets/check_y.png"'
-      } else if (this.btnNum === 0) {
-        this.btnColor = 'src="@/assets/check_n.png"'
       }
     },
     // 선택한 식재료 리스트 보내기
