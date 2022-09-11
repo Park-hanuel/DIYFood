@@ -91,6 +91,7 @@ const ingredient = {
     try {
       const userId = res.locals.user.id;
       const ingredientyList = await models.ExistIngredient.findAll({
+        attributes: ['itemCode'],
         where: {userId : userId}
       });
       res.send(ingredientyList);
