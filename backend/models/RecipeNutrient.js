@@ -6,10 +6,15 @@ module.exports = class RecipeNutrient extends Sequelize.Model {
       foodCode: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        unique : true
+        unique : true,
+        primaryKey: true,
       }, 
       foodName: { 
         type: Sequelize.STRING(100),
+        allowNull: false,
+      },
+      foodCategory: { 
+        type: Sequelize.STRING(30),
         allowNull: false,
       },
       foodEnergy: {
