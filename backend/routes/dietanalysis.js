@@ -3,11 +3,50 @@ const { sequelize } = require('../models');
 const router = express.Router();
 const { Op } = require("sequelize");
 const models = require('../models');
+const bodyParser = require('body-parser');
+
+router.get('/analysis/:userId', async function(req, res, next) {
+
+    const userId = res.locals.user.id;
+
+    const existUserInfo = await models.UserInfo.findOne({
+        attribute : ['userId'],
+        where : {
+            userId : userId// 아이디, 날짜
+        }
+    })
+
+    const resultInfo = {
+        gender : existUserInfo.dataValues.gender,
+        age : existUserInfo.dataValues.age,
+        weight : existUserInfo.dataValues.weight,
+        height : existUserInfo.dataValues.height,
+        purpose : existUserInfo.dataValues.purpose,
+        activeMass : existUserInfo.dataValues.activeMass,
+
+    }
+
+    res.send(resultInfo)
+  
+});
+
+router.put('/analysis/:userId', async function(req, res, next) {
+    await models.UserInfo.update({
+        'gender' : req.body.gender,
+        'age' : req.body.age,
+        'weight' : req.body.weight,
+        'height' : req.body.height,
+        'purpose' : req.body.purpose,
+        'activeMass' : req.body.activeMass,
+        'userId' : res.locals.user.id,
+    })
+});
+
 
 router.get('/analysis/result', async function(req, res, next) {
 
     const date = req.query.date;
-    const userId ='4'; //res.locals.user.id
+    const userId =res.locals.user.id
 
 
     // 유저가 섭취한 음식을 받아옴 // 날짜정보도 같이 조회
