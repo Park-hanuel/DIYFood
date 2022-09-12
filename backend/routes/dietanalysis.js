@@ -3,15 +3,11 @@ const { sequelize } = require('../models');
 const router = express.Router();
 const { Op } = require("sequelize");
 const models = require('../models');
-const config = require("../config/config")
-const dotenv = require('dotenv');
-const user = require('../controllers/user');
 const bodyParser = require('body-parser');
-dotenv.config();
 
 router.get('/analysis/:userId', async function(req, res, next) {
 
-    const userId = '4';
+    const userId = res.locals.user.id;
 
     const existUserInfo = await models.UserInfo.findOne({
         attribute : ['userId'],
