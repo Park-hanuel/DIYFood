@@ -16,7 +16,7 @@
       <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4 search-box">
         <div class="input-group">
           <div class="input-group-prepend">
-            <button id="button-addon2" class="btn btn-link text-warning" @click="searchRecipe(keyword, 1)" disabled><img src="https://cdn-icons-png.flaticon.com/512/4643/4643998.png" width="25px"></button>
+            <button id="button-addon2" class="btn btn-link text-warning" @click="searchRecipe(keyword, 1)" disabled><img src="https://cdn-icons-png.flaticon.com/512/7847/7847425.png" width="25px"></button>
           </div>
           <input type="search" placeholder="음식명 또는 재료를 검색해주세요" aria-describedby="button-addon2" class="form-control border-0 bg-light" v-model="keyword">
           <button id="button-addon2" class="search-btn" @click="searchFood(keyword, 1)">음식</button>

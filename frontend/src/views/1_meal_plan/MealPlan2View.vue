@@ -20,10 +20,8 @@
         <section id="content">
           <div style="text-align:center;">
             <h1>기존 보유 재료 선택</h1>
-            <p>이미 보관 중인 재료를 선택해주세요. 선택하신 재료는 식재료 가격을 계산할 때 제외됩니다.</p>
-            checkedItemCode {{checkedItemCode}}
-            checkedItemName {{checkedItemName}}
-            userExistList {{userExistList}}
+            <p>이미 보관 중인 재료를 선택해주세요. 선택하신 재료는 식재료 가격을 계산할 때 제외됩니다.
+              <br>이전에 기존 보유 재료로 선택했던 항목은 체크된 채로 표시됩니다.</p>
             <div>
               <input v-if="this.categoryCode !== '1'" type="button" class="btn btn-primary btn-lg btn-custom" value="곡류" @click="searchItem('1')">
               <input v-if="this.categoryCode === '1'" type="button" class="btn btn-clicked btn-lg btn-custom" value="곡류" @click="searchItem('1')">
@@ -44,7 +42,7 @@
               <input v-if="this.categoryCode === '6'" type="button" class="btn btn-clicked btn-lg btn-custom" value="수산물" @click="searchItem('6')">
             </div>
             <div class="box-item">
-              <p><img src="@/assets/shopping-basket.png" width="20px">  {{this.checkedItemName}}</p>
+              <p><img src="@/assets/shopping-basket.png" width="20px" style="margin-bottom: 5px">  {{this.checkedItemName}}</p>
             </div>
             <table class="table table-light" style="vertical-align: middle;">
               <thead class="table-bordered">
@@ -99,6 +97,14 @@ export default {
   created () {
     this.getIngredientData()
     this.getUserExistList()
+    // 기존 보유 재료 이름 표시
+    setTimeout(() => {
+      for (var i = 0; i < this.itemList.length; i++) {
+        if (this.checkedItemCode.includes(this.itemList[i].itemCode)) {
+          this.checkedItemName.push(this.itemList[i].itemName)
+        }
+      }
+    }, 2000)
   },
   mounted () {},
   unmounted () {},
@@ -117,7 +123,7 @@ export default {
     getUserExistList () {
       this.$axios.get('http://localhost:3000/ingredient/userexistlist', { withCredentials: true }).then(response => {
         this.userExistList = response.data
-        console.log(this.userExistList)
+        this.checkedItemCode = this.userExistList.map(a => a.itemCode)
       }).catch(error => {
         console.log(error)
       })
