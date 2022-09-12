@@ -10,19 +10,19 @@
     </div>
     <div style="display: inline-block;">
       <section id="content-box" style="margin-left:50px">
-        <img src="@/assets/check-list.png" alt="" class="img_style">
+        <img src="https://cdn-icons-png.flaticon.com/512/3476/3476015.png" alt="" class="img_style">
         <div style="margin-top:30px;">
           <p>기간, 예산, 재료를<br>설정하고</p>
         </div>
       </section>
       <section id="content-box">
-        <img src="@/assets/recipe-book.png" alt="" class="img_style">
+        <img src="https://cdn-icons-png.flaticon.com/512/3565/3565407.png" alt="" class="img_style">
         <div style="margin-top:30px;" >
           <p>추천 레시피를<br>선택해서</p>
         </div>
       </section>
       <section id="content-box">
-        <img src="@/assets/calendar.png" alt="" class="img_style">
+        <img src="https://cdn-icons-png.flaticon.com/512/5223/5223850.png" alt="" class="img_style">
         <div style="margin-top:30px;">
           <p>식단 계획을<br>완성합니다.</p>
         </div>

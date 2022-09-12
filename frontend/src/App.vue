@@ -60,9 +60,9 @@ export default {
   methods: {
     logOut () {
       this.$axios.get('http://localhost:3000/user/logout').then(response => {
-        this.deleteCookie('connect.sid')
         location.href = '/'
         this.deleteCookie('connect.sid')
+        location.href = '/'
       }).catch(error => {
         console.log(error)
       })

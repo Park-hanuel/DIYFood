@@ -41,7 +41,7 @@
               <input v-if="this.categoryCode === '6'" type="button" class="btn btn-clicked btn-lg btn-custom" value="수산물" @click="searchItem('6')">
             </div>
             <div class="box-item">
-              <p><img src="@/assets/shopping-cart.png" width="20px">  {{this.checkedItemName}}</p>
+              <p><img src="@/assets/shopping-cart.png" width="20px" style="margin-bottom: 5px">  {{this.checkedItemName}}</p>
             </div>
             <table class="table table-light" style="vertical-align: middle;">
               <thead class="table-bordered">
@@ -64,7 +64,7 @@
                   <td>{{data.price}} 원</td>
                   <td>
                     <label>
-                      <input v-if="checkedID.includes(data.id)" type="number" min="1" max="10" value="1" v-model="unit">
+                      <input v-if="checkedID.includes(data.id)" type="number" min="1" max="10" value="1">
                       <input v-else type="number" min="1" max="10" disabled>
                     </label>
                   </td>
@@ -141,7 +141,8 @@ export default {
       this.itemList = this.metaItemList.filter(item => parseInt(item.itemCode / 100) == code)
       this.categoryCode = code
     },
-    // 아이템 추가/삭제
+    // 1. 아이템 추가/삭제
+    // binding코드(품목코드+품종코드+가격)와 품목이름 push, 가격 계산
     selectItem (n) {
       if (this.checkedItemCode.includes(this.bindingCode(n)) === false) {
         this.checkedItemCode.push(this.bindingCode(n))
@@ -163,12 +164,29 @@ export default {
         console.log(this.checkedItemCode)
       }
     },
-    // 품목코드 + 품종코드 합치기
+    // 1-1. 품목코드 + 품종코드 + 가격 합치기
     bindingCode (n) {
       var bindedCode= this.itemList[n].itemCode + '-' + this.itemList[n].detailItemCode + '-' + this.itemList[n].price.replace(',', '')
       return bindedCode
     },
-    // 선택한 식재료 리스트 보내기 (식재료 가격이 예산보다 높으면 확인창 뜸)
+    // 2. bindingCode를 품목 / 품종 / 가격 나눠서 object로 배열에 추가하기
+    codeSplit () {
+      for (var i = 0; i < this.checkedItemCode.length; i++) {
+        this.subCodeList.push(this.checkedItemCode[i].split('-'))
+        var obj = {
+          itemCode: this.subCodeList[i][0],
+          detailItemCode: this.subCodeList[i][1],
+          price: this.subCodeList[i][2]
+        }
+        this.finalCodeList.push(obj)
+      }
+      this.finalData = {
+        finalCodeList: this.finalCodeList,
+        date: this.date
+      }
+      console.log(this.finalData)
+    },
+    // 3. 선택한 식재료 리스트 보내기 (식재료 가격이 예산보다 높으면 확인창 뜸)
     submitItemList () {
       if (this.totalCost > this.budget) {
         if (confirm('선택한 식재료의 총 가격이 설정한 예산보다 많습니다. 계속 진행하시겠습니까?')) {
@@ -196,22 +214,6 @@ export default {
         location.href = '/mealplan/step4'
       }
       localStorage.setItem('newItem', this.checkedItemName)
-    },
-    codeSplit () {
-      for (var i = 0; i < this.checkedItemCode.length; i++) {
-        this.subCodeList.push(this.checkedItemCode[i].split('-'))
-        var obj = {
-          itemCode: this.subCodeList[i][0],
-          detailItemCode: this.subCodeList[i][1],
-          price: this.subCodeList[i][2]
-        }
-        this.finalCodeList.push(obj)
-      }
-      this.finalData = {
-        finalCodeList: this.finalCodeList,
-        date: this.date
-      }
-      console.log(this.finalData)
     },
     upClick () {
         window.scrollTo({ top: 0, behavior: 'smooth' })

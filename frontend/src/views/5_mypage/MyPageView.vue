@@ -9,7 +9,7 @@
     <div style="display: inline-block;">
       <a href="/user/info/">
         <section class="content-box">
-          <img src="https://cdn-icons-png.flaticon.com/512/668/668709.png" alt="" class="img_style">
+          <img src="https://cdn-icons-png.flaticon.com/512/6082/6082867.png" alt="" class="img_style">
           <div style="margin-top:30px;">
             <h4 style="color:black">회원정보 수정</h4>
           </div>
@@ -17,7 +17,7 @@
       </a>
       <a href="/user/mymealplan">
         <section class="content-box">
-          <img src="https://cdn-icons-png.flaticon.com/512/735/735742.png" alt="" class="img_style">
+          <img src="https://cdn-icons-png.flaticon.com/512/5223/5223850.png" alt="" class="img_style">
           <div style="margin-top:30px;">
             <h4 style="color:black">나의 식단 계획</h4>
           </div>
@@ -25,7 +25,7 @@
       </a>
       <a href="/analysis/survey">
         <section class="content-box">
-          <img src="https://cdn-icons-png.flaticon.com/512/2041/2041643.png" alt="" class="img_style">
+          <img src="https://cdn-icons-png.flaticon.com/512/1162/1162489.png" alt="" class="img_style">
           <div style="margin-top:30px;">
             <h4 style="color:black">나의 식단 분석</h4>
           </div>
