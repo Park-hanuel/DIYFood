@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 
 const dietanalysis = {
     getUserInfo : async (req, res) => {
-        const userId = '4';
+        const userId = res.local.user.id;
         const existUserInfo = await models.UserInfo.findOne({
             attribute : ['userId'],
             where : {
@@ -27,22 +27,22 @@ const dietanalysis = {
     },
     setUserInfo : async (req, res) => {
         await models.UserInfo.create({
-            // 'id': res.body.userId,
+
             'gender' : req.body.gender,
             'age' : req.body.age,
             'weight' : req.body.weight,
             'height' : req.body.height,
             'purpose' : req.body.purpose,
             'activeMass' : req.body.activeMass,
-            'userId' : req.body.userId,
-            'id': req.body.userId,
+            'userId' : res.local.user.id,
+            'id': res.local.user.id,
         })
         res.send('유저 정보 저장완료');
 
     },
     getUserRecipeAnalysis : async (req, res) => {
         const date = req.query.date;
-        const userId ='4';
+        const userId = res.local.user.id;
         // 유저가 섭취한 음식을 받아옴 // 날짜정보도 같이 조회
         const userSelectFood = await models.UserRecipe.findAll({
             attribute : ['foodCode'],
