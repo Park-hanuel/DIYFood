@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 
 const dietanalysis = {
     getUserInfo : async (req, res) => {
-        const userId = res.locals.user.id;
+        const userId = '4';
         const existUserInfo = await models.UserInfo.findOne({
             attribute : ['userId'],
             where : {
@@ -23,17 +23,22 @@ const dietanalysis = {
             activeMass : existUserInfo.dataValues.activeMass,
         }
         res.send(resultInfo)
+
+    },
+    setUserInfo : async (req, res) => {
         await models.UserInfo.create({
-            'id': res.locals.user.id,
-            'gender' : req.query.gender,
-            'age' : req.query.age,
-            'weight' : req.query.weight,
-            'height' : req.query.height,
-            'purpose' : req.query.purpose,
-            'activeMass' : req.query.activeMass,
-            'userId' : res.locals.user.id,
+            // 'id': res.body.userId,
+            'gender' : req.body.gender,
+            'age' : req.body.age,
+            'weight' : req.body.weight,
+            'height' : req.body.height,
+            'purpose' : req.body.purpose,
+            'activeMass' : req.body.activeMass,
+            'userId' : req.body.userId,
+            'id': req.body.userId,
         })
-        // res.send('okay')
+        res.send('유저 정보 저장완료');
+
     },
     getUserRecipeAnalysis : async (req, res) => {
         const date = req.query.date;
