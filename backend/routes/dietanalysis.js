@@ -5,7 +5,7 @@ const { Op } = require("sequelize");
 const models = require('../models');
 const bodyParser = require('body-parser');
 
-router.get('/analysis/:userId', async function(req, res, next) {
+router.get('/analysis', async function(req, res, next) {
 
     const userId = res.locals.user.id;
 
@@ -27,26 +27,27 @@ router.get('/analysis/:userId', async function(req, res, next) {
     }
 
     res.send(resultInfo)
-  
-});
 
-router.put('/analysis/:userId', async function(req, res, next) {
-    await models.UserInfo.update({
-        'gender' : req.body.gender,
-        'age' : req.body.age,
-        'weight' : req.body.weight,
-        'height' : req.body.height,
-        'purpose' : req.body.purpose,
-        'activeMass' : req.body.activeMass,
+    await models.UserInfo.create({
+        'id': res.locals.user.id,
+        'gender' : req.query.gender,
+        'age' : req.query.age,
+        'weight' : req.query.weight,
+        'height' : req.query.height,
+        'purpose' : req.query.purpose,
+        'activeMass' : req.query.activeMass,
         'userId' : res.locals.user.id,
     })
+
+    // res.send('okay')
+
 });
 
 
 router.get('/analysis/result', async function(req, res, next) {
 
     const date = req.query.date;
-    const userId =res.locals.user.id
+    const userId ='4';
 
 
     // 유저가 섭취한 음식을 받아옴 // 날짜정보도 같이 조회
