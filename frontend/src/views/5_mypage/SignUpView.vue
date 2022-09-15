@@ -83,10 +83,6 @@ export default {
       namecheck_msg: ''
     }
   },
-  setup () {},
-  created () {},
-  mounted () {
-  },
   unmounted () {},
   methods: {
     // 회원가입 submit
@@ -98,10 +94,13 @@ export default {
           password: this.user.password,
           name: this.user.name,
         }
-        const url = 'http://localhost:3000/user/signup'
-        const headers = { 'Content-Type':'application/json'};
-        await this.$axios.post(url,userData, { withCredentials: true });       
-        location.href = '/user/signupcompleted'; 
+        try{
+          const url = 'http://localhost:3000/user/signup'
+          await this.$axios.post(url,userData, { withCredentials: true })  
+          location.href = '/user/signupcompleted'; 
+        } catch (err) {
+          alert('다시 시도해주세요')
+        }
       } else if (this.idcheck_code!=1) {
         alert('이메일 중복을 확인해주세요')
       } else if (this.namecheck_code !=1) {
@@ -116,23 +115,20 @@ export default {
     },
     // 아이디 중복확인
     async IdCheck(){
-      
-      console.log('SignUpView.vue => IdCheck');
-      console.log('SignUpView.vue => IdCheck', this.user.email);
-
-      const url = `http://localhost:3000/user/checkemail?email=${this.user.email}`;
-      const headers = {"Content-Type":"application/json"};
-      const response = await this.$axios.get(url);
-      console.log(response);
-
-      if(response.data === 0){
+      try{
+        const url = `http://localhost:3000/user/checkemail?email=${this.user.email}`
+        const response = await this.$axios.get(url);
+        if(response.data === 0){
           alert('중복된 아이디가 존재합니다.')
           return false;
       }
       if(response.data === 1){
           alert('사용가능한 아이디입니다')
           this.idcheck_code=1
-      }    
+      }   
+      } catch (err) {
+        alert('다시 시도해주세요')
+      }
     },
     characterCheck (str) {
       var reg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi

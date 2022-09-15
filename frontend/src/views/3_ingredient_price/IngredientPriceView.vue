@@ -150,14 +150,14 @@ export default {
   },
   methods: {
     // 식재료 시세 불러오기
-    getPriceData (code) {
-      this.$axios.get('http://localhost:3000/ingredient/list?category_code=' + code, { withCredentials: true }).then(response => {
-        console.log('### response: ' + JSON.stringify(response))
+    async getPriceData (code) {
+      try{
+        const response = await this.$axios.get('http://localhost:3000/ingredient/list?category_code=' + code)
         this.itemList = response.data
         this.categoryCode = code
-      }).catch(error => {
-        console.log(error)
-      })
+      } catch (err) {
+        alert('정보를 불러오지 못했습니다.')
+      }
     },
     // 그래프 조회
     selectGraph (i) {

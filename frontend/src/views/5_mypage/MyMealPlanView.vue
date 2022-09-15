@@ -82,35 +82,39 @@ export default {
   unmounted () {},
   methods: {
     // 월별로 식단 계획 불러오기
-    getUserRecipe (index) {
+    async getUserRecipe (index) {
       this.month = index
-      this.$axios.get(`http://localhost:3000/user/recipelist?month=${this.month}`, { withCredentials: true }).then(response => {
-        console.log('### response: ' + JSON.stringify(response))
+      try{
+        const response = await this.$axios.get(`http://localhost:3000/user/recipelist?month=${this.month}`, { withCredentials: true })
         this.userRecipeList = response.data
-      }).catch(error => {
-        console.log(error)
-      })
+      }catch(err){
+        Location.reload()
+      }
     },
     // 단일 레시피 삭제
-    deleteRecipe (date, foodCode) {
-      if (confirm('선택하신 레시피를 삭제하시겠습니까?')) {
+    async deleteRecipe (date, foodCode) {
+      try{
+        if (confirm('선택하신 레시피를 삭제하시겠습니까?')) {
         const url = `http://localhost:3000/user/recipe?date=${date}&foodCode=${foodCode}`
-        this.$axios.delete(url, { withCredentials: true })
+        await this.$axios.delete(url, { withCredentials: true })
         alert('레시피가 삭제되었습니다.')
         location.reload()
-      } else {
-        console.log('다행 휴..')
+      }
+      }catch(err){
+        alert('다시 시도해주세요!')
       }
     },
     // 기간별 식단 계획 삭제
-    deletePlan (date) {
-      if (confirm('선택하신 기간의 식단 계획을 모두 삭제하시겠습니까?')) {
+    async deletePlan (date) {
+      try{
+        if (confirm('선택하신 기간의 식단 계획을 모두 삭제하시겠습니까?')) {
         const url = `http://localhost:3000/user/recipelist?date=${date}`
-        this.$axios.delete(url,{ withCredentials: true })
+        await this.$axios.delete(url,{ withCredentials: true })
         alert('식단 계획이 삭제되었습니다.')
         location.reload()
-      } else {
-        console.log('다행 휴..')
+      } 
+      }catch(err){
+        alert('다시 시도해주세요!')
       }
     },
     // 오브젝트 groupBy

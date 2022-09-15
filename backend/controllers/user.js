@@ -176,15 +176,11 @@ const insertUserInfo = async (email, password, name) => {
     .pbkdf2Sync(password, randomSalt, 65536, 64, "sha512")
     .toString("hex");
   const passwordWithSalt = cryptedPassword + "$" + randomSalt;
-  try{
     await models.User.create({
       email: email,
       password: passwordWithSalt,
       name: name,
     });
-  }catch(err){
-    return res.status(400).send(err);
-  }
 };
 
 const encryprtPassword = async function (password) {
@@ -197,7 +193,6 @@ const encryprtPassword = async function (password) {
 };
 
 const modifyUserInfo = async (email, password, name) => {
-  try{
     const passwordWithSalt = await encryprtPassword(password);
     await models.User.update(
       {
@@ -208,14 +203,9 @@ const modifyUserInfo = async (email, password, name) => {
         where: { email: email },
       }
     );
-  }catch(err){
-    return res.status(400).send(err);
-  }
-  
 };
 
 const deleteAllInfo = async (email) => {
-  try{
     const user = await models.User.findOne({
       where: { email: email },
     });
@@ -231,9 +221,6 @@ const deleteAllInfo = async (email) => {
     await models.User.destroy({
       where: { email: email },
     });
-  }catch(err){
-    return res.status(404).send(err);
-  }
 };
 
 module.exports = user;
