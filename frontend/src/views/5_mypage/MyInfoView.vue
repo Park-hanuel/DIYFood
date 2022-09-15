@@ -150,6 +150,7 @@ export default {
     // user info modify submit
     async submitForm() {
       if (this.namecheck_code === 1) {
+
         // API 요청시 전달할 userData 객체
         const userData = {
           email: this.user.email,
@@ -165,6 +166,7 @@ export default {
           alert('다시 시도해주세요')
         }
       } else {
+
         alert('이름에 특수문자는 입력할 수 없습니다.')
       }
     },

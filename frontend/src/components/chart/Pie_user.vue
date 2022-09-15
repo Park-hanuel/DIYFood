@@ -32,6 +32,15 @@ export default {
     Pie
   },
   props: {
+    percentCarbohydrate: {
+      type: Number
+    },
+    percentFat: {
+      type: Number
+    },
+    percentProtein: {
+      type: Number
+    },
     chartId: {
       type: String,
       default: 'pie-chart'
@@ -61,6 +70,11 @@ export default {
       default: () => []
     }
   },
+  watch: {
+    percentCarbohydrate () {
+      this.chartData.datasets[0].data = [parseInt(this.percentCarbohydrate), parseInt(this.percentProtein), parseInt(this.percentFat)]
+    }
+  },
   data () {
     return {
       chartData: {
@@ -69,7 +83,7 @@ export default {
           {
             label: '나의 섭취량',
             backgroundColor: ['#ffce56', '#37a2eb', '#fe6484'],
-            data: [80, 10, 30]
+            data: []
           }
         ]
       },

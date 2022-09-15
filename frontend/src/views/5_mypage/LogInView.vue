@@ -29,7 +29,7 @@
                       <div class="ms-3">
                         <div class="d-flex justify-content-center">
                           <a href="/"><button type="submit" class="btn btn-primary btn-lg btn-custom" style="margin-left:10px">로그인</button></a>
-                          <a href="/user/signup" class="btn btn-primary btn-lg btn-custom">회원가입</a>
+                          <a href="/user/signup"><button class="btn btn-primary btn-lg btn-custom" >회원가입</button></a>
                         </div>
                         <div class="d-flex justify-content-center mb-3 mb-lg-4">
                           <a href="/auth/kakao" class="btn"><img src="@/assets/kakao_login_large_wide.png" height="50px"></a>
@@ -93,6 +93,8 @@ body{background: #f3f3f3;}
 .btn-custom {
   margin-left: 0px;
   width:161px;
+  height: 50px;
   border-radius: 7px;
+  font-size: 1.1rem;
 }
 </style>

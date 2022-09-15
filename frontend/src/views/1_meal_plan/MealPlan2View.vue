@@ -111,25 +111,26 @@ export default {
   unmounted () {},
   methods: {
     // 식재료 목록 불러오기
-    getIngredientData () {
-      this.$axios.get('http://localhost:3000/ingredient/existlist', { withCredentials: true }).then(response => {
+    async getIngredientData () {
+      try {
+        const response = await this.$axios.get('http://localhost:3000/ingredient/existlist', { withCredentials: true })
         this.itemList = response.data
         this.metaItemList = response.data
         this.itemList = this.metaItemList.filter(item => parseInt(item.itemCode / 100) === 1)
         this.allItemList = response.data
-        console.log(this.allItemList)
-      }).catch(error => {
-        console.log(error)
-      })
+      } catch (err) {
+        location.reload()
+      }
     },
     // 사용자 보유재료 리스트 가져오기
-    getUserExistList () {
-      this.$axios.get('http://localhost:3000/ingredient/userexistlist', { withCredentials: true }).then(response => {
+    async getUserExistList () {
+      try {
+        const response = await this.$axios.get('http://localhost:3000/ingredient/userexistlist', { withCredentials: true })
         this.userExistList = response.data
         this.checkedItemCode = this.userExistList.map(a => a.itemCode)
-      }).catch(error => {
-        console.log(error)
-      })
+      } catch (err) {
+        location.reload()
+      }
     },
     // 종류 버튼 아이템 필터링 이벤트
     searchItem (code) {
@@ -149,14 +150,12 @@ export default {
     },
     // 선택한 식재료 리스트 보내기
     /* eslint-disable */
-    submitItemList () {
-      this.$axios.post('http://localhost:3000/ingredient/existlist', this.checkedItemCode, {withCredentials:true})
-        .then(function (res) {
-          console.log(res)
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
+    async submitItemList () {
+      try {
+        await this.$axios.post('http://localhost:3000/ingredient/existlist', this.checkedItemCode, {withCredentials:true})        
+      } catch (err) {
+        alert('다시 시도해주세요')
+      }
       localStorage.setItem('haveItem', this.checkedItemName)
     },
     upClick () {
