@@ -238,21 +238,11 @@ const recipe = {
           date: date,
         });
       }
+      res.send();
     } catch (err) {
       return res.status(404).send(err);
     }
   },
-};
-
-const getRecipeList = async function (startId, endId) {
-  try {
-    const url = `https://openapi.foodsafetykorea.go.kr/api/${process.env.RECIPE_APIKEY}/COOKRCP01/json/${startId}/${endId}/`;
-    const response = await axios.get(url);
-    const itemData = response.data.COOKRCP01.row;
-    return itemData;
-  } catch (err) {
-    return res.status(404).send(err);
-  }
 };
 
 module.exports = recipe;

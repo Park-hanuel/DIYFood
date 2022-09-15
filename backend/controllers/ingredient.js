@@ -81,6 +81,7 @@ const ingredient = {
           date: date,
         });
       }
+      res.send();
     } catch (err) {
       return res.status(404).send(error);
     }
@@ -121,6 +122,7 @@ const ingredient = {
           itemCode: itemCodeList[i],
         });
       }
+      res.send();
     } catch (err) {
       return res.status(404).send(error);
     }
