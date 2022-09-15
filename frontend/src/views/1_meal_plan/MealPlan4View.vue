@@ -160,7 +160,7 @@ export default {
       this.isLoading = true
       // eslint-disable-next-line
       try {
-        const response = await this.$axios.get(`http://localhost:3000/recipe/recommendlist?date=${date}&category=${code}&pageNum=${page}`, { withCredentials: true })
+        const response = await this.$axios.get(`http://3.39.156.154:3000/recipe/recommendlist?date=${date}&category=${code}&pageNum=${page}`, { withCredentials: true })
         this.recipeList = response.data.contents
         this.pageNum = response.data.pageNum
         this.pnStart = response.data.pnStart
@@ -174,7 +174,7 @@ export default {
     },
     // 선택 레시피 제출
     async submitRecipeList () {
-      const url = 'http://localhost:3000/recipe/recommendlist'
+      const url = 'http://3.39.156.154:3000/recipe/recommendlist'
       const data = { recipeList: this.checkedList, date: this.date_start }
       try {
         await this.$axios.post(url, data, { withCredentials: true })

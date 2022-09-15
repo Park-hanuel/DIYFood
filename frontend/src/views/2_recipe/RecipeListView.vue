@@ -165,67 +165,61 @@ export default {
   mounted () {},
   unmounted () {},
   methods: {
-    searchFood (keyword, page) {
+    async searchFood (keyword, page) {
       this.searchCode = 0
       if (keyword === '') {
         alert('검색어를 입력해주세요.')
       } else {
         window.scrollTo({ top: 0, behavior: 'smooth' })
         this.isLoading = true
-        this.$axios.get(`http://localhost:3000/recipe/list/search?recipeName=${keyword}&pageNum=${page}`, { withCredentials: true })
-          .then((response) => {
-            console.log('### response: ' + JSON.stringify(response))
-            this.recipeList = response.data.contents
-            this.pageNum = response.data.pageNum
-            this.pnStart = response.data.pnStart
-            this.pnEnd = response.data.pnEnd
-            this.pnTotal = response.data.pnTotal
-            console.log(this.recipeList)
-            this.isLoading = false
-          }).catch(error => {
-            console.log(error)
-          })
+        try {
+          const response = await this.$axios.get(`http://3.39.156.154:3000/recipe/list/search?recipeName=${keyword}&pageNum=${page}`, { withCredentials: true })
+          this.recipeList = response.data.contents
+          this.pageNum = response.data.pageNum
+          this.pnStart = response.data.pnStart
+          this.pnEnd = response.data.pnEnd
+          this.pnTotal = response.data.pnTotal
+          this.isLoading = false
+        } catch (err) {
+          alert('다시 시도해주세요.')
+        }
       }
     },
-    searchIngredient (keyword, page) {
+    async searchIngredient (keyword, page) {
       this.searchCode = 1
       if (keyword === '') {
         alert('검색어를 입력해주세요.')
       } else {
         window.scrollTo({ top: 0, behavior: 'smooth' })
         this.isLoading = true
-        this.$axios.get(`http://localhost:3000/recipe/list/search?ingredientName=${keyword}&pageNum=${page}`, { withCredentials: true })
-          .then((response) => {
-            console.log('### response: ' + JSON.stringify(response))
-            this.recipeList = response.data.contents
-            this.pageNum = response.data.pageNum
-            this.pnStart = response.data.pnStart
-            this.pnEnd = response.data.pnEnd
-            this.pnTotal = response.data.pnTotal
-            console.log(this.recipeList)
-            this.isLoading = false
-          }).catch(error => {
-            console.log(error)
-          })
-      }
-    },
-    pageClick (index) {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-      this.isLoading = true
-      const url = `http://localhost:3000/recipe/list?pageNum=${index}`
-      this.$axios.get(url, { withCredentials: true })
-        .then((response) => {
-          console.log('### response: ' + JSON.stringify(response))
+        try {
+          const response = await this.$axios.get(`http://3.39.156.154:3000/recipe/list/search?ingredientName=${keyword}&pageNum=${page}`, { withCredentials: true })
           this.recipeList = response.data.contents
           this.pageNum = response.data.pageNum
           this.pnStart = response.data.pnStart
           this.pnEnd = response.data.pnEnd
           this.pnTotal = response.data.pnTotal
-          console.log(this.recipeList)
           this.isLoading = false
-        }).catch(error => {
-          console.log(error)
-        })
+        } catch (err) {
+          alert('다시 시도해주세요.')
+        }
+      }
+    },
+    async pageClick (index) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      this.isLoading = true
+      try {
+        const url = `http://3.39.156.154:3000/recipe/list?pageNum=${index}`
+        const response = await this.$axios.get(url, { withCredentials: true })
+        this.recipeList = response.data.contents
+        this.pageNum = response.data.pageNum
+        this.pnStart = response.data.pnStart
+        this.pnEnd = response.data.pnEnd
+        this.pnTotal = response.data.pnTotal
+        this.isLoading = false
+      } catch (err) {
+        location.reload()
+      }
     },
     saveContents (contents) {
       localStorage.setItem('RCP_NM', contents.RCP_NM)

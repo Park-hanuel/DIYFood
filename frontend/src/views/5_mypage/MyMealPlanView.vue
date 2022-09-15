@@ -85,7 +85,7 @@ export default {
     async getUserRecipe (index) {
       this.month = index
       try{
-        const response = await this.$axios.get(`http://localhost:3000/user/recipelist?month=${this.month}`, { withCredentials: true })
+        const response = await this.$axios.get(`http://3.39.156.154:3000/user/recipelist?month=${this.month}`, { withCredentials: true })
         this.userRecipeList = response.data
       }catch(err){
         Location.reload()
@@ -95,7 +95,7 @@ export default {
     async deleteRecipe (date, foodCode) {
       try{
         if (confirm('선택하신 레시피를 삭제하시겠습니까?')) {
-        const url = `http://localhost:3000/user/recipe?date=${date}&foodCode=${foodCode}`
+        const url = `http://3.39.156.154:3000/user/recipe?date=${date}&foodCode=${foodCode}`
         await this.$axios.delete(url, { withCredentials: true })
         alert('레시피가 삭제되었습니다.')
         location.reload()
@@ -108,7 +108,7 @@ export default {
     async deletePlan (date) {
       try{
         if (confirm('선택하신 기간의 식단 계획을 모두 삭제하시겠습니까?')) {
-        const url = `http://localhost:3000/user/recipelist?date=${date}`
+        const url = `http://3.39.156.154:3000/user/recipelist?date=${date}`
         await this.$axios.delete(url,{ withCredentials: true })
         alert('식단 계획이 삭제되었습니다.')
         location.reload()

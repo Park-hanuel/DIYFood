@@ -65,20 +65,21 @@ export default {
     }
   },
   methods: {
-    isLogined () {
-      this.$axios.get('http://localhost:3000/islogin', { withCredentials: true }).then(response => {
+    async isLogined () {
+      try {
+        const response = await this.$axios.get('http://3.39.156.154:3000/islogin', { withCredentials: true })
         this.loggedIn = response.data
-        console.log(this.loggedIn)
-      }).catch(error => {
-        console.log(error)
-      })
+      } catch (err) {
+        location.reload()
+      }
     },
-    logOut () {
-      this.$axios.get('http://localhost:3000/user/logout', { withCredentials: true }).then(response => {
+    async logOut () {
+      try {
+        await this.$axios.get('http://3.39.156.154:3000/user/logout', { withCredentials: true })
         location.href = '/'
-      }).catch(error => {
-        console.log(error)
-      })
+      } catch (err) {
+        alert('다시 시도해주세요.')
+      }
     },
     click () {
       if (this.loggedIn) {
