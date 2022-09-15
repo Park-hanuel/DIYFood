@@ -14,7 +14,7 @@ const user = {
         return res.redirect("/join?error=exist");
       }
       await insertUserInfo(email, password, name);
-      res.send("유저 email 삽입 성공");
+      res.send();
     } catch (err) {
       return res.status(404).send(err);
     }
@@ -74,7 +74,7 @@ const user = {
     try{
       res.send(res.locals.user);
     }catch(err){
-      return res.status(404).send(err);
+      return res.status(500).send(err);
     }
   },
 
@@ -82,6 +82,8 @@ const user = {
     try {
       const { email, password, name } = req.body;
       await modifyUserInfo(email, password, name);
+      //res.send();
+      return res.status(404).send(err);
     } catch (err) {
       return res.status(404).send(err);
     }
@@ -93,6 +95,7 @@ const user = {
       const id = res.locals.user.id;
       const email = res.locals.user.email;
       await deleteAllInfo(email);
+      res.send();
     }catch(err){
       return res.status(404).send(err);
     }
@@ -140,7 +143,7 @@ const user = {
           date: date,
         },
       });
-      res.end();
+      res.send();
     }catch(err){
       return res.status(404).send(err);
     }
@@ -160,7 +163,7 @@ const user = {
           foodCode: foodCode,
         },
       });
-      res.end();
+      res.send();
     }catch(err){
       return res.status(404).send(err);
     }
