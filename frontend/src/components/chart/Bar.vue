@@ -33,6 +33,42 @@ export default {
     Bar
   },
   props: {
+    BasicMetabolicRate: {
+      type: Number
+    },
+    dailyNeedCarbohydrate: {
+      type: Number
+    },
+    dailyNeedEnergy: {
+      type: Number
+    },
+    dailyNeedFat: {
+      type: Number
+    },
+    dailyNeedNatrium: {
+      type: Number
+    },
+    dailyNeedProtein: {
+      type: Number
+    },
+    maintain_calorie: {
+      type: Number
+    },
+    sumCarbohydrate: {
+      type: Number
+    },
+    sumEnergy: {
+      type: Number
+    },
+    sumFat: {
+      type: Number
+    },
+    sumNatrium: {
+      type: Number
+    },
+    sumProtein: {
+      type: Number
+    },
     chartId: {
       type: String,
       default: 'bar-chart'
@@ -62,11 +98,18 @@ export default {
       default: () => []
     }
   },
+  created () {
+  },
+  watch: {
+    sumEnergy () {
+      this.chartData.datasets[0].data = [this.dailyNeedEnergy / 10, this.dailyNeedNatrium / 10, this.dailyNeedCarbohydrate, this.dailyNeedProtein, this.dailyNeedFat]
+      this.chartData.datasets[1].data = [this.sumEnergy / 10, this.sumNatrium / 10, this.sumCarbohydrate, this.sumProtein, this.sumFat]
+    }
+  },
   data () {
     return {
       chartData: {
         labels: [
-          '기초대사량',
           '열량',
           '나트륨',
           '탄수화물',
@@ -77,13 +120,13 @@ export default {
           {
             label: '권장 섭취량',
             backgroundColor: '#4ac1c0',
-            data: [150, 100, 35, 42, 53, 54],
+            data: [],
             borderRadius: 5
           },
           {
             label: '나의 섭취량',
             backgroundColor: '#9565f9',
-            data: [130, 120, 52, 41, 23, 35],
+            data: [],
             borderRadius: 5
           }
         ]

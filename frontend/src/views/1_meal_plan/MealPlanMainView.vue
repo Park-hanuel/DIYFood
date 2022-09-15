@@ -38,7 +38,8 @@ export default {
   components: {},
   data () {
     return {
-      sampleData: ''
+      sampleData: '',
+      loggedIn: false
     }
   },
   computed: {
@@ -47,12 +48,22 @@ export default {
     }
   },
   setup () {},
-  created () {},
+  created () {
+    this.isLogined()
+  },
   mounted () {},
   unmounted () {},
   methods: {
+    isLogined () {
+      this.$axios.get('http://localhost:3000/islogin', { withCredentials: true }).then(response => {
+        this.loggedIn = response.data
+        console.log(this.loggedIn)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
     click () {
-      if (this.cookie) {
+      if (this.loggedIn === true) {
         location.href = '/mealplan/step1'
       } else {
         alert('로그인이 필요한 기능입니다.')

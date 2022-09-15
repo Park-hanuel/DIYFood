@@ -12,7 +12,7 @@
       <div style="width:100%; height:100px; padding: 30px; padding-right: 50px; padding-left: 50px; vertical-align: middle; display: inline-block;">
         <div style="text-align: center; width: 83%; float: left; padding-left: 18%;">
           <h2 v-if="this.date === ''" >기간을 선택해주세요 → </h2>
-          <h2 v-else>{{new Date(Date.parse(date)).toLocaleDateString()}} - {{new Date(Date.parse(date)+518400000).toLocaleDateString()}}</h2>
+          <h1 v-else>{{new Date(Date.parse(date)).toLocaleDateString()}} - {{new Date(Date.parse(date)+518400000).toLocaleDateString()}}</h1>
         </div>
         <div style="position: relative; width: 17%; float: left;">
           <select name="date" v-model="date">
@@ -21,23 +21,155 @@
           </select>
         </div>
       </div>
-      <div class="half-box" style="border-right: 1px solid lightgray">
+      <div class="half-box">
         <div style="text-align:center; margin-bottom: 10px;">
           <h3>3대 영양소 섭취 비율</h3>
         </div>
         <div class="chart-box">
-          <p>권장 섭취량</p>
+          <p>권장 섭취 비율</p>
           <PieChart class="piechart-style"/>
         </div>
         <div class="chart-box">
-          <p>{{username}}님의 섭취량</p>
-          <PieUserChart class="piechart-style"/>
+          <p>{{username}}님의 섭취 비율</p>
+          <PieUserChart
+            class="piechart-style"
+            :percentCarbohydrate="this.nutrientData.percentCarbohydrate"
+            :percentFat="this.nutrientData.percentFat"
+            :percentProtein="this.nutrientData.percentProtein"/>
+        </div>
+        <div v-if="this.dateChecked" style="font-size: 1rem; text-align: center;">
+          <p>🥄 3대 영양소 권장 섭취 비율
+            <br><b>탄수화물 50%, 단백질 30%, 지방 20%</b></p>
+          <p>🥄 선택하신 기간 동안 <b>{{username}}</b>님의 3대 영양소 섭취 비율
+            <br><b>탄수화물 {{parseInt(nutrientData.percentCarbohydrate)}}%, 단백질 {{parseInt(nutrientData.percentProtein)}}%, 지방 {{parseInt(nutrientData.percentFat)}}%</b></p>
+          <p><b>탄수화물</b> 섭취를
+            <b>
+              <span v-if="this.nutrientData.percentCarbohydrate > 50" style="color:orangered">줄이고</span>
+              <span v-else style="color:dodgerblue">늘리고</span>
+            </b>,
+            <b> 단백질</b> 섭취를
+            <b>
+              <span v-if="this.nutrientData.percentProtein > 30" style="color:orangered">줄이고</span>
+              <span v-else style="color:dodgerblue">늘리고</span>
+            </b>,
+            <b> 지방</b> 섭취는
+            <b>
+              <span v-if="this.nutrientData.percentFat > 20" style="color:orangered">줄이도록</span>
+              <span v-else style="color:dodgerblue">늘리도록</span>
+            </b>
+            노력해보세요!
+          </p>
         </div>
       </div>
-      <div class="half-box">
-        <div style="text-align:center;">
+      <div class="half-box"  style="border-left: 1px solid lightgray">
+        <div style="text-align:center; ">
           <h3>영양소 섭취 비교 그래프</h3>
-          <BarChart />
+          <BarChart
+            :BasicMetabolicRate="this.nutrientData.BasicMetabolicRate"
+            :dailyNeedCarbohydrate="this.nutrientData.dailyNeedCarbohydrate"
+            :dailyNeedEnergy="this.nutrientData.dailyNeedEnergy"
+            :dailyNeedFat="this.nutrientData.dailyNeedFat"
+            :dailyNeedNatrium="this.nutrientData.dailyNeedNatrium"
+            :dailyNeedProtein="this.nutrientData.dailyNeedProtein"
+            :maintain_calorie="this.nutrientData.maintain_calorie"
+            :sumCarbohydrate="this.nutrientData.sumCarbohydrate"
+            :sumEnergy="this.nutrientData.sumEnergy"
+            :sumFat="this.nutrientData.sumFat"
+            :sumNatrium="this.nutrientData.sumNatrium"
+            :sumProtein="this.nutrientData.sumProtein"/>
+        </div>
+        <div v-if="this.dateChecked" style="font-size: 1rem; margin-top: 30px;">
+          <p>
+            <b>{{username}}</b>님의 신체 정보로 계산한 <b>기초 대사량</b>은
+            <b>{{this.nutrientData.BasicMetabolicRate}}kcal</b>이고
+            <br><b>{{username}}</b>님의 목표인 <b>{{purpose}}</b>을(를) 이루기 위한 <b>기초 대사량</b>은 <b>{{parseInt(this.nutrientData.maintain_calorie)}}kcal</b>입니다.
+          </p>
+          <table class="table" style="vertical-align: middle; text-align: center;">
+            <thead class="table-bordered">
+              <tr>
+                <th scope="col">영양소</th>
+                <th scope="col">권장 섭취량</th>
+                <th scope="col">나의 섭취량</th>
+                <th scope="col">비교</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>열량</td>
+                <td>{{parseInt(this.nutrientData.dailyNeedEnergy)}}kcal</td>
+                <td>{{parseInt(this.nutrientData.sumEnergy)}}kcal</td>
+                <td v-if="this.nutrientData.dailyNeedEnergy > this.nutrientData.sumEnergy">
+                  {{100 - parseInt((this.nutrientData.sumEnergy / this.nutrientData.dailyNeedEnergy) * 100)}}% ↓</td>
+                <td v-else>{{parseInt((this.nutrientData.sumEnergy / this.nutrientData.dailyNeedEnergy) * 100) - 100}}% ↑</td>
+              </tr>
+              <tr>
+                <td>나트륨</td>
+                <td>{{this.nutrientData.dailyNeedNatrium}}mg</td>
+                <td>{{this.nutrientData.sumNatrium}}mg</td>
+                <td v-if="this.nutrientData.dailyNeedNatrium > this.nutrientData.sumNatrium">
+                  {{100 - parseInt((this.nutrientData.sumNatrium / this.nutrientData.dailyNeedNatrium) * 100)}}% ↓</td>
+                <td v-else>{{parseInt((this.nutrientData.sumENatrium / this.nutrientData.dailyNeedNatrium ) * 100) - 100}}% ↑</td>
+              </tr>
+              <tr>
+                <td>탄수화물</td>
+                <td>{{this.nutrientData.dailyNeedCarbohydrate}}g</td>
+                <td>{{this.nutrientData.sumCarbohydrate}}g</td>
+                <td v-if="this.nutrientData.dailyNeedCarbohydrate > this.nutrientData.sumCarbohydrate">
+                  {{100 - parseInt((this.nutrientData.sumCarbohydrate / this.nutrientData.dailyNeedCarbohydrate) * 100)}}% ↓</td>
+                <td v-else>{{parseInt((this.nutrientData.sumCarbohydrate / this.nutrientData.dailyNeedCarbohydrate ) * 100) - 100}}% ↑</td>
+              </tr>
+              <tr>
+                <td>단백질</td>
+                <td>{{this.nutrientData.dailyNeedProtein}}g</td>
+                <td>{{this.nutrientData.sumProtein}}g</td>
+                <td v-if="this.nutrientData.dailyNeedProtein > this.nutrientData.sumProtein">
+                  {{100 - parseInt((this.nutrientData.sumProtein / this.nutrientData.dailyNeedProtein) * 100)}}% ↓</td>
+                <td v-else>{{parseInt((this.nutrientData.sumProtein / this.nutrientData.dailyNeedProtein ) * 100) - 100}}% ↑</td>
+              </tr>
+              <tr>
+                <td>지방</td>
+                <td>{{this.nutrientData.dailyNeedFat}}g</td>
+                <td>{{this.nutrientData.sumFat}}g</td>
+                <td v-if="this.nutrientData.dailyNeedFat > this.nutrientData.sumFat">
+                  {{100 - parseInt((this.nutrientData.sumFat / this.nutrientData.dailyNeedFat) * 100)}}% ↓</td>
+                <td v-else>{{parseInt((this.nutrientData.sumFat / this.nutrientData.dailyNeedFat) * 100) - 100}}% ↑</td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- <p>
+            ✏️ 섭취하신 <b>열량</b>은 <b>{{username}}</b>님의 <b>권장 열량 섭취량</b>보다
+              <span v-if="this.nutrientData.dailyNeedEnergy > this.nutrientData.sumEnergy">
+                <b>{{100 - parseInt((this.nutrientData.sumEnergy / this.nutrientData.dailyNeedEnergy) * 100)}}% 낮습니다.</b>
+                <span v-if="purpose === '벌크업'"><b> {{purpose}}</b>을 위해 열량 섭취를 더 늘리세요!</span>
+                <span v-if="purpose === '체중 유지'"><b> {{purpose}}</b>를 위해 열량 섭취를 더 늘리세요!</span>
+              </span>
+              <span v-else>
+                <b>{{parseInt((this.nutrientData.dailyNeedEnergy / this.nutrientData.sumEnergy) * 100) - 100}}% 높습니다.</b>
+                <span v-if="purpose === '다이어트'"><b> {{purpose}}</b>를 위해 열량 섭취를 줄이세요!</span>
+              </span>
+            <br>✏️ 섭취하신 <b>나트륨</b>은 <b>{{username}}</b>님의 <b>권장 나트륨 섭취량</b>보다
+              <b>
+                <span v-if="this.nutrientData.dailyNeedNatrium > this.nutrientData.sumNatrium">
+                  {{100 - parseInt((this.nutrientData.sumEnergy / this.nutrientData.dailyNeedEnergy) * 100)}}% 낮습니다.
+                </span>
+                <span v-else>높습니다.</span>
+              </b>
+            <br>✏️ 섭취하신 <b>탄수화물</b>은 <b>{{username}}</b>님의 <b>권장 탄수화물 섭취량</b>보다
+              <b>
+                <span v-if="this.nutrientData.dailyNeedCarbohydrate > this.nutrientData.sumCarbohydrate">낮습니다.</span>
+                <span v-else>높습니다.</span>
+              </b>
+            <br>✏️ 섭취하신 <b>단백질</b>은 <b>{{username}}</b>님의 <b>권장 단백질 섭취량</b>보다
+              <b>
+                <span v-if="this.nutrientData.dailyNeedProtein > this.nutrientData.sumProtein">낮습니다.</span>
+                <span v-else>높습니다.</span>
+              </b>
+            <br>✏️ 섭취하신 <b>지방</b>은 <b>{{username}}</b>님의 <b>권장 지방 섭취량</b>보다
+              <b>
+                <span v-if="this.nutrientData.dailyNeedFat > this.nutrientData.sumFat">낮습니다.</span>
+                <span v-else>높습니다.</span>
+              </b>
+          </p> -->
         </div>
       </div>
     </div>
@@ -59,13 +191,32 @@ export default {
     return {
       username: '',
       userRecipeList: [],
-      date: ''
+      date: '',
+      dateChecked: false,
+      nutrientData: [],
+      gender: '',
+      purpose: ''
+    }
+  },
+  watch: {
+    date () {
+      this.$axios.get(`http://localhost:3000/dietanalysis/analysis/result?date=${this.date}`, { withCredentials: true })
+        .then((response) => {
+          console.log('### response: ' + JSON.stringify(response))
+          this.nutrientData = response.data
+          console.log(this.nutrientData)
+          this.dateChecked = true
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   },
   setup () {},
   created () {
     this.getUserRecipe((new Date()).getMonth() + 1)
     this.getUserInfo()
+    this.getUserSurveyData()
   },
   mounted () {},
   unmounted () {},
@@ -91,6 +242,23 @@ export default {
           } else if (res.data.message) {
             alert(res.data.message)
           }
+        })
+    },
+    getUserSurveyData () {
+      const url = 'http://localhost:3000/dietanalysis/analysis'
+      this.$axios.get(url, { withCredentials: true })
+        .then(response => {
+          console.log('### response: ' + JSON.stringify(response))
+          this.gender = response.data.gender
+          if (response.data.purpose === 0) {
+            this.purpose = '벌크업'
+          } else if (response.data.purpose === 1) {
+            this.purpose = '체중 유지'
+          } else {
+            this.purpose = '다이어트'
+          }
+        }).catch(error => {
+          console.log(error)
         })
     },
     selectDate (item) {
@@ -152,6 +320,7 @@ body{
   padding-right: 50px;
   padding-left: 50px;
   padding-top: 10px;
+  padding-bottom: 10px;
   display: inline-block;
   float: left;
   font-size: 1.3rem;

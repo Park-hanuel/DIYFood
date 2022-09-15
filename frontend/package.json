@@ -11,6 +11,8 @@
     "axios": "^0.27.2",
     "bootstrap": "3.3.x",
     "chart.js": "^3.9.1",
+    "chartjs-plugin-datalabels": "^2.1.0",
+    "chartjs-plugin-labels": "^1.1.0",
     "core-js": "^3.8.3",
     "moment": "^2.29.4",
     "v-calendar": "^2.4.1",
