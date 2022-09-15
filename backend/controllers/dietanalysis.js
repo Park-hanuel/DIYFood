@@ -203,7 +203,9 @@ const dietanalysis = {
             sumNatrium : sumNatrium,
             percentCarbohydrate : percentCarbohydrate,
             percentProtein : percentProtein,
-            percentFat : percentFat
+            percentFat : percentFat,
+            BMI : BMI,
+            BMIrate : BMIrate
             
         }
         
