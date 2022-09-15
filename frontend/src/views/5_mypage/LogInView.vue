@@ -31,9 +31,10 @@
                           <a href="/"><button type="submit" class="btn btn-primary btn-lg btn-custom" style="margin-left:10px">로그인</button></a>
                           <a href="/user/signup" class="btn btn-primary btn-lg btn-custom">회원가입</a>
                         </div>
-                        <div class="d-flex justify-content-center mb-3 mb-lg-4">
-                          <a href="/auth/kakao" class="btn"><img src="@/assets/kakao_login_large_wide.png" height="50px"></a>
-                        </div>
+                        <!-- 카카오 로그인 추후 지원 예정 -->
+                        <!-- <div class="d-flex justify-content-center mb-3 mb-lg-4">
+                          <a class="btn" @click="kakaoLogin()"><img src="@/assets/kakao_login_large_wide.png" height="50px"></a>
+                        </div> -->
                       </div>
                     </div>
                   </form>
@@ -83,6 +84,9 @@ export default {
       } catch (err) {
         alert('다시 시도해주세요')
       }
+    },
+    async kakaoLogin () {
+      
     }
   }
 }
