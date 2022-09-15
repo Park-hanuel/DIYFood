@@ -155,12 +155,12 @@ export default {
       }
     },
     // 레시피 조회하기
-    getRecipeData (date, code, page) {
+    async getRecipeData (date, code, page) {
       window.scrollTo({ top: 0, behavior: 'smooth' })
       this.isLoading = true
       // eslint-disable-next-line
-      this.$axios.get(`http://localhost:3000/recipe/recommendlist?date=${date}&category=${code}&pageNum=${page}`, { withCredentials: true }).then(response => {
-        console.log('### response: ' + JSON.stringify(response))
+      try {
+        const response = await this.$axios.get(`http://localhost:3000/recipe/recommendlist?date=${date}&category=${code}&pageNum=${page}`, { withCredentials: true })
         this.recipeList = response.data.contents
         this.pageNum = response.data.pageNum
         this.pnStart = response.data.pnStart
@@ -168,16 +168,19 @@ export default {
         this.pnTotal = response.data.pnTotal
         this.isLoading = false
         this.categoryCode = code
-      }).catch(error => {
-        console.log(error)
-      })
+      } catch (err) {
+        location.reload()
+      }
     },
     // 선택 레시피 제출
-    submitRecipeList () {
+    async submitRecipeList () {
       const url = 'http://localhost:3000/recipe/recommendlist'
       const data = { recipeList: this.checkedList, date: this.date_start }
-      this.$axios.post(url, data, { withCredentials: true })
-      console.log(data)
+      try {
+        await this.$axios.post(url, data, { withCredentials: true })
+      } catch (err) {
+        alert('다시 확인해주세요.')
+      }
       localStorage.setItem('recipe', this.checkedItemName)
       location.href = '/mealplan/step5'
     },

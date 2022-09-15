@@ -147,7 +147,12 @@ export default {
       .then(response => {
         console.log('### response: ' + JSON.stringify(response))
         this.surveyData = response.data
-        console.log(this.surveyData)
+        this.userdata.gender = response.data.gender
+        this.userdata.age = response.data.age,
+        this.userdata.height = response.data.height,
+        this.userdata.weight = response.data.weight,
+        this.userdata.purpose = response.data.purpose,
+        this.userdata.activeMass = response.data.activeMass
       }).catch(error => {
         console.log(error)
       })
@@ -161,10 +166,10 @@ export default {
       }
     },
     submitForm () {
-      this.$axios.post(`http://localhost:3000/dietanalysis/analysis?:${this.userid}`, this.userdata, { withCredentials: true })
+      this.$axios.put(`http://localhost:3000/dietanalysis/analysis`, this.userdata, { withCredentials: true })
         .then(function (response) {
           console.log(response)
-          // location.href = '/analysis/result'
+          location.href = '/analysis/result'
         })
         .catch(function (error) {
           console.log(error)

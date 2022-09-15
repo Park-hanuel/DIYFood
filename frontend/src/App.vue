@@ -15,7 +15,7 @@
       <!-- 로그인 / 로그아웃 / 회원가입 / 마이페이지 -->
       <nav class="navbar-custom fixed-custom" style="background-color: #aac458;">
         <div>
-          <div v-if="cookie">
+          <div v-if="loggedIn">
             <!--cookie가 true일 때 즉, 쿠키가 있다면 보여줄 목록-->
             <button class="btn navbtn-custom" style="margin-right: 70px;" type="button" @click="logOut()">LOG OUT</button>
             <button class="btn navbtn-custom" type="button" onclick="location.href='/user/mypage'">MY PAGE</button>
@@ -51,27 +51,37 @@
 
 <script>
 export default {
-  created () {},
+  created () {
+    this.isLogined()
+  },
   computed: {
     cookie () {
       return document.cookie
     }
   },
+  data () {
+    return {
+      loggedIn: false
+    }
+  },
   methods: {
+    isLogined () {
+      this.$axios.get('http://localhost:3000/islogin', { withCredentials: true }).then(response => {
+        this.loggedIn = response.data
+        console.log(this.loggedIn)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
     logOut () {
-      this.$axios.get('http://localhost:3000/user/logout').then(response => {
-        location.href = '/'
-        this.deleteCookie('connect.sid')
+      this.$axios.get('http://localhost:3000/user/logout', { withCredentials: true }).then(response => {
         location.href = '/'
       }).catch(error => {
         console.log(error)
       })
     },
-    deleteCookie (name) {
-      document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
-    },
     click () {
-      if (this.cookie) {
+      if (this.loggedIn) {
         location.href = '/analysis/survey'
       } else {
         alert('로그인이 필요한 기능입니다.')

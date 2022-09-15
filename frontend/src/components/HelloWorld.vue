@@ -118,7 +118,7 @@
         </section>
         <!-- MyPage-->
         <section class="page-section padding" id="MyPage">
-            <div class="container" v-if="cookie">
+            <div class="container" v-if="this.loggedIn === true">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase" style="color:white ;">My Page</h2>
                     <h3 class="section-subheading " style="color: white ;">마이페이지 | 로그아웃</h3>
@@ -173,31 +173,35 @@ export default {
       return document.cookie
     }
   },
+  data () {
+    return {
+      loggedIn: null
+    }
+  },
+  created () {
+    this.isLogined()
+  },
   methods: {
-    logOut () {
-      this.$axios.get('http://localhost:3000/user/logout').then(response => {
-        this.deleteAllCookies()
-        location.reload('/')
+    isLogined () {
+      this.$axios.get('http://localhost:3000/islogin', { withCredentials: true }).then(response => {
+        this.loggedIn = response.data
+        console.log(this.loggedIn)
       }).catch(error => {
         console.log(error)
       })
     },
-    /* eslint-disable */
-    deleteAllCookies () {
-      var cookies = document.cookie.split(";")
-
-      for (var i = 0; i < cookies.length; i++) {
-          var cookie = cookies[i]
-          var eqPos = cookie.indexOf("=")
-          var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie
-          document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT"
-      }
+    logOut () {
+      this.$axios.get('http://localhost:3000/user/logout', { withCredentials: true }).then(response => {
+        location.href = '/'
+      }).catch(error => {
+        console.log(error)
+      })
     },
     upClick () {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     },
     downClick () {
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }
   }
 }

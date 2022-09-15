@@ -42,7 +42,7 @@ export default {
   methods: {
     getUserData () {
       // axios를 이용하여 API 호출 (component 안에서 axios를 this.$axios로 사용할 수 있습니다.)
-      this.$axios.get('http://localhost:3000/user/admin').then(response => {
+      this.$axios.get('http://localhost:3000/user/admin', { withCredentials: true }).then(response => {
         console.log('### response: ' + JSON.stringify(response))
         this.boardList = response.data
         for (let i = 0; i < this.boardList.length; i++) {

@@ -95,7 +95,7 @@ export default {
           }
         })
     },
-    // user info modify submit
+    // 회원정보 수정
     submitForm(){
       if (this.namecheck_code===1) {
         // API 요청시 전달할 userData 객체
@@ -108,9 +108,9 @@ export default {
         this.$axios.patch(url, userData, { withCredentials: true })
         .then((res)=> {
           console.log(res);
-          if(res.data===0){
+          if (res.data===0) {
             alert("회원정보가 수정되었습니다.")
-          }else{
+          } else {
             alert("다시 시도해주세요");
           }
         })

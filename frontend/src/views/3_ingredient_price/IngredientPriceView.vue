@@ -151,7 +151,7 @@ export default {
   methods: {
     // 식재료 시세 불러오기
     getPriceData (code) {
-      this.$axios.get('http://localhost:3000/ingredient/list?category_code=' + code).then(response => {
+      this.$axios.get('http://localhost:3000/ingredient/list?category_code=' + code, { withCredentials: true }).then(response => {
         console.log('### response: ' + JSON.stringify(response))
         this.itemList = response.data
         this.categoryCode = code
