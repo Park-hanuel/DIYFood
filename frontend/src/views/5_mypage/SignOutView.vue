@@ -41,27 +41,26 @@ export default {
   mounted () {},
   unmounted () {},
   methods: {
-    getUserInfo () {
-      const url = 'http://localhost:3000/user/info'
-      this.$axios.get(url, { withCredentials: true })
-        .then((res) => {
-          if (res.data) {
-            console.log(res.data)
-            this.user.email = res.data.email
-            this.user.name = res.data.name
-          } else if (res.data.message) {
-            alert(res.data.message)
-          }
-        })
-    },
-    signOut () {
-      if (confirm('탈퇴 처리는 취소할 수 없습니다. 정말 탈퇴하시겠습니까?')) {
+    async getUserInfo () {
+      try {
         const url = 'http://localhost:3000/user/info'
-        this.$axios.delete(url, { withCredentials: true })
-        alert('회원 탈퇴 처리가 완료되었습니다.')
-        location.href = '/'
-      } else {
-        console.log('다행 휴..')
+        const res = await this.$axios.get(url, { withCredentials: true })
+        this.user.email = res.data.email
+        this.user.name = res.data.name
+      } catch (err) {
+        alert('사용자 정보를 불러올 수 없습니다.')
+      }
+    },
+    async signOut () {
+      try {
+        if (confirm('탈퇴 처리는 취소할 수 없습니다. 정말 탈퇴하시겠습니까?')) {
+          const url = 'http://localhost:3000/user/info'
+          await this.$axios.delete(url, { withCredentials: true })
+          alert('회원 탈퇴 처리가 완료되었습니다.')
+          location.href = '/'
+        }
+      } catch (err) {
+        alert('다시 시도해주세요')
       }
     }
   }
