@@ -67,21 +67,22 @@ export default {
   mounted () {},
   unmounted() {},
   methods: {
-    submitForm(){
+    async submitForm () {
+      try {
         const userData = {
-        email: this.user.email,
-        password: this.user.password,
-      }
-      const url = 'http://localhost:3000/user/login';
-      this.$axios.post(url,userData,{ withCredentials: true })
-      .then((res)=>{
-        console.log(res)
+          email: this.user.email,
+          password: this.user.password,
+        }
+        const url = 'http://3.39.156.154:3000/user/login'
+        const res = await this.$axios.post(url,userData,{ withCredentials: true })
         if(res.data.user){  
           location.href='/'
         }else if(res.data){
           alert(res.data);
-        }
-      })
+        }        
+      } catch (err) {
+        alert('다시 시도해주세요')
+      }
     }
   }
 }

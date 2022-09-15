@@ -59,7 +59,7 @@ export default {
     // 사용자 정보 가져오기
     async getUserInfo () {
       try{
-        const url = 'http://localhost:3000/user/info'
+        const url = 'http://3.39.156.154:3000/user/info'
         const res = await this.$axios.get(url, { withCredentials: true })
         this.username = res.data.name
       } catch(err){

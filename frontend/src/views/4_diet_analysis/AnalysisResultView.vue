@@ -84,6 +84,7 @@
             <b>{{this.nutrientData.BasicMetabolicRate}}kcal</b>이고
             <br><b>{{username}}</b>님의 목표인 <b>{{purpose}}</b>을(를) 이루기 위한 <b>기초 대사량</b>은 <b>{{parseInt(this.nutrientData.maintain_calorie)}}kcal</b>입니다.
           </p>
+          <p><b>{{username}}</b>님의 <b>BMI 지수</b>(체질량 지수)는 <b>{{parseInt(this.nutrientData.BMI)}}</b>이고 <b>{{this.nutrientData.BMIrate}}</b>입니다.</p>
           <table class="table" style="vertical-align: middle; text-align: center;">
             <thead class="table-bordered">
               <tr>
@@ -136,40 +137,6 @@
               </tr>
             </tbody>
           </table>
-          <!-- <p>
-            ✏️ 섭취하신 <b>열량</b>은 <b>{{username}}</b>님의 <b>권장 열량 섭취량</b>보다
-              <span v-if="this.nutrientData.dailyNeedEnergy > this.nutrientData.sumEnergy">
-                <b>{{100 - parseInt((this.nutrientData.sumEnergy / this.nutrientData.dailyNeedEnergy) * 100)}}% 낮습니다.</b>
-                <span v-if="purpose === '벌크업'"><b> {{purpose}}</b>을 위해 열량 섭취를 더 늘리세요!</span>
-                <span v-if="purpose === '체중 유지'"><b> {{purpose}}</b>를 위해 열량 섭취를 더 늘리세요!</span>
-              </span>
-              <span v-else>
-                <b>{{parseInt((this.nutrientData.dailyNeedEnergy / this.nutrientData.sumEnergy) * 100) - 100}}% 높습니다.</b>
-                <span v-if="purpose === '다이어트'"><b> {{purpose}}</b>를 위해 열량 섭취를 줄이세요!</span>
-              </span>
-            <br>✏️ 섭취하신 <b>나트륨</b>은 <b>{{username}}</b>님의 <b>권장 나트륨 섭취량</b>보다
-              <b>
-                <span v-if="this.nutrientData.dailyNeedNatrium > this.nutrientData.sumNatrium">
-                  {{100 - parseInt((this.nutrientData.sumEnergy / this.nutrientData.dailyNeedEnergy) * 100)}}% 낮습니다.
-                </span>
-                <span v-else>높습니다.</span>
-              </b>
-            <br>✏️ 섭취하신 <b>탄수화물</b>은 <b>{{username}}</b>님의 <b>권장 탄수화물 섭취량</b>보다
-              <b>
-                <span v-if="this.nutrientData.dailyNeedCarbohydrate > this.nutrientData.sumCarbohydrate">낮습니다.</span>
-                <span v-else>높습니다.</span>
-              </b>
-            <br>✏️ 섭취하신 <b>단백질</b>은 <b>{{username}}</b>님의 <b>권장 단백질 섭취량</b>보다
-              <b>
-                <span v-if="this.nutrientData.dailyNeedProtein > this.nutrientData.sumProtein">낮습니다.</span>
-                <span v-else>높습니다.</span>
-              </b>
-            <br>✏️ 섭취하신 <b>지방</b>은 <b>{{username}}</b>님의 <b>권장 지방 섭취량</b>보다
-              <b>
-                <span v-if="this.nutrientData.dailyNeedFat > this.nutrientData.sumFat">낮습니다.</span>
-                <span v-else>높습니다.</span>
-              </b>
-          </p> -->
         </div>
       </div>
     </div>
@@ -199,17 +166,14 @@ export default {
     }
   },
   watch: {
-    date () {
-      this.$axios.get(`http://localhost:3000/dietanalysis/analysis/result?date=${this.date}`, { withCredentials: true })
-        .then((response) => {
-          console.log('### response: ' + JSON.stringify(response))
-          this.nutrientData = response.data
-          console.log(this.nutrientData)
-          this.dateChecked = true
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+    async date () {
+      try {
+        const response = await this.$axios.get(`http://3.39.156.154:3000/dietanalysis/analysis/result?date=${this.date}`, { withCredentials: true })
+        this.nutrientData = response.data
+        this.dateChecked = true
+      } catch (err) {
+        alert('다시 시도해주세요.')
+      }
     }
   },
   setup () {},
@@ -222,48 +186,47 @@ export default {
   unmounted () {},
   methods: {
     // 월별로 식단 계획 불러오기
-    getUserRecipe (index) {
+    async getUserRecipe (index) {
       this.month = index
-      this.$axios.get(`http://localhost:3000/user/recipelist?month=${this.month}`, { withCredentials: true }).then(response => {
-        console.log('### response: ' + JSON.stringify(response))
+      try {
+        const response = await this.$axios.get(`http://3.39.156.154:3000/user/recipelist?month=${this.month}`, { withCredentials: true })
         this.userRecipeList = response.data
-      }).catch(error => {
-        console.log(error)
-      })
+      } catch (err) {
+        alert('다시 시도해주세요.')
+      }
     },
     // 사용자 정보 가져오기
-    getUserInfo () {
-      const url = 'http://localhost:3000/user/info'
-      this.$axios.get(url, { withCredentials: true })
-        .then((res) => {
-          if (res.data) {
-            console.log(res.data)
-            this.username = res.data.name
-          } else if (res.data.message) {
-            alert(res.data.message)
-          }
-        })
+    async getUserInfo () {
+      try {
+        const url = 'http://3.39.156.154:3000/user/info'
+        const res = await this.$axios.get(url, { withCredentials: true })
+        if (res.data) {
+          this.username = res.data.name
+        } else if (res.data.message) {
+          alert(res.data.message)
+        }
+      } catch (err) {
+        location.reload()
+      }
     },
-    getUserSurveyData () {
-      const url = 'http://localhost:3000/dietanalysis/analysis'
-      this.$axios.get(url, { withCredentials: true })
-        .then(response => {
-          console.log('### response: ' + JSON.stringify(response))
-          this.gender = response.data.gender
-          if (response.data.purpose === 0) {
-            this.purpose = '벌크업'
-          } else if (response.data.purpose === 1) {
-            this.purpose = '체중 유지'
-          } else {
-            this.purpose = '다이어트'
-          }
-        }).catch(error => {
-          console.log(error)
-        })
+    async getUserSurveyData () {
+      try {
+        const url = 'http://3.39.156.154:3000/dietanalysis/analysis'
+        const response = await this.$axios.get(url, { withCredentials: true })
+        this.gender = response.data.gender
+        if (response.data.purpose === 0) {
+          this.purpose = '벌크업'
+        } else if (response.data.purpose === 1) {
+          this.purpose = '체중 유지'
+        } else {
+          this.purpose = '다이어트'
+        }
+      } catch (err) {
+        location.reload()
+      }
     },
     selectDate (item) {
       this.date = item
-      console.log(this.date)
     },
     // 오브젝트 groupBy
     groupBy (objectArray, property) {

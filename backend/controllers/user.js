@@ -82,8 +82,7 @@ const user = {
     try {
       const { email, password, name } = req.body;
       await modifyUserInfo(email, password, name);
-      //res.send();
-      return res.status(404).send(err);
+      res.send();
     } catch (err) {
       return res.status(404).send(err);
     }

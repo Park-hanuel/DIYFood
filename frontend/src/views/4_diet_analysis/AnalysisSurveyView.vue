@@ -114,13 +114,8 @@ export default {
     }
   },
   setup () {},
-  computed: {
-    cookie () {
-      return document.cookie
-    }
-  },
+  computed: {},
   created () {
-    this.start()
     this.getUserInfo()
     this.getUserSurveyData()
   },
@@ -128,52 +123,42 @@ export default {
   unmounted () {},
   methods: {
     // 사용자 정보 가져오기
-    getUserInfo () {
-      const url = 'http://localhost:3000/user/info'
-      this.$axios.get(url, { withCredentials: true })
-        .then((res) => {
-          if (res.data) {
-            console.log(res.data)
-            this.username = res.data.name
-            this.userid = res.data.id
-          } else if (res.data.message) {
-            alert(res.data.message)
-          }
-        })
+    async getUserInfo () {
+      try {
+        const url = 'http://3.39.156.154:3000/user/info'
+        const res = await this.$axios.get(url, { withCredentials: true })
+        if (res.data) {
+          this.username = res.data.name
+        } else if (res.data.message) {
+          alert(res.data.message)
+        }
+      } catch (err) {
+        alert('로그인이 필요한 기능입니다.')
+        location.href = '/user/login'
+      }
     },
-    getUserSurveyData () {
-      const url = 'http://localhost:3000/dietanalysis/analysis'
-      this.$axios.get(url, { withCredentials: true })
-      .then(response => {
-        console.log('### response: ' + JSON.stringify(response))
+    async getUserSurveyData () {
+      try {
+        const url = 'http://3.39.156.154:3000/dietanalysis/analysis'
+        const response = await this.$axios.get(url, { withCredentials: true })
         this.surveyData = response.data
         this.userdata.gender = response.data.gender
         this.userdata.age = response.data.age,
         this.userdata.height = response.data.height,
         this.userdata.weight = response.data.weight,
         this.userdata.purpose = response.data.purpose,
-        this.userdata.activeMass = response.data.activeMass
-      }).catch(error => {
-        console.log(error)
-      })
-    },
-    start () {
-      if (this.cookie) {
-        // pass
-      } else {
-        alert('로그인이 필요한 기능입니다.')
-        location.href = '/user/login'
+        this.userdata.activeMass = response.data.activeMass        
+      } catch (err) {
+        location.reload()
       }
     },
-    submitForm () {
-      this.$axios.put(`http://localhost:3000/dietanalysis/analysis`, this.userdata, { withCredentials: true })
-        .then(function (response) {
-          console.log(response)
-          location.href = '/analysis/result'
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
+    async submitForm () {
+      try {
+        await this.$axios.put(`http://3.39.156.154:3000/dietanalysis/analysis`, this.userdata, { withCredentials: true })
+        location.href = '/analysis/result'
+      } catch (err) {
+        alert('다시 시도해주세요')
+      }
     },
     upClick () {
         window.scrollTo({ top: 0, behavior: 'smooth' })

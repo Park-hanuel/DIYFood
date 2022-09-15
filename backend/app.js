@@ -32,7 +32,7 @@ sequelize.sync({force : false})
 
 const corsOption ={
   credentials: true,
-  origin : 'http://localhost:8080'
+  origin : 'http://3.39.47.225:8080'
 }
 
 app.use(cors(corsOption));

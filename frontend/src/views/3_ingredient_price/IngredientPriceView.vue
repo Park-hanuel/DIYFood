@@ -151,8 +151,8 @@ export default {
   methods: {
     // 식재료 시세 불러오기
     async getPriceData (code) {
-      try{
-        const response = await this.$axios.get('http://localhost:3000/ingredient/list?category_code=' + code)
+      try {
+        const response = await this.$axios.get('http://3.39.156.154:3000/ingredient/list?category_code=' + code)
         this.itemList = response.data
         this.categoryCode = code
       } catch (err) {
@@ -163,7 +163,6 @@ export default {
     selectGraph (i) {
       this.selectedItem = this.itemList[i].item_name
       this.chartData.datasets[0].data = [Number(this.itemList[i].dpr6.replace(',', '')), Number(this.itemList[i].dpr5.replace(',', '')), Number(this.itemList[i].dpr4.replace(',', '')), Number(this.itemList[i].dpr3.replace(',', '')), Number(this.itemList[i].dpr2.replace(',', '')), Number(this.itemList[i].dpr1.replace(',', ''))]
-      console.log(this.selectedItem)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     },
     upClick () {
