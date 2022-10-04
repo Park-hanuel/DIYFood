@@ -137,7 +137,7 @@ export default {
   methods: {
     async getUserInfo() {
       try{
-        const url = 'http://3.39.156.154:3000/user/info'
+        const url = 'http://localhost:3000/user/info'
         const res = await this.$axios.get(url, { withCredentials: true })
         if (res.data) {
           this.user.email = res.data.email
@@ -157,7 +157,7 @@ export default {
           name: this.user.name
         }
         try {
-          const url = 'http://3.39.156.154:3000/user/info'
+          const url = 'http://localhost:3000/user/info'
           await this.$axios.patch(url, userData, { withCredentials: true })
           alert('회원정보가 수정되었습니다.')
           location.href='/user/mypage'

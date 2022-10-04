@@ -125,7 +125,7 @@ export default {
     // 사용자 정보 가져오기
     async getUserInfo () {
       try {
-        const url = 'http://3.39.156.154:3000/user/info'
+        const url = 'http://localhost:3000/user/info'
         const res = await this.$axios.get(url, { withCredentials: true })
         if (res.data) {
           this.username = res.data.name
@@ -139,7 +139,7 @@ export default {
     },
     async getUserSurveyData () {
       try {
-        const url = 'http://3.39.156.154:3000/dietanalysis/analysis'
+        const url = 'http://localhost:3000/dietanalysis/analysis'
         const response = await this.$axios.get(url, { withCredentials: true })
         this.surveyData = response.data
         this.userdata.gender = response.data.gender
@@ -154,7 +154,7 @@ export default {
     },
     async submitForm () {
       try {
-        await this.$axios.put(`http://3.39.156.154:3000/dietanalysis/analysis`, this.userdata, { withCredentials: true })
+        await this.$axios.put(`http://localhost:3000/dietanalysis/analysis`, this.userdata, { withCredentials: true })
         location.href = '/analysis/result'
       } catch (err) {
         alert('다시 시도해주세요')

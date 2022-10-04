@@ -67,15 +67,15 @@ export default {
   methods: {
     async isLogined () {
       try {
-        const response = await this.$axios.get('http://3.39.156.154:3000/islogin', { withCredentials: true })
+        const response = await this.$axios.get('http://localhost:3000/islogin', { withCredentials: true })
         this.loggedIn = response.data
       } catch (err) {
-        location.reload()
+        // location.reload()
       }
     },
     async logOut () {
       try {
-        await this.$axios.get('http://3.39.156.154:3000/user/logout', { withCredentials: true })
+        await this.$axios.get('http://localhost:3000/user/logout', { withCredentials: true })
         location.href = '/'
       } catch (err) {
         alert('다시 시도해주세요.')

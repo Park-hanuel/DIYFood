@@ -74,7 +74,7 @@ export default {
           email: this.user.email,
           password: this.user.password,
         }
-        const url = 'http://3.39.156.154:3000/user/login'
+        const url = 'http://localhost:3000/user/login'
         const res = await this.$axios.post(url,userData,{ withCredentials: true })
         if(res.data.user){  
           location.href='/'

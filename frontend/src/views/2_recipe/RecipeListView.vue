@@ -173,7 +173,7 @@ export default {
         window.scrollTo({ top: 0, behavior: 'smooth' })
         this.isLoading = true
         try {
-          const response = await this.$axios.get(`http://3.39.156.154:3000/recipe/list/search?recipeName=${keyword}&pageNum=${page}`, { withCredentials: true })
+          const response = await this.$axios.get(`http://localhost:3000/recipe/list/search?recipeName=${keyword}&pageNum=${page}`, { withCredentials: true })
           this.recipeList = response.data.contents
           this.pageNum = response.data.pageNum
           this.pnStart = response.data.pnStart
@@ -193,7 +193,7 @@ export default {
         window.scrollTo({ top: 0, behavior: 'smooth' })
         this.isLoading = true
         try {
-          const response = await this.$axios.get(`http://3.39.156.154:3000/recipe/list/search?ingredientName=${keyword}&pageNum=${page}`, { withCredentials: true })
+          const response = await this.$axios.get(`http://localhost:3000/recipe/list/search?ingredientName=${keyword}&pageNum=${page}`, { withCredentials: true })
           this.recipeList = response.data.contents
           this.pageNum = response.data.pageNum
           this.pnStart = response.data.pnStart
@@ -209,7 +209,7 @@ export default {
       window.scrollTo({ top: 0, behavior: 'smooth' })
       this.isLoading = true
       try {
-        const url = `http://3.39.156.154:3000/recipe/list?pageNum=${index}`
+        const url = `http://localhost:3000/recipe/list?pageNum=${index}`
         const response = await this.$axios.get(url, { withCredentials: true })
         this.recipeList = response.data.contents
         this.pageNum = response.data.pageNum
@@ -218,7 +218,7 @@ export default {
         this.pnTotal = response.data.pnTotal
         this.isLoading = false
       } catch (err) {
-        location.reload()
+        alert('정보를 불러오지 못했습니다.')
       }
     },
     saveContents (contents) {

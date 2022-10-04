@@ -111,7 +111,7 @@ export default {
     // 식재료 목록 불러오기
     async getIngredientData () {
       try {
-        const response = await this.$axios.get('http://3.39.156.154:3000/ingredient/existlist', { withCredentials: true })
+        const response = await this.$axios.get('http://localhost:3000/ingredient/existlist', { withCredentials: true })
         this.itemList = response.data
         this.metaItemList = response.data
         this.itemList = this.metaItemList.filter(item => parseInt(item.itemCode / 100) === 1)
@@ -123,7 +123,7 @@ export default {
     // 사용자 보유재료 리스트 가져오기
     async getUserExistList () {
       try {
-        const response = await this.$axios.get('http://3.39.156.154:3000/ingredient/userexistlist', { withCredentials: true })
+        const response = await this.$axios.get('http://localhost:3000/ingredient/userexistlist', { withCredentials: true })
         this.userExistList = response.data
         this.checkedItemCode = this.userExistList.map(a => a.itemCode)
       } catch (err) {
@@ -150,7 +150,7 @@ export default {
     /* eslint-disable */
     async submitItemList () {
       try {
-        await this.$axios.post('http://3.39.156.154:3000/ingredient/existlist', this.checkedItemCode, {withCredentials:true})        
+        await this.$axios.post('http://localhost:3000/ingredient/existlist', this.checkedItemCode, {withCredentials:true})        
       } catch (err) {
         alert('다시 시도해주세요')
       }

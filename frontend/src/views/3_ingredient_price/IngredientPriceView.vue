@@ -152,7 +152,7 @@ export default {
     // 식재료 시세 불러오기
     async getPriceData (code) {
       try {
-        const response = await this.$axios.get('http://3.39.156.154:3000/ingredient/list?category_code=' + code)
+        const response = await this.$axios.get('http://localhost:3000/ingredient/list?category_code=' + code)
         this.itemList = response.data
         this.categoryCode = code
       } catch (err) {
