@@ -42,7 +42,7 @@ export default {
   methods: {
     async getUserData () {
       try {
-        const response = await this.$axios.get('http://3.39.156.154:3000/user/admin', { withCredentials: true })
+        const response = await this.$axios.get('http://localhost:3000/user/admin', { withCredentials: true })
         this.boardList = response.data
         for (let i = 0; i < this.boardList.length; i++) {
           this.boardList[i].createdAt = this.getDateWithoutTime(this.boardList[i].createdAt)

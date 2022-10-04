@@ -270,7 +270,7 @@ export default {
     // 식재료 목록 불러오기
     async getIngredientData () {
       try {
-        const response = await this.$axios.get('http://3.39.156.154:3000/ingredient/userlist', { withCredentials: true })
+        const response = await this.$axios.get('http://localhost:3000/ingredient/userlist', { withCredentials: true })
         this.itemList = response.data
         this.metaItemList = response.data
         this.itemList = this.metaItemList.filter(
@@ -363,7 +363,7 @@ export default {
         ) {
           this.codeSplit()
           try {
-            await this.$axios.post('http://3.39.156.154:3000/ingredient/userlist', this.finalData, { withCredentials: true })
+            await this.$axios.post('http://localhost:3000/ingredient/userlist', this.finalData, { withCredentials: true })
             location.href = '/mealplan/step4'
           } catch (err) {
             alert('다시 시도해주세요.')
@@ -375,7 +375,7 @@ export default {
       } else {
         this.codeSplit()
         try {
-          await this.$axios.post('http://3.39.156.154:3000/ingredient/userlist', this.finalData, { withCredentials: true })
+          await this.$axios.post('http://localhost:3000/ingredient/userlist', this.finalData, { withCredentials: true })
         } catch (err) {
           alert('다시 시도해주세요')
         }

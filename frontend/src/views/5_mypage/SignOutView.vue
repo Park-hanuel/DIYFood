@@ -43,7 +43,7 @@ export default {
   methods: {
     async getUserInfo () {
       try {
-        const url = 'http://3.39.156.154:3000/user/info'
+        const url = 'http://localhost:3000/user/info'
         const res = await this.$axios.get(url, { withCredentials: true })
         this.user.email = res.data.email
         this.user.name = res.data.name
@@ -54,7 +54,7 @@ export default {
     async signOut () {
       try {
         if (confirm('탈퇴 처리는 취소할 수 없습니다. 정말 탈퇴하시겠습니까?')) {
-          const url = 'http://3.39.156.154:3000/user/info'
+          const url = 'http://localhost:3000/user/info'
           await this.$axios.delete(url, { withCredentials: true })
           alert('회원 탈퇴 처리가 완료되었습니다.')
           location.href = '/'

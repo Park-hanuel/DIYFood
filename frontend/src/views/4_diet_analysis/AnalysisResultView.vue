@@ -168,7 +168,7 @@ export default {
   watch: {
     async date () {
       try {
-        const response = await this.$axios.get(`http://3.39.156.154:3000/dietanalysis/analysis/result?date=${this.date}`, { withCredentials: true })
+        const response = await this.$axios.get(`http://localhost:3000/dietanalysis/analysis/result?date=${this.date}`, { withCredentials: true })
         this.nutrientData = response.data
         this.dateChecked = true
       } catch (err) {
@@ -189,7 +189,7 @@ export default {
     async getUserRecipe (index) {
       this.month = index
       try {
-        const response = await this.$axios.get(`http://3.39.156.154:3000/user/recipelist?month=${this.month}`, { withCredentials: true })
+        const response = await this.$axios.get(`http://localhost:3000/user/recipelist?month=${this.month}`, { withCredentials: true })
         this.userRecipeList = response.data
       } catch (err) {
         alert('다시 시도해주세요.')
@@ -198,7 +198,7 @@ export default {
     // 사용자 정보 가져오기
     async getUserInfo () {
       try {
-        const url = 'http://3.39.156.154:3000/user/info'
+        const url = 'http://localhost:3000/user/info'
         const res = await this.$axios.get(url, { withCredentials: true })
         if (res.data) {
           this.username = res.data.name
@@ -211,7 +211,7 @@ export default {
     },
     async getUserSurveyData () {
       try {
-        const url = 'http://3.39.156.154:3000/dietanalysis/analysis'
+        const url = 'http://localhost:3000/dietanalysis/analysis'
         const response = await this.$axios.get(url, { withCredentials: true })
         this.gender = response.data.gender
         if (response.data.purpose === 0) {

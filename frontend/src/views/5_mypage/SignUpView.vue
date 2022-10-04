@@ -95,7 +95,7 @@ export default {
           name: this.user.name,
         }
         try{
-          const url = 'http://3.39.156.154:3000/user/signup'
+          const url = 'http://localhost:3000/user/signup'
           await this.$axios.post(url,userData, { withCredentials: true })  
           location.href = '/user/signupcompleted'; 
         } catch (err) {
@@ -116,7 +116,7 @@ export default {
     // 아이디 중복확인
     async IdCheck(){
       try{
-        const url = `http://3.39.156.154:3000/user/checkemail?email=${this.user.email}`
+        const url = `http://localhost:3000/user/checkemail?email=${this.user.email}`
         const response = await this.$axios.get(url);
         if(response.data === 0){
           alert('중복된 아이디가 존재합니다.')

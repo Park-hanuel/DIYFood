@@ -183,7 +183,7 @@ export default {
   },
   methods: {
     isLogined () {
-      this.$axios.get('http://3.39.156.154:3000/islogin', { withCredentials: true }).then(response => {
+      this.$axios.get('http://localhost:3000/islogin', { withCredentials: true }).then(response => {
         this.loggedIn = response.data
         console.log(this.loggedIn)
       }).catch(error => {
@@ -191,7 +191,7 @@ export default {
       })
     },
     logOut () {
-      this.$axios.get('http://3.39.156.154:3000/user/logout', { withCredentials: true }).then(response => {
+      this.$axios.get('http://localhost:3000/user/logout', { withCredentials: true }).then(response => {
         location.href = '/'
       }).catch(error => {
         console.log(error)

@@ -88,7 +88,7 @@ export default {
     // 상세 레시피 불러오기
     async getDetailRecipe (foodCode) {
       try {
-        const response = await this.$axios.get(`http://3.39.156.154:3000/recipe/list/${foodCode}`, { withCredentials: true })
+        const response = await this.$axios.get(`http://localhost:3000/recipe/list/${foodCode}`, { withCredentials: true })
         this.recipe = response.data
       } catch (err) {
         location.reload()
