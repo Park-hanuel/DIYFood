@@ -60,11 +60,14 @@ export default {
     user: {
       email: null,
       password: null
-    }
+    },
+    mobile: false
   }
 },
   setup() {},
-  created() {},
+  created() {
+    this.mobileCheck()
+  },
   mounted () {},
   unmounted() {},
   methods: {
@@ -85,8 +88,12 @@ export default {
         alert('다시 시도해주세요')
       }
     },
-    async kakaoLogin () {
-      
+    mobileCheck () {
+      if (window.innerWidth <= 600) {
+        this.mobile = true
+        console.log('mobile')
+        location.href = 'login/m'
+      }      
     }
   }
 }

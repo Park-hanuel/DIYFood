@@ -80,10 +80,14 @@ export default {
       },
       idcheck_code: 0,
       namecheck_code: 0,
-      namecheck_msg: ''
+      namecheck_msg: '',
+      mobile: false
     }
   },
   unmounted () {},
+  created() {
+    this.mobileCheck()
+  },
   methods: {
     // 회원가입 submit
     async submitForm(){
@@ -144,6 +148,13 @@ export default {
         this.namecheck_code = 1
         return str;
       }  
+    },
+    mobileCheck () {
+      if (window.innerWidth <= 600) {
+        this.mobile = true
+        console.log('mobile')
+        location.href = 'signup/m'
+      }      
     }
   }
 }

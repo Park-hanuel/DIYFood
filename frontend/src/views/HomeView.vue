@@ -27,6 +27,23 @@ export default {
   name: 'HomeView',
   components: {
     HelloWorld
+  },
+  created () {
+    this.mobileCheck()
+  },
+  data () {
+    return {
+      mobile: false
+    }
+  },
+  methods: {
+    mobileCheck () {
+      if (window.innerWidth <= 600) {
+        this.mobile = true
+        console.log('mobile')
+        location.href = '/m'
+      }
+    }
   }
 }
 /* eslint-disable */
