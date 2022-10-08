@@ -12,38 +12,83 @@
       <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     </head>
     <body>
-      <!-- 로그인 / 로그아웃 / 회원가입 / 마이페이지 -->
-      <nav class="navbar-custom fixed-custom" style="background-color: #aac458;">
-        <div>
-          <div v-if="loggedIn">
-            <!--cookie가 true일 때 즉, 쿠키가 있다면 보여줄 목록-->
-            <button class="btn navbtn-custom" style="margin-right: 70px;" type="button" @click="logOut()">LOG OUT</button>
-            <button class="btn navbtn-custom" type="button" onclick="location.href='/user/mypage'">MY PAGE</button>
+      <div>
+        <!-- 로그인 / 로그아웃 / 회원가입 / 마이페이지 -->
+        <nav class="navbar-custom fixed-custom" style="background-color: #aac458;">
+          <div>
+            <div style="float: left;">
+              <button class="btn navbtn-custom" type="button" onclick="location.href='/'">DIY FOOD</button>
+            </div>
+            <div v-if="loggedIn">
+              <!--cookie가 true일 때 즉, 쿠키가 있다면 보여줄 목록-->
+              <button class="btn navbtn-custom" type="button" @click="logOut()">LOG OUT</button>
+              <button class="btn navbtn-custom" type="button" onclick="location.href='/user/mypage'">MY PAGE</button>
+            </div>
+            <div v-else>  <!--쿠키가 없다면 보여줄 목록-->
+              <button class="btn navbtn-custom" type="button" onclick="location.href='/user/signup'">SIGN UP</button>
+              <button class="btn navbtn-custom" type="button" onclick="location.href='/user/login'">LOG IN</button>
+            </div>
           </div>
-          <div v-else>  <!--쿠키가 없다면 보여줄 목록-->
-            <button class="btn navbtn-custom" style="margin-right: 70px;" type="button" onclick="location.href='/user/signup'">SIGN UP</button>
-            <button class="btn navbtn-custom" type="button" onclick="location.href='/user/login'">LOG IN</button>
-          </div>
-        </div>
-      </nav>
-      <!-- Navigation Bar -->
-      <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background-color: rgb(30, 30, 30);">
-        <div class="container">
-          <a class="navbar-brand" href="/"><img src="@/assets/logo_white.png" alt="집밥김선생" style="width:210px; height:70px;"/></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars ms-1"></i>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-              <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                  <li class="nav-item"><a class="nav-link" href="/mealplan">Meal Plan</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/recipe">Recipe</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/ingredient">Ingredients Price</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/analysis/survey">Diet Analysis</a></li>
+        </nav>
+        <!-- 모바일 메뉴 -->
+        <div v-if="mobile">
+          <nav class="navbar-mobile fixed-bottom">
+            <div>
+              <ul>
+                <li class="navbtn-mobile">
+                  <a class="navbtn-mlink" href="/mealplan/m">
+                    <img src="https://cdn-icons-png.flaticon.com/512/567/567014.png" alt="" width="40%;" style="filter: invert(100%); margin-bottom: 5px">
+                    <div><span style="font-size: 0.9rem">식단 계획</span></div>
+                  </a>
+                </li>
+                <li class="navbtn-mobile">
+                  <a class="navbtn-mlink" href="/analysis/survey/m">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2889/2889577.png" alt="" width="40%;" style="filter: invert(100%); margin-bottom: 5px">
+                    <div><span style="font-size: 0.9rem">식단 분석</span></div>
+                  </a>
+                </li>
+                <li class="navbtn-mobile">
+                  <a class="navbtn-mlink" href="/m">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2764/2764007.png" alt="" width="70%;" style="filter: invert(100%); margin-bottom: 5px">
+                  </a>
+                </li>
+                <li class="navbtn-mobile">
+                  <a class="navbtn-mlink" href="/ingredient/m">
+                    <img src="https://cdn-icons-png.flaticon.com/512/6978/6978688.png" alt="" width="40%;" style="filter: invert(100%); margin-bottom: 5px">
+                    <div><span style="font-size: 0.9rem">식재료</span></div>
+                  </a>
+                </li>
+                <li class="navbtn-mobile">
+                  <a class="navbtn-mlink" href="/recipe/m">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3363/3363460.png" alt="" width="40%;" style="filter: invert(100%); margin-bottom: 5px">
+                    <div><span style="font-size: 0.9rem">레시피</span></div>
+                  </a>
+                </li>
               </ul>
-          </div>
+            </div>
+          </nav>
         </div>
-      </nav>
+        <!-- 웹페이지 메뉴 -->
+        <div v-else>
+          <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background-color: rgb(30, 30, 30);">
+            <div class="container-xxl">
+              <a class="navbar-brand" href="/"><img src="@/assets/logo_white.png" alt="집밥김선생" style="width:210px; height:70px; margin-left: 15px;"/></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars ms-1"></i>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarResponsive" style="margin-right: 15px">
+                  <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                      <li class="nav-item"><a class="nav-link" href="/mealplan">Meal Plan</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/recipe">Recipe</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/ingredient">Ingredients Price</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/analysis/survey">Diet Analysis</a></li>
+                  </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
     </body>
   <router-view></router-view>
   </div>
@@ -53,6 +98,7 @@
 export default {
   created () {
     this.isLogined()
+    this.mobileCheck()
   },
   computed: {
     cookie () {
@@ -61,7 +107,8 @@ export default {
   },
   data () {
     return {
-      loggedIn: false
+      loggedIn: false,
+      mobile: false
     }
   },
   methods: {
@@ -70,7 +117,7 @@ export default {
         const response = await this.$axios.get('http://localhost:3000/islogin', { withCredentials: true })
         this.loggedIn = response.data
       } catch (err) {
-        // location.reload()
+        location.reload()
       }
     },
     async logOut () {
@@ -87,6 +134,12 @@ export default {
       } else {
         alert('로그인이 필요한 기능입니다.')
         location.href = 'user/login'
+      }
+    },
+    mobileCheck () {
+      if (window.innerWidth <= 600) {
+        this.mobile = true
+        console.log('mobile')
       }
     }
   }
@@ -118,5 +171,24 @@ export default {
 }
 .navbar-custom {
   height: 30px;
+}
+.navbar-mobile{
+  height: 90px;
+  width: 100%;
+  background-color: rgb(30, 30, 30);
+}
+.navbtn-mobile {
+  margin-left:none;
+  width: 20%;
+  float: left;
+  text-align: center;
+}
+.navbtn-mlink {
+  color: white;
+  text-decoration: none;
+}
+ul {
+  padding-left: 0;
+  list-style:none;
 }
 </style>
