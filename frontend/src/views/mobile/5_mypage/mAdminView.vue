@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="page-m">
     <section class="justify-content-center align-items-center">
       <div class="text-black" style="border-radius: 25px; margin-bottom: 20px;">
         <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Admin Page</p>
@@ -48,7 +48,7 @@ export default {
           this.boardList[i].createdAt = this.getDateWithoutTime(this.boardList[i].createdAt)
         }
       } catch (err) {
-        location.reload()
+        // location.reload()
       }
     },
     getDateWithoutTime (createdAt) {
@@ -61,7 +61,7 @@ export default {
 <style>
 @import "@/css/styles.css";
 .table {
-  width: 700px;
-  margin: auto;
+  width: 90%;
+  margin: 5%;
 }
 </style>

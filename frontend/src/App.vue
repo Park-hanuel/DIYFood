@@ -13,25 +13,25 @@
     </head>
     <body>
       <div>
-        <!-- 로그인 / 로그아웃 / 회원가입 / 마이페이지 -->
-        <nav class="navbar-custom fixed-custom" style="background-color: #aac458;">
-          <div>
-            <div style="float: left;">
-              <button class="btn navbtn-custom" type="button" onclick="location.href='/'">DIY FOOD</button>
-            </div>
-            <div v-if="loggedIn">
-              <!--cookie가 true일 때 즉, 쿠키가 있다면 보여줄 목록-->
-              <button class="btn navbtn-custom" type="button" @click="logOut()">LOG OUT</button>
-              <button class="btn navbtn-custom" type="button" onclick="location.href='/user/mypage'">MY PAGE</button>
-            </div>
-            <div v-else>  <!--쿠키가 없다면 보여줄 목록-->
-              <button class="btn navbtn-custom" type="button" onclick="location.href='/user/signup'">SIGN UP</button>
-              <button class="btn navbtn-custom" type="button" onclick="location.href='/user/login'">LOG IN</button>
-            </div>
-          </div>
-        </nav>
         <!-- 모바일 메뉴 -->
         <div v-if="mobile">
+          <!-- 로그인 / 로그아웃 / 회원가입 / 마이페이지 -->
+          <nav class="navbar-custom fixed-custom" style="background-color: #aac458;">
+            <div>
+              <div style="float: left;">
+                <button class="btn navbtn-custom" type="button" onclick="location.href='/'">DIY FOOD</button>
+              </div>
+              <div v-if="loggedIn">
+                <!--cookie가 true일 때 즉, 쿠키가 있다면 보여줄 목록-->
+                <button class="btn navbtn-custom" type="button" @click="logOut()">LOG OUT</button>
+                <button class="btn navbtn-custom" type="button" onclick="location.href='/user/mypage/m'">MY PAGE</button>
+              </div>
+              <div v-else>  <!--쿠키가 없다면 보여줄 목록-->
+                <button class="btn navbtn-custom" type="button" onclick="location.href='/user/signup/m'">SIGN UP</button>
+                <button class="btn navbtn-custom" type="button" onclick="location.href='/user/login/m'">LOG IN</button>
+              </div>
+            </div>
+          </nav>
           <nav class="navbar-mobile fixed-bottom">
             <div>
               <ul>
@@ -55,7 +55,7 @@
                 <li class="navbtn-mobile">
                   <a class="navbtn-mlink" href="/ingredient/m">
                     <img src="https://cdn-icons-png.flaticon.com/512/6978/6978688.png" alt="" width="40%;" style="filter: invert(100%); margin-bottom: 5px">
-                    <div><span style="font-size: 0.9rem">식재료</span></div>
+                    <div><span style="font-size: 0.9rem">재료 가격</span></div>
                   </a>
                 </li>
                 <li class="navbtn-mobile">
@@ -70,6 +70,23 @@
         </div>
         <!-- 웹페이지 메뉴 -->
         <div v-else>
+          <!-- 로그인 / 로그아웃 / 회원가입 / 마이페이지 -->
+          <nav class="navbar-custom fixed-custom" style="background-color: #aac458;">
+            <div>
+              <div style="float: left;">
+                <button class="btn navbtn-custom" type="button" onclick="location.href='/'">DIY FOOD</button>
+              </div>
+              <div v-if="loggedIn">
+                <!--cookie가 true일 때 즉, 쿠키가 있다면 보여줄 목록-->
+                <button class="btn navbtn-custom" type="button" @click="logOut()">LOG OUT</button>
+                <button class="btn navbtn-custom" type="button" onclick="location.href='/user/mypage'">MY PAGE</button>
+              </div>
+              <div v-else>  <!--쿠키가 없다면 보여줄 목록-->
+                <button class="btn navbtn-custom" type="button" onclick="location.href='/user/signup'">SIGN UP</button>
+                <button class="btn navbtn-custom" type="button" onclick="location.href='/user/login'">LOG IN</button>
+              </div>
+            </div>
+          </nav>
           <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background-color: rgb(30, 30, 30);">
             <div class="container-xxl">
               <a class="navbar-brand" href="/"><img src="@/assets/logo_white.png" alt="집밥김선생" style="width:210px; height:70px; margin-left: 15px;"/></a>
@@ -173,7 +190,9 @@ export default {
   height: 30px;
 }
 .navbar-mobile{
-  height: 90px;
+  padding-right: 5%;
+  padding-left: 5%;
+  height: 80px;
   width: 100%;
   background-color: rgb(30, 30, 30);
 }

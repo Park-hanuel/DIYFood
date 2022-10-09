@@ -1,40 +1,40 @@
 <template>
-  <body id="page" style="text-align: center;">
+  <body id="page-m" style="text-align: center;">
     <div style="margin-top: 40px; margin-bottom: 30px;">
       <p style="font-size:4em; font-weight:500; line-height:70px;">
         MY PAGE
       </p>
       <p style="font-size:1.5em"><b>{{username}}</b> 님 환영합니다!</p>
     </div>
-    <div style="display: inline-block;">
-      <a href="/user/info/">
-        <section class="content-box">
+    <div>
+      <a href="/user/info/m">
+        <section class="content-box-m">
           <img src="https://cdn-icons-png.flaticon.com/512/6082/6082867.png" alt="" class="img_style">
-          <div style="margin-top:30px;">
-            <h4 style="color:black">회원정보 수정</h4>
+          <div style="float: right; width: 72%; height: 100%; padding-top: 6%;">
+            <span class="text_style">회원정보 수정</span>
           </div>
         </section>
       </a>
-      <a href="/user/mymealplan">
-        <section class="content-box">
+      <a href="/user/mymealplan/m">
+        <section class="content-box-m">
           <img src="https://cdn-icons-png.flaticon.com/512/5223/5223850.png" alt="" class="img_style">
-          <div style="margin-top:30px;">
-            <h4 style="color:black">나의 식단 계획</h4>
+          <div style="float: right; width: 72%; height: 100%; padding-top: 6%;">
+            <span class="text_style">나의 식단 계획</span>
           </div>
         </section>
       </a>
-      <a href="/analysis/survey">
-        <section class="content-box">
+      <a href="/analysis/survey/m">
+        <section class="content-box-m">
           <img src="https://cdn-icons-png.flaticon.com/512/1162/1162489.png" alt="" class="img_style">
-          <div style="margin-top:30px;">
-            <h4 style="color:black">나의 식단 분석</h4>
+          <div style="float: right; width: 72%; height: 100%; padding-top: 6%;">
+            <span class="text_style">나의 식단 분석</span>
           </div>
         </section>
       </a>
-    </div>
-    <div style="display: inline-block;">
-      <a href="/user/signout">
-        <input type="button" class="btn btn-lg next-button" value="회원 탈퇴" style="color:dimgrey">
+      <a href="/user/signout/m">
+        <section class="content-box-m2">
+          <span class="text_style2">회원 탈퇴</span>
+        </section>
       </a>
     </div>
   </body>
@@ -73,41 +73,51 @@ export default {
 
 <style>
 @import "@/css/styles.css";
-body{background: #f3f3f3;}
-.content-box{
+body{background: #f9f9f9;}
+.content-box-m{
+  display: inline-block;
   float: left;
-  width: 300px;
-  height: 400px;
+  width: 90%;
+  height: 100px;
   background-color:white;
-  margin: 30px;
-  margin-bottom: 10px;
-  margin-top:10px;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 15px;
+  margin-bottom: 15px;
   border-radius: 20px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
-  padding-top: 30px;
-  padding-bottom: 10px;
+  padding:10px;
+  text-align: left;
+}
+.content-box-m2{
+  display: inline-block;
+  float: left;
+  width: 40%;
+  height: 55px;
+  background-color:white;
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-top: 30px;
+  margin-bottom: 130px;
+  border-radius: 20px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
+  padding:10px;
+  text-align: center;
+  align-items: center;
 }
 .img_style {
-  height: 200px;
-  width: 200px;
-  text-align: center;
-  margin-top: 30px;
+  height: 80%;
+  margin: 2.5%;
+  margin-left: 15px;
 }
-.next-button {
-  height: 50px;
-  width: 150px;
-  border-radius: 10px;
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
-  margin: 20px;
-  margin-left: 500px;
-  margin-right:500px;
-  background-color: #ffffff;
-  float: left;
+.text_style {
+  color: rgb(50, 50, 50);
+  font-size: 1.5rem;
+  margin-left: 50px;
+  font-weight: 500;
 }
-.next-button:hover {
-  background-color: #f3f3f3;
-}
-.next-button:focus {
-  background-color: #f3f3f3;
+.text_style2 {
+  color: #5f5f5f;
+  font-size: 1.5rem;
 }
 </style>

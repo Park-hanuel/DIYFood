@@ -1,25 +1,21 @@
 <template>
-  <body id="page" style="text-align: center;">
-    <div style="margin-top: 40px; margin-bottom: 30px;">
+  <body id="page-m" style="text-align: center;">
+    <div style="margin-top: 20px;">
       <p style="font-size:2em; font-weight:500; line-height:70px;">
         회원 탈퇴
       </p>
     </div>
     <section class="content-box">
-      <div style="margin-top:30px;">
-        <p>회원 탈퇴 시, 회원님의 <b>모든 개인정보 및 이용정보가 삭제</b>되며 <b>복구가 불가능</b>합니다.</p>
-        <p>회원님의 <b>기존 보유 식재료 목록, 레시피 목록, 식단 계획 정보, 식단 분석 기록</b>이 삭제됩니다.</p>
+      <div>
+        <p>회원 탈퇴 시, <br>회원님의 <b>모든 개인정보 및 이용정보가<br>삭제</b>되며 <b>복구가 불가능</b>합니다.</p>
+        <p>회원님의 <b><br>기존 보유 식재료 목록, 식단 계획 정보,<br>식단 분석 기록, 레시피 목록</b>이 삭제됩니다.</p>
         <p>탈퇴 이후 언제든 재가입이 가능합니다.</p>
-        <img src="@/assets/logo.png" alt="" width="30%">
+        <img src="@/assets/logo.png" alt="" width="50%">
       </div>
     </section>
     <div style="display: inline-block;">
-      <a href="/">
-        <input type="button" class="btn btn-lg next-button" value="돌아가기" style="color:#326b23; font-weight:500">
-      </a>
-      <!-- <a href="/"> -->
-        <input type="button" class="btn btn-lg next-button" value="탈퇴하기" style="color:grey" @click="signOut()">
-      <!-- </a> -->
+        <input type="button" class="btn next-button" value="돌아가기" style="color:#326b23; font-weight:600; font-size: 1.3rem;" onclick="location.href='/m'">
+        <input type="button" class="btn next-button" value="탈퇴하기" style="color:grey; font-size: 1.3rem;" @click="signOut()">
     </div>
   </body>
 </template>
@@ -68,25 +64,26 @@ export default {
 </script>
 
 <style>
-body{background: #f3f3f3;}
+body{background: #f9f9f9;}
 .content-box{
   float: left;
-  width: 60%;
+  width: 90%;
   height: auto;
   background-color:white;
   margin-bottom: 10px;
-  margin-right:20%;
-  margin-left: 20%;
+  margin-right:5%;
+  margin-left: 5%;
   border-radius: 20px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   padding: 30px;
 }
 .next-button {
   height: 50px;
+  width: 150px;
   border-radius: 10px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
-  margin: 20px;
-  margin-top:40px;
+  margin:10px;
+  margin-bottom:100px;
   background-color: #ffffff;
   float: left;
 }
