@@ -31,15 +31,7 @@
                         </a>
                     </span>
                     <h4 class="my-3">식단 계획</h4>
-                    <p class="text-muted">설정된 예산에 맞춰 건강하고 신선한 식단을 추천합니다.</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="mb-4">
-                    <!-- MealPlan Banner-->
-                    <div class="MealPlan-Banner"  style="text-align : center;">
-                        <img src="@//assets/mealplan_banner.png" alt="" style="max-width: 50%; height: auto;">
-                    </div>
+                    <p class="text-muted">설정된 예산에 맞춰<br>건강하고 신선한 식단을 추천합니다.</p>
                 </div>
             </div>
           </div>
@@ -63,14 +55,6 @@
                         <p class="text-muted">요리법 목록과 검색 기능을 제공합니다.</p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="mb-4">
-                        <!-- Recipe item 1-->
-                        <div class="Recipe-item" style="text-align : center;">
-                            <img src="@/assets/recipe_banner.png" alt="" style="max-width: 70%; height: auto;">
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
         <!-- Ingredient-->
@@ -92,14 +76,6 @@
                         <p class="text-muted">오늘의 농축수산물 시장 가격을 안내합니다.</p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="mb-4">
-                        <!-- Recipe item 1-->
-                        <div class="Recipe-item" style="text-align : center;">
-                            <img src="@/assets/ingredientprice_banner.png" alt="ingredient_price" style="max-width: 70%; height: auto;">
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
         <!--Diet Analysis-->
@@ -118,15 +94,7 @@
                             </a>
                         </span>
                         <h4 class="my-3">식단 분석</h4>
-                        <p class="text-muted">회원님의 식단 계획 데이터를 기반으로 필수 영양소 섭취를 비교·분석합니다.</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="mb-4">
-                        <!-- Recipe item 1-->
-                        <div class="Recipe-item" style="text-align : center;">
-                            <img src="@/assets/analysis_banner.png" alt="price_trend" style="max-width: 77%; height: auto;">
-                        </div>
+                        <p class="text-muted">회원님의 식단 계획 데이터를 기반으로<br>필수 영양소 섭취를 비교·분석합니다.</p>
                     </div>
                 </div>
             </div>
@@ -142,6 +110,8 @@
                     <div class="row align-items-stretch mb-5">
                         <div class="text-center">
                             <button class="btn btn-primary btn-xl text-uppercase btn-mobile" type="button" onclick="location.href='/user/mypage/m'">My Page</button>
+                        </div>
+                        <div class="text-center">
                             <button class="btn btn-primary btn-xl text-uppercase btn-mobile" type="button" @click="logOut()">Log Out</button>
                         </div>
                     </div>
@@ -156,6 +126,8 @@
                     <div class="row align-items-stretch mb-5">
                         <div class="text-center">
                             <button class="btn btn-primary btn-xl text-uppercase btn-mobile" type="button" onclick="location.href='/user/login/m'">Log In</button>
+                        </div>
+                        <div class="text-center">
                             <button class="btn btn-primary btn-xl text-uppercase btn-mobile" type="button" onclick="location.href='/user/signup/m'">Sign Up</button>
                         </div>
                     </div>
@@ -171,8 +143,8 @@
             </div>
         </footer>
         <div>
-            <button class="btn-up" @click="upClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
-            <button class="btn-down" @click="downClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
+            <button class="btn-up-m" @click="upClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
+            <button class="btn-down-m" @click="downClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
         </div>
     </div>
   </body>
@@ -244,5 +216,8 @@ export default {
 }
 .btn-mobile {
   padding: 10px;
+  width: 150px;
+  height: 60px;
+  margin-bottom: 15px;
 }
 </style>

@@ -1,35 +1,36 @@
 <template>
-<body id="page">
-    <div style="margin-top: 40px; margin-bottom: 30px; text-align: center;">
-      <p style="font-size:4em; font-weight:500; line-height:70px;">
+<body id="page-m">
+    <div style="margin-top: 10px; margin-bottom: 10px; text-align: center;">
+      <p style="font-size:2.5em; font-weight:500; line-height:70px;">
         MY MEAL PLAN
       </p>
     </div>
     <section class="content-box">
       <p></p>
-      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="display: flex;justify-content: center; margin-top: 20px; width: 100%;">
-        <div class="btn-group mr-2" role="group" aria-label="First group">
-          <button type="button" class="btn btn-success btn-custom" @click="getUserRecipe(1)">1월</button>
-          <button type="button" class="btn btn-success btn-custom" @click="getUserRecipe(2)">2월</button>
-          <button type="button" class="btn btn-success btn-custom" @click="getUserRecipe(3)">3월</button>
-          <button type="button" class="btn btn-success btn-custom" @click="getUserRecipe(4)">4월</button>
-          <button type="button" class="btn btn-success btn-custom" @click="getUserRecipe(5)">5월</button>
-          <button type="button" class="btn btn-success btn-custom" @click="getUserRecipe(6)">6월</button>
-          <button type="button" class="btn btn-success btn-custom" @click="getUserRecipe(7)">7월</button>
-          <button type="button" class="btn btn-success btn-custom" @click="getUserRecipe(8)">8월</button>
-          <button type="button" class="btn btn-success btn-custom" @click="getUserRecipe(9)">9월</button>
-          <button type="button" class="btn btn-success btn-custom" @click="getUserRecipe(10)">10월</button>
-          <button type="button" class="btn btn-success btn-custom" @click="getUserRecipe(11)">11월</button>
-          <button type="button" class="btn btn-success btn-custom" @click="getUserRecipe(12)">12월</button>
-        </div>
-        <p style="margin:20px; text-align: center; margin-left: 30%; margin-right: 30%;">조회할 기간(월)을 선택해주세요.
-          <br>항목을 클릭하면 해당 레시피 페이지로 이동합니다.</p>
+      <div style="margin-bottom: 10px">
+        <select name="month" v-model="selectedMonth" class="selectbox-m">
+          <option value="" disabled selected>Month</option>
+          <option value="1">1월</option>
+          <option value="2">2월</option>
+          <option value="3">3월</option>
+          <option value="4">4월</option>
+          <option value="5">5월</option>
+          <option value="6">6월</option>
+          <option value="7">7월</option>
+          <option value="8">8월</option>
+          <option value="9">9월</option>
+          <option value="10">10월</option>
+          <option value="11">11월</option>
+          <option value="12">12월</option>
+        </select>
+        <input type="button" class="btn btn-primary btn-custom" value="조회" @click="getUserRecipe(selectedMonth)">
       </div>
+      <p v-if="selectedMonth === ''" style="margin:10px; text-align: center;">조회할 기간(월)을 선택해주세요.</p>
       <div>
         <div v-for="item in Object.keys(this.groupBy(this.userRecipeList, 'date'))" :key="item">
-          <div style="width: 100%; height: 50px; margin-left: 30px; overflow: auto;">
-            <h3 style="float:left; margin-top: 7px;">{{new Date(Date.parse(item)).toLocaleDateString()}} - {{new Date(Date.parse(item)+518400000).toLocaleDateString()}}</h3>
-            <button class="btn" style="float:left;" value="식단 지우기" @click="deletePlan(item)"><img src="https://cdn-icons-png.flaticon.com/512/6460/6460112.png" width="30px"></button>
+          <div style="width: 100%; height: 50px; margin-left: 10px; overflow: auto;">
+            <h4 style="float:left; margin-top: 7px;">{{new Date(Date.parse(item)).toLocaleDateString()}} - {{new Date(Date.parse(item)+518400000).toLocaleDateString()}}</h4>
+            <button class="btn" style="float:left;" value="식단 지우기" @click="deletePlan(item)"><img src="https://cdn-icons-png.flaticon.com/512/6460/6460112.png" width="25px"></button>
           </div>
           <div v-for="(data, i) in userRecipeList" :key="i">
             <div v-if="data.date === item">
@@ -38,13 +39,13 @@
                   <div style="width:85%; height:100%;">
                     <a :href="`/recipe/foodcode/${data.foodCode}`">
                       <img :src=data.RecipeNutrient.foodImage class="food-img" onerror="this.src='https://ifh.cc/g/RXYY1z.png'">
-                      <div class="word" style="vertical-align: middle; margin-left: 110px; margin-right:15px; margin-top: 8px;">
-                        <p style="font-weight: 400; font-size:1.2rem">{{data.RecipeNutrient.foodName}}</p>
+                      <div class="word" style="margin-left: 80px; margin-right:15px;">
+                        <span style="font-weight: 400;">{{data.RecipeNutrient.foodName}}</span>
                       </div>
                     </a>
                   </div>
-                  <div style="float:right; width:15%; height: 100px; text-align: center; vertical-align: middle;">
-                    <button style="border: 1px solid transparent; background-color: transparent; height: 30px; margin-top: 35px;" @click="deleteRecipe(data.date, data.foodCode)"><img src="https://cdn-icons-png.flaticon.com/512/2961/2961937.png" height="20px"></button>
+                  <div style="float:right; width:20%; height: 60px; text-align: center; vertical-align: middle;">
+                    <button style="border: 1px solid transparent; background-color: transparent; height: 30px; margin-top: 18px;" @click="deleteRecipe(data.date, data.foodCode)"><img src="https://cdn-icons-png.flaticon.com/512/2961/2961937.png" height="15px"></button>
                   </div>
                 </div>
               </div>
@@ -57,10 +58,6 @@
           <button class="btn" style="float:left" value="식단 지우기" @click="deletePlan('2022-9-14')"><img src="https://cdn-icons-png.flaticon.com/512/6460/6460112.png" width="30px"></button>
         </div> -->
     </section>
-    <div>
-        <button class="btn-up" @click="upClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
-        <button class="btn-down" @click="downClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
-    </div>
   </body>
 </template>
 <script>
@@ -70,6 +67,7 @@ export default {
   data () {
     return {
       month: '',
+      selectedMonth: '',
       userRecipeList: [],
       deletedRecipe: {}
     }
@@ -87,6 +85,7 @@ export default {
       try{
         const response = await this.$axios.get(`http://localhost:3000/user/recipelist?month=${this.month}`, { withCredentials: true })
         this.userRecipeList = response.data
+        console.log('ㅗ도도')
       }catch(err){
         Location.reload()
       }
@@ -128,12 +127,6 @@ export default {
         acc[key].push(obj)
         return acc
       }, {})
-    },
-    upClick () {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-    },
-    downClick () {
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }
   }
 }
@@ -141,40 +134,51 @@ export default {
 <style>
 @import "@/css/styles.css";
 body{
-  background: #f3f3f3;
-  padding-left: 3%;
-  padding-right: 3%;}
+  background: #f9f9f9;
+}
 .content-box{
   float: left;
-  width: 80%;
+  width: 90%;
   height: auto;
   background-color:white;
-  margin-bottom: 20px;
-  margin-right:10%;
-  margin-left: 10%;
+  margin-bottom: 100px;
+  margin-right:5%;
+  margin-left: 5%;
   border-radius: 20px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   padding: 3%;
   padding-top: 1%;
 }
+.selectbox-m{
+  width: 72%;
+  margin-left: 3%;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #f3f3f3;
+  border-color: #f3f3f3;
+  padding-left:10px;
+}
 .btn-custom {
-  width: 70px;
+  width: 20%;
+  height: 40px;
+  font-size: 1rem;
   border-radius: 10px;
-  border-color: white;
-  border-radius: 10px;
+  border-color: white(142, 142, 142);
+  margin-left: 2%;
+  margin-right: 3%;
+  margin-bottom: 2px;
 }
 .recipe-box {
   display:flex;
   justify-content: center;
-  width: 50%;
+  width: 100%;
   display: inline-block;
-  float: left;
 }
 .recipe-card {
-  width: 95%;
-  height: 100px;
+  width: 98%;
+  height: 70px;
   background-color: #f3f3f3;
-  margin: 2.5%;
+  margin: 1%;
   border-radius: 50px;
   text-align: left;
   padding: none;
@@ -183,12 +187,12 @@ body{
 }
 .food-img {
   margin: -18%;
-  height: 90px;
-  width: 90px;
+  height: 60px;
+  width: 60px;
   border-radius: 50%;
   position:relative;
-  top: 36%;
-  left: 19%;
+  top: 31.5%;
+  left: 20%;
 }
 a {
   color: #212121;

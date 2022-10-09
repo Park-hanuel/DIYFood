@@ -11819,6 +11819,11 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   height: auto;
 }
+#page-m {
+  padding-top: 30px;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  height: auto;
+}
 #head {
   height: 100px;
   line-height: 100px;
@@ -12048,6 +12053,28 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   position: fixed;
   right: 1.5%;
   bottom: 35px;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  vertical-align: middle;
+  border: none;
+  background-color: transparent;
+}
+.btn-up-m {
+  position: fixed;
+  right: 1.5%;
+  bottom: 135px;
+  background-color: transparent;
+  height: 40px;
+  width: 40px;
+  vertical-align: middle;
+  border: none;
+  border-radius: 20px;
+}
+.btn-down-m {
+  position: fixed;
+  right: 1.5%;
+  bottom: 100px;
   height: 40px;
   width: 40px;
   border-radius: 20px;
