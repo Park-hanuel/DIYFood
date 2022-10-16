@@ -1,6 +1,6 @@
 <template>
   <body id="page">
-    <div style="margin-top: 40px; margin-bottom: 30px;">
+    <div>
       <a href="/recipe">
         <span style="font-size:4em; font-weight:500; line-height:70px;">
           RECIPE

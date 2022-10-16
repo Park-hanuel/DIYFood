@@ -241,6 +241,22 @@ const routes = [
       )
   },
   {
+    path: '/user/registerfood',
+    name: 'RegisterFood',
+    component: () =>
+      import(
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/web/5_mypage/RegisterFoodView.vue'
+      )
+  },
+  {
+    path: '/user/registerfood/m',
+    name: 'MobileRegisterFood',
+    component: () =>
+      import(
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/mobile/5_mypage/mRegisterFoodView.vue'
+      )
+  },
+  {
     path: '/user/login',
     name: 'LogInPage',
     component: () =>

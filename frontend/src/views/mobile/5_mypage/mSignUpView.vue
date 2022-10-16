@@ -1,5 +1,5 @@
 <template>
-  <section class="vh-100" style="margin-top:30px">
+  <section class="vh-100" style="margin-top:30px; margin-bottom:150px;">
     <div class="card-body p-md-5">
       <div class="row justify-content-center">
         <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
@@ -39,7 +39,7 @@
                   <a href="#!">이용약관 및 개인정보 수집 및 이용</a> 안내에 동의합니다.
                 </label>
               </div>
-              <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+              <div class="d-flex justify-content-center mx-4 mb-5">
                 <button type="submit" class="btn btn-primary btn-lg">가입하기</button>
               </div>
             </div>

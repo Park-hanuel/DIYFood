@@ -394,9 +394,8 @@ export default {
 </script>
 <style>
 @import '@/css/styles.css';
-body {
-  background: #f3f3f3;
-}
+body {background: #f3f3f3;}
+#page{padding-top: 120px;}
 .btn-custom {
   margin-bottom: 20px;
   width: 110px;

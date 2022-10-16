@@ -22,8 +22,8 @@
             <h1>기간 및 예산 설정</h1>
             <p>식재료 선택과 레시피 추천을 위해 몇가지 조건을 설정합니다. </p>
           </div>
-          <div id="mealplan" style="margin-left: 30px; margin-top: 40px; font-size:1.15rem">
-            <form action="/mealplan/step2" method="get">
+          <div id="mealplan" style="margin-top: 40px; font-size:1.15rem">
+            <div>
               <p style="font-size:1.3rem">1. 일주일 식재료 예산을 설정해주세요.</p>
               <label class="margin_left">
                 <input type="number" min="1" max="30" v-model="budget">  만원 이내
@@ -64,7 +64,7 @@
                   <button class="btn btn-primary btn-lg next-button text-uppercase" @click="submitSetting()">NEXT</button>
                 </a>
               </div>
-            </form>
+            </div>
           </div>
         </section>
       </div>
@@ -167,4 +167,5 @@ export default {
 <style>
   @import "@/css/styles.css";
   body{background: #f3f3f3;}
+  #page{padding-top: 120px;}
 </style>

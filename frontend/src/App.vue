@@ -34,34 +34,34 @@
           </nav>
           <nav class="navbar-mobile fixed-bottom">
             <div>
-              <ul>
+              <ul style="vertical-align:middle;">
                 <li class="navbtn-mobile">
                   <a class="navbtn-mlink" href="/mealplan/m">
-                    <img src="https://cdn-icons-png.flaticon.com/512/567/567014.png" alt="" width="40%;" style="filter: invert(100%); margin-bottom: 5px">
-                    <div><span style="font-size: 0.9rem">식단 계획</span></div>
+                    <img src="https://cdn-icons-png.flaticon.com/512/567/567014.png" alt="" width="40%;" style="filter: invert(100%);">
+                    <div><span style="font-size: 0.85rem">식단 계획</span></div>
                   </a>
                 </li>
                 <li class="navbtn-mobile">
                   <a class="navbtn-mlink" href="/analysis/survey/m">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2889/2889577.png" alt="" width="40%;" style="filter: invert(100%); margin-bottom: 5px">
-                    <div><span style="font-size: 0.9rem">식단 분석</span></div>
+                    <img src="https://cdn-icons-png.flaticon.com/512/2889/2889577.png" alt="" width="40%;" style="filter: invert(100%);">
+                    <div><span style="font-size: 0.85rem">식단 분석</span></div>
                   </a>
                 </li>
                 <li class="navbtn-mobile">
                   <a class="navbtn-mlink" href="/m">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2764/2764007.png" alt="" width="70%;" style="filter: invert(100%); margin-bottom: 5px">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2764/2764007.png" alt="" width="70%;" style="filter: invert(100%); margin-bottom: 15%;">
                   </a>
                 </li>
-                <li class="navbtn-mobile">
+                <li class="navbtn-mobile" style="float:right;">
                   <a class="navbtn-mlink" href="/ingredient/m">
-                    <img src="https://cdn-icons-png.flaticon.com/512/6978/6978688.png" alt="" width="40%;" style="filter: invert(100%); margin-bottom: 5px">
-                    <div><span style="font-size: 0.9rem">재료 가격</span></div>
+                    <img src="https://cdn-icons-png.flaticon.com/512/6978/6978688.png" alt="" width="40%;" style="filter: invert(100%);">
+                    <div><span style="font-size: 0.85rem;">재료 가격</span></div>
                   </a>
                 </li>
-                <li class="navbtn-mobile">
+                <li class="navbtn-mobile" style="float:right;">
                   <a class="navbtn-mlink" href="/recipe/m">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3363/3363460.png" alt="" width="40%;" style="filter: invert(100%); margin-bottom: 5px">
-                    <div><span style="font-size: 0.9rem">레시피</span></div>
+                    <img src="https://cdn-icons-png.flaticon.com/512/3363/3363460.png" alt="" width="40%;" style="filter: invert(100%);">
+                    <div><span style="font-size: 0.85rem">레시피</span></div>
                   </a>
                 </li>
               </ul>
@@ -162,7 +162,6 @@ export default {
   }
 }
 </script>
-
 <style>
 @import "@/css/styles.css";
 .navbtn-custom {
@@ -190,8 +189,6 @@ export default {
   height: 30px;
 }
 .navbar-mobile{
-  padding-right: 5%;
-  padding-left: 5%;
   height: 80px;
   width: 100%;
   background-color: rgb(30, 30, 30);

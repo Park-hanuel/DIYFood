@@ -40,7 +40,6 @@ export default {
     mobileCheck () {
       if (window.innerWidth <= 600) {
         this.mobile = true
-        console.log('mobile')
         location.href = '/m'
       }
     }

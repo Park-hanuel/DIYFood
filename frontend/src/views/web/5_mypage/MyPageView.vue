@@ -1,12 +1,12 @@
 <template>
   <body id="page" style="text-align: center;">
-    <div style="margin-top: 40px; margin-bottom: 30px;">
+    <div style="margin-bottom: 30px;">
       <p style="font-size:4em; font-weight:500; line-height:70px;">
         MY PAGE
       </p>
       <p style="font-size:1.5em"><b>{{username}}</b> 님 환영합니다!</p>
     </div>
-    <div style="display: inline-block;">
+    <div style="display: inline-block; margin: 0 50px;">
       <a href="/user/info/">
         <section class="content-box">
           <img src="https://cdn-icons-png.flaticon.com/512/6082/6082867.png" alt="" class="img_style">
@@ -20,6 +20,14 @@
           <img src="https://cdn-icons-png.flaticon.com/512/5223/5223850.png" alt="" class="img_style">
           <div style="margin-top:30px;">
             <h4 style="color:black">나의 식단 계획</h4>
+          </div>
+        </section>
+      </a>
+      <a href="/user/registerfood">
+        <section class="content-box">
+          <img src="https://cdn-icons-png.flaticon.com/512/2515/2515263.png" alt="" class="img_style">
+          <div style="margin-top:30px;">
+            <h4 style="color:black">나의 식단 등록</h4>
           </div>
         </section>
       </a>
@@ -65,6 +73,7 @@ export default {
       } catch(err){
         console.log(err)
         alert('사용자 정보를 불러올 수 없습니다')
+        location.href = '/user/login'
       }
     },
   }
@@ -76,20 +85,18 @@ export default {
 body{background: #f3f3f3;}
 .content-box{
   float: left;
-  width: 300px;
-  height: 400px;
+  width: 23%;
   background-color:white;
-  margin: 30px;
+  margin: 1%;
   margin-bottom: 10px;
   margin-top:10px;
   border-radius: 20px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   padding-top: 30px;
-  padding-bottom: 10px;
+  padding-bottom: 30px;
 }
 .img_style {
-  height: 200px;
-  width: 200px;
+  width: 60%;
   text-align: center;
   margin-top: 30px;
 }

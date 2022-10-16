@@ -9,31 +9,39 @@
     <div>
       <a href="/user/info/m">
         <section class="content-box-m">
-          <img src="https://cdn-icons-png.flaticon.com/512/6082/6082867.png" alt="" class="img_style">
+          <img src="https://cdn-icons-png.flaticon.com/512/6082/6082867.png" alt="" class="bannercard-img-style">
           <div style="float: right; width: 72%; height: 100%; padding-top: 6%;">
-            <span class="text_style">회원정보 수정</span>
+            <span class="bannercard-text-style">회원정보 수정</span>
           </div>
         </section>
       </a>
       <a href="/user/mymealplan/m">
         <section class="content-box-m">
-          <img src="https://cdn-icons-png.flaticon.com/512/5223/5223850.png" alt="" class="img_style">
+          <img src="https://cdn-icons-png.flaticon.com/512/5223/5223850.png" alt="" class="bannercard-img-style">
           <div style="float: right; width: 72%; height: 100%; padding-top: 6%;">
-            <span class="text_style">나의 식단 계획</span>
+            <span class="bannercard-text-style">나의 식단 계획</span>
+          </div>
+        </section>
+      </a>
+      <a href="/user/registerfood/m">
+        <section class="content-box-m">
+          <img src="https://cdn-icons-png.flaticon.com/512/2515/2515263.png" alt="" class="bannercard-img-style">
+          <div style="float: right; width: 72%; height: 100%; padding-top: 6%;">
+            <span class="bannercard-text-style">나의 식단 등록</span>
           </div>
         </section>
       </a>
       <a href="/analysis/survey/m">
         <section class="content-box-m">
-          <img src="https://cdn-icons-png.flaticon.com/512/1162/1162489.png" alt="" class="img_style">
+          <img src="https://cdn-icons-png.flaticon.com/512/1162/1162489.png" alt="" class="bannercard-img-style">
           <div style="float: right; width: 72%; height: 100%; padding-top: 6%;">
-            <span class="text_style">나의 식단 분석</span>
+            <span class="bannercard-text-style">나의 식단 분석</span>
           </div>
         </section>
       </a>
       <a href="/user/signout/m">
         <section class="content-box-m2">
-          <span class="text_style2">회원 탈퇴</span>
+          <span class="bannercard-text-style2">회원 탈퇴</span>
         </section>
       </a>
     </div>
@@ -65,6 +73,7 @@ export default {
       } catch(err){
         console.log(err)
         alert('사용자 정보를 불러올 수 없습니다')
+        location.href = '/user/login/m'
       }
     },
   }
@@ -82,8 +91,8 @@ body{background: #f9f9f9;}
   background-color:white;
   margin-left: 5%;
   margin-right: 5%;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   border-radius: 20px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   padding:10px;
@@ -105,19 +114,7 @@ body{background: #f9f9f9;}
   text-align: center;
   align-items: center;
 }
-.img_style {
-  height: 80%;
-  margin: 2.5%;
-  margin-left: 15px;
-}
-.text_style {
-  color: rgb(50, 50, 50);
-  font-size: 1.5rem;
-  margin-left: 50px;
-  font-weight: 500;
-}
-.text_style2 {
-  color: #5f5f5f;
-  font-size: 1.5rem;
+.bannercard-text-style {
+  margin-left: 20%
 }
 </style>

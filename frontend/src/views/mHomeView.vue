@@ -4,16 +4,16 @@
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <div class="home">
-      <header class="masthead" style="margin-top: 0px">
-          <div class="container">
-            <div style="margin-bottom: 50px">
-              <img src="@/assets/logo_white.png" alt="logo" width="70%;">
-            </div>
-            <div class="masthead-subheading">with DIY Food</div>
-            <div class="masthead-heading text-uppercase">Make Your Day Healthier</div>
-            <a class="btn btn-primary btn-xl text-uppercase margin-space" href="#MealPlan">더 알아보기</a>
+    <div class="home" style="margin-top:29px; margin-bottom: 79px;">
+      <header class="masthead" style="margin-top: 0px; padding-top: 8rem; padding-bottom: 8rem; ">
+        <div class="container">
+          <div style="margin-bottom: 50px">
+            <img src="@/assets/logo_white.png" alt="logo" width="70%;">
           </div>
+          <div class="masthead-subheading">with DIY Food</div>
+          <div class="masthead-heading text-uppercase">Make<br>Your Day<br>Healthier</div>
+            <a class="btn btn-primary btn-xl text-uppercase margin-space" href="#MealPlan">더 알아보기</a>
+        </div>
       </header>
         <!-- MealPlan-->
         <section class="page-section page-size" id="MealPlan">
@@ -201,7 +201,8 @@ export default {
     mobileCheck () {
       if (window.innerWidth <= 600) {
         this.mobile = true
-        console.log('mobile')
+      } else {
+        location.href = '/'
       }
     }
   }
@@ -219,5 +220,9 @@ export default {
   width: 150px;
   height: 60px;
   margin-bottom: 15px;
+}
+.footer-custom {
+  background-color: #323232;
+  color: rgb(208, 208, 208);
 }
 </style>

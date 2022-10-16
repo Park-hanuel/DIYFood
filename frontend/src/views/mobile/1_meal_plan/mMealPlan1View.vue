@@ -1,77 +1,74 @@
 <template>
-  <body id="page">
+  <body id="page-m">
     <div>
       <div>
-        <!-- Side -->
-          <div id="side">
-            <div style="margin-top: 30px; " id="head">
-              <h1>
-                MEAL PLAN
-              </h1>
-            </div>
-            <div style="text-align: center;">
-              <img src="https://cdn-icons-png.flaticon.com/512/1039/1039328.png" alt="식단계획1" height="50%" width="50%">
+        <div class="mealplan-head-m">
+          <div style="float: left; width:40%;">
+            <img src="https://cdn-icons-png.flaticon.com/512/1039/1039328.png" alt="식단계획1" class="mealplan-head-img-m">
           </div>
-          <div style="margin-top: 30px; text-align: center;">
-            <h4>1. 조건 설정</h4>
-            </div>
+          <div class="mealplan-head-title-m">
+            <h1>
+              MEAL PLAN
+            </h1>
+            <h3>
+              1. 조건 설정
+            </h3>
           </div>
+        </div>
         <!-- Content -->
-        <section id="content">
+        <section id="content-m">
           <div style="text-align:center;">
             <h1>기간 및 예산 설정</h1>
-            <p>식재료 선택과 레시피 추천을 위해 몇가지 조건을 설정합니다. </p>
+            <p>식재료 선택과 레시피 추천을 위해<br>몇가지 조건을 설정합니다. </p>
           </div>
-          <div id="mealplan" style="margin-left: 30px; margin-top: 40px; font-size:1.15rem">
-            <form action="/mealplan/step2" method="get">
-              <p style="font-size:1.3rem">1. 일주일 식재료 예산을 설정해주세요.</p>
-              <label class="margin_left">
-                <input type="number" min="1" max="30" v-model="budget">  만원 이내
+          <div style="margin-left: 10px; margin-top: 40px;">
+            <div>
+              <p style="font-size:1.1rem">1. 일주일 식재료 예산을 설정해주세요.</p>
+              <label>
+                <input class="inputbox-number-m" type="number" min="1" max="30" v-model="budget">  만원 이내
                 <span style="margin-left:5px; color: gray;">(1인분 기준)</span>
               </label>
               <p></p>
-              <div style="display:inline-block">
-                <p style="font-size:1.3rem">2. 기간을 설정해주세요.</p>
-                <div style="margin-left:10px; float: left;">
-                  <date-picker
-                    inline
-                    :editable="false"
-                    valueType="format"
-                    format="YYYY-MM-DD"
-                    :getClasses="getClasses"
-                    :lang="datepickerLang"
-                    :value="weekTime"
-                    :disabled-date="dislabedDate"
-                    @pick="calendarPick"
-                  />
-                  <div style="float: right">
-                    <p class="margin_left">기간은 <strong>일주일</strong>기준으로 설정할 수 있습니다.
+              <div style="display:inline-block;">
+                <p style="font-size:1.1rem">2. 기간을 설정해주세요.</p>
+                <div>
+                  <div style="text-align: center;">
+                    <date-picker
+                      inline
+                      :editable="false"
+                      valueType="format"
+                      format="YYYY-MM-DD"
+                      :getClasses="getClasses"
+                      :lang="datepickerLang"
+                      :value="weekTime"
+                      :disabled-date="dislabedDate"
+                      @pick="calendarPick"
+                    />
+                  </div>
+                  <div style="margin-top:15px;">
+                    <p>기간은 <strong>일주일</strong>기준으로 설정할 수 있습니다.
                     <br>식재료 가격은 <strong>현재 시장 가격</strong>을 기준으로 계산됩니다.</p>
-                    <p class="margin_left">선택 기간 : {{ dateRange.start }} - {{ dateRange.end }}</p>
+                    <p>선택 기간 : {{ dateRange.start }} - {{ dateRange.end }}</p>
                   </div>
                 </div>
               </div>
               <p></p>
               <div>
-                <p style="font-size:1.3rem">3. 지역을 설정해주세요.</p>
-                <select class="margin_left">
+                <p style="font-size:1.1rem">3. 지역을 설정해주세요.</p>
+                <select class="inputbox-m">
                     <option value="seoul">서울</option>
                 </select>
-                <span style="margin-left:5px; color: gray;">(서울 외 지역은 추후 지원 예정입니다.)</span>
+                <p style="margin-left:20px; margin-top: 10px; color: gray;">(서울 외 지역은 추후 지원 예정입니다.)</p>
               </div>
               <div style="text-align:center;" >
-                <a href="/mealplan/step2">
+                <a href="/mealplan/step2/m">
                   <button class="btn btn-primary btn-lg next-button text-uppercase" @click="submitSetting()">NEXT</button>
                 </a>
               </div>
-            </form>
+            </div>
           </div>
         </section>
       </div>
-    </div>
-    <div>
-        <button class="btn-up" @click="upClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
-        <button class="btn-down" @click="downClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
     </div>
   </body>
 </template>
@@ -154,17 +151,11 @@ export default {
       this.dateRange.end = moment(item)
         .endOf("week")
         .format("YYYY-MM-DD");
-    },
-    upClick () {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-    },
-    downClick () {
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }
   }
 }
 </script>
 <style>
   @import "@/css/styles.css";
-  body{background: #f3f3f3;}
+  body{background: #f9f9f9;}
 </style>

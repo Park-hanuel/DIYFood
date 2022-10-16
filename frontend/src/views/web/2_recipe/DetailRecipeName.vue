@@ -1,7 +1,7 @@
 <template>
   <body id="page">
     <!-- 음식명 -->
-    <p style="font-size:4em; font-weight:500; line-height:70px; margin-left:10px; margin-top: 40px; margin-bottom: 30px;">
+    <p style="font-size:4em; font-weight:500; line-height:70px; margin-left:10px; margin-bottom: 30px;">
       {{RCP_NM}}
     </p>
     <!-- 사진, 재료, 영양성분 -->

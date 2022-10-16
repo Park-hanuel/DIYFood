@@ -20,7 +20,7 @@
       <section id="content">
         <div style="text-align:center;">
           <h1>레시피 선택</h1>
-          <p>선택하신 재료를 가장 많이 포함한 순서대로 레시피들을 추천합니다. 레시피를 선택해주세요.
+          <p>선택하신 재료를 가장 많이 포함한 순서대로 레시피들을 추천합니다.
             <br>사진을 클릭하면 해당 레시피가 새 창으로 열립니다.
           </p>
         </div>
@@ -169,7 +169,7 @@ export default {
         this.isLoading = false
         this.categoryCode = code
       } catch (err) {
-        location.reload()
+        // location.reload()
       }
     },
     // 선택 레시피 제출
@@ -197,6 +197,7 @@ export default {
 <style>
   @import "@/css/styles.css";
   body{background: #f3f3f3;}
+  #page{padding-top: 120px;}
   .btn-custom {
     margin-bottom: 20px;
     width: 110px;

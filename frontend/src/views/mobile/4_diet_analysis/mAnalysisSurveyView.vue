@@ -1,22 +1,22 @@
 <template>
-  <body id="page">
-    <div style="margin-top: 40px; margin-bottom: 30px;">
+  <body id="page-m" style="margin-bottom: 70px">
+    <div style="margin-top: 20px; margin-bottom: 20px;">
       <span style="font-size:4em; font-weight:500; line-height:70px;">
         DIET ANALYSIS
       </span>
-      <span style="font-size:1.5em; font-weight:400;">
-        {{username}}님의 식단 계획 데이터를 기반으로 영양 섭취를 분석합니다.
-      </span>
+      <p style="font-size:1.2em; font-weight:400;">
+        <b>{{username}}</b>님의 식단 영양 섭취를 분석합니다.
+      </p>
     </div>
     <div class="content-box">
       <!-- <form> -->
-        <div class="half-box">
-          <div style="text-align: center; margin-top: 20%;">
+        <div class="half-box-m mt-3">
+          <div style="text-align: center;">
             <img src="https://cdn-icons-png.flaticon.com/512/668/668709.png" width="50%">
-            <h1 style="margin-top: 50px">나의 정보</h1>
+            <h1 style="margin-top: 20px">나의 정보</h1>
           </div>
         </div>
-        <div class="half-box">
+        <div class="half-box-m">
           <div>
             <span><b>성별</b></span>
             <label>
@@ -74,13 +74,13 @@
               <input type="radio" class="form-check-input margin-left" name="activeMass" value="4" v-model="userdata.activeMass" required> 매우 활동적이다 (매일 운동)
             </label>
           </div>
-        </div>
-        <div class="agreement-box">
-          <p>수집된 개인정보는 식단 분석을 위한 1일 권장 영양소 섭취량 계산에 사용됩니다.</p>
-          <input class="form-check-input" type="checkbox" id="agreement" required/>
-          <label class="form-check-label" style="margin-left: 10px" for="agreement" required>
-            <b>개인정보 수집 및 이용 안내</b>에 동의합니다.
-          </label>
+          <div class="agreement-box">
+            <p>수집된 개인정보는 식단 분석을 위한 1일 권장 영양소 섭취량 계산에 사용됩니다.</p>
+            <input class="form-check-input" type="checkbox" id="agreement" required/>
+            <label class="form-check-label" style="margin-left: 10px" for="agreement" required>
+              <b>개인정보 수집 및 이용 안내</b> 동의
+            </label>
+          </div>
         </div>
         <div style="text-align:center;" >
           <button class="btn btn-primary btn-lg next-button btn-custom" @click="submitForm()">NEXT</button>
@@ -173,7 +173,7 @@ export default {
 <style>
 @import "@/css/styles.css";
 body{
-  background: #f3f3f3;
+  background: #f9f9f9;
   padding-left: 3%;
   padding-right: 3%;}
 .content-box{
@@ -190,13 +190,12 @@ body{
 .btn-custom {
   margin-bottom: 30px;
 }
-.half-box {
-  width: 50%;
-  height: 700px;
-  padding: 50px;
+.half-box-m {
+  width: 100%;
+  padding: 20px;
   display: inline-block;
   float: left;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 500;
   vertical-align: middle;
 }
@@ -204,7 +203,7 @@ body{
   width:100%;
   text-align: center;
   display: inline-block;
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 .margin-left {
   margin-left: 10px;
