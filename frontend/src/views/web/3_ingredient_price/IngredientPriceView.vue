@@ -1,6 +1,6 @@
 <template>
   <body id="page">
-    <div style="margin-top: 40px; margin-bottom: 30px;">
+    <div style="margin-bottom: 30px;">
       <span style="font-size:4em; font-weight:500; line-height:70px;">
         INGREDIENT PRICE
       </span>
@@ -12,7 +12,8 @@
     <div style="width:100%">
       <div class="graph-ingredient">
         <div style="height:40px">
-          <h2>{{selectedItem}}</h2>
+          <span style="font-size: 2rem; font-weight:500">{{selectedItem}} </span>
+          <span style="font-size: 1.2rem; font-weight:500"> {{selectedKind}}</span>
         </div>
         <LineChartGenerator
           :chart-options="chartOptions"
@@ -43,6 +44,9 @@
 
           <input v-if="this.categoryCode !== 400" type="button" class="btn btn-primary btn-lg btn-custom" value="과일류" @click="getPriceData(400)">
           <input v-if="this.categoryCode === 400" type="button" class="btn btn-clicked btn-lg btn-custom" value="과일류" @click="getPriceData(400)">
+
+          <input v-if="this.categoryCode !== 400" type="button" class="btn btn-primary btn-lg btn-custom" value="축산물" @click="getPriceData(500)">
+          <input v-if="this.categoryCode === 400" type="button" class="btn btn-clicked btn-lg btn-custom" value="축산물" @click="getPriceData(500)">
 
           <input v-if="this.categoryCode !== 600" type="button" class="btn btn-primary btn-lg btn-custom" value="수산물" @click="getPriceData(600)">
           <input v-if="this.categoryCode === 600" type="button" class="btn btn-clicked btn-lg btn-custom" value="수산물" @click="getPriceData(600)">
@@ -145,6 +149,7 @@ export default {
       },
       itemList: [],
       selectedItem: '품목을 선택해주세요',
+      selectedKind: '',
       categoryCode: 100
     }
   },
@@ -162,6 +167,7 @@ export default {
     // 그래프 조회
     selectGraph (i) {
       this.selectedItem = this.itemList[i].item_name
+      this.selectedKind = this.itemList[i].kind_name
       this.chartData.datasets[0].data = [Number(this.itemList[i].dpr6.replace(',', '')), Number(this.itemList[i].dpr5.replace(',', '')), Number(this.itemList[i].dpr4.replace(',', '')), Number(this.itemList[i].dpr3.replace(',', '')), Number(this.itemList[i].dpr2.replace(',', '')), Number(this.itemList[i].dpr1.replace(',', ''))]
       window.scrollTo({ top: 0, behavior: 'smooth' })
     },
@@ -192,7 +198,7 @@ export default {
     float: left;
   }
   .btn-custom {
-    width: 18%;
+    width: 14%;
     font-size: 100%;
     padding: auto;
     margin: 1%;

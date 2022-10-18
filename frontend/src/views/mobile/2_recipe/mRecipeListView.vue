@@ -1,14 +1,11 @@
 <template>
-  <body id="page">
-    <div style="margin-top: 40px; margin-bottom: 30px;">
+  <body id="page-m">
+    <div style="margin-top: 20px; margin-bottom: 20px;">
       <a href="/recipe">
         <span style="font-size:4em; font-weight:500; line-height:70px;">
           RECIPE
         </span>
       </a>
-      <span style="font-size:1.5em; font-weight:400;">
-        요리법 정보를 제공합니다.
-      </span>
     </div>
     <!-- 레시피 목록 -->
     <div class="content-box">
@@ -18,7 +15,7 @@
           <div class="input-group-prepend">
             <button id="button-addon2" class="btn btn-link text-warning" @click="searchRecipe(keyword, 1)" disabled><img src="https://cdn-icons-png.flaticon.com/512/7847/7847425.png" width="25px"></button>
           </div>
-          <input type="search" placeholder="음식명 또는 재료를 검색해주세요" aria-describedby="button-addon2" class="form-control border-0 bg-light" v-model="keyword">
+          <input type="search" placeholder="Search" aria-describedby="button-addon2" class="form-control border-0 bg-light" v-model="keyword">
           <button id="button-addon2" class="search-btn" @click="searchFood(keyword, 1)">음식</button>
           <button id="button-addon2" class="search-btn" style="margin-right:10px;" @click="searchIngredient(keyword, 1)">재료</button>
         </div>
@@ -36,7 +33,7 @@
       </div>
       <div v-for="(contents, i) in recipeList" :key="i">
         <a :href="`/recipe/foodname/${contents.RCP_NM}`" target="_blank" @click="saveContents(contents)">
-          <div name="card" class="card-custom">
+          <div name="card" class="card-custom-m">
             <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 5%;">
               <img :src=contents.ATT_FILE_NO_MAIN width="100%" style="margin: -10%;">
             </div>
@@ -48,89 +45,89 @@
       </div>
       <!-- 페이지네이션 -->
       <div v-if="this.isLoading === false && this.keyword === ''" class="pagination-wrapper">
-        <div class="pagination">
-          <button v-if="pnStart > 1" class="btn prev page-numbers" @click="pageClick(pnStart - 1)">prev</button>
-          <button v-if="pnStart === 1" class="btn prev page-numbers" disabled>prev</button>
+        <div class="pagination-m">
+          <button v-if="pnStart > 1" class="btn prev page-numbers-m" @click="pageClick(pnStart - 1)">prev</button>
+          <button v-if="pnStart === 1" class="btn prev page-numbers-m" disabled>prev</button>
 
-          <button v-if="this.pageNum === this.pnStart" aria-current="page" class="btn page-numbers current">{{pnStart}}</button>
-          <button v-if="this.pageNum !== this.pnStart" class="btn page-numbers" @click="pageClick(pnStart)">{{pnStart}}</button>
+          <button v-if="this.pageNum === this.pnStart" aria-current="page" class="btn page-numbers-m current">{{pnStart}}</button>
+          <button v-if="this.pageNum !== this.pnStart" class="btn page-numbers-m" @click="pageClick(pnStart)">{{pnStart}}</button>
 
-          <button v-if="this.pageNum === this.pnStart + 1" aria-current="page" class="btn page-numbers current">{{pnStart + 1}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 <= pnTotal" class="btn page-numbers" @click="pageClick(pnStart + 1)">{{pnStart + 1}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 > pnTotal" class="btn page-numbers" disabled>{{pnStart + 1}}</button>
+          <button v-if="this.pageNum === this.pnStart + 1" aria-current="page" class="btn page-numbers-m current">{{pnStart + 1}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 <= pnTotal" class="btn page-numbers-m" @click="pageClick(pnStart + 1)">{{pnStart + 1}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 > pnTotal" class="btn page-numbers-m" disabled>{{pnStart + 1}}</button>
 
-          <button v-if="this.pageNum === this.pnStart + 2" aria-current="page" class="btn page-numbers current">{{pnStart + 2}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 <= pnTotal" class="btn page-numbers" @click="pageClick(pnStart + 2)">{{pnStart + 2}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 > pnTotal" class="btn page-numbers" disabled>{{pnStart + 2}}</button>
+          <button v-if="this.pageNum === this.pnStart + 2" aria-current="page" class="btn page-numbers-m current">{{pnStart + 2}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 <= pnTotal" class="btn page-numbers-m" @click="pageClick(pnStart + 2)">{{pnStart + 2}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 > pnTotal" class="btn page-numbers-m" disabled>{{pnStart + 2}}</button>
 
-          <button v-if="this.pageNum === this.pnStart + 3" aria-current="page" class="btn page-numbers current">{{pnStart + 3}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 <= pnTotal" class="btn page-numbers" @click="pageClick(pnStart + 3)">{{pnStart + 3}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 > pnTotal" class="btn page-numbers" disabled>{{pnStart + 3}}</button>
+          <button v-if="this.pageNum === this.pnStart + 3" aria-current="page" class="btn page-numbers-m current">{{pnStart + 3}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 <= pnTotal" class="btn page-numbers-m" @click="pageClick(pnStart + 3)">{{pnStart + 3}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 > pnTotal" class="btn page-numbers-m" disabled>{{pnStart + 3}}</button>
 
-          <button v-if="this.pageNum === this.pnEnd" aria-current="page" class="btn page-numbers current">{{pnEnd}}</button>
-          <button v-if="this.pageNum !== this.pnEnd && this.pnEnd <= pnTotal" class="btn page-numbers" @click="pageClick(pnEnd)">{{pnEnd}}</button>
-          <button v-if="this.pageNum !== this.pnEnd && this.pnEnd > pnTotal" class="btn page-numbers" disabled>{{pnEnd}}</button>
+          <button v-if="this.pageNum === this.pnEnd" aria-current="page" class="btn page-numbers-m current">{{pnEnd}}</button>
+          <button v-if="this.pageNum !== this.pnEnd && this.pnEnd <= pnTotal" class="btn page-numbers-m" @click="pageClick(pnEnd)">{{pnEnd}}</button>
+          <button v-if="this.pageNum !== this.pnEnd && this.pnEnd > pnTotal" class="btn page-numbers-m" disabled>{{pnEnd}}</button>
 
-          <button v-if="pnEnd < pnTotal" class="btn next page-numbers" @click="pageClick(pnEnd + 1)">next</button>
-          <button v-if="pnEnd > pnTotal" class="btn next page-numbers" disabled>next</button>
+          <button v-if="pnEnd < pnTotal" class="btn next page-numbers-m" @click="pageClick(pnEnd + 1)">next</button>
+          <button v-if="pnEnd > pnTotal" class="btn next page-numbers-m" disabled>next</button>
         </div>
       </div>
       <!-- 음식명 검색 페이징 -->
       <div v-if="this.isLoading === false && this.keyword != '' && this.searchCode === 0" class="pagination-wrapper">
-        <div class="pagination">
-          <button v-if="pnStart > 1" class="btn prev page-numbers" @click="searchFood(keyword, pnStart - 1)">prev</button>
-          <button v-if="pnStart === 1" class="btn prev page-numbers" disabled>prev</button>
+        <div class="pagination-m">
+          <button v-if="pnStart > 1" class="btn next page-numbers-m" @click="searchFood(keyword, pnStart - 1)">prev</button>
+          <button v-if="pnStart === 1" class="btn next page-numbers-m" disabled>prev</button>
 
-          <button v-if="this.pageNum === this.pnStart" aria-current="page" class="btn page-numbers current">{{pnStart}}</button>
-          <button v-if="this.pageNum !== this.pnStart" class="btn page-numbers" @click="searchFood(keyword, pnStart)">{{pnStart}}</button>
+          <button v-if="this.pageNum === this.pnStart" aria-current="page" class="btn page-numbers-m current">{{pnStart}}</button>
+          <button v-if="this.pageNum !== this.pnStart" class="btn page-numbers-m" @click="searchFood(keyword, pnStart)">{{pnStart}}</button>
 
-          <button v-if="this.pageNum === this.pnStart + 1" aria-current="page" class="btn page-numbers current">{{pnStart + 1}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 <= pnTotal" class="btn page-numbers" @click="searchFood(keyword, pnStart + 1)">{{pnStart + 1}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 > pnTotal" class="btn page-numbers" disabled>{{pnStart + 1}}</button>
+          <button v-if="this.pageNum === this.pnStart + 1" aria-current="page" class="btn page-numbers-m current">{{pnStart + 1}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 <= pnTotal" class="btn page-numbers-m" @click="searchFood(keyword, pnStart + 1)">{{pnStart + 1}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 > pnTotal" class="btn page-numbers-m" disabled>{{pnStart + 1}}</button>
 
-          <button v-if="this.pageNum === this.pnStart + 2" aria-current="page" class="btn page-numbers current">{{pnStart + 2}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 <= pnTotal" class="btn page-numbers" @click="searchFood(keyword, pnStart + 2)">{{pnStart + 2}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 > pnTotal" class="btn page-numbers" disabled>{{pnStart + 2}}</button>
+          <button v-if="this.pageNum === this.pnStart + 2" aria-current="page" class="btn page-numbers-m current">{{pnStart + 2}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 <= pnTotal" class="btn page-numbers-m" @click="searchFood(keyword, pnStart + 2)">{{pnStart + 2}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 > pnTotal" class="btn page-numbers-m" disabled>{{pnStart + 2}}</button>
 
-          <button v-if="this.pageNum === this.pnStart + 3" aria-current="page" class="btn page-numbers current">{{pnStart + 3}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 <= pnTotal" class="btn page-numbers" @click="searchFood(keyword, pnStart + 3)">{{pnStart + 3}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 > pnTotal" class="btn page-numbers" disabled>{{pnStart + 3}}</button>
+          <button v-if="this.pageNum === this.pnStart + 3" aria-current="page" class="btn page-numbers-m current">{{pnStart + 3}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 <= pnTotal" class="btn page-numbers-m" @click="searchFood(keyword, pnStart + 3)">{{pnStart + 3}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 > pnTotal" class="btn page-numbers-m" disabled>{{pnStart + 3}}</button>
 
-          <button v-if="this.pageNum === this.pnEnd" aria-current="page" class="btn page-numbers current">{{pnEnd}}</button>
-          <button v-if="this.pageNum !== this.pnEnd && this.pnEnd <= pnTotal" class="btn page-numbers" @click="searchFood(keyword, pnEnd)">{{pnEnd}}</button>
-          <button v-if="this.pageNum !== this.pnEnd && this.pnEnd > pnTotal" class="btn page-numbers" disabled>{{pnEnd}}</button>
+          <button v-if="this.pageNum === this.pnEnd" aria-current="page" class="btn page-numbers-m current">{{pnEnd}}</button>
+          <button v-if="this.pageNum !== this.pnEnd && this.pnEnd <= pnTotal" class="btn page-numbers-m" @click="searchFood(keyword, pnEnd)">{{pnEnd}}</button>
+          <button v-if="this.pageNum !== this.pnEnd && this.pnEnd > pnTotal" class="btn page-numbers-m" disabled>{{pnEnd}}</button>
 
-          <button v-if="pnEnd < pnTotal" class="btn next page-numbers" @click="searchFood(keyword, pnEnd + 1)">next</button>
-          <button v-if="pnEnd > pnTotal" class="btn next page-numbers" disabled>next</button>
+          <button v-if="pnEnd < pnTotal" class="btn next page-numbers-m" @click="searchFood(keyword, pnEnd + 1)">next</button>
+          <button v-if="pnEnd > pnTotal" class="btn next page-numbers-m" disabled>next</button>
         </div>
       </div>
       <!-- 재료 검색 페이징 -->
       <div v-if="this.isLoading === false && this.keyword != '' && this.searchCode === 1" class="pagination-wrapper">
-        <div class="pagination">
-          <button v-if="pnStart > 1" class="btn prev page-numbers" @click="searchIngredient(keyword, pnStart - 1)">prev</button>
-          <button v-if="pnStart === 1" class="btn prev page-numbers" disabled>prev</button>
+        <div class="pagination-m">
+          <button v-if="pnStart > 1" class="btn prev page-numbers-m" @click="searchIngredient(keyword, pnStart - 1)">prev</button>
+          <button v-if="pnStart === 1" class="btn prev page-numbers-m" disabled>prev</button>
 
-          <button v-if="this.pageNum === this.pnStart" aria-current="page" class="btn page-numbers current">{{pnStart}}</button>
-          <button v-if="this.pageNum !== this.pnStart" class="btn page-numbers" @click="searchIngredient(keyword, pnStart)">{{pnStart}}</button>
+          <button v-if="this.pageNum === this.pnStart" aria-current="page" class="btn page-numbers-m current">{{pnStart}}</button>
+          <button v-if="this.pageNum !== this.pnStart" class="btn page-numbers-m" @click="searchIngredient(keyword, pnStart)">{{pnStart}}</button>
 
-          <button v-if="this.pageNum === this.pnStart + 1" aria-current="page" class="btn page-numbers current">{{pnStart + 1}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 <= pnTotal" class="btn page-numbers" @click="searchIngredient(keyword, pnStart + 1)">{{pnStart + 1}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 > pnTotal" class="btn page-numbers" disabled>{{pnStart + 1}}</button>
+          <button v-if="this.pageNum === this.pnStart + 1" aria-current="page" class="btn page-numbers-m current">{{pnStart + 1}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 <= pnTotal" class="btn page-numbers-m" @click="searchIngredient(keyword, pnStart + 1)">{{pnStart + 1}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 > pnTotal" class="btn page-numbers-m" disabled>{{pnStart + 1}}</button>
 
-          <button v-if="this.pageNum === this.pnStart + 2" aria-current="page" class="btn page-numbers current">{{pnStart + 2}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 <= pnTotal" class="btn page-numbers" @click="searchIngredient(keyword, pnStart + 2)">{{pnStart + 2}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 > pnTotal" class="btn page-numbers" disabled>{{pnStart + 2}}</button>
+          <button v-if="this.pageNum === this.pnStart + 2" aria-current="page" class="btn page-numbers-m current">{{pnStart + 2}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 <= pnTotal" class="btn page-numbers-m" @click="searchIngredient(keyword, pnStart + 2)">{{pnStart + 2}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 > pnTotal" class="btn page-numbers-m" disabled>{{pnStart + 2}}</button>
 
-          <button v-if="this.pageNum === this.pnStart + 3" aria-current="page" class="btn page-numbers current">{{pnStart + 3}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 <= pnTotal" class="btn page-numbers" @click="searchIngredient(keyword, pnStart + 3)">{{pnStart + 3}}</button>
-          <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 > pnTotal" class="btn page-numbers" disabled>{{pnStart + 3}}</button>
+          <button v-if="this.pageNum === this.pnStart + 3" aria-current="page" class="btn page-numbers-m current">{{pnStart + 3}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 <= pnTotal" class="btn page-numbers-m" @click="searchIngredient(keyword, pnStart + 3)">{{pnStart + 3}}</button>
+          <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 > pnTotal" class="btn page-numbers-m" disabled>{{pnStart + 3}}</button>
 
-          <button v-if="this.pageNum === this.pnEnd" aria-current="page" class="btn page-numbers current">{{pnEnd}}</button>
-          <button v-if="this.pageNum !== this.pnEnd && this.pnEnd <= pnTotal" class="btn page-numbers" @click="searchIngredient(keyword, pnEnd)">{{pnEnd}}</button>
-          <button v-if="this.pageNum !== this.pnEnd && this.pnEnd > pnTotal" class="btn page-numbers" disabled>{{pnEnd}}</button>
+          <button v-if="this.pageNum === this.pnEnd" aria-current="page" class="btn page-numbers-m current">{{pnEnd}}</button>
+          <button v-if="this.pageNum !== this.pnEnd && this.pnEnd <= pnTotal" class="btn page-numbers-m" @click="searchIngredient(keyword, pnEnd)">{{pnEnd}}</button>
+          <button v-if="this.pageNum !== this.pnEnd && this.pnEnd > pnTotal" class="btn page-numbers-m" disabled>{{pnEnd}}</button>
 
-          <button v-if="pnEnd < pnTotal" class="btn next page-numbers" @click="searchIngredient(keyword, pnEnd + 1)">next</button>
-          <button v-if="pnEnd > pnTotal" class="btn next page-numbers" disabled>next</button>
+          <button v-if="pnEnd < pnTotal" class="btn next page-numbers-m" @click="searchIngredient(keyword, pnEnd + 1)">next</button>
+          <button v-if="pnEnd > pnTotal" class="btn next page-numbers-m" disabled>next</button>
         </div>
       </div>
     </div>
@@ -256,27 +253,26 @@ export default {
 <style>
 @import "@/css/styles.css";
 body{
-  background: #f3f3f3;
+  background: #f9f9f9;
   padding-left: 3%;
   padding-right: 3%;}
 .content-box{
   width:100%;
-  height:fit-content;
   background-color:white;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 20px;
+  margin-bottom: 100px;
   border-radius: 20px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
-  padding: 50px;
+  padding: 10px;
   text-align: left;
   overflow: auto;
 }
 .btn-custom {
   margin-bottom: 20px;
 }
-.card-custom {
+.card-custom-m {
   background-color: #f3f3f3;
-  width: 23%;
+  width: 98%;
   height: 400px;
   border-radius: 1rem;
   padding: 10px;
@@ -304,9 +300,10 @@ a:hover {
   box-shadow: none;
 }
 .search-box {
-  width: 50%;
-  margin-left: 25%;
-  margin-right: 25%;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 10px;
   box-shadow: none;
 }
 .search-btn {

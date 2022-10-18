@@ -1,5 +1,5 @@
 <template>
-  <section style="margin-top:30px">
+  <section style="margin-top:30px; margin-bottom: 100px;">
     <div class="card-body p-md-5">
       <div class="row justify-content-center">
         <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">

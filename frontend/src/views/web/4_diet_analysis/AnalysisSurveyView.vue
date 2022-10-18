@@ -1,6 +1,6 @@
 <template>
   <body id="page">
-    <div style="margin-top: 40px; margin-bottom: 30px;">
+    <div style="margin-bottom: 30px;">
       <span style="font-size:4em; font-weight:500; line-height:70px;">
         DIET ANALYSIS
       </span>
@@ -134,7 +134,7 @@ export default {
         }
       } catch (err) {
         alert('로그인이 필요한 기능입니다.')
-        location.href = '/user/login'
+        location.href = '/user/login/m'
       }
     },
     async getUserSurveyData () {

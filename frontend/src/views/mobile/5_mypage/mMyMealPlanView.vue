@@ -28,7 +28,7 @@
       <p v-if="selectedMonth === ''" style="margin:10px; text-align: center;">조회할 기간(월)을 선택해주세요.</p>
       <div>
         <div v-for="item in Object.keys(this.groupBy(this.userRecipeList, 'date'))" :key="item">
-          <div style="width: 100%; height: 50px; margin-left: 10px; overflow: auto;">
+          <div style="width: 100%; height: 50px; margin-left: 5%; overflow: auto;">
             <h4 style="float:left; margin-top: 7px;">{{new Date(Date.parse(item)).toLocaleDateString()}} - {{new Date(Date.parse(item)+518400000).toLocaleDateString()}}</h4>
             <button class="btn" style="float:left;" value="식단 지우기" @click="deletePlan(item)"><img src="https://cdn-icons-png.flaticon.com/512/6460/6460112.png" width="25px"></button>
           </div>

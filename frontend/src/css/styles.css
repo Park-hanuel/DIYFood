@@ -11815,7 +11815,8 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   border: none;
 }
 #page {
-  padding-top: 120px;
+  padding-top: 160px;
+  padding-bottom: 30px;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   height: auto;
 }
@@ -11869,6 +11870,19 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   padding-bottom: 10px;
   text-align: left;
 }
+#content-m{
+  width:90%;
+  height:fit-content;
+  background-color:white;
+  margin-right: 5%;
+  margin-left: 5%;
+  margin-bottom: 100px;
+  border-radius: 20px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
+  padding: 5%;
+  padding-bottom: 10px;
+  text-align: left;
+}
 #content-signup{
   float: left;
   width: fit-content;
@@ -11882,6 +11896,23 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   padding: 50px;
   padding-bottom: 10px;
   text-align: left;
+}
+.mealplan-head-m{
+  display:inline-block; 
+  margin-top: 20px
+}
+.mealplan-head-img-m {
+  height:50%;
+  width:50%;
+  float:right; 
+  margin-top: 15%; 
+  margin-right: 15%;
+}
+.mealplan-head-title-m {
+  margin-top: 30px; 
+  margin-bottom: 30px; 
+  width: 60%; 
+  float: right;
 }
 .margin_left {
   margin-left: 20px;
@@ -11955,14 +11986,11 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
 .pagination-wrapper {
   text-align: center;
   display: inline-block;
-  width:90%;
-  margin-left:5%;
-  margin-right: 5%;
+  width:100%;
 }
-
 .pagination {
   display: inline-block;
-  height: 70px;
+  height: 50px;
   margin-top: 50px;
   padding: 0 25px;
   border-radius: 35px;
@@ -11975,7 +12003,20 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
     border-radius: 25px;
   }
 }
+.pagination-m {
+  display: inline-block;
+  height: 50px;
+  margin-top: 15px;
+  border-radius: 35px;
+  background-color: #f3f3f3;
 
+  @include breakpoint(1199px) {
+    height: 50px;
+    margin-top: 50px;
+    padding: 0 10px;
+    border-radius: 25px;
+  }
+}
 .page-numbers {
   display: block;
   padding: 0 25px;
@@ -11984,18 +12025,18 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   color: rgb(0, 0, 0);
   font-size: 1rem;
   letter-spacing: 0.1em;
-  line-height: 70px;
+  line-height: 49px;
   }
   .page-numbers:hover,
   .page-numbers.current {
-    background-color: rgb(88, 169, 88);
-    color: white;
+    background-color: transparent;
+    color: #48a238;
   }
 
   .page-numbers.prev:hover,
   .page-numbers.next:hover {
     background-color: transparent;
-    color: green;
+    color: #48a238;
   }
 
   .page-numbers:disabled {
@@ -12031,6 +12072,68 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
     }
 
     .page-numbers:nth-last-child(-n+4) {
+      padding-right: 14px;
+
+      ::after {
+        content: none;
+      }
+    }
+  }
+.page-numbers-m {
+  display: block;
+  padding: 0 9px;
+  float: left;
+  transition: duration easing;
+  color: rgb(0, 0, 0);
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  line-height: 49px;
+  }
+  .page-numbers-m:hover,
+  .page-numbers-m.current {
+    background-color: transparent;
+    color: #48a238;
+  }
+
+  .page-numbers-m.prev:hover,
+  .page-numbers-m.next:hover {
+    background-color: transparent;
+    color: #48a238;
+  }
+
+  .page-numbers-m:disabled {
+    color: lightgray;
+  }
+
+  @include breakpoint(1199px) {
+    padding: 0 15px;
+    font-size: 16px;
+    line-height: 50px;
+  }
+
+  @include breakpoint(touch) {
+    padding: 0 14px;
+    display: none;
+
+    .page-numbers-m:nth-of-type(2) {
+      position: relative;
+      padding-right: 50px;
+
+      ::after {
+        content: '...';
+        position: absolute;
+        font-size: 25px;
+        top: 0;
+        left: 45px;
+      }
+    }
+
+    .page-numbers-m:nth-child(-n+3),
+    .page-numbers-m:nth-last-child(-n+3) {
+      display: block;
+    }
+
+    .page-numbers-m:nth-last-child(-n+4) {
       padding-right: 14px;
 
       ::after {
@@ -12081,4 +12184,35 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   vertical-align: middle;
   border: none;
   background-color: transparent;
+}
+.bannercard-img-style {
+  height: 80%;
+  margin: 2.5%;
+  margin-left: 15px;
+}
+.bannercard-text-style {
+  color: rgb(50, 50, 50);
+  font-size: 1.5rem;
+  margin-left: 0px;
+  font-weight: 400;
+}
+.bannercard-text-style2 {
+  color: #5f5f5f;
+  font-size: 1.5rem;
+}
+.inputbox-number-m {
+  width: 50px;
+  height: 30px;
+  border-radius: 10px;
+  background-color: #f3f3f3;
+  border-color: #f3f3f3;
+  margin-left: 20px;
+}
+.inputbox-date {
+  width: 50%;
+  height: 40px;
+  border: none;
+  background-color: #f3f3f3;
+  border-radius: 10px;
+  padding: 0 10px;
 }

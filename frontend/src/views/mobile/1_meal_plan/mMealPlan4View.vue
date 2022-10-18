@@ -1,48 +1,47 @@
 <template>
-  <body id="page">
+  <body id="page-m">
     <div>
       <div>
-        <!-- Side -->
-        <div id="side">
-          <div style="margin-top: 30px; " id="head">
+        <div class="mealplan-head-m">
+          <div style="float: left; width:40%;">
+            <img src="https://cdn-icons-png.flaticon.com/512/1889/1889972.png" alt="식단계획4" class="mealplan-head-img-m">
+          </div>
+          <div class="mealplan-head-title-m">
             <h1>
               MEAL PLAN
             </h1>
-          </div>
-          <div style="text-align: center;">
-            <img src="https://cdn-icons-png.flaticon.com/512/1889/1889972.png" alt="식단계획4" height="50%" width="50%">
-          </div>
-          <div style="margin-top: 30px; text-align: center;">
-            <h3>4. 레시피 선택</h3>
+            <h3>
+              4. 레시피 선택
+            </h3>
           </div>
         </div>
-      <!-- Content -->
-      <section id="content">
+        <!-- Content -->
+        <section id="content-m">
         <div style="text-align:center;">
           <h1>레시피 선택</h1>
-          <p>선택하신 재료를 가장 많이 포함한 순서대로 레시피들을 추천합니다. 레시피를 선택해주세요.
-            <br>사진을 클릭하면 해당 레시피가 새 창으로 열립니다.
+          <p>선택하신 재료를 기준으로 레시피들을 추천합니다.
+            <br>사진을 클릭하면 해당 레시피가 열립니다.
           </p>
         </div>
         <!-- 푸드카테고리 버튼 -->
         <div style="text-align:center;">
-          <input v-if="this.categoryCode !== 0" type="button" class="btn btn-primary btn-lg btn-custom" value="밥" @click="getRecipeData(date_start, 0, 0)">
-          <input v-if="this.categoryCode === 0" type="button" class="btn btn-clicked btn-lg btn-custom" value="밥" @click="getRecipeData(date_start, 0, 0)">
+          <input v-if="this.categoryCode !== 0" type="button" class="btn btn-primary btn-md btn-custom" value="밥" @click="getRecipeData(date_start, 0, 0)">
+          <input v-if="this.categoryCode === 0" type="button" class="btn btn-clicked btn-md btn-custom" value="밥" @click="getRecipeData(date_start, 0, 0)">
 
-          <input v-if="this.categoryCode !== 1" type="button" class="btn btn-primary btn-lg btn-custom" value="반찬" @click="getRecipeData(date_start, 1, 0)">
-          <input v-if="this.categoryCode === 1" type="button" class="btn btn-clicked btn-lg btn-custom" value="반찬" @click="getRecipeData(date_start, 1, 0)">
+          <input v-if="this.categoryCode !== 1" type="button" class="btn btn-primary btn-md btn-custom" value="반찬" @click="getRecipeData(date_start, 1, 0)">
+          <input v-if="this.categoryCode === 1" type="button" class="btn btn-clicked btn-md btn-custom" value="반찬" @click="getRecipeData(date_start, 1, 0)">
 
-          <input v-if="this.categoryCode !== 2" type="button" class="btn btn-primary btn-lg btn-custom" value="국 · 찌개" @click="getRecipeData(date_start, 2, 0)">
-          <input v-if="this.categoryCode === 2" type="button" class="btn btn-clicked btn-lg btn-custom" value="국 · 찌개" @click="getRecipeData(date_start, 2, 0)">
+          <input v-if="this.categoryCode !== 2" type="button" class="btn btn-primary btn-md btn-custom" value="국 · 찌개" @click="getRecipeData(date_start, 2, 0)">
+          <input v-if="this.categoryCode === 2" type="button" class="btn btn-clicked btn-md btn-custom" value="국 · 찌개" @click="getRecipeData(date_start, 2, 0)">
 
-          <input v-if="this.categoryCode !== 3" type="button" class="btn btn-primary btn-lg btn-custom" value="일품" @click="getRecipeData(date_start, 3, 0)">
-          <input v-if="this.categoryCode === 3" type="button" class="btn btn-clicked btn-lg btn-custom" value="일품" @click="getRecipeData(date_start, 3, 0)">
+          <input v-if="this.categoryCode !== 3" type="button" class="btn btn-primary btn-md btn-custom" value="일품" @click="getRecipeData(date_start, 3, 0)">
+          <input v-if="this.categoryCode === 3" type="button" class="btn btn-clicked btn-md btn-custom" value="일품" @click="getRecipeData(date_start, 3, 0)">
 
-          <input v-if="this.categoryCode !== 5" type="button" class="btn btn-primary btn-lg btn-custom" value="후식" @click="getRecipeData(date_start, 5, 0)">
-          <input v-if="this.categoryCode === 5" type="button" class="btn btn-clicked btn-lg btn-custom" value="후식" @click="getRecipeData(date_start, 5, 0)">
+          <input v-if="this.categoryCode !== 5" type="button" class="btn btn-primary btn-md btn-custom" value="후식" @click="getRecipeData(date_start, 5, 0)">
+          <input v-if="this.categoryCode === 5" type="button" class="btn btn-clicked btn-md btn-custom" value="후식" @click="getRecipeData(date_start, 5, 0)">
 
-          <input v-if="this.categoryCode !== 4" type="button" class="btn btn-primary btn-lg btn-custom" value="기타" @click="getRecipeData(date_start, 4, 0)">
-          <input v-if="this.categoryCode === 4" type="button" class="btn btn-primary btn-lg btn-custom" value="기타" @click="getRecipeData(date_start, 4, 0)">
+          <input v-if="this.categoryCode !== 4" type="button" class="btn btn-primary btn-md btn-custom" value="기타" @click="getRecipeData(date_start, 4, 0)">
+          <input v-if="this.categoryCode === 4" type="button" class="btn btn-primary btn-md btn-custom" value="기타" @click="getRecipeData(date_start, 4, 0)">
         </div>
         <div class="box-item-custom" style="text-align: center;">
           <p><img src="https://cdn-icons-png.flaticon.com/128/308/308556.png" width="20px" style="margin-bottom:10px">  {{this.checkedItemName}}</p>
@@ -54,7 +53,7 @@
               <Fade-loader />
             </div>
             <div class="loading-text">
-              <h5>선택하신 재료를 기준으로 레시피를 조회하는 중입니다.</h5>
+              <p>선택하신 재료를 기준으로<br>레시피를 조회하는 중입니다.</p>
             </div>
           </div>
           <!-- Recipe Card -->
@@ -108,14 +107,14 @@
           </div>
         </div>
         <div style="text-align:center; width:100%" >
-          <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" style="width: 17%; margin-left: 40%; margin-right: 40%; box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);" @click="submitRecipeList()">
+          <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" @click="submitRecipeList()">
         </div>
       </section>
     </div>
   </div>
   <div>
-    <button class="btn-up" @click="upClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
-    <button class="btn-down" @click="downClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
+    <button class="btn-up-m" @click="upClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
+    <button class="btn-down-m" @click="downClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
   </div>
 </body>
 </template>
@@ -169,7 +168,7 @@ export default {
         this.isLoading = false
         this.categoryCode = code
       } catch (err) {
-        location.reload()
+        // location.reload()
       }
     },
     // 선택 레시피 제출
@@ -198,8 +197,10 @@ export default {
   @import "@/css/styles.css";
   body{background: #f3f3f3;}
   .btn-custom {
-    margin-bottom: 20px;
-    width: 110px;
+    margin-bottom: 10px;
+    margin-left: 1%;
+    margin-right: 1%;
+    width: 30%;
     box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   }
   .card-custom {
@@ -222,6 +223,12 @@ export default {
     padding-bottom:0px;
     margin-bottom: 10px;
   }
+  .next-button {
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
+  }
   .word {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -231,22 +238,5 @@ export default {
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
-  }
-  .loading {
-    z-index: 2;
-    position: relative;
-    top: 25%;
-    left: 100%;
-    transform: translate(-50%, -50%);
-  }
-  .loading-text {
-    text-align: center;
-    position:relative;
-    top: 65%;
-    margin-bottom: 50px;
-  }
-  .loading-container {
-    width: 100%;
-    height: 230px;
   }
 </style>

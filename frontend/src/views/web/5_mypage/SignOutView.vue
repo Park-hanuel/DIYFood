@@ -1,6 +1,6 @@
 <template>
   <body id="page" style="text-align: center;">
-    <div style="margin-top: 40px; margin-bottom: 30px;">
+    <div style="margin-bottom: 30px;">
       <p style="font-size:2em; font-weight:500; line-height:70px;">
         회원 탈퇴
       </p>

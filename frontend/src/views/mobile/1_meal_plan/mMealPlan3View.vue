@@ -1,44 +1,40 @@
 <template>
-  <body id="page">
+  <body id="page-m">
     <div>
       <div>
-        <!-- Side -->
-        <div id="side">
-          <div style="margin-top: 30px" id="head">
-            <h1>MEAL PLAN</h1>
+        <div class="mealplan-head-m">
+          <div style="float: left; width:40%;">
+            <img src="https://cdn-icons-png.flaticon.com/512/2906/2906476.png" alt="식단계획3" class="mealplan-head-img-m">
           </div>
-          <div style="text-align: center">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/2906/2906476.png"
-              alt="식단계획3"
-              height="50%"
-              width="50%"
-            />
-          </div>
-          <div style="margin-top: 30px; text-align: center">
-            <h4>3. 새로운 재료 선택</h4>
+          <div class="mealplan-head-title-m">
+            <h1>
+              MEAL PLAN
+            </h1>
+            <h3>
+              3. 새로운 식재료 선택
+            </h3>
           </div>
         </div>
         <!-- Content -->
-        <section id="content">
-          <div style="text-align: center">
+        <section id="content-m">
+          <div style="text-align:center;">
             <h1>새로운 식재료 선택</h1>
             <p>
-              새롭게 구매하실 식재료를 선택해주세요. 선택한 식재료를 포함하는
-              레시피를 추천합니다.
+              새롭게 구매하실 식재료를 선택해주세요.
+              <br>선택한 식재료를 포함하는 레시피를 추천합니다.
             </p>
             <div>
               <input
                 v-if="this.categoryCode !== '1'"
                 type="button"
-                class="btn btn-primary btn-lg btn-custom"
+                class="btn btn-primary btn-md btn-custom"
                 value="곡류"
                 @click="searchItem('1')"
               />
               <input
                 v-if="this.categoryCode === '1'"
                 type="button"
-                class="btn btn-clicked btn-lg btn-custom"
+                class="btn btn-clicked btn-md btn-custom"
                 value="곡류"
                 @click="searchItem('1')"
               />
@@ -46,14 +42,14 @@
               <input
                 v-if="this.categoryCode !== '3'"
                 type="button"
-                class="btn btn-primary btn-lg btn-custom"
+                class="btn btn-primary btn-md btn-custom"
                 value="견과·버섯"
                 @click="searchItem('3')"
               />
               <input
                 v-if="this.categoryCode === '3'"
                 type="button"
-                class="btn btn-clicked btn-lg btn-custom"
+                class="btn btn-clicked btn-md btn-custom"
                 value="견과·버섯"
                 @click="searchItem('3')"
               />
@@ -61,14 +57,14 @@
               <input
                 v-if="this.categoryCode !== '2'"
                 type="button"
-                class="btn btn-primary btn-lg btn-custom"
+                class="btn btn-primary btn-md btn-custom"
                 value="채소류"
                 @click="searchItem('2')"
               />
               <input
                 v-if="this.categoryCode === '2'"
                 type="button"
-                class="btn btn-clicked btn-lg btn-custom"
+                class="btn btn-clicked btn-md btn-custom"
                 value="채소류"
                 @click="searchItem('2')"
               />
@@ -76,14 +72,14 @@
               <input
                 v-if="this.categoryCode !== '4'"
                 type="button"
-                class="btn btn-primary btn-lg btn-custom"
+                class="btn btn-primary btn-md btn-custom"
                 value="과일류"
                 @click="searchItem('4')"
               />
               <input
                 v-if="this.categoryCode === '4'"
                 type="button"
-                class="btn btn-clicked btn-lg btn-custom"
+                class="btn btn-clicked btn-md btn-custom"
                 value="과일류"
                 @click="searchItem('4')"
               />
@@ -91,14 +87,14 @@
               <input
                 v-if="this.categoryCode !== '5'"
                 type="button"
-                class="btn btn-primary btn-lg btn-custom"
+                class="btn btn-primary btn-md btn-custom"
                 value="축산물"
                 @click="searchItem('5')"
               />
               <input
                 v-if="this.categoryCode === '5'"
                 type="button"
-                class="btn btn-clicked btn-lg btn-custom"
+                class="btn btn-clicked btn-md btn-custom"
                 value="축산물"
                 @click="searchItem('5')"
               />
@@ -106,14 +102,14 @@
               <input
                 v-if="this.categoryCode !== '6'"
                 type="button"
-                class="btn btn-primary btn-lg btn-custom"
+                class="btn btn-primary btn-md btn-custom"
                 value="수산물"
                 @click="searchItem('6')"
               />
               <input
                 v-if="this.categoryCode === '6'"
                 type="button"
-                class="btn btn-clicked btn-lg btn-custom"
+                class="btn btn-clicked btn-md btn-custom"
                 value="수산물"
                 @click="searchItem('6')"
               />
@@ -180,11 +176,12 @@
                 id="progress"
                 :value="totalCost"
                 :max="budget"
+                style="width: 100%"
               ></progress>
-              <p>{{ parseInt((totalCost / budget) * 100) }}%</p>
+              <p style="width: 100%">{{ parseInt((totalCost / budget) * 100) }}%</p>
               <h6 style="width: 100%">
-                선택 식재료 가격 : {{ totalCost.toLocaleString() }}원 | 나의
-                예산 : {{ budget.toLocaleString() }}원
+                선택 식재료 가격 : {{ totalCost.toLocaleString() }}원
+                <br>나의 예산 : {{ budget.toLocaleString() }}원
               </h6>
             </div>
           </div>
@@ -364,7 +361,7 @@ export default {
           this.codeSplit()
           try {
             await this.$axios.post('http://localhost:3000/ingredient/userlist', this.finalData, { withCredentials: true })
-            location.href = '/mealplan/step4'
+            location.href = '/mealplan/step4/m'
           } catch (err) {
             alert('다시 시도해주세요.')
           }
@@ -379,7 +376,7 @@ export default {
         } catch (err) {
           alert('다시 시도해주세요')
         }
-        location.href = '/mealplan/step4'
+        location.href = '/mealplan/step4/m'
       }
       localStorage.setItem('newItem', this.checkedItemName)
     },
@@ -398,8 +395,10 @@ body {
   background: #f3f3f3;
 }
 .btn-custom {
-  margin-bottom: 20px;
-  width: 110px;
+  margin-bottom: 10px;
+  margin-left: 1%;
+  margin-right: 1%;
+  width: 30%;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
 }
 .btn-warning {

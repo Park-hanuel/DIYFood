@@ -110,6 +110,7 @@ export default {
 <style>
 @import "@/css/styles.css";
 body{background: #f3f3f3;}
+#page{padding-top: 120px;}
 #content-box{
   float: left;
   width: 200px;
