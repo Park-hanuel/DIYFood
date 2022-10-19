@@ -37,14 +37,14 @@
               <ul style="vertical-align:middle;">
                 <li class="navbtn-mobile">
                   <a class="navbtn-mlink" href="/mealplan/m">
-                    <img src="https://cdn-icons-png.flaticon.com/512/567/567014.png" alt="" width="40%;" style="filter: invert(100%);">
-                    <div><span style="font-size: 0.85rem">식단 계획</span></div>
+                    <img src="https://cdn-icons-png.flaticon.com/512/567/567014.png" alt="" width="45%;" style="filter: invert(100%);">
+                    <div><span style="font-size: 0.8rem">식단 계획</span></div>
                   </a>
                 </li>
                 <li class="navbtn-mobile">
                   <a class="navbtn-mlink" href="/analysis/survey/m">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2889/2889577.png" alt="" width="40%;" style="filter: invert(100%);">
-                    <div><span style="font-size: 0.85rem">식단 분석</span></div>
+                    <img src="https://cdn-icons-png.flaticon.com/512/2889/2889577.png" alt="" width="45%;" style="filter: invert(100%);">
+                    <div><span style="font-size: 0.8rem">식단 분석</span></div>
                   </a>
                 </li>
                 <li class="navbtn-mobile">
@@ -53,15 +53,15 @@
                   </a>
                 </li>
                 <li class="navbtn-mobile" style="float:right;">
-                  <a class="navbtn-mlink" href="/ingredient/m">
-                    <img src="https://cdn-icons-png.flaticon.com/512/6978/6978688.png" alt="" width="40%;" style="filter: invert(100%);">
-                    <div><span style="font-size: 0.85rem;">재료 가격</span></div>
+                  <a class="navbtn-mlink" href="/recipe/m">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3363/3363460.png" alt="" width="45%;" style="filter: invert(100%);">
+                    <div><span style="font-size: 0.8rem">레시피</span></div>
                   </a>
                 </li>
                 <li class="navbtn-mobile" style="float:right;">
-                  <a class="navbtn-mlink" href="/recipe/m">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3363/3363460.png" alt="" width="40%;" style="filter: invert(100%);">
-                    <div><span style="font-size: 0.85rem">레시피</span></div>
+                  <a class="navbtn-mlink" href="/ingredient/m">
+                    <img src="https://cdn-icons-png.flaticon.com/512/6978/6978688.png" alt="" width="45%;" style="filter: invert(100%);">
+                    <div><span style="font-size: 0.8rem;">식재료 가격</span></div>
                   </a>
                 </li>
               </ul>
@@ -189,7 +189,7 @@ export default {
   height: 30px;
 }
 .navbar-mobile{
-  height: 80px;
+  height: 85px;
   width: 100%;
   background-color: rgb(30, 30, 30);
 }

@@ -30,24 +30,29 @@
           </thead>
           <tbody>
             <tr>
-              <th scope="row" class="text-center">예산<br>기간</th>
-              <td>예산 : {{budget}}원<br>기간: {{date}}</td>
-              <td><button class="btn" @click="modifyPlan('1')"><img src="https://cdn-icons-png.flaticon.com/512/5328/5328208.png" style="width:30px; text-align: center;"></button></td>
+              <th scope="row" class="text-center">예산</th>
+              <td>{{budget}}원</td>
+              <td><button class="btn-m" @click="modifyPlan('1')"><img src="https://cdn-icons-png.flaticon.com/512/5328/5328208.png" style="width:30px; text-align: center;"></button></td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-center">기간</th>
+              <td>{{date}}</td>
+              <td><button class="btn-m" @click="modifyPlan('1')"><img src="https://cdn-icons-png.flaticon.com/512/5328/5328208.png" style="width:30px; text-align: center;"></button></td>
             </tr>
             <tr>
               <th scope="row" class="text-center">보유<br>식재료</th>
               <td>{{haveItem.replace(/,/gi,", ")}}</td>
-              <td><button class="btn" @click="modifyPlan('2')"><img src="https://cdn-icons-png.flaticon.com/512/5328/5328208.png" style="width:30px; text-align: center;"></button></td>
+              <td><button class="btn-m" @click="modifyPlan('2')"><img src="https://cdn-icons-png.flaticon.com/512/5328/5328208.png" style="width:30px; text-align: center;"></button></td>
             </tr>
             <tr>
               <th scope="row" class="text-center">새로운 식재료</th>
               <td>{{newItem.replace(/,/gi,", ")}}</td>
-              <td><button class="btn" @click="modifyPlan('3')"><img src="https://cdn-icons-png.flaticon.com/512/5328/5328208.png" style="width:30px; text-align: center;"></button></td>
+              <td><button class="btn-m" @click="modifyPlan('3')"><img src="https://cdn-icons-png.flaticon.com/512/5328/5328208.png" style="width:30px; text-align: center;"></button></td>
             </tr>
             <tr>
               <th scope="row" class="text-center">레시피</th>
               <td>{{recipe.replace(/,/gi,", ")}}</td>
-              <td><button class="btn" @click="modifyPlan('4')"><img src="https://cdn-icons-png.flaticon.com/512/5328/5328208.png" style="width:30px; text-align: center;"></button></td>
+              <td><button class="btn-m" @click="modifyPlan('4')"><img src="https://cdn-icons-png.flaticon.com/512/5328/5328208.png" style="width:30px; text-align: center;"></button></td>
             </tr>
           </tbody>
         </table>
@@ -78,25 +83,25 @@ export default {
     modifyPlan (index) {
       if (index === '1') {
         if (confirm('1단계(예산 및 기간 설정)부터 다시 시작합니다. 수정하시겠습니까?')) {
-          location.href = '/mealplan/step1'
+          location.href = '/mealplan/step1/m'
         } else {
           console.log(index)
         }
       } else if (index === '2') {
         if (confirm('2단계(기존 보유 식재료 선택)부터 다시 시작합니다. 수정하시겠습니까?')) {
-          location.href = '/mealplan/step2'
+          location.href = '/mealplan/step2/m'
         } else {
           // pass
         }
       } else if (index === '3') {
         if (confirm('3단계(새로운 식재료 선택)부터 다시 시작합니다. 수정하시겠습니까?')) {
-          location.href = '/mealplan/step3'
+          location.href = '/mealplan/step3/m'
         } else {
           // pass
         }
       } else if (index === '4') {
         if (confirm('4단계(레시피 선택)부터 다시 시작합니다. 수정하시겠습니까?')) {
-          location.href = '/mealplan/step4'
+          location.href = '/mealplan/step4/m'
         } else {
           // pass
         }
@@ -133,5 +138,9 @@ body{background: #f3f3f3;}
   border-radius: 10px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   border: none;
+}
+.btn-m {
+  border: none;
+  background-color: transparent;
 }
   </style>

@@ -4,13 +4,9 @@
       <span style="font-size:2em; font-weight:500; line-height:70px;">
         INGREDIENT PRICE
       </span>
-      <br>
-      <span style="font-size:1.2em; font-weight:400; margin-bottom: 10px;">
-        식재료 시세를 안내합니다.
-      </span>
     </div>
     <!-- 그래프, 시세표 영역 -->
-    <div style="width:100%; margin-top:10px; margin-bottom:100px">
+    <div style="width:100%;margin-bottom:100px">
       <div>
         <div style="height:40px">
           <span style="font-size: 1.5rem; font-weight:500">{{selectedItem}} </span>

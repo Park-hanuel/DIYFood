@@ -1,8 +1,8 @@
 <template>
   <body id="page-m">
-    <div style="margin-top: 20px; margin-bottom: 20px;">
-      <a href="/recipe">
-        <span style="font-size:4em; font-weight:500; line-height:70px;">
+    <div>
+      <a href="/recipe/m">
+        <span style="font-size:2.5em; font-weight:500; line-height:70px;">
           RECIPE
         </span>
       </a>
@@ -10,7 +10,7 @@
     <!-- 레시피 목록 -->
     <div class="content-box">
       <!-- 검색창 -->
-      <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4 search-box">
+      <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-3 search-box">
         <div class="input-group">
           <div class="input-group-prepend">
             <button id="button-addon2" class="btn btn-link text-warning" @click="searchRecipe(keyword, 1)" disabled><img src="https://cdn-icons-png.flaticon.com/512/7847/7847425.png" width="25px"></button>
@@ -32,7 +32,7 @@
         </div>
       </div>
       <div v-for="(contents, i) in recipeList" :key="i">
-        <a :href="`/recipe/foodname/${contents.RCP_NM}`" target="_blank" @click="saveContents(contents)">
+        <a :href="`/recipe/foodname/${contents.RCP_NM}/m`" target="_blank" @click="saveContents(contents)">
           <div name="card" class="card-custom-m">
             <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 5%;">
               <img :src=contents.ATT_FILE_NO_MAIN width="100%" style="margin: -10%;">
@@ -132,8 +132,8 @@
       </div>
     </div>
     <div>
-        <button class="btn-up" @click="upClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
-        <button class="btn-down" @click="downClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
+        <button class="btn-up-m" @click="upClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
+        <button class="btn-down-m" @click="downClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
     </div>
   </body>
 </template>
@@ -259,7 +259,6 @@ body{
 .content-box{
   width:100%;
   background-color:white;
-  margin-top: 20px;
   margin-bottom: 100px;
   border-radius: 20px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
@@ -277,7 +276,7 @@ body{
   border-radius: 1rem;
   padding: 10px;
   float: left;
-  margin: 1%;
+  margin: 2% 1% 2% 1%;
 }
 .word {
   overflow: hidden;
