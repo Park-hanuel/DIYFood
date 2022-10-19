@@ -1,7 +1,7 @@
 <template>
-  <body id="page-m" style="margin-bottom: 70px">
-    <div style="margin-top: 20px; margin-bottom: 20px;">
-      <span style="font-size:4em; font-weight:500; line-height:70px;">
+  <body id="page-m" style="margin-bottom: 80px">
+    <div>
+      <span style="font-size:2.5em; font-weight:500; line-height:70px;">
         DIET ANALYSIS
       </span>
       <p style="font-size:1.2em; font-weight:400;">
@@ -87,10 +87,6 @@
         </div>
       <!-- </form> -->
     </div>
-    <div>
-        <button class="btn-up" @click="upClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130906.png" width="20px"></button>
-        <button class="btn-down" @click="downClick()"><img src="https://cdn-icons-png.flaticon.com/512/130/130907.png" width="20px"></button>
-    </div>
   </body>
 </template>
 
@@ -159,12 +155,6 @@ export default {
       } catch (err) {
         alert('다시 시도해주세요')
       }
-    },
-    upClick () {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-    },
-    downClick () {
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }
   }
 }
@@ -180,7 +170,6 @@ body{
   width:100%;
   height:fit-content;
   background-color:white;
-  margin-top: 30px;
   margin-bottom: 30px;
   border-radius: 20px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);

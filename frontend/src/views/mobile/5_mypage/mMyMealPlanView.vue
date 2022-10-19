@@ -1,6 +1,6 @@
 <template>
 <body id="page-m">
-    <div style="margin-top: 10px; margin-bottom: 10px; text-align: center;">
+    <div style="margin-top: 20px; margin-bottom: 10px; text-align: center;">
       <p style="font-size:2.5em; font-weight:500; line-height:70px;">
         MY MEAL PLAN
       </p>
@@ -141,7 +141,7 @@ body{
   width: 90%;
   height: auto;
   background-color:white;
-  margin-bottom: 100px;
+  margin-bottom: 110px;
   margin-right:5%;
   margin-left: 5%;
   border-radius: 20px;

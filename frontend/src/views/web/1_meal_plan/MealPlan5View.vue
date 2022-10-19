@@ -31,8 +31,13 @@
           </thead>
           <tbody>
             <tr>
-              <th scope="row">예산 및 기간</th>
-              <td>예산 : {{budget}}원 | 기간: {{date}}</td>
+              <th scope="row">예산</th>
+              <td>{{budget}}원</td>
+              <td><button class="btn" @click="modifyPlan('1')"><img src="https://cdn-icons-png.flaticon.com/512/5328/5328208.png" style="width:35px; text-align: center;"></button></td>
+            </tr>
+            <tr>
+              <th scope="row">기간</th>
+              <td>{{date}}</td>
               <td><button class="btn" @click="modifyPlan('1')"><img src="https://cdn-icons-png.flaticon.com/512/5328/5328208.png" style="width:35px; text-align: center;"></button></td>
             </tr>
             <tr>

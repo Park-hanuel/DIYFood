@@ -17,8 +17,8 @@
         </div>
         <div class="half-box">
           <div>
-            <span class="me-3">먹은 날짜</span>
-            <input type="date" class="inputbox-date" v-model="date">
+            <span class="me-3" style="width: 40%">먹은 날짜</span>
+            <input type="date" class="inputbox-date" style="width: 60%" v-model="date">
           </div>
           <div class="col-12 text-center">
             <button class="btn btn-primary btn-lg next-button btn-custom" @click="submitForm()">NEXT</button>
