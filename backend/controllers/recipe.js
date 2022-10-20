@@ -56,12 +56,14 @@ const recipe = {
       const url2 = `https://openapi.foodsafetykorea.go.kr/api/${
         process.env.RECIPE_APIKEY
       }/COOKRCP01/json/1001/1500/RCP_NM=${encodeURI(foodName)}`;
+      const realUrl1 = url1.replace(/%20/g,'_');
+      const realUrl2 = url2.replace(/%20/g,'_');
       let itemData = "";
-      const response = await axios.get(url1);
+      const response = await axios.get(realUrl1);
       if (response.data.COOKRCP01.row !== undefined) {
         itemData = response.data.COOKRCP01.row;
       } else {
-        const response2 = await axios.get(url2);
+        const response2 = await axios.get(realUrl2);
         itemData = response2.data.COOKRCP01.row;
       }
       res.send(itemData);
