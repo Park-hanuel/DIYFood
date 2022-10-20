@@ -37,7 +37,7 @@
       <div v-for="(contents, i) in recipeList" :key="i">
         <a :href="`/recipe/foodname/${contents.RCP_NM}`" target="_blank" @click="saveContents(contents)">
           <div name="card" class="card-custom">
-            <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 5%;">
+            <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 1.7rem;">
               <img :src=contents.ATT_FILE_NO_MAIN width="100%" style="margin: -10%;">
             </div>
             <div style="height: 7%;"><h6 style="text-align:center; margin-top: 10px;">{{contents.RCP_NM}}</h6></div>
@@ -275,10 +275,10 @@ body{
   margin-bottom: 20px;
 }
 .card-custom {
-  background-color: #f3f3f3;
+  background-color: #f0f0f0;
   width: 23%;
   height: 400px;
-  border-radius: 1rem;
+  border-radius: 2rem;
   padding: 10px;
   float: left;
   margin: 1%;

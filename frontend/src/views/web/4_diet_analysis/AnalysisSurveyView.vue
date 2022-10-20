@@ -12,7 +12,7 @@
       <!-- <form> -->
         <div class="half-box">
           <div style="text-align: center; margin-top: 20%;">
-            <img src="https://cdn-icons-png.flaticon.com/512/668/668709.png" width="50%">
+            <img src="https://cdn-icons-png.flaticon.com/512/668/668709.png" width="40%">
             <h1 style="margin-top: 50px">나의 정보</h1>
           </div>
         </div>
@@ -76,11 +76,7 @@
           </div>
         </div>
         <div class="agreement-box">
-          <p>수집된 개인정보는 식단 분석을 위한 1일 권장 영양소 섭취량 계산에 사용됩니다.</p>
-          <input class="form-check-input" type="checkbox" id="agreement" required/>
-          <label class="form-check-label" style="margin-left: 10px" for="agreement" required>
-            <b>개인정보 수집 및 이용 안내</b>에 동의합니다.
-          </label>
+          <p>수집된 <b>개인정보</b>는 식단 분석을 위한 <b>1일 권장 영양소 섭취량 계산</b>에 사용됩니다.</p>
         </div>
         <div style="text-align:center;" >
           <button class="btn btn-primary btn-lg next-button btn-custom" @click="submitForm()">NEXT</button>
@@ -134,7 +130,7 @@ export default {
         }
       } catch (err) {
         alert('로그인이 필요한 기능입니다.')
-        location.href = '/user/login/m'
+        location.href = '/user/login'
       }
     },
     async getUserSurveyData () {

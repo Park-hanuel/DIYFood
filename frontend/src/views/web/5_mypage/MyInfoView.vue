@@ -122,7 +122,7 @@ export default {
         name: '',
         password: ''
       },
-      namecheck_code: 0,
+      namecheck_code: 1,
       namecheck_msg: ''
     }
   },
