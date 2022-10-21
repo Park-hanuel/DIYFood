@@ -67,7 +67,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(data, index) in itemList" :key="index">
+              <tr v-for="(data, index) in itemList" :key="index" @click="selectGraph(index)">
                 <td>{{data.item_name}}</td>
                 <td>{{data.kind_name}}</td>
                 <td>{{data.dpr1}}</td>

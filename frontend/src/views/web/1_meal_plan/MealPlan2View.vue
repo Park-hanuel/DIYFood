@@ -65,6 +65,14 @@
               </tbody>
             </table>
           </div>
+          <div v-if="isLoading" class="loading-container">
+            <div class="loading">
+              <Fade-loader />
+            </div>
+            <div class="loading-text">
+              <p>정보를 저장하고 있습니다.<br>잠시만 기다려주세요.</p>
+            </div>
+          </div>
           <div id="next-button" style="text-align:center;" >
             <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" @click="submitItemList()">
           </div>
@@ -78,8 +86,10 @@
   </body>
 </template>
 <script>
+import FadeLoader from 'vue-spinner/src/FadeLoader.vue'
+
 export default {
-  components: {},
+  components: { FadeLoader },
   data () {
     return {
       itemList: [],
@@ -89,7 +99,8 @@ export default {
       selected: [],
       categoryCode: '1',
       userExistList: [],
-      allItemList: []
+      allItemList: [],
+      isLoading: false
     }
   },
   setup () {},
@@ -149,6 +160,7 @@ export default {
     // 선택한 식재료 리스트 보내기
     /* eslint-disable */
     async submitItemList () {
+      this.isLoading=true
       try {
         await this.$axios.post('http://localhost:3000/ingredient/existlist', this.checkedItemCode, {withCredentials:true})        
       } catch (err) {
@@ -173,7 +185,7 @@ export default {
   #page{padding-top: 120px;}
   .btn-custom {
     margin-bottom: 20px;
-    width: 110px;
+    width: 12%;
     box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   }
   .btn-warning {

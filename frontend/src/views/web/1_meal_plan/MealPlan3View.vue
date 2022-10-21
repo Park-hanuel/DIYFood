@@ -398,7 +398,7 @@ body {background: #f3f3f3;}
 #page{padding-top: 120px;}
 .btn-custom {
   margin-bottom: 20px;
-  width: 110px;
+  width: 12%;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
 }
 .btn-warning {
