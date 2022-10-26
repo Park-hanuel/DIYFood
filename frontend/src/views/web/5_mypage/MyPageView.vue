@@ -6,9 +6,9 @@
       </p>
       <p style="font-size:1.5em"><b>{{username}}</b> 님 환영합니다!</p>
     </div>
-    <div style="display: inline-block; margin: 0 50px;">
+    <div style="display: inline-block; margin: 0 200px;">
       <a href="/user/info/">
-        <section class="content-box">
+        <section class="content-box-3">
           <img src="https://cdn-icons-png.flaticon.com/512/6082/6082867.png" alt="" class="img_style">
           <div style="margin-top:30px;">
             <h4 style="color:black">회원정보 수정</h4>
@@ -16,23 +16,23 @@
         </section>
       </a>
       <a href="/user/mymealplan">
-        <section class="content-box">
+        <section class="content-box-3">
           <img src="https://cdn-icons-png.flaticon.com/512/5223/5223850.png" alt="" class="img_style">
           <div style="margin-top:30px;">
             <h4 style="color:black">나의 식단 계획</h4>
           </div>
         </section>
       </a>
-      <a href="/user/registerfood">
+      <!-- <a href="/user/registerfood">
         <section class="content-box">
           <img src="https://cdn-icons-png.flaticon.com/512/2515/2515263.png" alt="" class="img_style">
           <div style="margin-top:30px;">
             <h4 style="color:black">나의 식단 등록</h4>
           </div>
         </section>
-      </a>
+      </a> -->
       <a href="/analysis/survey">
-        <section class="content-box">
+        <section class="content-box-3">
           <img src="https://cdn-icons-png.flaticon.com/512/1162/1162489.png" alt="" class="img_style">
           <div style="margin-top:30px;">
             <h4 style="color:black">나의 식단 분석</h4>
@@ -83,11 +83,23 @@ export default {
 <style>
 @import "@/css/styles.css";
 body{background: #f3f3f3;}
-.content-box{
+.content-box-4{
   float: left;
   width: 23%;
   background-color:white;
   margin: 1%;
+  margin-bottom: 10px;
+  margin-top:10px;
+  border-radius: 20px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+.content-box-3{
+  float: left;
+  width: 27%;
+  background-color:white;
+  margin: 3%;
   margin-bottom: 10px;
   margin-top:10px;
   border-radius: 20px;
@@ -106,8 +118,6 @@ body{background: #f3f3f3;}
   border-radius: 10px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   margin: 20px;
-  margin-left: 500px;
-  margin-right:500px;
   background-color: #ffffff;
   float: left;
 }

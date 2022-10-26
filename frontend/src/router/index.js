@@ -177,6 +177,14 @@ const routes = [
       )
   },
   {
+    path: '/analysis',
+    name: 'AnalysisMain',
+    component: () =>
+      import(
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/web/4_diet_analysis/AnalysisMainView.vue'
+      )
+  },
+  {
     path: '/analysis/survey',
     name: 'AnalysisSurvey',
     component: () =>
