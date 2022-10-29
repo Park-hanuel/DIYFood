@@ -91,14 +91,14 @@
         <section class="page-section bg-light" id="Trend">
             <div class="container">
                 <div class="text-center">
-                    <a href="/analysis/survey">
+                    <a href="/analysis">
                         <h2 class="section-heading text-uppercase">Diet Analysis</h2>
                     </a>
                 </div>
                 <div class="row text-center">
                     <div class="col-md-4">
                         <span class="fa-stack fa-4x">
-                            <a href="/analysis/survey">
+                            <a href="/analysis">
                                 <img src="https://cdn-icons-png.flaticon.com/512/1162/1162489.png" alt="price_trend" style="width: 120px; height: 120px;">
                             </a>
                         </span>

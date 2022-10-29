@@ -19,6 +19,7 @@
     "vue": "^2.6.14",
     "vue-chartjs": "^4.1.1",
     "vue-draggable-cal": "^2.6.0",
+    "vue-horizontal-calendar": "^1.0.0",
     "vue-infinite-loading": "^2.4.5",
     "vue-mj-daterangepicker": "^0.1.11",
     "vue-router": "^3.5.1",
@@ -26,7 +27,8 @@
     "vue2-datepicker": "^3.11.0",
     "vuejs-paginate": "^2.1.0",
     "vuelendar": "^1.0.0",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
