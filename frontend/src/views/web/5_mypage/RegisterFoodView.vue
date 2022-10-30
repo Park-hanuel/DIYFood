@@ -3,23 +3,38 @@
   <body id="page">
     <div style=" margin-bottom: 30px;">
       <p style="font-size:4em; font-weight:500; line-height:70px;">
-        REGISTER FOOD {{date}}
+        REGISTER FOOD
       </p>
       <p style="font-size:1.5em; font-weight:400;">
         식단 분석을 위해 식단 계획 이외에 섭취한 음식을 등록합니다.
       </p>
     </div>
     <div class="content-box">
-      <DraggableCal
-      :prependedMonths="1"
-      :accentColor="'#48a238'"
-      :pastIsDisabled="false"
-      style="width:70%; padding: 30px 0px 0px; margin-bottom: 30px;"
-      onclick="selectDate(months)"
-      ></DraggableCal>
-      <div class="w-100 text-center">
-        <div class="half-box w-30 text-center">
-
+      <div style="width:80%; margin: 0% 10% 3%;" >
+        <vue-horizontal-calendar
+        lang="en"
+        choosedItemColor="#48a238"
+        todayItemColor="#48a23830"
+        choosedDatePos="center"
+        v-on:change="dateChange"></vue-horizontal-calendar>
+      </div>
+      <div v-if="weekRecipeList != ''" class="w-80 m-10">
+        <div class="foodname-box">
+          <p style="font-size: 1.2rem">🥄 이 주에는 이런 음식을 선택하셨네요!</p>
+          <div v-for="(data, index) in weekRecipeList" :key="index" class="foodname-card">
+             <span>{{data}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="w-100 text-center mt-3">
+        <div class="half-box w-30 text-center mt-4">
+          <div class="date-box">
+            <span class="font-gg">
+              {{choosedDay.year}}년
+              <br>{{choosedDay.month}}월 {{choosedDay.date}}일
+              <br>{{day_kor}}요일
+            </span>
+          </div>
           <div v-if="selectedTime == '1'" class="mb-3">
             <input type="button" class="btn btn-primary btn-lg btn-clicked" value="아침" @click="selectTime(1)">
           </div>
@@ -28,17 +43,17 @@
           </div>
 
           <div v-if="selectedTime == '2'" class="mb-3">
-            <input type="button" class="btn btn-primary btn-lg btn-clicked" value="점저" @click="selectTime(2)">
+            <input type="button" class="btn btn-primary btn-lg btn-clicked" value="점심" @click="selectTime(2)">
           </div>
           <div v-if="selectedTime != '2'" class="mb-3">
-            <input type="button" class="btn btn-primary btn-lg btn-meal" value="점저" @click="selectTime(2)">
+            <input type="button" class="btn btn-primary btn-lg btn-meal" value="점심" @click="selectTime(2)">
           </div>
 
           <div v-if="selectedTime == '3'" class="mb-3">
-            <input type="button" class="btn btn-primary btn-lg btn-clicked" value="점심" @click="selectTime(3)">
+            <input type="button" class="btn btn-primary btn-lg btn-clicked" value="저녁" @click="selectTime(3)">
           </div>
           <div v-if="selectedTime != '3'" class="mb-3">
-            <input type="button" class="btn btn-primary btn-lg btn-meal" value="점심" @click="selectTime(3)">
+            <input type="button" class="btn btn-primary btn-lg btn-meal" value="저녁" @click="selectTime(3)">
           </div>
 
           <div v-if="selectedTime == '4'" class="mb-3">
@@ -48,22 +63,8 @@
             <input type="button" class="btn btn-primary btn-lg btn-meal" value="간식" @click="selectTime(4)">
           </div>
 
-          <div v-if="selectedTime == '5'" class="mb-3">
-            <input type="button" class="btn btn-primary btn-lg btn-clicked" value="저녁" @click="selectTime(5)">
-          </div>
-          <div v-if="selectedTime != '5'" class="mb-3">
-            <input type="button" class="btn btn-primary btn-lg btn-meal" value="저녁" @click="selectTime(5)">
-          </div>
-
-          <div v-if="selectedTime == '6'" class="mb-3">
-            <input type="button" class="btn btn-primary btn-lg btn-clicked" value="야식" @click="selectTime(6)">
-          </div>
-          <div v-if="selectedTime != '6'" class="mb-3">
-            <input type="button" class="btn btn-primary btn-lg btn-meal" value="야식" @click="selectTime(6)">
-          </div>
-
         </div>
-        <div class="half-box w-70 text-center">
+        <div class="half-box w-70 text-center mt-4">
           <div v-if="selectedTime != ''">
             <!-- 검색창 -->
             <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4 search-box w-70 m-15 mt-1">
@@ -71,68 +72,160 @@
                 <div class="input-group-prepend">
                   <button id="button-addon2" class="btn btn-link text-warning" @click="searchRecipe(keyword, 1)" disabled><img src="https://cdn-icons-png.flaticon.com/512/151/151773.png" width="25px"></button>
                 </div>
-                <input type="search" placeholder="검색어를 입력해주세요" aria-describedby="button-addon2" class="form-control border-0 bg-light" v-model="keyword">
+                <input type="search" placeholder="검색어를 입력해주세요" aria-describedby="button-addon2" class="form-control border-0 bg-light" v-model="keyword" style="box-shadow: none;">
                 <button id="button-addon2" class="search-btn">검색</button>
               </div>
             </div>
             <!-- 검색 음식 리스트 -->
-            <table class="table table-light" style="vertical-align: middle">
-              <thead class="table-bordered">
-                <tr>
-                  <th scope="col" style="width: 25%">품목명</th>
-                  <th scope="col" style="width: 25%">제조사</th>
-                  <th scope="col" style="width: 10%">칼로리</th>
-                  <th scope="col" style="width: 10%">탄수화물</th>
-                  <th scope="col" style="width: 10%">단백질</th>
-                  <th scope="col" style="width: 10%">지방</th>
-                  <th scope="col" style="width: 10%">나트륨</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>하하</td>
-                  <td>ㅁㄴ이</td>
-                  <td>ㅁㄴㅇ</td>
-                  <td>123</td>
-                  <td>234</td>
-                  <td>123</td>
-                  <td>123</td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="table-div">
+              <table class="table" style="vertical-align: middle;">
+                <thead style="position: sticky; top: 0px;background-color: #f0f0f0 !important;">
+                  <tr>
+                    <th scope="col" style="width: 20%">품목명</th>
+                    <th scope="col" style="width: 20%">제조사</th>
+                    <th scope="col" style="width: 10%">칼로리</th>
+                    <th scope="col" style="width: 10%">탄수화물</th>
+                    <th scope="col" style="width: 10%">단백질</th>
+                    <th scope="col" style="width: 10%">지방</th>
+                    <th scope="col" style="width: 10%">나트륨</th>
+                    <th scope="col" style="width: 10%">선택</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>하하</td>
+                    <td>ㅁㄴ이</td>
+                    <td>ㅁㄴㅇ</td>
+                    <td>123</td>
+                    <td>234</td>
+                    <td>123</td>
+                    <td>123</td>
+                    <td>
+                      <label>
+                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
+                      </label>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-      <div class="w-100 mt-5 text-center">
-        <button class="btn btn-primary btn-lg next-button" @click="submitForm()">NEXT</button>
+      <div v-if="selectedFood != ''">
+        <div class="foodname-box mt-5 w-80 m-10">
+          <p style="font-size: 1.2rem">🥄 선택한 음식</p>
+          <div v-for="(data, index) in selectedFood" :key="index" class="foodname-card">
+             <span>{{data}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="w-100 mt-3 text-center">
+        <button class="btn btn-primary btn-lg next-button" @click="submitForm()">REGISTER</button>
       </div>
     </div>
   </body>
 </template>
 <script>
 /* eslint-disable */
-import DraggableCal from 'vue-draggable-cal'
+import VueHorizontalCalendar from 'vue-horizontal-calendar';
 
 export default {
   components: {
-    DraggableCal
+      VueHorizontalCalendar
   },
   data () {
     return {
-      date: '',
-      formatedDate: '',
-      selectedTime: ''
+      selectedTime: '',
+      choosedDay: {
+        dateFormat: "",
+        year: "",
+        month: "",
+        date: "",
+        day: "",
+        timestamp: ""
+      },
+      day_kor: "",
+      monthRecipeList: [],
+      weekRecipeList: [],
+      selectedFood: [],
+      sundayDate: ""
+    }
+  },
+  watch: {
+    choosedDay () {
+      this.choosedDay.dateFormat.replaceAll('/','-')
+      if (this.choosedDay.day == "Mo") {
+        this.day_kor = "월"
+        this.getSundayDate(this.choosedDay.dateFormat)
+      } else if (this.choosedDay.day == "Tu") {
+        this.day_kor = "화"
+        this.getSundayDate(this.choosedDay.dateFormat)
+      } else if (this.choosedDay.day == "We") {
+        this.day_kor = "수"
+        this.getSundayDate(this.choosedDay.dateFormat)
+      } else if (this.choosedDay.day == "Th") {
+        this.day_kor = "목"
+        this.getSundayDate(this.choosedDay.dateFormat)
+      } else if (this.choosedDay.day == "Fr") {
+        this.day_kor = "금"
+        this.getSundayDate(this.choosedDay.dateFormat)
+      } else if (this.choosedDay.day == "Sa") {
+        this.day_kor = "토"
+        this.getSundayDate(this.choosedDay.dateFormat)
+      } else if (this.choosedDay.day == "Su") {
+        this.day_kor = "일"
+        this.sundayDate = this.choosedDay.year + "-" + this.choosedDay.month + "-" + this.choosedDay.date
+      }
+      var datedata = new Date(this.sundayDate)
+      this.getUserRecipe(datedata.getMonth() + 1)
     }
   },
   setup () {},
-  created () {},
+  created () { },
   mounted () {},
   unmounted () {},
   methods: {
-    selectTime (time) {
-      this.selectedTime = time
+    // 끼니 선택
+    selectTime (index) {
+      this.selectedTime = index
     },
-    
+    // 날짜 선택
+    dateChange(day) {
+      this.choosedDay = day;
+    },
+    // 월별로 식단 계획 불러오기
+    async getUserRecipe (index) {
+      this.month = index
+      try{
+        const response = await this.$axios.get(`http://localhost:3000/user/recipelist?month=${this.month}`, { withCredentials: true })
+        this.monthRecipeList = response.data
+        this.weekRecipeList=[]
+        for(var i=0; i<=this.monthRecipeList.length; i++) {
+          if (this.monthRecipeList[i].date == this.sundayDate) {
+            this.weekRecipeList.push(this.monthRecipeList[i].RecipeNutrient.foodName)
+          }
+        }
+      }catch(err){
+        // location.reload()
+      }
+    },
+    selectWeek () {
+      this.weekRecipeList=[]
+      this.getUserRecipe()
+      for(var i=0; i<=this.monthRecipeList.length; i++) {
+        if (this.monthRecipeList[i].date == this.sundayDate) {
+          this.weekRecipeList.push(this.monthRecipeList[i].RecipeNutrient.foodName)
+        }
+      }
+    },
+    //일요일 구하기
+    getSundayDate(d) {
+      var paramDate = new Date(d); // new Date('2021-06-08'): 화요일
+      var day = paramDate.getDay();
+      var diff = paramDate.getDate() - day + (day == 0 ? -6 : 1);
+      this.sundayDate = new Date(paramDate.setDate(diff)).toISOString().substring(0, 10);
+    }
   }
 }
 </script>
@@ -156,42 +249,45 @@ body{
 .half-box {
   display: inline-block;
   height: 500px;
-  padding: 30px;
+  padding: 0px 30px;
   font-size: 1.3rem;
   font-weight: 500;
   vertical-align: center;
 }
 .w-30 {
-  width: 30%;
+  width: 25%;
   border-right: 1px solid lightgray;
   float: left;
 }
 .w-70 {
-  width: 70%;
+  width: 75%;
   float: left;
 }
-.w-100 {
-  width: 100%;
+.w-80 {
+  width: 80%;
 }
 .m-15 {
   margin: 0% 15%
 }
+.m-10 {
+  margin: 0% 10%
+}
 .btn-meal {
-  width: 50%;
-  height: 50px;
+  width: 70%;
+  height: 60px;
   background: #f0f0f0;
   border: none;
   color: rgb(61, 61, 61);
-  font-size: 100%;
+  font-size: 90%;
   padding: auto;
-  margin:5px;
+  margin: 3px;
 }
 .btn-clicked {
-  width: 50%;
-  height: 50px;
-  font-size: 100%;
+  width: 70%;
+  height: 60px;
+  font-size: 90%;
   padding: auto;
-  margin:5px;
+  margin: 3px;
 }
 .search-btn {
   border-radius: 10px;
@@ -202,6 +298,25 @@ body{
   background-color: transparent;
 }
 .table {
-  font-size: 1rem;
+  font-size: 0.9rem;
+}
+.table-div {
+  width: 100%;
+  height:420px;
+  overflow:auto;
+  border-radius: 10px;
+}
+.foodname-card {
+  margin: 3px 3px; 
+}
+.font-gg {
+  font-size: 1.2rem
+}
+.date-box {
+  border: 3px solid #f0f0f0;
+  width: 70%;
+  margin: 3% 15% 7%;
+  padding: 30px 0px;
+  border-radius: 100px;
 }
 </style>

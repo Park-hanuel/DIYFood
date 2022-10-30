@@ -1,10 +1,10 @@
 <template>
   <body id="page" style="text-align: center;">
     <div>
-      <p style="font-size:4em; font-weight:500; line-height:70px;">
+      <p style="font-size:4rem; font-weight:500; margin-bottom: 0;">
         MEAL PLAN
       </p>
-      <p style="font-size:1.5em; font-weight:400;">
+      <p style="font-size:1.5rem; font-weight:400;">
         설정된 예산에 맞춰 건강하고 신선한 식단을 추천합니다.
       </p>
     </div>
@@ -104,5 +104,8 @@ body{background: #f3f3f3;}
 }
 .font-custom {
   font-size: 1.1rem;
+}
+.font-gg {
+  font-size: 2rem;
 }
 </style>

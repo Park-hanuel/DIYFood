@@ -8,7 +8,7 @@
     </div>
     <div style="display: inline-block; margin: 0 200px;">
       <a href="/user/info/">
-        <section class="content-box-3">
+        <section class="content-box-4">
           <img src="https://cdn-icons-png.flaticon.com/512/6082/6082867.png" alt="" class="img_style">
           <div style="margin-top:30px;">
             <h4 style="color:black">회원정보 수정</h4>
@@ -16,23 +16,23 @@
         </section>
       </a>
       <a href="/user/mymealplan">
-        <section class="content-box-3">
+        <section class="content-box-4">
           <img src="https://cdn-icons-png.flaticon.com/512/5223/5223850.png" alt="" class="img_style">
           <div style="margin-top:30px;">
             <h4 style="color:black">나의 식단 계획</h4>
           </div>
         </section>
       </a>
-      <!-- <a href="/user/registerfood">
-        <section class="content-box">
+      <a href="/user/registerfood">
+        <section class="content-box-4">
           <img src="https://cdn-icons-png.flaticon.com/512/2515/2515263.png" alt="" class="img_style">
           <div style="margin-top:30px;">
             <h4 style="color:black">나의 식단 등록</h4>
           </div>
         </section>
-      </a> -->
+      </a>
       <a href="/analysis/survey">
-        <section class="content-box-3">
+        <section class="content-box-4">
           <img src="https://cdn-icons-png.flaticon.com/512/1162/1162489.png" alt="" class="img_style">
           <div style="margin-top:30px;">
             <h4 style="color:black">나의 식단 분석</h4>
@@ -74,6 +74,19 @@ export default {
         console.log(err)
         alert('사용자 정보를 불러올 수 없습니다')
         location.href = '/user/login'
+      }
+    },
+    // 식품 목록 불러오기
+    async getFoodData () {
+      try {
+        const response = await this.$axios.get('http://localhost:3000/ingredient/userlist', { withCredentials: true })
+        this.itemList = response.data
+        this.metaItemList = response.data
+        this.itemList = this.metaItemList.filter(
+          (item) => parseInt(item.itemCode / 100) === 1
+        )
+      } catch (err) {
+        location.reload()
       }
     },
   }

@@ -5,7 +5,7 @@
         <!-- Side -->
         <div id="side">
           <div style="margin-top: 30px" id="head">
-            <h1>MEAL PLAN</h1>
+            <h1>이번주 뭐 먹지?</h1>
           </div>
           <div style="text-align: center">
             <img
@@ -118,15 +118,11 @@
                 @click="searchItem('6')"
               />
             </div>
-            <div class="box-item">
-              <p>
-                <img
-                  src="@/assets/shopping-cart.png"
-                  width="20px"
-                  style="margin-bottom: 5px"
-                />
-                {{ this.checkedItemName }}
-              </p>
+            <div class="foodname-box mb-3">
+              <div style="font-size: 1.2rem">🥄 선택한 식재료</div>
+              <div v-for="(data, index) in checkedItemName" :key="index" class="foodname-card mt-2">
+                <span>{{data}}</span>
+              </div>
             </div>
             <table class="table table-light" style="vertical-align: middle">
               <thead class="table-bordered">
@@ -182,10 +178,10 @@
                 :max="budget"
               ></progress>
               <p>{{ parseInt((totalCost / budget) * 100) }}%</p>
-              <h6 style="width: 100%">
+              <p style="width: 100%">
                 선택 식재료 가격 : {{ totalCost.toLocaleString() }}원 | 나의
                 예산 : {{ budget.toLocaleString() }}원
-              </h6>
+              </p>
             </div>
           </div>
           <div id="next-button" style="text-align: center">
@@ -400,6 +396,7 @@ body {background: #f3f3f3;}
   margin-bottom: 20px;
   width: 12%;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
+  font-size: 95%;
 }
 .btn-warning {
   color: black;

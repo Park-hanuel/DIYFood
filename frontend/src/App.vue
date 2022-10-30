@@ -42,7 +42,7 @@
                   </a>
                 </li>
                 <li class="navbtn-mobile">
-                  <a class="navbtn-mlink" href="/analysis/survey/m">
+                  <a class="navbtn-mlink" href="/analysis/m">
                     <img src="https://cdn-icons-png.flaticon.com/512/2889/2889577.png" alt="" width="45%;" style="filter: invert(100%);">
                     <div><span style="font-size: 0.8rem">식단 분석</span></div>
                   </a>
@@ -94,12 +94,12 @@
                 Menu
                 <i class="fas fa-bars ms-1"></i>
               </button>
-              <div class="collapse navbar-collapse" id="navbarResponsive" style="margin-right: 15px">
+              <div class="collapse navbar-collapse" id="navbarResponsive" style="margin-right: 15px; font-weight: 300;">
                   <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                      <li class="nav-item"><a class="nav-link" href="/mealplan">Meal Plan</a></li>
-                      <li class="nav-item"><a class="nav-link" href="/recipe">Recipe</a></li>
-                      <li class="nav-item"><a class="nav-link" href="/ingredient">Ingredients Price</a></li>
-                      <li class="nav-item"><a class="nav-link" href="/analysis">Diet Analysis</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/mealplan">이번주 뭐 먹지?</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/recipe">레시피</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/ingredient">식재료 시세</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/analysis">식단 분석</a></li>
                   </ul>
               </div>
             </div>
@@ -164,6 +164,8 @@ export default {
 </script>
 <style>
 @import "@/css/styles.css";
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
 .navbtn-custom {
   color: #000000;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -187,6 +189,7 @@ export default {
 }
 .navbar-custom {
   height: 30px;
+  padding: 0% 6%;
 }
 .navbar-mobile{
   height: 85px;

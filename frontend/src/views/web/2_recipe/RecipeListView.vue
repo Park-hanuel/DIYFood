@@ -16,7 +16,7 @@
       <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4 search-box">
         <div class="input-group">
           <div class="input-group-prepend">
-            <button id="button-addon2" class="btn btn-link text-warning" @click="searchRecipe(keyword, 1)" disabled><img src="https://cdn-icons-png.flaticon.com/512/7847/7847425.png" width="25px"></button>
+            <button id="button-addon2" class="btn btn-link text-warning" @click="searchRecipe(keyword, 1)" disabled><img src="https://cdn-icons-png.flaticon.com/512/151/151773.png" width="25px"></button>
           </div>
           <input type="search" placeholder="음식명 또는 재료를 검색해주세요" aria-describedby="button-addon2" class="form-control border-0 bg-light" v-model="keyword">
           <button id="button-addon2" class="search-btn" @click="searchFood(keyword, 1)">음식</button>
@@ -40,7 +40,7 @@
             <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 1.7rem;">
               <img :src=contents.ATT_FILE_NO_MAIN width="100%" style="margin: -10%;">
             </div>
-            <div style="height: 7%;"><h6 style="text-align:center; margin-top: 10px;">{{contents.RCP_NM}}</h6></div>
+            <div style="height: 7%; margin-bottom: 5px;"><p style="text-align:center; margin: 10px"><b>{{contents.RCP_NM}}</b></p></div>
             <div class="word" style="height: 20%;"><span>재료 : {{contents.RCP_PARTS_DTLS}}</span></div>
             <div class="word" style="height: 20%;"><span>조리법 : {{contents.MANUAL01}}{{contents.MANUAL02}}{{contents.MANUAL03}}...</span></div>
           </div>

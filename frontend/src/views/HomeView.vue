@@ -9,7 +9,8 @@
           <div class="container">
               <div class="masthead-subheading">with DIY Food</div>
               <div class="masthead-heading text-uppercase">Make Your Day Healthier</div>
-              <a class="btn btn-primary btn-xl text-uppercase margin-space" href="#MealPlan">더 알아보기</a>
+              <a class="btn btn-primary btn-xl text-uppercase margin-space font-gg" href="/mealplan">식단 추천받기</a>
+              <a class="btn btn-primary btn-xl text-uppercase margin-space font-gg" href="/analysis">식단 등록하기</a>
           </div>
       </header>
       <HelloWorld></HelloWorld>
