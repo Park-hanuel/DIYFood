@@ -6,7 +6,7 @@
           <div id="side">
             <div style="margin-top: 30px; " id="head">
               <h1>
-                MEAL PLAN
+                이번주 뭐 먹지?
               </h1>
             </div>
             <div style="text-align: center;">

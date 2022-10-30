@@ -185,6 +185,14 @@ const routes = [
       )
   },
   {
+    path: '/analysis/m',
+    name: 'MobileAnalysisMain',
+    component: () =>
+      import(
+        /* webpackChunkName: "event", webpackPrefetch:true */ '../views/mobile/4_diet_analysis/mAnalysisMainView.vue'
+      )
+  },
+  {
     path: '/analysis/survey',
     name: 'AnalysisSurvey',
     component: () =>

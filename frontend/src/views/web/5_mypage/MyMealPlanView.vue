@@ -87,6 +87,7 @@ export default {
       try{
         const response = await this.$axios.get(`http://localhost:3000/user/recipelist?month=${this.month}`, { withCredentials: true })
         this.userRecipeList = response.data
+        console.log(response.data)
       }catch(err){
         Location.reload()
       }

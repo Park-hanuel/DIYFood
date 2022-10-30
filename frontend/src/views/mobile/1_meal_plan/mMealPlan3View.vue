@@ -8,7 +8,7 @@
           </div>
           <div class="mealplan-head-title-m">
             <h1>
-              MEAL PLAN
+              이번주 뭐 먹지?
             </h1>
             <h3>
               3. 새로운 식재료 선택

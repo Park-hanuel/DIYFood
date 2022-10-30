@@ -6,7 +6,7 @@
           </div>
           <div class="mealplan-head-title-m">
             <h1>
-              MEAL PLAN
+              이번주 뭐 먹지?
             </h1>
             <h3>
               5. 식단 계획 완성

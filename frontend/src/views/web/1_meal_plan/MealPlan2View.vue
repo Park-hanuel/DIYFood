@@ -6,7 +6,7 @@
           <div id="side">
             <div style="margin-top: 30px; " id="head">
               <h1>
-                MEAL PLAN
+                이번주 뭐 먹지?
               </h1>
             </div>
             <div style="text-align: center;">
@@ -41,8 +41,11 @@
               <input v-if="this.categoryCode !== '6'" type="button" class="btn btn-primary btn-lg btn-custom" value="수산물" @click="searchItem('6')">
               <input v-if="this.categoryCode === '6'" type="button" class="btn btn-clicked btn-lg btn-custom" value="수산물" @click="searchItem('6')">
             </div>
-            <div class="box-item">
-              <p><img src="@/assets/shopping-basket.png" width="20px" style="margin-bottom: 5px">  {{this.checkedItemName}}</p>
+            <div class="foodname-box mb-3">
+              <div style="font-size: 1.2rem">🥄 선택한 식재료</div>
+              <div v-for="(data, index) in checkedItemName" :key="index" class="foodname-card mt-2">
+                <span>{{data}}</span>
+              </div>
             </div>
             <table class="table table-light" style="vertical-align: middle;">
               <thead class="table-bordered">
@@ -103,7 +106,7 @@ export default {
       isLoading: false
     }
   },
-  setup () {},
+  watch: {},
   created () {
     this.getIngredientData()
     this.getUserExistList()
@@ -187,6 +190,7 @@ export default {
     margin-bottom: 20px;
     width: 12%;
     box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
+    font-size: 95%;
   }
   .btn-warning {
     color:black

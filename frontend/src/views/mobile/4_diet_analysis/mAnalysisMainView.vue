@@ -1,11 +1,11 @@
 <template>
-  <body id="page" style="text-align: center;">
+  <body id="page-m" style="text-align: center; margin: 30px 0px 100px;">
     <div>
-      <p style="font-size:4em; font-weight:500; line-height:70px;">
+      <p style="font-size:3em; font-weight:500; line-height:70px;">
         DIET ANALYSIS
       </p>
       <p style="font-size:1.5em; font-weight:400;">
-        식단을 분석하고 영양소 섭취 상태를 안내합니다.
+        식단을 분석하고<br>영양소 섭취 상태를 안내합니다.
       </p>
     </div>
     <div class="text-center">
@@ -59,7 +59,7 @@ export default {
     },
     goToRegisterFood () {
       if (this.loggedIn === true) {
-        location.href = '/user/registerfood'
+        location.href = '/user/registerfood/m'
       } else {
         alert('로그인이 필요한 기능입니다.')
         location.href = '/user/login'
@@ -67,7 +67,7 @@ export default {
     },
     goToAnalysis () {
       if (this.loggedIn === true) {
-        location.href = '/analysis/survey'
+        location.href = '/analysis/survey/m'
       } else {
         alert('로그인이 필요한 기능입니다.')
         location.href = '/user/login'
@@ -78,21 +78,21 @@ export default {
 </script>
 
 <style>
-body{background: #f3f3f3;}
+body{background: #f9f9f9;}
 #content-box{
-  width: 25%;
-  height: 400px;
+  width: 70%;
+  height: 300px;
   background-color:white;
-  margin: 1% 2%;
+  margin: 4%;
   border-radius: 20px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
-  padding-top: 30px;
+  padding-top: 20px;
   padding-bottom: 10px;
   display:inline-block;
   vertical-align:middle;
 }
 .img_style {
-  height: 60%;
+  height: 50%;
   text-align: center;
   margin: 10px;
   margin-top: 30px;

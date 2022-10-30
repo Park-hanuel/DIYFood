@@ -46,17 +46,17 @@
             <b>
               <span v-if="this.nutrientData.percentCarbohydrate > 50" style="color:orangered">줄이고</span>
               <span v-else style="color:dodgerblue">늘리고</span>
-            </b>,
+            </b>,<br>
             <b> 단백질</b> 섭취를
             <b>
               <span v-if="this.nutrientData.percentProtein > 30" style="color:orangered">줄이고</span>
               <span v-else style="color:dodgerblue">늘리고</span>
-            </b>,
+            </b>,<br>
             <b> 지방</b> 섭취는
             <b>
               <span v-if="this.nutrientData.percentFat > 20" style="color:orangered">줄이도록</span>
               <span v-else style="color:dodgerblue">늘리도록</span>
-            </b>
+            </b><br>
             노력해보세요!
           </p>
         </div>

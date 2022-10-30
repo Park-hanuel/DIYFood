@@ -6,7 +6,7 @@
         <div id="side">
           <div style="margin-top: 30px; " id="head">
             <h1>
-              MEAL PLAN
+              이번주 뭐 먹지?
             </h1>
           </div>
           <div style="text-align: center;">
@@ -202,6 +202,7 @@ export default {
     margin-bottom: 20px;
     width: 12%;
     box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
+    font-size: 95%;
   }
   .card-custom {
     background-color: #f3f3f3;

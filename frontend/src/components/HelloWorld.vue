@@ -15,7 +15,7 @@
                             <img src="https://cdn-icons-png.flaticon.com/512/3476/3476015.png" alt="MealPlan" style="width: 120px; height: 120px;">
                         </a>
                     </span>
-                    <h4 class="my-3">식단 계획</h4>
+                    <h4 class="my-3">이번주 뭐 먹지?</h4>
                     <p class="text-muted">설정된 예산에 맞춰 건강하고 신선한 식단을 추천합니다.</p>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                                 <img src="https://cdn-icons-png.flaticon.com/512/3514/3514242.png" alt="ingredient_price" style="width: 120px; height: 120px;">
                             </a>
                         </span>
-                        <h4 class="my-3">식재료 가격 정보</h4>
+                        <h4 class="my-3">식재료 시세</h4>
                         <p class="text-muted">오늘의 농축수산물 시장 가격을 안내합니다.</p>
                     </div>
                 </div>
@@ -103,7 +103,7 @@
                             </a>
                         </span>
                         <h4 class="my-3">식단 분석</h4>
-                        <p class="text-muted">회원님의 식단 계획 데이터를 기반으로 필수 영양소 섭취를 비교·분석합니다.</p>
+                        <p class="text-muted">회원님의 식단 데이터를 기반으로 필수 영양소 섭취를 비교·분석합니다.</p>
                     </div>
                 </div>
                 <div class="row">

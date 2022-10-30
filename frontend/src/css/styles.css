@@ -1,5 +1,8 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@import url('https://webfontworld.github.io/gyeonggi/GyeonggiTitle.css');
+@import url('https://webfontworld.github.io/gimpo/GimpoBatang.css');
+
 /*!
 * Start Bootstrap - Agency v7.0.11 (https://startbootstrap.com/theme/agency)
 * Copyright 2013-2022 Start Bootstrap
@@ -105,8 +108,8 @@ hr:not([size]) {
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-top: 0;
   margin-bottom: 0.5rem;
-  font-family: "Montserrat", 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-weight: 700;
+  font-family: "GyeonggiTitle", "Montserrat", 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 300;
   line-height: 1.2;
 }
 
@@ -11379,8 +11382,9 @@ p {
   height: 1.5rem;
 }
 #mainNav .navbar-nav .nav-item .nav-link {
-  font-family: "Montserrat", 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 0.95rem;
+  font-family: 'GyeonggiTitle', "Montserrat", 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1.3rem;
+  font-weight: 300;
   color: #fff;
   letter-spacing: 0.0625em;
 }
@@ -12216,4 +12220,25 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   background-color: #f3f3f3;
   border-radius: 10px;
   padding: 0 10px;
+}
+.foodname-box {
+  display:inline-block; 
+  width: 100%; 
+  border: 1px solid #48a238; 
+  padding: 10px 15px; 
+  border-radius: 10px;
+}
+.foodname-card {
+  font-size: 1.1rem;
+  background-color: #f3f3f3;
+  border-radius: 0px;
+  width: fit-content;
+  float:left;
+  margin: 1px 4px; 
+  padding: 2px 5px;
+  border-radius: 5px;
+}
+.font-gg {
+  font-family: 'GyeonggiTitle', "Montserrat", 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 300;
 }
