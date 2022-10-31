@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
 
-module.exports = class IiveIngredient extends Sequelize.Model {
-  static init(sequelize){
+module.exports = class LiveIngredient extends Sequelize.Model {
+  static init(sequelize) {
     return super.init({
-      itemCode : {
+      itemCode: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
@@ -11,33 +11,34 @@ module.exports = class IiveIngredient extends Sequelize.Model {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      itemName : {
+      itemName: {
         type: Sequelize.STRING(20),
         allowNull: false
       },
-      detailItemName : {
+      detailItemName: {
         type: Sequelize.STRING(20),
         allowNull: false
       },
-      rank : {
+      rank: {
         type: Sequelize.STRING(20),
         allowNull: false
       },
-      unit : {
+      unit: {
         type: Sequelize.STRING(20),
         allowNull: false
       },
-      price : {
+      price: {
         type: Sequelize.STRING(50),
         allowNull: false
       },
-    },{
+    }, {
       sequelize,
       timestamps: false,
-      modelName : 'LiveIngredient',
-      charset:'utf8',
+      modelName: 'LiveIngredient',
+      charset: 'utf8',
       collate: 'utf8_general_ci'
-    } );
-}
-  static associate(db) {}
+    });
+  }
+  static associate(db) {
+  }
 };

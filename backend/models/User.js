@@ -32,5 +32,6 @@ module.exports = class User extends Sequelize.Model {
     db.User.hasMany(db.UserIngredient, {foreignKey :'userId', sourceKey:'id'});
     db.User.hasMany(db.UserRecipe, {foreignKey :'userId', sourceKey:'id'});
     db.User.hasMany(db.UserInfo, {foreignKey :'userId', sourceKey:'id'});
+    db.User.hasMany(db.UserMeal, {foreignKey :'userId', sourceKey:'id'});
   }
 };
