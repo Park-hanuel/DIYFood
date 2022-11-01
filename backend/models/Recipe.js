@@ -3,10 +3,6 @@ const Sequelize = require('sequelize');
 module.exports = class Recipe extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
-    //   foodCode: { 
-    //     type: Sequelize.INTEGER,
-    //     allowNull: false,
-    //   },
       foodName: {
         type: Sequelize.STRING(100),
         allowNull: false,
