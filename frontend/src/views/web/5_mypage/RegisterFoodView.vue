@@ -252,7 +252,6 @@ body{
   padding: 0px 30px;
   font-size: 1.3rem;
   font-weight: 500;
-  vertical-align: center;
 }
 .w-30 {
   width: 25%;

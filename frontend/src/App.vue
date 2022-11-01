@@ -16,7 +16,7 @@
         <!-- 모바일 메뉴 -->
         <div v-if="mobile">
           <!-- 로그인 / 로그아웃 / 회원가입 / 마이페이지 -->
-          <nav class="navbar-custom fixed-custom" style="background-color: #aac458;">
+          <nav class="navbar-custom-m fixed-custom" style="background-color: #aac458;">
             <div>
               <div style="float: left;">
                 <button class="btn navbtn-custom" type="button" onclick="location.href='/'">DIY FOOD</button>
@@ -190,6 +190,9 @@ export default {
 .navbar-custom {
   height: 30px;
   padding: 0% 6%;
+}
+.navbar-custom-m {
+  height: 30px;
 }
 .navbar-mobile{
   height: 85px;

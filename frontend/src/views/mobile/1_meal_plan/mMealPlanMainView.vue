@@ -1,6 +1,6 @@
 <template>
   <body id="page-m" style="text-align: center;">
-    <div style="margin-top: 40px; margin-bottom: 30px;">
+    <div style="margin-top: 30px;">
       <p style="font-size:3em; font-weight:500; line-height:70px;">
         MEAL PLAN
       </p>
@@ -10,20 +10,20 @@
     </div>
     <div style="display: inline-block;">
       <section class="content-box-m">
-        <img src="https://cdn-icons-png.flaticon.com/512/3476/3476015.png" alt="" class="bannercard-img-style">
-        <div style="float: right; width: 72%; height: 100%; padding-top: 6%;">
+        <div class="bannercard-div">
+          <img src="https://cdn-icons-png.flaticon.com/512/3476/3476015.png" alt="" class="bannercard-img-style">
           <span class="bannercard-text-style">기간, 예산, 재료 설정</span>
         </div>
       </section>
       <section class="content-box-m">
-        <img src="https://cdn-icons-png.flaticon.com/512/3565/3565407.png" alt="" class="bannercard-img-style">
-        <div style="float: right; width: 72%; height: 100%; padding-top: 6%;">
+        <div class="bannercard-div">
+          <img src="https://cdn-icons-png.flaticon.com/512/3565/3565407.png" alt="" class="bannercard-img-style">
           <span class="bannercard-text-style">추천 레시피 선택</span>
         </div>
       </section>
       <section class="content-box-m">
-        <img src="https://cdn-icons-png.flaticon.com/512/5223/5223850.png" alt="" class="bannercard-img-style">
-        <div style="float: right; width: 72%; height: 100%; padding-top: 6%;">
+        <div class="bannercard-div">
+          <img src="https://cdn-icons-png.flaticon.com/512/5223/5223850.png" alt="" class="bannercard-img-style">
           <span class="bannercard-text-style">식단 계획 완성</span>
         </div>
       </section>
@@ -90,6 +90,7 @@ body{background: #f9f9f9;}
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   padding:10px;
   text-align: left;
+  vertical-align: middle;
 }
 .img_style {
   width: 70%;

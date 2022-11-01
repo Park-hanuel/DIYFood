@@ -75,11 +75,7 @@
             </label>
           </div>
           <div class="agreement-box">
-            <p>수집된 개인정보는 식단 분석을 위한 1일 권장 영양소 섭취량 계산에 사용됩니다.</p>
-            <input class="form-check-input" type="checkbox" id="agreement" required/>
-            <label class="form-check-label" style="margin-left: 10px" for="agreement" required>
-              <b>개인정보 수집 및 이용 안내</b> 동의
-            </label>
+            <p>수집된 <b>개인정보</b>는 식단 분석을 위한<br><b>1일 권장 영양소 섭취량 계산</b>에 사용됩니다.</p>
           </div>
         </div>
         <div style="text-align:center;" >
@@ -151,7 +147,7 @@ export default {
     async submitForm () {
       try {
         await this.$axios.put(`http://localhost:3000/dietanalysis/analysis`, this.userdata, { withCredentials: true })
-        location.href = '/analysis/result'
+        location.href = '/analysis/result/m'
       } catch (err) {
         alert('다시 시도해주세요')
       }

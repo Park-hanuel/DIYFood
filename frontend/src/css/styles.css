@@ -12190,20 +12190,22 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
   border: none;
   background-color: transparent;
 }
+.bannercard-div {
+  height: 100%;
+}
 .bannercard-img-style {
   height: 80%;
   margin: 2.5%;
-  margin-left: 15px;
 }
 .bannercard-text-style {
   color: rgb(50, 50, 50);
-  font-size: 1.5rem;
-  margin-left: 0px;
+  font-size: 1.2rem;
+  margin-left: 20px;
   font-weight: 400;
 }
 .bannercard-text-style2 {
   color: #5f5f5f;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 .inputbox-number-m {
   width: 50px;

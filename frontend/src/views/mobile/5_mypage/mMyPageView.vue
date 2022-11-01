@@ -9,32 +9,32 @@
     <div>
       <a href="/user/info/m">
         <section class="content-box-m">
-          <img src="https://cdn-icons-png.flaticon.com/512/6082/6082867.png" alt="" class="bannercard-img-style">
-          <div style="float: right; width: 72%; height: 100%; padding-top: 6%;">
+          <div class="bannercard-div">
+            <img src="https://cdn-icons-png.flaticon.com/512/6082/6082867.png" alt="" class="bannercard-img-style">
             <span class="bannercard-text-style">회원정보 수정</span>
           </div>
         </section>
       </a>
       <a href="/user/mymealplan/m">
         <section class="content-box-m">
-          <img src="https://cdn-icons-png.flaticon.com/512/5223/5223850.png" alt="" class="bannercard-img-style">
-          <div style="float: right; width: 72%; height: 100%; padding-top: 6%;">
+          <div class="bannercard-div">
+            <img src="https://cdn-icons-png.flaticon.com/512/5223/5223850.png" alt="" class="bannercard-img-style">
             <span class="bannercard-text-style">나의 식단 계획</span>
           </div>
         </section>
       </a>
       <a href="/user/registerfood/m">
         <section class="content-box-m">
-          <img src="https://cdn-icons-png.flaticon.com/512/2515/2515263.png" alt="" class="bannercard-img-style">
-          <div style="float: right; width: 72%; height: 100%; padding-top: 6%;">
+          <div class="bannercard-div">
+            <img src="https://cdn-icons-png.flaticon.com/512/2515/2515263.png" alt="" class="bannercard-img-style">
             <span class="bannercard-text-style">나의 식단 등록</span>
           </div>
         </section>
       </a>
       <a href="/analysis/survey/m">
         <section class="content-box-m">
-          <img src="https://cdn-icons-png.flaticon.com/512/1162/1162489.png" alt="" class="bannercard-img-style">
-          <div style="float: right; width: 72%; height: 100%; padding-top: 6%;">
+          <div class="bannercard-div">
+            <img src="https://cdn-icons-png.flaticon.com/512/1162/1162489.png" alt="" class="bannercard-img-style">
             <span class="bannercard-text-style">나의 식단 분석</span>
           </div>
         </section>
@@ -85,7 +85,6 @@ export default {
 body{background: #f9f9f9;}
 .content-box-m{
   display: inline-block;
-  float: left;
   width: 90%;
   height: 100px;
   background-color:white;
@@ -100,9 +99,8 @@ body{background: #f9f9f9;}
 }
 .content-box-m2{
   display: inline-block;
-  float: left;
   width: 40%;
-  height: 55px;
+  height: 50px;
   background-color:white;
   margin-left: 30%;
   margin-right: 30%;
@@ -110,11 +108,8 @@ body{background: #f9f9f9;}
   margin-bottom: 130px;
   border-radius: 20px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
-  padding:10px;
+  padding: 10px;
   text-align: center;
-  align-items: center;
-}
-.bannercard-text-style {
-  margin-left: 20%
+  vertical-align: middle;
 }
 </style>

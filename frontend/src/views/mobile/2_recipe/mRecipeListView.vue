@@ -37,7 +37,7 @@
             <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 5%;">
               <img :src=contents.ATT_FILE_NO_MAIN width="100%" style="margin: -10%;">
             </div>
-            <div style="height: 7%;"><h6 style="text-align:center; margin-top: 10px;">{{contents.RCP_NM}}</h6></div>
+            <div style="height: 7%; margin-bottom: 5px;"><p style="text-align:center; margin: 10px"><b>{{contents.RCP_NM}}</b></p></div>
             <div class="word" style="height: 20%;"><span>재료 : {{contents.RCP_PARTS_DTLS}}</span></div>
             <div class="word" style="height: 20%;"><span>조리법 : {{contents.MANUAL01}}{{contents.MANUAL02}}{{contents.MANUAL03}}...</span></div>
           </div>
