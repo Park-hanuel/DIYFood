@@ -17,32 +17,42 @@ const food = {
         select foodCode, foodName, manufacturer, foodEnergy, foodCarbohydrate, foodProtein, foodFat,foodNatrium
         from Foods
         where foodName like '%${foodName}%'
-        order by foodCode
         union
         select foodCode, foodName, null manufacturer, foodEnergy, foodCarbohydrate, foodProtein, foodFat,foodNatrium
         from RecipeNutrients
-        where foodName like '%${foodName}%
-        order by foodCode';
+        where foodName like '%${foodName}%'
+        order by foodCode;
         `;
 
         connection.query(query, (error, results) => {
             if (error) {
               return res.status(404).send(error);
             }
-            res.send(results);
+            const pageNum = Number(req.query.pageNum) || 1;
+            const contentSize = 20;
+            const pnSize = 5; // NOTE: 페이지네이션 개수 설정.
+            const skipSize = (pageNum - 1) * contentSize;
+
+            const totalCount = results.length;
+            const pnTotal = Math.ceil(totalCount / contentSize);
+            const pnStart = (Math.ceil(pageNum / pnSize) - 1) * pnSize + 1; // NOTE: 현재 페이지의 페이지네이션 시작 번호
+            let pnEnd = pnStart + pnSize - 1; // NOTE: 현재 페이지의 페이지네이션 끝 번호.
+            const pagingFoods = results.slice(
+              skipSize,
+              skipSize + contentSize
+            );
+
+            const result = {
+              pageNum,
+              pnStart,
+              pnEnd,
+              pnTotal,
+              contents: pagingFoods,
+            };
+
+            res.send(result);
         });
 
-        // return Value : Array of 
-        // {
-        //     "foodcode": "D000378",
-        //     "foodname": "잣죽",
-        //     "manufacturer" : null,
-        //     "foodenergy": 874,
-        //     "foodcarbohydrate": 155,
-        //     "foodprotein": 19,
-        //     "foodfat": 20,
-        //     "foodnatrium": 879
-        // }
     }, 
 
     //사용자 리스트 조회
@@ -64,17 +74,6 @@ const food = {
     //사용자 리스트 저장 또는 업데이트
     setUserFoodList :async (req, res) => {
         const userId = res.locals.user.id;
-       
-        //front에서 받을 값
-        // userMeal []
-        //     date : date,
-        //     mealTime : mealTime,
-        //     foods : [{
-        //         foodCode : foodCode,
-        //         servingSize : servingSize
-        //     },
-        //     ..]
-        // }
         const userMeal = req.body.userMeal;
         
         //삭제 후 새로 저장
@@ -90,7 +89,7 @@ const food = {
         for(food of userMeal.food){
             const selectCode = 0;
             if(isNaN(food.foodCode.charAt(0))){
-                select = 1;
+                selectCode = 1;
             }
             await models.Usermeal.create({
                 foodCode : foodCode,
@@ -104,7 +103,7 @@ const food = {
     },
 
     //식단 일괄 삭제
-    deleteFoodList : async (req, res) => {
+    deleteUserFoodList : async (req, res) => {
         const userId = res.locals.user.id;
         const mealTime = req.body.mealTime;
         const date = req.body.date;
@@ -115,6 +114,7 @@ const food = {
                 date : date
             }}
         );
+        res.send.status(200);
     }    
 };
 

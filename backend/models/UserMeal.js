@@ -12,6 +12,7 @@ module.exports = class UserMeal extends Sequelize.Model {
           type : Sequelize.STRING(50),
           allowNull: false
         },
+        // 아침 : 0 / 점심 : 1 / 저녁 : 2 / 간식 : 3
         mealTime: {
           type: Sequelize.STRING(50),
           allowNull: false,

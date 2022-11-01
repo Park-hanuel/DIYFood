@@ -7,7 +7,7 @@ router.get("/list", FoodController.getFoodList);
 
 router.get("/userlist", FoodController.getUserFoodList);
 router.post("/userlist", FoodController.setUserFoodList);
-router.delete("/userlist", FoodController.deleteuserFoodList);
+router.delete("/userlist", FoodController.deleteUserFoodList);
 
 
 module.exports = router;
