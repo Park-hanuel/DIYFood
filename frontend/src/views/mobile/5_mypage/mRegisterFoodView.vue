@@ -49,7 +49,7 @@
         <div class="text-center mt-4">
           <div v-if="selectedTime != ''">
             <!-- 검색창 -->
-            <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4 search-box w-70 m-15 mt-1">
+            <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4 search-box w-80 m-10-all mt-1">
               <div class="input-group">
                 <div class="input-group-prepend">
                   <button id="button-addon2" class="btn btn-link text-warning" @click="searchRecipe(keyword, 1)" disabled><img src="https://cdn-icons-png.flaticon.com/512/151/151773.png" width="25px"></button>
@@ -61,15 +61,10 @@
             <!-- 검색 음식 리스트 -->
             <div class="table-div">
               <table class="table" style="vertical-align: middle;">
-                <thead style="position: sticky; top: 0px;background-color: #f0f0f0 !important;">
+                <thead style="position: sticky; top: 0px; background-color: #f0f0f0 !important;">
                   <tr>
                     <th scope="col" style="width: 20%">품목명</th>
                     <th scope="col" style="width: 20%">제조사</th>
-                    <th scope="col" style="width: 10%">칼로리</th>
-                    <th scope="col" style="width: 10%">탄수화물</th>
-                    <th scope="col" style="width: 10%">단백질</th>
-                    <th scope="col" style="width: 10%">지방</th>
-                    <th scope="col" style="width: 10%">나트륨</th>
                     <th scope="col" style="width: 10%">선택</th>
                   </tr>
                 </thead>
@@ -77,11 +72,114 @@
                   <tr>
                     <td>하하</td>
                     <td>ㅁㄴ이</td>
-                    <td>ㅁㄴㅇ</td>
-                    <td>123</td>
-                    <td>234</td>
-                    <td>123</td>
-                    <td>123</td>
+                    <td>
+                      <label>
+                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
+                      </label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>하하</td>
+                    <td>ㅁㄴ이</td>
+                    <td>
+                      <label>
+                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
+                      </label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>하하</td>
+                    <td>ㅁㄴ이</td>
+                    <td>
+                      <label>
+                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
+                      </label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>하하</td>
+                    <td>ㅁㄴ이</td>
+                    <td>
+                      <label>
+                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
+                      </label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>하하</td>
+                    <td>ㅁㄴ이</td>
+                    <td>
+                      <label>
+                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
+                      </label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>하하</td>
+                    <td>ㅁㄴ이</td>
+                    <td>
+                      <label>
+                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
+                      </label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>하하</td>
+                    <td>ㅁㄴ이</td>
+                    <td>
+                      <label>
+                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
+                      </label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>하하</td>
+                    <td>ㅁㄴ이</td>
+                    <td>
+                      <label>
+                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
+                      </label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>하하</td>
+                    <td>ㅁㄴ이</td>
+                    <td>
+                      <label>
+                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
+                      </label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>하하</td>
+                    <td>ㅁㄴ이</td>
+                    <td>
+                      <label>
+                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
+                      </label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>하하</td>
+                    <td>ㅁㄴ이</td>
+                    <td>
+                      <label>
+                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
+                      </label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>하하</td>
+                    <td>ㅁㄴ이</td>
+                    <td>
+                      <label>
+                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
+                      </label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>하하</td>
+                    <td>ㅁㄴ이</td>
                     <td>
                       <label>
                         <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
@@ -216,7 +314,8 @@ body{
   background: #f3f3f3;
   padding-top:10px;
   padding-left: 3%;
-  padding-right: 3%;}
+  padding-right: 3%;
+}
 .content-box{
   display: inline-block;
   width:100%;
@@ -240,8 +339,8 @@ body{
 .w-80 {
   width: 80%;
 }
-.m-15 {
-  margin: 0% 15%
+.m-10-all {
+  margin: 10%
 }
 .m-10 {
   margin: 0% 10%
@@ -274,10 +373,12 @@ body{
   font-size: 0.9rem;
 }
 .table-div {
-  width: 100%;
-  height:420px;
+  width: 90%;
+  height:400px;
+  margin: 5%;
   overflow:auto;
   border-radius: 10px;
+  border: 3px solid #f0f0f0;
 }
 .foodname-card {
   margin: 3px 3px; 
@@ -288,8 +389,14 @@ body{
 .date-box {
   border: 3px solid #f0f0f0;
   width: 80%;
-  margin: 3% 10% 7%;
+  margin: 5% 10% 5%;
   padding: 5px 0px;
   border-radius: 100px;
+}
+.next-button {
+  margin-block: none;
+}
+p {
+  margin-bottom: 0rem;
 }
 </style>
