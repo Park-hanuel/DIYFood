@@ -62,7 +62,7 @@ export default {
         location.href = '/user/registerfood/m'
       } else {
         alert('로그인이 필요한 기능입니다.')
-        location.href = '/user/login'
+        location.href = '/user/login/m'
       }
     },
     goToAnalysis () {
@@ -70,7 +70,7 @@ export default {
         location.href = '/analysis/survey/m'
       } else {
         alert('로그인이 필요한 기능입니다.')
-        location.href = '/user/login'
+        location.href = '/user/login/m'
       }
     }
   }
