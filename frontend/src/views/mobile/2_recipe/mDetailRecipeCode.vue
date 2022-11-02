@@ -126,6 +126,7 @@ body{
   border-radius: 30px;
   display: inline-block;
   text-align: left;
+  border: 2px solid #d0d0d0;
 }
 .recipe-text {
   padding: 10px;

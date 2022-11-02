@@ -1,10 +1,10 @@
 <template>
-  <body id="page-m" style="text-align: center; margin: 30px 0px 100px;">
+  <body id="page-m" style="text-align: center; margin: 5px 0px 100px;">
     <div>
       <p style="font-size:3em; font-weight:500; line-height:70px;">
         DIET ANALYSIS
       </p>
-      <p style="font-size:1.5em; font-weight:400;">
+      <p style="font-size:1.2em; font-weight:400;">
         식단을 분석하고<br>영양소 섭취 상태를 안내합니다.
       </p>
     </div>

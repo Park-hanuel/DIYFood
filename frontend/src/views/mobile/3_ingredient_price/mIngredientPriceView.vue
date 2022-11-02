@@ -1,7 +1,7 @@
 <template>
   <body id="page-m">
     <div>
-      <span style="font-size:2em; font-weight:500; line-height:70px;">
+      <span style="font-size:2.1em; font-weight:500; line-height:70px;">
         INGREDIENT PRICE
       </span>
     </div>

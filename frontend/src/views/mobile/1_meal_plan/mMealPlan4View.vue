@@ -19,7 +19,7 @@
         <section id="content-m">
         <div style="text-align:center;">
           <h1>레시피 선택</h1>
-          <p>선택하신 재료를 기준으로 레시피들을 추천합니다.
+          <p>선택 재료를 기준으로 레시피들을 추천합니다.
             <br>사진을 클릭하면 해당 레시피가 열립니다.
           </p>
         </div>
@@ -43,8 +43,11 @@
           <input v-if="this.categoryCode !== 4" type="button" class="btn btn-primary btn-md btn-custom" value="기타" @click="getRecipeData(date_start, 4, 0)">
           <input v-if="this.categoryCode === 4" type="button" class="btn btn-primary btn-md btn-custom" value="기타" @click="getRecipeData(date_start, 4, 0)">
         </div>
-        <div class="box-item-custom" style="text-align: center;">
-          <p><img src="https://cdn-icons-png.flaticon.com/128/308/308556.png" width="20px" style="margin-bottom:10px">  {{this.checkedItemName}}</p>
+        <div class="foodname-box mb-3 mt-3">
+          <div style="font-size: 1.2rem">🥄 선택한 레시피</div>
+          <div v-for="(data, index) in checkedItemName" :key="index" class="foodname-card mt-2">
+            <span>{{data}}</span>
+          </div>
         </div>
         <div style="width:100%">
           <!-- Loading -->
@@ -59,7 +62,7 @@
           <!-- Recipe Card -->
           <div v-for="(contents, index) in recipeList" :key="index">
             <div name="card" class="card-custom">
-              <a :href="`/recipe/foodcode/${contents.foodCode}`" target="_blank">
+              <a :href="`/recipe/foodcode/${contents.foodCode}/m`" target="_blank">
                 <div class="cropped" style="text-align:center; width: 100%; height: 50%; overflow: hidden; border-radius: 10px;">
                   <img :src=contents.foodImage width="100%" style="margin: -25%;" onerror="this.src='https://ifh.cc/g/RXYY1z.png'">
                 </div>
@@ -78,31 +81,31 @@
           </div>
           <!-- 페이지네이션 -->
           <div v-if="this.isLoading === false" class="pagination-wrapper">
-            <div class="pagination">
-              <button v-if="pnStart > 1" class="btn prev page-numbers" @click="getRecipeData(date_start, categoryCode, pnStart - 1)">prev</button>
-              <button v-if="pnStart = 1" class="btn prev page-numbers" disabled>prev</button>
+            <div class="pagination-m">
+              <button v-if="pnStart > 1" class="btn prev page-numbers-m" @click="getRecipeData(date_start, categoryCode, pnStart - 1)">prev</button>
+              <button v-if="pnStart = 1" class="btn prev page-numbers-m" disabled>prev</button>
 
-              <button v-if="this.pageNum === this.pnStart" aria-current="page" class="btn page-numbers current">{{pnStart}}</button>
-              <button v-if="this.pageNum !== this.pnStart" class="btn page-numbers" @click="getRecipeData(date_start, categoryCode, pnStart)">{{pnStart}}</button>
+              <button v-if="this.pageNum === this.pnStart" aria-current="page" class="btn page-numbers-m current">{{pnStart}}</button>
+              <button v-if="this.pageNum !== this.pnStart" class="btn page-numbers-m" @click="getRecipeData(date_start, categoryCode, pnStart)">{{pnStart}}</button>
 
-              <button v-if="this.pageNum === this.pnStart + 1" aria-current="page" class="btn page-numbers current">{{pnStart + 1}}</button>
-              <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 <= pnTotal" class="btn page-numbers" @click="getRecipeData(date_start, categoryCode, pnStart + 1)">{{pnStart + 1}}</button>
-              <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 > pnTotal" class="btn page-numbers" disabled>{{pnStart + 1}}</button>
+              <button v-if="this.pageNum === this.pnStart + 1" aria-current="page" class="btn page-numbers-m current">{{pnStart + 1}}</button>
+              <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 <= pnTotal" class="btn page-numbers-m" @click="getRecipeData(date_start, categoryCode, pnStart + 1)">{{pnStart + 1}}</button>
+              <button v-if="this.pageNum !== this.pnStart + 1 && this.pnStart + 1 > pnTotal" class="btn page-numbers-m" disabled>{{pnStart + 1}}</button>
 
-              <button v-if="this.pageNum === this.pnStart + 2" aria-current="page" class="btn page-numbers current">{{pnStart + 2}}</button>
-              <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 <= pnTotal" class="btn page-numbers" @click="getRecipeData(date_start, categoryCode, pnStart + 2)">{{pnStart + 2}}</button>
-              <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 > pnTotal" class="btn page-numbers" disabled>{{pnStart + 2}}</button>
+              <button v-if="this.pageNum === this.pnStart + 2" aria-current="page" class="btn page-numbers-m current">{{pnStart + 2}}</button>
+              <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 <= pnTotal" class="btn page-numbers-m" @click="getRecipeData(date_start, categoryCode, pnStart + 2)">{{pnStart + 2}}</button>
+              <button v-if="this.pageNum !== this.pnStart + 2 && this.pnStart + 2 > pnTotal" class="btn page-numbers-m" disabled>{{pnStart + 2}}</button>
 
-              <button v-if="this.pageNum === this.pnStart + 3" aria-current="page" class="btn page-numbers current">{{pnStart + 3}}</button>
-              <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 <= pnTotal" class="btn page-numbers" @click="getRecipeData(date_start, categoryCode, pnStart + 3)">{{pnStart + 3}}</button>
-              <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 > pnTotal" class="btn page-numbers" disabled>{{pnStart + 3}}</button>
+              <button v-if="this.pageNum === this.pnStart + 3" aria-current="page" class="btn page-numbers-m current">{{pnStart + 3}}</button>
+              <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 <= pnTotal" class="btn page-numbers-m" @click="getRecipeData(date_start, categoryCode, pnStart + 3)">{{pnStart + 3}}</button>
+              <button v-if="this.pageNum !== this.pnStart + 3 && this.pnStart + 3 > pnTotal" class="btn page-numbers-m" disabled>{{pnStart + 3}}</button>
 
-              <button v-if="this.pageNum === this.pnEnd" aria-current="page" class="btn page-numbers current">{{pnEnd}}</button>
-              <button v-if="this.pageNum !== this.pnEnd && this.pnEnd <= pnTotal" class="btn page-numbers" @click="getRecipeData(date_start, categoryCode, pnEnd)">{{pnEnd}}</button>
-              <button v-if="this.pageNum !== this.pnEnd && this.pnEnd > pnTotal" class="btn page-numbers" disabled>{{pnEnd}}</button>
+              <button v-if="this.pageNum === this.pnEnd" aria-current="page" class="btn page-numbers-m current">{{pnEnd}}</button>
+              <button v-if="this.pageNum !== this.pnEnd && this.pnEnd <= pnTotal" class="btn page-numbers-m" @click="getRecipeData(date_start, categoryCode, pnEnd)">{{pnEnd}}</button>
+              <button v-if="this.pageNum !== this.pnEnd && this.pnEnd > pnTotal" class="btn page-numbers-m" disabled>{{pnEnd}}</button>
 
-              <button v-if="pnEnd < pnTotal" class="btn next page-numbers" @click="getRecipeData(date_start, categoryCode, pnEnd + 1)">next</button>
-              <button v-if="pnEnd > pnTotal" class="btn next page-numbers" disabled>next</button>
+              <button v-if="pnEnd < pnTotal" class="btn next page-numbers-m" @click="getRecipeData(date_start, categoryCode, pnEnd + 1)">next</button>
+              <button v-if="pnEnd > pnTotal" class="btn next page-numbers-m" disabled>next</button>
             </div>
           </div>
         </div>
@@ -181,7 +184,7 @@ export default {
         alert('다시 확인해주세요.')
       }
       localStorage.setItem('recipe', this.checkedItemName)
-      location.href = '/mealplan/step5'
+      location.href = '/mealplan/step5/m'
     },
     upClick () {
       window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -205,12 +208,12 @@ export default {
   }
   .card-custom {
     background-color: #f3f3f3;
-    width: 30%;
+    width: 100%;
     height: 350px;
     border-radius: 1rem;
     padding: 10px;
     float: left;
-    margin: 1.6%;
+    margin: 2% 0%;
   }
   .box-item-custom {
     width: 95%;
@@ -238,5 +241,8 @@ export default {
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
+  }
+  .foodname-card {
+    font-size: 1rem !important;
   }
 </style>

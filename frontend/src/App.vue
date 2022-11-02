@@ -61,7 +61,7 @@
                 <li class="navbtn-mobile" style="float:right;">
                   <a class="navbtn-mlink" href="/ingredient/m">
                     <img src="https://cdn-icons-png.flaticon.com/512/6978/6978688.png" alt="" width="45%;" style="filter: invert(100%);">
-                    <div><span style="font-size: 0.8rem;">식재료 가격</span></div>
+                    <div><span style="font-size: 0.8rem;">식재료 시세</span></div>
                   </a>
                 </li>
               </ul>

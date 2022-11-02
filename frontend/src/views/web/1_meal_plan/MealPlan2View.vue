@@ -106,7 +106,6 @@ export default {
       isLoading: false
     }
   },
-  watch: {},
   created () {
     this.getIngredientData()
     this.getUserExistList()
@@ -117,7 +116,7 @@ export default {
           this.checkedItemName.push(this.allItemList[i].itemName)
         }
       }
-    }, 1000)
+    }, 1500)
   },
   mounted () {},
   unmounted () {},

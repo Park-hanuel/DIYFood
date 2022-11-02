@@ -16,7 +16,7 @@
         </div>
       </div>
       <div>
-        <div style="width:20%; margin: 1% 40%;">
+        <div style="width:30%; margin: 1% 35%;">
           <select name="date" v-model="month" class="selectbox-m w-30" @change="getSundayDate()">
             <option value="" disabled>Month</option>
             <option value="1">1월</option>
