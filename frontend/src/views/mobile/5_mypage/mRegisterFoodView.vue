@@ -47,9 +47,9 @@
 
         </div>
         <div class="text-center mt-4">
-          <div v-if="selectedTime != ''">
+          <div v-if="selectedTime != ''" >
             <!-- 검색창 -->
-            <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4 search-box w-80 m-10-all mt-1">
+            <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4 search-box w-90 m-5-all mt-1">
               <div class="input-group">
                 <div class="input-group-prepend">
                   <button id="button-addon2" class="btn btn-link text-warning" @click="searchRecipe(keyword, 1)" disabled><img src="https://cdn-icons-png.flaticon.com/512/151/151773.png" width="25px"></button>
@@ -69,114 +69,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>하하</td>
-                    <td>ㅁㄴ이</td>
-                    <td>
-                      <label>
-                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
-                      </label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>하하</td>
-                    <td>ㅁㄴ이</td>
-                    <td>
-                      <label>
-                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
-                      </label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>하하</td>
-                    <td>ㅁㄴ이</td>
-                    <td>
-                      <label>
-                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
-                      </label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>하하</td>
-                    <td>ㅁㄴ이</td>
-                    <td>
-                      <label>
-                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
-                      </label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>하하</td>
-                    <td>ㅁㄴ이</td>
-                    <td>
-                      <label>
-                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
-                      </label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>하하</td>
-                    <td>ㅁㄴ이</td>
-                    <td>
-                      <label>
-                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
-                      </label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>하하</td>
-                    <td>ㅁㄴ이</td>
-                    <td>
-                      <label>
-                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
-                      </label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>하하</td>
-                    <td>ㅁㄴ이</td>
-                    <td>
-                      <label>
-                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
-                      </label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>하하</td>
-                    <td>ㅁㄴ이</td>
-                    <td>
-                      <label>
-                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
-                      </label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>하하</td>
-                    <td>ㅁㄴ이</td>
-                    <td>
-                      <label>
-                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
-                      </label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>하하</td>
-                    <td>ㅁㄴ이</td>
-                    <td>
-                      <label>
-                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
-                      </label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>하하</td>
-                    <td>ㅁㄴ이</td>
-                    <td>
-                      <label>
-                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
-                      </label>
-                    </td>
-                  </tr>
                   <tr>
                     <td>하하</td>
                     <td>ㅁㄴ이</td>
@@ -339,8 +231,14 @@ body{
 .w-80 {
   width: 80%;
 }
+.w-90 {
+  width: 90%;
+}
 .m-10-all {
   margin: 10%
+}
+.m-5-all {
+  margin: 5%
 }
 .m-10 {
   margin: 0% 10%

@@ -44,8 +44,11 @@
           <input v-if="this.categoryCode !== 4" type="button" class="btn btn-primary btn-lg btn-custom" value="기타" @click="getRecipeData(date_start, 4, 0)">
           <input v-if="this.categoryCode === 4" type="button" class="btn btn-primary btn-lg btn-custom" value="기타" @click="getRecipeData(date_start, 4, 0)">
         </div>
-        <div class="box-item-custom" style="text-align: center;">
-          <p><img src="https://cdn-icons-png.flaticon.com/128/308/308556.png" width="20px" style="margin-bottom:10px">  {{this.checkedItemName}}</p>
+        <div class="foodname-box mb-3">
+          <div style="font-size: 1.2rem">🥄 선택한 레시피</div>
+          <div v-for="(data, index) in checkedItemName" :key="index" class="foodname-card mt-2">
+            <span>{{data}}</span>
+          </div>
         </div>
         <div style="width:100%">
           <!-- Loading -->

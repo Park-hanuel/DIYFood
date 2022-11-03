@@ -21,7 +21,6 @@
             <h1>새로운 식재료 선택</h1>
             <p>
               새롭게 구매하실 식재료를 선택해주세요.
-              <br>선택한 식재료를 포함하는 레시피를 추천합니다.
             </p>
             <div>
               <input
@@ -114,35 +113,27 @@
                 @click="searchItem('6')"
               />
             </div>
-            <div class="box-item">
-              <p>
-                <img
-                  src="@/assets/shopping-cart.png"
-                  width="20px"
-                  style="margin-bottom: 5px"
-                />
-                {{ this.checkedItemName }}
-              </p>
+            <div class="foodname-box mb-3 mt-3">
+              <div style="font-size: 1.2rem">🥄 선택한 식재료</div>
+              <div v-for="(data, index) in checkedItemName" :key="index" class="foodname-card mt-2">
+                <span>{{data}}</span>
+              </div>
             </div>
             <table class="table table-light" style="vertical-align: middle">
               <thead class="table-bordered">
                 <tr>
-                  <th scope="col" style="width: 10%">순번</th>
                   <th scope="col" style="width: 15%">품목</th>
-                  <th scope="col" style="width: 20%">품종</th>
-                  <th scope="col" style="width: 15%">등급</th>
+                  <th scope="col" style="width: 30%">품종</th>
                   <th scope="col" style="width: 15%">가격</th>
                   <th scope="col" style="width: 15%">수량</th>
-                  <th scope="col" style="width: 10%">선택</th>
+                  <th scope="col" style="width: 15%">선택</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(data, i) in itemList" :key="i">
-                  <td>{{ i + 1 }}</td>
                   <td>{{ data.itemName }}</td>
                   <td>{{ data.detailItemName }}</td>
-                  <td>{{ data.rank }}</td>
-                  <td>{{ data.price }} 원</td>
+                  <td>{{ data.price }}</td>
                   <td>
                     <label>
                       <input
@@ -185,6 +176,14 @@
               </h6>
             </div>
           </div>
+          <div v-if="isLoading" class="loading-container">
+            <div class="loading">
+              <Fade-loader />
+            </div>
+            <div class="loading-text">
+              <p>정보를 저장하고 있습니다.<br>잠시만 기다려주세요.</p>
+            </div>
+          </div>
           <div id="next-button" style="text-align: center">
             <!-- <a href="/mealplan/step4"> -->
             <input
@@ -198,26 +197,14 @@
         </section>
       </div>
     </div>
-    <div>
-      <button class="btn-up" @click="upClick()">
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/130/130906.png"
-          width="20px"
-        />
-      </button>
-      <button class="btn-down" @click="downClick()">
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/130/130907.png"
-          width="20px"
-        />
-      </button>
-    </div>
   </body>
 </template>
 <script>
 /* eslint-disable */
+import FadeLoader from 'vue-spinner/src/FadeLoader.vue'
+
 export default {
-  components: {},
+  components: { FadeLoader },
   data() {
     return {
       itemList: [],
@@ -235,7 +222,8 @@ export default {
       checkedID: [],
       finalData: {},
       unit: [],
-      categoryCode: '1'
+      categoryCode: '1',
+      isLoading: false
     }
   },
   setup() {},
@@ -358,6 +346,7 @@ export default {
             '선택한 식재료의 총 가격이 설정한 예산보다 많습니다. 계속 진행하시겠습니까?'
           )
         ) {
+          this.isLoading = true
           this.codeSplit()
           try {
             await this.$axios.post('http://localhost:3000/ingredient/userlist', this.finalData, { withCredentials: true })
@@ -370,6 +359,7 @@ export default {
           alert('예산과 식재료를 다시 한번 확인해주세요.')
         }
       } else {
+        this.isLoading = true
         this.codeSplit()
         try {
           await this.$axios.post('http://localhost:3000/ingredient/userlist', this.finalData, { withCredentials: true })
@@ -379,12 +369,6 @@ export default {
         location.href = '/mealplan/step4/m'
       }
       localStorage.setItem('newItem', this.checkedItemName)
-    },
-    upClick() {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    },
-    downClick() {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }
   }
 }
@@ -420,5 +404,8 @@ body {
   background: #138127;
   background: -webkit-linear-gradient(to right, #d7d000, #699900);
   background: linear-gradient(to right, #d7d000, #699900);
+}
+.foodname-card {
+  font-size: 1rem !important;
 }
 </style>

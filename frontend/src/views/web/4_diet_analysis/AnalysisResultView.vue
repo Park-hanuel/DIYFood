@@ -9,15 +9,35 @@
       </span>
     </div>
     <div class="content-box">
-      <div style="width:100%; height:100px; padding: 30px; padding-right: 50px; padding-left: 50px; vertical-align: middle; display: inline-block;">
-        <div style="text-align: center; width: 83%; float: left; padding-left: 18%;">
-          <h2 v-if="this.date === ''" >기간을 선택해주세요 → </h2>
+      <div style="width:100%; padding-top: 30px;">
+        <div style="text-align: center;">
+          <h2 v-if="this.date === ''" >기간을 선택해주세요</h2>
           <h1 v-else>{{new Date(Date.parse(date)).toLocaleDateString()}} - {{new Date(Date.parse(date)+518400000).toLocaleDateString()}}</h1>
         </div>
-        <div style="position: relative; width: 17%; float: left;">
-          <select name="date" v-model="date">
-            <option value="">기간을 선택해주세요.</option>
-            <option v-for="item in Object.keys(this.groupBy(this.userRecipeList, 'date'))" :key="item" :value='item'>{{new Date(Date.parse(item)).toLocaleDateString()}} - {{new Date(Date.parse(item)+518400000).toLocaleDateString()}}</option>
+      </div>
+      <div>
+        <div style="width:30%; margin: 1% 35%;">
+          <select name="date" v-model="month" class="selectbox-m w-30" @change="getSundayDate()">
+            <option value="" disabled>Month</option>
+            <option value="1">1월</option>
+            <option value="2">2월</option>
+            <option value="3">3월</option>
+            <option value="4">4월</option>
+            <option value="5">5월</option>
+            <option value="6">6월</option>
+            <option value="7">7월</option>
+            <option value="8">8월</option>
+            <option value="9">9월</option>
+            <option value="10">10월</option>
+            <option value="11">11월</option>
+            <option value="12">12월</option>
+          </select>
+          <select name="date" v-model="date" class="selectbox-m w-60" @change="getUserSurveyData()">
+            <option value="" disabled>Meal Plan</option>
+            <option :value="sundayDate1">{{new Date(Date.parse(sundayDate1)).toLocaleDateString()}} - {{new Date(Date.parse(sundayDate1)+518400000).toLocaleDateString()}}</option>
+            <option :value="sundayDate2">{{new Date(Date.parse(sundayDate2)).toLocaleDateString()}} - {{new Date(Date.parse(sundayDate2)+518400000).toLocaleDateString()}}</option>
+            <option :value="sundayDate3">{{new Date(Date.parse(sundayDate3)).toLocaleDateString()}} - {{new Date(Date.parse(sundayDate3)+518400000).toLocaleDateString()}}</option>
+            <option :value="sundayDate4">{{new Date(Date.parse(sundayDate4)).toLocaleDateString()}} - {{new Date(Date.parse(sundayDate4)+518400000).toLocaleDateString()}}</option>
           </select>
         </div>
       </div>
@@ -158,7 +178,12 @@ export default {
     return {
       username: '',
       userRecipeList: [],
+      month: '',
       date: '',
+      sundayDate1: '',
+      sundayDate2: new Date(Date.parse(this.sundayDate1) + 604800000).toLocaleDateString(),
+      sundayDate3: new Date(Date.parse(this.sundayDate1) + 1209600000).toLocaleDateString(),
+      sundayDate4: new Date(Date.parse(this.sundayDate1) + 1814400000).toLocaleDateString(),
       dateChecked: false,
       nutrientData: [],
       gender: '',
@@ -178,7 +203,6 @@ export default {
   },
   setup () {},
   created () {
-    this.getUserRecipe((new Date()).getMonth() + 1)
     this.getUserInfo()
     this.getUserSurveyData()
   },
@@ -225,9 +249,6 @@ export default {
         location.reload()
       }
     },
-    selectDate (item) {
-      this.date = item
-    },
     // 오브젝트 groupBy
     groupBy (objectArray, property) {
       return objectArray.reduce((acc, obj) => {
@@ -240,7 +261,20 @@ export default {
         return acc
       }, {})
     },
-    // 날짜 더하기
+    getSundayDate () {
+      for (let i = 1; i <= 7; i++) {
+        const date = '2022-' + this.month + '-' + i
+        const date2 = new Date(date)
+        const day = date2.getDay()
+        if (day === 1) {
+          break
+        }
+        this.sundayDate1 = date
+        this.sundayDate2 = new Date(Date.parse(date) + 604800000).toLocaleDateString()
+        this.sundayDate3 = new Date(Date.parse(date) + 1209600000).toLocaleDateString()
+        this.sundayDate4 = new Date(Date.parse(date) + 1814400000).toLocaleDateString()
+      }
+    },
     AddDays (date, days) {
       // date는 문자열로 받는다 ex, '2020-10-15'
       var result = new Date(date)
@@ -334,5 +368,19 @@ select:focus {
 }
 select:disabled {
   opacity: 0.5;
+}
+.selectbox-m{
+  height: 40px;
+  margin: 2%;
+  border-radius: 10px;
+  background-color: #f3f3f3;
+  border-color: #f3f3f3;
+  padding-left:10px;
+}
+.w-30 {
+  width: 30%
+}
+.w-60 {
+  width: 62%
 }
 </style>

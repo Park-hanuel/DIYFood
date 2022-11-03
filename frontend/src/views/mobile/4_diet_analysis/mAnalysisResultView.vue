@@ -30,7 +30,7 @@
             <option value="11">11월</option>
             <option value="12">12월</option>
           </select>
-          <select name="date" v-model="date" class="selectbox-m w-60">
+          <select name="date" v-model="date" class="selectbox-m w-60" @change="getUserSurveyData()">
             <option value="">Meal Plan</option>
             <option :value="sundayDate1">{{new Date(Date.parse(sundayDate1)).toLocaleDateString()}} - {{new Date(Date.parse(sundayDate1)+518400000).toLocaleDateString()}}</option>
             <option :value="sundayDate2">{{new Date(Date.parse(sundayDate2)).toLocaleDateString()}} - {{new Date(Date.parse(sundayDate2)+518400000).toLocaleDateString()}}</option>

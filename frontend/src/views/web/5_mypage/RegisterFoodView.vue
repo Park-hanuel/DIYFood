@@ -72,8 +72,8 @@
                 <div class="input-group-prepend">
                   <button id="button-addon2" class="btn btn-link text-warning" @click="searchRecipe(keyword, 1)" disabled><img src="https://cdn-icons-png.flaticon.com/512/151/151773.png" width="25px"></button>
                 </div>
-                <input type="search" placeholder="검색어를 입력해주세요" aria-describedby="button-addon2" class="form-control border-0 bg-light" v-model="keyword" style="box-shadow: none;">
-                <button id="button-addon2" class="search-btn">검색</button>
+                <input type="search" placeholder="검색어를 입력해주세요" aria-describedby="button-addon2" class="form-control border-0 bg-light" v-model="foodname" style="box-shadow: none;">
+                <button id="button-addon2" class="search-btn" @click="searchFood()">검색</button>
               </div>
             </div>
             <!-- 검색 음식 리스트 -->
@@ -102,7 +102,7 @@
                     <td>123</td>
                     <td>
                       <label>
-                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
+                        <input type="checkbox" class="form-check-input" v-model="selectedFood"/>
                       </label>
                     </td>
                   </tr>
@@ -149,7 +149,10 @@ export default {
       monthRecipeList: [],
       weekRecipeList: [],
       selectedFood: [],
-      sundayDate: ""
+      sundayDate: "",
+      foodname: '',
+      foodList: [],
+      pageNum: 1
     }
   },
   watch: {
@@ -193,6 +196,17 @@ export default {
     // 날짜 선택
     dateChange(day) {
       this.choosedDay = day;
+    },
+    // 음식 검색하기
+    async searchFood () {
+      const foodname = this.foodname
+      try{
+        const response = await this.$axios.get(`http://localhost:3000/food/list?pageNum=${this.pageNum}`, foodname, { withCredentials: true })
+        this.foodList = response.data
+        console.log(this.foodList)
+      } catch (err) {
+        // location.reload()
+      }
     },
     // 월별로 식단 계획 불러오기
     async getUserRecipe (index) {
@@ -304,6 +318,7 @@ body{
   height:420px;
   overflow:auto;
   border-radius: 10px;
+  border: 3px solid #f0f0f0;
 }
 .foodname-card {
   margin: 3px 3px; 

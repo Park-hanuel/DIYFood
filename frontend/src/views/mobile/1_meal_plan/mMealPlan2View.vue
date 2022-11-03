@@ -40,8 +40,11 @@
               <input v-if="this.categoryCode !== '6'" type="button" class="btn btn-primary btn-md btn-custom" value="수산물" @click="searchItem('6')">
               <input v-if="this.categoryCode === '6'" type="button" class="btn btn-clicked btn-md btn-custom" value="수산물" @click="searchItem('6')">
             </div>
-            <div class="box-item">
-              <p><img src="@/assets/shopping-basket.png" width="20px" style="margin-bottom: 5px">  {{this.checkedItemName}}</p>
+            <div class="foodname-box mb-3 mt-3">
+              <div style="font-size: 1.2rem">🥄 선택한 식재료</div>
+              <div v-for="(data, index) in checkedItemName" :key="index" class="foodname-card mt-2">
+                <span>{{data}}</span>
+              </div>
             </div>
             <table class="table table-light" style="vertical-align: middle;">
               <thead class="table-bordered">
@@ -64,6 +67,14 @@
               </tbody>
             </table>
           </div>
+          <div v-if="isLoading" class="loading-container">
+            <div class="loading">
+              <Fade-loader />
+            </div>
+            <div class="loading-text">
+              <p>정보를 저장하고 있습니다.<br>잠시만 기다려주세요.</p>
+            </div>
+          </div>
           <div id="next-button" style="text-align:center;" >
             <input type="button" class="btn btn-primary btn-lg next-button text-uppercase" value="NEXT" @click="submitItemList()">
           </div>
@@ -73,8 +84,10 @@
   </body>
 </template>
 <script>
+import FadeLoader from 'vue-spinner/src/FadeLoader.vue'
+
 export default {
-  components: {},
+  components: { FadeLoader },
   data () {
     return {
       itemList: [],
@@ -84,7 +97,8 @@ export default {
       selected: [],
       categoryCode: '1',
       userExistList: [],
-      allItemList: []
+      allItemList: [],
+      isLoading: false
     }
   },
   setup () {},
@@ -98,7 +112,7 @@ export default {
           this.checkedItemName.push(this.allItemList[i].itemName)
         }
       }
-    }, 1000)
+    }, 1500)
   },
   mounted () {},
   unmounted () {},
@@ -144,6 +158,7 @@ export default {
     // 선택한 식재료 리스트 보내기
     /* eslint-disable */
     async submitItemList () {
+      this.isLoading = true
       try {
         await this.$axios.post('http://localhost:3000/ingredient/existlist', this.checkedItemCode, {withCredentials:true})        
       } catch (err) {
@@ -170,5 +185,8 @@ export default {
   }
   .btn-warning {
     color:black
+  }
+  .foodname-card {
+    font-size: 1rem !important;
   }
 </style>

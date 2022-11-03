@@ -12,7 +12,8 @@
           </div>
           <div class="masthead-subheading">with DIY Food</div>
           <div class="masthead-heading text-uppercase">Make<br>Your Day<br>Healthier</div>
-            <a class="btn btn-primary btn-xl text-uppercase margin-space" href="#MealPlan">더 알아보기</a>
+          <a class="btn btn-primary btn-xl text-uppercase margin-space mt-5 font-gg" href="/mealplan/m">식단 추천받기</a>
+          <a class="btn btn-primary btn-xl text-uppercase margin-space font-gg" href="/analysis/m">식단 등록하기</a>
         </div>
       </header>
         <!-- MealPlan-->
@@ -30,8 +31,8 @@
                             <img src="https://cdn-icons-png.flaticon.com/512/3476/3476015.png" alt="MealPlan" style="width: 120px; height: 120px;">
                         </a>
                     </span>
-                    <h4 class="my-3">식단 계획</h4>
-                    <p class="text-muted">설정된 예산에 맞춰<br>건강하고 신선한 식단을 추천합니다.</p>
+                    <h4 class="my-3">이번 주 뭐먹지?</h4>
+                    <p class="text-muted">설정된 예산에 맞춰<br>건강하고 신선한 식단을 계획합니다.</p>
                 </div>
             </div>
           </div>
@@ -72,7 +73,7 @@
                                 <img src="https://cdn-icons-png.flaticon.com/512/3514/3514242.png" alt="ingredient_price" style="width: 120px; height: 120px;">
                             </a>
                         </span>
-                        <h4 class="my-3">식재료 가격 정보</h4>
+                        <h4 class="my-3">식재료 시세</h4>
                         <p class="text-muted">오늘의 농축수산물 시장 가격을 안내합니다.</p>
                     </div>
                 </div>
@@ -213,7 +214,7 @@ export default {
 <style>
 @import "../css/styles.css";
 .margin-space {
-  margin-top: 60px;
+  margin-top: 10px;
 }
 .btn-mobile {
   padding: 10px;

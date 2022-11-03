@@ -16,7 +16,7 @@
                         </a>
                     </span>
                     <h4 class="my-3">이번주 뭐 먹지?</h4>
-                    <p class="text-muted">설정된 예산에 맞춰 건강하고 신선한 식단을 추천합니다.</p>
+                    <p class="text-muted">설정된 예산에 맞춰 건강하고 신선한 식단을 계획합니다.</p>
                 </div>
             </div>
             <div class="row">

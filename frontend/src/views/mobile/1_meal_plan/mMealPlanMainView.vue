@@ -1,7 +1,10 @@
 <template>
   <body id="page-m" style="text-align: center;">
     <div style="margin-top: 30px;">
-      <p style="font-size:3em; font-weight:500; line-height:70px;">
+      <p style="font-size:3em; font-weight:500; line-height:70px;" class="font-gg">
+        이번주 뭐 먹지?
+      </p>
+      <p style="font-size:2em; font-weight:500;">
         MEAL PLAN
       </p>
       <p style="font-size:1.2rem; font-weight:400;">
