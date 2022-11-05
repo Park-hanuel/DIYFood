@@ -34,7 +34,7 @@ const corsOption ={
   credentials: true,
   origin : 'http://localhost:8080'
 }
-
+app.set('etag', false);
 app.use(cors(corsOption));
 app.use(morgan('dev'));
 app.use(express.json());

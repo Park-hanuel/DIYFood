@@ -7,6 +7,7 @@
       </p>
       <p style="font-size:1.2em; font-weight:400;">
         식단 분석을 위해<br>섭취한 음식을 등록합니다.
+        {{selectedFoodCode}}
       </p>
     </div>
     <div class="content-box">
@@ -33,17 +34,17 @@
       </div>
       <div class="text-center mt-3">
         <div class="text-center mt-4">
-            <input v-if="mealTime == '1'" type="button" class="btn btn-primary btn-lg btn-clicked" value="아침" @click="selectTime(1)">
-            <input v-if="mealTime != '1'" type="button" class="btn btn-primary btn-lg btn-meal" value="아침" @click="selectTime(1)">
+            <input v-if="mealTime == '아침'" type="button" class="btn btn-primary btn-lg btn-clicked" value="아침" @click="selectTime('아침')">
+            <input v-if="mealTime != '아침'" type="button" class="btn btn-primary btn-lg btn-meal" value="아침" @click="selectTime('아침')">
 
-            <input v-if="mealTime == '2'" type="button" class="btn btn-primary btn-lg btn-clicked" value="점심" @click="selectTime(2)">
-            <input v-if="mealTime != '2'" type="button" class="btn btn-primary btn-lg btn-meal" value="점심" @click="selectTime(2)">
+            <input v-if="mealTime == '점심'" type="button" class="btn btn-primary btn-lg btn-clicked" value="점심" @click="selectTime('점심')">
+            <input v-if="mealTime != '점심'" type="button" class="btn btn-primary btn-lg btn-meal" value="점심" @click="selectTime('점심')">
 
-            <input v-if="mealTime == '3'" type="button" class="btn btn-primary btn-lg btn-clicked" value="저녁" @click="selectTime(3)">
-            <input v-if="mealTime != '3'" type="button" class="btn btn-primary btn-lg btn-meal" value="저녁" @click="selectTime(3)">
+            <input v-if="mealTime == '저녁'" type="button" class="btn btn-primary btn-lg btn-clicked" value="저녁" @click="selectTime('저녁')">
+            <input v-if="mealTime != '저녁'" type="button" class="btn btn-primary btn-lg btn-meal" value="저녁" @click="selectTime('저녁')">
 
-            <input v-if="mealTime == '4'" type="button" class="btn btn-primary btn-lg btn-clicked" value="간식" @click="selectTime(4)">
-            <input v-if="mealTime != '4'" type="button" class="btn btn-primary btn-lg btn-meal" value="간식" @click="selectTime(4)">
+            <input v-if="mealTime == '간식'" type="button" class="btn btn-primary btn-lg btn-clicked" value="간식" @click="selectTime('간식')">
+            <input v-if="mealTime != '간식'" type="button" class="btn btn-primary btn-lg btn-meal" value="간식" @click="selectTime('간식')">
 
         </div>
         <div class="text-center mt-4">
@@ -76,12 +77,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(data, index) in foodList" :key="index">
+                    <tr v-for="(data, i) in foodList" :key="i">
                       <td>{{data.foodName}}</td>
                       <td>{{data.manufacturer}}</td>
                       <td>
                         <label>
-                          <input type="checkbox" class="form-check-input" :value="data.foodCode" v-model="selectedFood"/>
+                          <input type="checkbox" class="form-check-input" :value="data.foodCode" v-model="selectedFoodCode" @click="selectFood(i)"/>
                         </label>
                       </td>
                     </tr>
@@ -94,16 +95,16 @@
           </div>
         </div>
       </div>
-      <div v-if="selectedFood != ''">
+      <div v-if="selectedFoodCode != ''">
         <div class="foodname-box mt-3 w-80 m-10">
-          <p style="font-size: 1.2rem">🥄 선택한 음식</p>
-          <div v-for="(data, index) in selectedFood" :key="index" class="foodname-card">
+          <p style="font-size: 1.2rem">🥄 {{mealTime}}으로 먹은 음식</p>
+          <div v-for="(data, index) in bindedCodeList" :key="index" class="foodname-card">
              <span>{{data}}</span>
           </div>
         </div>
       </div>
       <div class="w-100 mt-3 text-center">
-        <button class="btn btn-primary btn-lg next-button" @click="submitForm()">REGISTER</button>
+        <button class="btn btn-primary btn-lg next-button" @click="saveData()">{{mealTime}} 저장하기</button>
       </div>
     </div>
   </body>
@@ -131,17 +132,18 @@ export default {
       day_kor: "",
       monthRecipeList: [],
       weekRecipeList: [],
-      selectedFood: [],
+      selectedFoodCode: [],
       sundayDate: "",
       foodname: "",
       foodData: [],
       foodList: [],
       isEmpty: true,
       emptyMsg: "",
-      isEnd: false,
+      isEnd: true,
       endMsg: "",
       pageNum: null,
-      finalData: []
+      bindedCode: "",
+      bindedCodeList: []
     }
   },
   watch: {
@@ -174,10 +176,19 @@ export default {
     }
   },
   setup () {},
-  created () { },
+  created () {},
   mounted () {},
   unmounted () {},
   methods: {
+    // 끼니 선택
+    selectTime (index) {
+      this.mealTime = index
+      this.isEmpty = true
+    },
+    // 날짜 선택
+    dateChange(day) {
+      this.choosedDay = day;
+    },
     // 음식 검색하기
     async searchFood () {
       this.foodList = []
@@ -226,14 +237,6 @@ export default {
         this.isEnd = false
       }
     },
-    // 끼니 선택
-    selectTime (index) {
-      this.mealTime = index
-    },
-    // 날짜 선택
-    dateChange(day) {
-      this.choosedDay = day;
-    },
     // 월별로 식단 계획 불러오기
     async getUserRecipe (index) {
       this.month = index
@@ -265,6 +268,54 @@ export default {
       var day = paramDate.getDay();
       var diff = paramDate.getDate() - day + (day == 0 ? -6 : 1);
       this.sundayDate = new Date(paramDate.setDate(diff)).toISOString().substring(0, 10);
+    },
+    // 음식 선택 -> 푸드네임리스트에 추가
+    selectFood (i) {
+      if (this.foodList[i].manufacturer == null) {
+        this.bindedCode = this.mealTime + " | " + this.foodList[i].foodName
+        if (this.bindedCodeList.includes(this.bindedCode)) {
+          for (var i=0; i<=this.bindedCodeList.length; i++) {
+            if (this.bindedCodeList[i] == this.bindedCode) {
+              this.bindedCodeList.splice(i,1)
+            }
+          }
+        } else {
+          this.bindedCodeList.push(this.bindedCode)
+        }
+      } else {
+        this.bindedCode = this.mealTime + " | " + this.foodList[i].foodName + " | " + this.foodList[i].manufacturer
+        if (this.bindedCodeList.includes(this.bindedCode)) {
+          for (var i=0; i<=this.bindedCodeList.length; i++) {
+            if (this.bindedCodeList[i] == this.bindedCode) {
+              this.bindedCodeList.splice(i,1)
+            }
+          }
+        } else {
+          this.bindedCodeList.push(this.bindedCode)
+        }
+      }
+    },
+    async saveData () {
+      const userMeal = { 
+        date : this.choosedDay.dateFormat.replaceAll('/','-'),
+        mealTime : this.mealTime,
+        food : []
+      }
+      for (var i=0; i < this.selectedFoodCode.length; i++) {
+        const foodData = {
+          foodCode : this.selectedFoodCode[i],
+          servingSize : 1
+        }
+        userMeal.food.push(foodData)
+      }
+
+      try {
+        await this.$axios.put('http://localhost:3000/food/userlist', userMeal, { withCredentials: true })
+        console.log('yes')
+        this.userMeal.food = []
+      } catch (err) {
+        // alert('다시 시도해주세요.')
+      }
     }
   }
 }
@@ -314,6 +365,9 @@ body{
 .m-5 {
   margin: 0% 5% !important
 }
+.next-button {
+  font-size: 100%
+}
 .btn-more {
   background: #f0f0f0;
   border: none;
@@ -349,7 +403,7 @@ body{
 }
 .table-div {
   width: 90%;
-  height:500px;
+  height:400px;
   margin: 5%;
   overflow:auto;
   border-radius: 10px;
@@ -364,7 +418,7 @@ body{
 .date-box {
   border: 3px solid #f0f0f0;
   width: 80%;
-  margin: 5% 10% 5%;
+  margin: 0% 10% 5%;
   padding: 5px 0px;
   border-radius: 100px;
 }
