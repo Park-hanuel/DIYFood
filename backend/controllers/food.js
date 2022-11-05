@@ -10,15 +10,15 @@ const food = {
     //검색어로 검색하여 리스트 반환
     // @TODO 페이징 기능 구현 
     getFoodList : async (req, res) => {
-        const foodName = req.body.foodname;
+        const foodName = req.query.foodname;
 
         // 레시피와 음식 TB UNION
         const query = `
-        select foodCode, foodName, manufacturer, foodEnergy, foodCarbohydrate, foodProtein, foodFat,foodNatrium
+        select foodCode, foodName, manufacturer, servingSize, foodEnergy, foodCarbohydrate, foodProtein, foodFat,foodNatrium
         from Foods
         where foodName like '%${foodName}%'
         union
-        select foodCode, foodName, null manufacturer, foodEnergy, foodCarbohydrate, foodProtein, foodFat,foodNatrium
+        select foodCode, foodName, null manufacturer, null servingSize, foodEnergy, foodCarbohydrate, foodProtein, foodFat,foodNatrium
         from RecipeNutrients
         where foodName like '%${foodName}%'
         order by foodCode;
