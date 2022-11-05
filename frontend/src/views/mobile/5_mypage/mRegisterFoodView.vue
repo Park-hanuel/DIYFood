@@ -10,7 +10,12 @@
       </p>
     </div>
     <div class="content-box">
-      <div style="width:80%; margin: 0% 10% 3%;" >
+      <div class="text-center date-box">
+        <span class="font-gg">
+          {{choosedDay.year}}년 {{choosedDay.month}}월 {{choosedDay.date}}일 {{day_kor}}요일
+        </span>
+      </div>
+      <div style="width:90%; margin: 0% 5% 3%;" >
         <vue-horizontal-calendar
         lang="en"
         choosedItemColor="#48a238"
@@ -18,12 +23,7 @@
         choosedDatePos="center"
         v-on:change="dateChange"></vue-horizontal-calendar>
       </div>
-      <div class="text-center date-box">
-        <span class="font-gg">
-          {{choosedDay.year}}년 {{choosedDay.month}}월 {{choosedDay.date}}일 {{day_kor}}요일
-        </span>
-      </div>
-      <div v-if="weekRecipeList != ''" class="w-80 m-10">
+      <div v-if="weekRecipeList != ''" class="w-90 m-5">
         <div class="foodname-box">
           <p style="font-size: 1.2rem; ">🥄 선택한 레시피</p>
           <div v-for="(data, index) in weekRecipeList" :key="index" class="foodname-card">
@@ -33,59 +33,69 @@
       </div>
       <div class="text-center mt-3">
         <div class="text-center mt-4">
-            <input v-if="selectedTime == '1'" type="button" class="btn btn-primary btn-lg btn-clicked" value="아침" @click="selectTime(1)">
-            <input v-if="selectedTime != '1'" type="button" class="btn btn-primary btn-lg btn-meal" value="아침" @click="selectTime(1)">
+            <input v-if="mealTime == '1'" type="button" class="btn btn-primary btn-lg btn-clicked" value="아침" @click="selectTime(1)">
+            <input v-if="mealTime != '1'" type="button" class="btn btn-primary btn-lg btn-meal" value="아침" @click="selectTime(1)">
 
-            <input v-if="selectedTime == '2'" type="button" class="btn btn-primary btn-lg btn-clicked" value="점심" @click="selectTime(2)">
-            <input v-if="selectedTime != '2'" type="button" class="btn btn-primary btn-lg btn-meal" value="점심" @click="selectTime(2)">
+            <input v-if="mealTime == '2'" type="button" class="btn btn-primary btn-lg btn-clicked" value="점심" @click="selectTime(2)">
+            <input v-if="mealTime != '2'" type="button" class="btn btn-primary btn-lg btn-meal" value="점심" @click="selectTime(2)">
 
-            <input v-if="selectedTime == '3'" type="button" class="btn btn-primary btn-lg btn-clicked" value="저녁" @click="selectTime(3)">
-            <input v-if="selectedTime != '3'" type="button" class="btn btn-primary btn-lg btn-meal" value="저녁" @click="selectTime(3)">
+            <input v-if="mealTime == '3'" type="button" class="btn btn-primary btn-lg btn-clicked" value="저녁" @click="selectTime(3)">
+            <input v-if="mealTime != '3'" type="button" class="btn btn-primary btn-lg btn-meal" value="저녁" @click="selectTime(3)">
 
-            <input v-if="selectedTime == '4'" type="button" class="btn btn-primary btn-lg btn-clicked" value="간식" @click="selectTime(4)">
-            <input v-if="selectedTime != '4'" type="button" class="btn btn-primary btn-lg btn-meal" value="간식" @click="selectTime(4)">
+            <input v-if="mealTime == '4'" type="button" class="btn btn-primary btn-lg btn-clicked" value="간식" @click="selectTime(4)">
+            <input v-if="mealTime != '4'" type="button" class="btn btn-primary btn-lg btn-meal" value="간식" @click="selectTime(4)">
 
         </div>
         <div class="text-center mt-4">
-          <div v-if="selectedTime != ''" >
+          <div v-if="mealTime != ''" >
             <!-- 검색창 -->
             <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4 search-box w-90 m-5-all mt-1">
               <div class="input-group">
                 <div class="input-group-prepend">
                   <button id="button-addon2" class="btn btn-link text-warning" @click="searchRecipe(keyword, 1)" disabled><img src="https://cdn-icons-png.flaticon.com/512/151/151773.png" width="25px"></button>
                 </div>
-                <input type="search" placeholder="검색어를 입력해주세요" aria-describedby="button-addon2" class="form-control border-0 bg-light" v-model="keyword" style="box-shadow: none;">
-                <button id="button-addon2" class="search-btn">검색</button>
+                <input type="search" placeholder="검색어를 입력해주세요" aria-describedby="button-addon2" class="form-control border-0 bg-light" v-model="foodname" style="box-shadow: none;">
+                <button id="button-addon2" class="search-btn" @click="searchFood()">검색</button>
               </div>
             </div>
             <!-- 검색 음식 리스트 -->
             <div class="table-div">
-              <table class="table" style="vertical-align: middle;">
-                <thead style="position: sticky; top: 0px; background-color: #f0f0f0 !important;">
-                  <tr>
-                    <th scope="col" style="width: 20%">품목명</th>
-                    <th scope="col" style="width: 20%">제조사</th>
-                    <th scope="col" style="width: 10%">선택</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>하하</td>
-                    <td>ㅁㄴ이</td>
-                    <td>
-                      <label>
-                        <input type="checkbox" class="form-check-input" :value="foodCode" v-model="selectedFood"/>
-                      </label>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div v-if="isEmpty" style="padding: 10%; font-size: 100%; color: darkgray;">
+                <p style="color: black; font-size: 120%;">{{emptyMsg}}</p>
+                <p>음식명을 기준으로 검색해주세요.</p>
+                <span>일반식품, 가공식품, 레시피 등의<br>검색어를 사용할 수 있습니다.</span>
+                <p>예) 불고기, 초코파이, 빅맥</p>
+              </div>
+              <div v-else>
+                <table class="table" style="vertical-align: middle;">
+                  <thead style="position: sticky; top: 0px; background-color: #f0f0f0 !important;">
+                    <tr>
+                      <th scope="col" style="width: 20%">품목명</th>
+                      <th scope="col" style="width: 20%">제조사</th>
+                      <th scope="col" style="width: 10%">선택</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(data, index) in foodList" :key="index">
+                      <td>{{data.foodName}}</td>
+                      <td>{{data.manufacturer}}</td>
+                      <td>
+                        <label>
+                          <input type="checkbox" class="form-check-input" :value="data.foodCode" v-model="selectedFood"/>
+                        </label>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p v-if="isEnd" class="mb-3">{{endMsg}}</p>
+                <input v-else type="button" class="btn btn-primary btn-sm mb-3 btn-more" value="more" @click="searchMoreFood()">
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div v-if="selectedFood != ''">
-        <div class="foodname-box mt-5 w-80 m-10">
+        <div class="foodname-box mt-3 w-80 m-10">
           <p style="font-size: 1.2rem">🥄 선택한 음식</p>
           <div v-for="(data, index) in selectedFood" :key="index" class="foodname-card">
              <span>{{data}}</span>
@@ -108,7 +118,8 @@ export default {
   },
   data () {
     return {
-      selectedTime: '',
+      mealTime: "",
+      servingSize: "",
       choosedDay: {
         dateFormat: "",
         year: "",
@@ -121,7 +132,16 @@ export default {
       monthRecipeList: [],
       weekRecipeList: [],
       selectedFood: [],
-      sundayDate: ""
+      sundayDate: "",
+      foodname: "",
+      foodData: [],
+      foodList: [],
+      isEmpty: true,
+      emptyMsg: "",
+      isEnd: false,
+      endMsg: "",
+      pageNum: null,
+      finalData: []
     }
   },
   watch: {
@@ -158,9 +178,57 @@ export default {
   mounted () {},
   unmounted () {},
   methods: {
+    // 음식 검색하기
+    async searchFood () {
+      this.foodList = []
+      this.pageNum = 1
+      try{
+        const response = await this.$axios.get(`http://localhost:3000/food/list?pageNum=${this.pageNum}&foodname=${this.foodname}`, { withCredentials: true })
+        this.foodData = response.data
+        this.pageNum++
+        for (var i=0; i<this.foodData['contents'].length; i++) {
+          this.foodList.push(this.foodData['contents'][i])
+        }
+      } catch (err) {
+        console.log(err)
+      }
+
+      if (this.foodData['contents'].length === 0) {
+        this.isEmpty = true
+        this.emptyMsg = "검색 결과가 없습니다."
+      } else {
+        this.isEmpty = false
+      }
+
+      if (this.foodData['contents'].length < 19) {
+        this.isEnd = true
+        this.endMsg = "더 이상 검색 결과가 없습니다."
+      } else {
+        this.isEnd = false
+      }
+    },
+    async searchMoreFood () {
+      try{
+        const response = await this.$axios.get(`http://localhost:3000/food/list?pageNum=${this.pageNum}&foodname=${this.foodname}`, { withCredentials: true })
+        this.foodData = response.data
+        this.pageNum++
+        for (var i=0; i<this.foodData['contents'].length; i++) {
+          this.foodList.push(this.foodData['contents'][i])
+        }
+      } catch (err) {
+        // location.reload()
+      }
+
+      if (this.foodData['contents'].length < 19) {
+        this.isEnd = true
+        this.endMsg = "더 이상 검색 결과가 없습니다."
+      } else {
+        this.isEnd = false
+      }
+    },
     // 끼니 선택
     selectTime (index) {
-      this.selectedTime = index
+      this.mealTime = index
     },
     // 날짜 선택
     dateChange(day) {
@@ -243,6 +311,15 @@ body{
 .m-10 {
   margin: 0% 10%
 }
+.m-5 {
+  margin: 0% 5% !important
+}
+.btn-more {
+  background: #f0f0f0;
+  border: none;
+  color: rgb(61, 61, 61);
+  font-size: 100%;
+}
 .btn-meal {
   width: 20%;
   height: 40px;
@@ -272,7 +349,7 @@ body{
 }
 .table-div {
   width: 90%;
-  height:400px;
+  height:500px;
   margin: 5%;
   overflow:auto;
   border-radius: 10px;

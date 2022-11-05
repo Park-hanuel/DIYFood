@@ -10,7 +10,7 @@ const food = {
     //검색어로 검색하여 리스트 반환
     // @TODO 페이징 기능 구현 
     getFoodList : async (req, res) => {
-        const foodName = req.body.foodname;
+        const foodName = req.query.foodname;
 
         // 레시피와 음식 TB UNION
         const query = `
