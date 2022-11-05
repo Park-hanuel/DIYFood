@@ -29,31 +29,31 @@
               <p class="recipe-text">{{recipe[0].MANUAL01.replace('1.','')}}</p>
             </div>
           </div>
-          <div class="recipe-box">
+          <div v-if="recipe[0].MANUAL_IMG02 != ''" class="recipe-box">
             <img class="recipe-img" :src=recipe[0].MANUAL_IMG02>
             <div class="recipe-card">
               <p class="recipe-text">{{recipe[0].MANUAL02.replace('2.','')}}</p>
             </div>
           </div>
-          <div class="recipe-box">
+          <div v-if="recipe[0].MANUAL_IMG03 != ''" class="recipe-box">
             <img class="recipe-img" :src=recipe[0].MANUAL_IMG03>
             <div class="recipe-card">
               <p class="recipe-text">{{recipe[0].MANUAL03.replace('3.','')}}</p>
             </div>
           </div>
-          <div class="recipe-box">
+          <div v-if="recipe[0].MANUAL_IMG04 != ''" class="recipe-box">
             <img class="recipe-img" :src=recipe[0].MANUAL_IMG04>
             <div class="recipe-card">
               <p class="recipe-text">{{recipe[0].MANUAL04.replace('4.','')}}</p>
             </div>
           </div>
-          <div class="recipe-box">
+          <div v-if="recipe[0].MANUAL_IMG05 != ''" class="recipe-box">
             <img class="recipe-img" :src=recipe[0].MANUAL_IMG05>
             <div class="recipe-card">
               <p class="recipe-text">{{recipe[0].MANUAL05.replace('5.','')}}</p>
             </div>
           </div>
-          <div class="recipe-box">
+          <div v-if="recipe[0].MANUAL_IMG06 != ''" class="recipe-box">
             <img class="recipe-img" :src=recipe[0].MANUAL_IMG06>
             <div class="recipe-card">
               <p class="recipe-text">{{recipe[0].MANUAL06.replace('6.','')}}</p>
