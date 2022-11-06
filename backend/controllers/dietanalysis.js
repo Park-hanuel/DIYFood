@@ -179,7 +179,8 @@ const dietanalysis = {
             protein: sumNutrient.protein / 7,
             carbohydrate: sumNutrient.carbohydrate / 7,
             fat: sumNutrient.fat / 7,
-            natrium : sumNutrient.natrium / 7
+            natrium : sumNutrient.natrium / 7,
+            energy : sumNutrient.energy / 7,
         };
 
         const needNutrient = {

@@ -7,7 +7,6 @@
       </p>
       <p style="font-size:1.2em; font-weight:400;">
         식단 분석을 위해<br>섭취한 음식을 등록합니다.
-        {{selectedFoodCode}}
       </p>
     </div>
     <div class="content-box">
@@ -61,25 +60,28 @@
             </div>
             <!-- 검색 음식 리스트 -->
             <div class="table-div">
-              <div v-if="isEmpty" style="padding: 10%; font-size: 100%; color: darkgray;">
+              <div v-if="isEmpty == true && isLoading1 == false"
+              style="padding: 10%; font-size: 100%; color: darkgray;">
                 <p style="color: black; font-size: 120%;">{{emptyMsg}}</p>
                 <p>음식명을 기준으로 검색해주세요.</p>
                 <span>일반식품, 가공식품, 레시피 등의<br>검색어를 사용할 수 있습니다.</span>
                 <p>예) 불고기, 초코파이, 빅맥</p>
               </div>
-              <div v-else>
+              <div v-if="isEmpty == false">
                 <table class="table" style="vertical-align: middle;">
                   <thead style="position: sticky; top: 0px; background-color: #f0f0f0 !important;">
                     <tr>
-                      <th scope="col" style="width: 20%">품목명</th>
-                      <th scope="col" style="width: 20%">제조사</th>
-                      <th scope="col" style="width: 10%">선택</th>
+                      <th scope="col" style="width: 30%">품목명</th>
+                      <th scope="col" style="width: 30%">제조사</th>
+                      <th scope="col" style="width: 20%">기준량</th>
+                      <th scope="col" style="width: 20%">선택</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr v-for="(data, i) in foodList" :key="i">
                       <td>{{data.foodName}}</td>
                       <td>{{data.manufacturer}}</td>
+                      <td>{{data.servingSize == null ? "" : data.servingSize + " g"}}</td>
                       <td>
                         <label>
                           <input type="checkbox" class="form-check-input" :value="data.foodCode" v-model="selectedFoodCode" @click="selectFood(i)"/>
@@ -89,7 +91,26 @@
                   </tbody>
                 </table>
                 <p v-if="isEnd" class="mb-3">{{endMsg}}</p>
-                <input v-else type="button" class="btn btn-primary btn-sm mb-3 btn-more" value="more" @click="searchMoreFood()">
+                <!-- Loading -->
+                <div style="width:100%;">
+                  <div v-if="isLoading2" class="loading-container2">
+                    <div class="loading">
+                      <Fade-loader />
+                    </div>
+                  </div>
+                </div>
+                <input v-if="isEnd == false" type="button" class="btn btn-primary btn-sm mb-3 btn-more" value="more" @click="searchMoreFood()">
+              </div>
+              <!-- Loading -->
+              <div style="width:100%; margin-top: 20px;">
+                <div v-if="isLoading1" class="loading-container">
+                  <div class="loading">
+                    <Fade-loader />
+                  </div>
+                  <div class="loading-text">
+                    <h5>검색중입니다.</h5>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -104,7 +125,7 @@
         </div>
       </div>
       <div class="w-100 mt-3 text-center">
-        <button class="btn btn-primary btn-lg next-button" @click="saveData()">{{mealTime}} 저장하기</button>
+        <button class="btn btn-primary btn-lg next-button" @click="submitData()">{{mealTime}} 저장하기</button>
       </div>
     </div>
   </body>
@@ -112,10 +133,12 @@
 <script>
 /* eslint-disable */
 import VueHorizontalCalendar from 'vue-horizontal-calendar';
+import FadeLoader from 'vue-spinner/src/FadeLoader.vue'
 
 export default {
   components: {
-      VueHorizontalCalendar
+      VueHorizontalCalendar,
+      FadeLoader
   },
   data () {
     return {
@@ -143,7 +166,10 @@ export default {
       endMsg: "",
       pageNum: null,
       bindedCode: "",
-      bindedCodeList: []
+      bindedCodeList: [],
+      userMeal: {},
+      isLoading1: false,
+      isLoading2: false,
     }
   },
   watch: {
@@ -173,6 +199,20 @@ export default {
       }
       var datedata = new Date(this.sundayDate)
       this.getUserRecipe(datedata.getMonth() + 1)
+    },
+    selectedFoodCode () {
+      this.userMeal = { 
+        date : this.choosedDay.dateFormat.replaceAll('/','-'),
+        mealTime : this.mealTime,
+        food : []
+      }
+      for (var i=0; i < this.selectedFoodCode.length; i++) {
+        const foodData = {
+          foodCode : this.selectedFoodCode[i],
+          servingSize : 1
+        }
+        this.userMeal.food.push(foodData)
+      }
     }
   },
   setup () {},
@@ -193,25 +233,28 @@ export default {
     async searchFood () {
       this.foodList = []
       this.pageNum = 1
+      this.isLoading1 = true
       try{
         const response = await this.$axios.get(`http://localhost:3000/food/list?pageNum=${this.pageNum}&foodname=${this.foodname}`, { withCredentials: true })
         this.foodData = response.data
+        console.log(response.data)
         this.pageNum++
         for (var i=0; i<this.foodData['contents'].length; i++) {
           this.foodList.push(this.foodData['contents'][i])
         }
+        this.isLoading1 = false
       } catch (err) {
         console.log(err)
       }
 
-      if (this.foodData['contents'].length === 0) {
+      if (this.foodList.length === 0) {
         this.isEmpty = true
         this.emptyMsg = "검색 결과가 없습니다."
       } else {
         this.isEmpty = false
       }
 
-      if (this.foodData['contents'].length < 19) {
+      if (this.foodList.length < 19) {
         this.isEnd = true
         this.endMsg = "더 이상 검색 결과가 없습니다."
       } else {
@@ -219,6 +262,7 @@ export default {
       }
     },
     async searchMoreFood () {
+      this.isLoading2 = true
       try{
         const response = await this.$axios.get(`http://localhost:3000/food/list?pageNum=${this.pageNum}&foodname=${this.foodname}`, { withCredentials: true })
         this.foodData = response.data
@@ -226,6 +270,7 @@ export default {
         for (var i=0; i<this.foodData['contents'].length; i++) {
           this.foodList.push(this.foodData['contents'][i])
         }
+        this.isLoading2 = false
       } catch (err) {
         // location.reload()
       }
@@ -272,7 +317,7 @@ export default {
     // 음식 선택 -> 푸드네임리스트에 추가
     selectFood (i) {
       if (this.foodList[i].manufacturer == null) {
-        this.bindedCode = this.mealTime + " | " + this.foodList[i].foodName
+        this.bindedCode = this.foodList[i].foodName
         if (this.bindedCodeList.includes(this.bindedCode)) {
           for (var i=0; i<=this.bindedCodeList.length; i++) {
             if (this.bindedCodeList[i] == this.bindedCode) {
@@ -283,7 +328,7 @@ export default {
           this.bindedCodeList.push(this.bindedCode)
         }
       } else {
-        this.bindedCode = this.mealTime + " | " + this.foodList[i].foodName + " | " + this.foodList[i].manufacturer
+        this.bindedCode = this.foodList[i].foodName + " | " + this.foodList[i].manufacturer
         if (this.bindedCodeList.includes(this.bindedCode)) {
           for (var i=0; i<=this.bindedCodeList.length; i++) {
             if (this.bindedCodeList[i] == this.bindedCode) {
@@ -295,22 +340,9 @@ export default {
         }
       }
     },
-    async saveData () {
-      const userMeal = { 
-        date : this.choosedDay.dateFormat.replaceAll('/','-'),
-        mealTime : this.mealTime,
-        food : []
-      }
-      for (var i=0; i < this.selectedFoodCode.length; i++) {
-        const foodData = {
-          foodCode : this.selectedFoodCode[i],
-          servingSize : 1
-        }
-        userMeal.food.push(foodData)
-      }
-
+    async submitData () {
       try {
-        await this.$axios.put('http://localhost:3000/food/userlist', userMeal, { withCredentials: true })
+        await this.$axios.put('http://localhost:3000/food/userlist', this.userMeal, { withCredentials: true })
         console.log('yes')
         this.userMeal.food = []
       } catch (err) {

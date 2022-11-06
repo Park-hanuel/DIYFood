@@ -7,7 +7,6 @@
       </p>
       <p style="font-size:1.5em; font-weight:400;">
         식단 분석을 위해 식단 계획 이외에 섭취한 음식을 등록합니다.
-        selectedFoodCode = {{selectedFoodCode}}
       </p>
     </div>
     <div class="content-box">
@@ -79,32 +78,33 @@
             </div>
             <!-- 검색 음식 리스트 -->
             <div class="table-div">
-              <div v-if="isEmpty" style="padding: 5%; font-size: 80%; color: darkgray;">
+              <div v-if="isEmpty == true && isLoading1 == false"
+              style="padding: 5%; font-size: 80%; color: darkgray;">
                 <p style="color: black; font-size: 100%;">{{emptyMsg}}</p>
                 <p>음식명을 기준으로 검색해주세요.</p>
                 <p>일반식품, 가공식품, 레시피 식품 검색이 가능합니다.</p>
                 <p>예) 불고기, 초코파이, 빅맥 등</p>
               </div>
-              <div v-else>
+              <div v-if="isEmpty == false">
                 <table class="table" style="vertical-align: middle;">
                   <thead style="position: sticky; top: 0px; background-color: #f0f0f0 !important;">
                     <tr>
-                      <th scope="col" style="width: 15%">품목명</th>
-                      <th scope="col" style="width: 15%">제조사</th>
-                      <th scope="col" style="width: 10%">1회 제공량</th>
-                      <th scope="col" style="width: 10%">칼로리</th>
-                      <th scope="col" style="width: 10%">탄수화물</th>
-                      <th scope="col" style="width: 10%">단백질</th>
-                      <th scope="col" style="width: 10%">지방</th>
-                      <th scope="col" style="width: 10%">나트륨</th>
-                      <th scope="col" style="width: 10%">선택</th>
+                      <th scope="col" style="width: 20%">품목명</th>
+                      <th scope="col" style="width: 20%">제조사</th>
+                      <th scope="col" style="width: 9%">기준량</th>
+                      <th scope="col" style="width: 9%">칼로리</th>
+                      <th scope="col" style="width: 9%">탄수화물</th>
+                      <th scope="col" style="width: 9%">단백질</th>
+                      <th scope="col" style="width: 9%">지방</th>
+                      <th scope="col" style="width: 9%">나트륨</th>
+                      <th scope="col" style="width: 6%">선택</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr v-for="(data, i) in foodList" :key="i">
                       <td>{{data.foodName}}</td>
                       <td>{{data.manufacturer}}</td>
-                      <td>1회제공량</td>
+                      <td>{{data.servingSize == null ? "" : data.servingSize + " g"}}</td>
                       <td>{{data.foodEnergy}}</td>
                       <td>{{data.foodCarbohydrate}}</td>
                       <td>{{data.foodProtein}}</td>
@@ -119,7 +119,26 @@
                   </tbody>
                 </table>
                 <p v-if="isEnd" class="mb-3" style="color: darkgray; font-size: 80%;">{{endMsg}}</p>
-                <input v-else type="button" class="btn btn-primary btn-sm mb-3 btn-more" value="more" @click="searchMoreFood()">
+                <!-- Loading -->
+                <div style="width:100%;">
+                  <div v-if="isLoading2" class="loading-container2">
+                    <div class="loading">
+                      <Fade-loader />
+                    </div>
+                  </div>
+                </div>
+                <input v-if="isEnd == false" type="button" class="btn btn-primary btn-sm mb-3 btn-more" value="more" @click="searchMoreFood()">
+              </div>
+              <!-- Loading -->
+              <div style="width:100%; margin-top: 20px;">
+                <div v-if="isLoading1" class="loading-container">
+                  <div class="loading">
+                    <Fade-loader />
+                  </div>
+                  <div class="loading-text">
+                    <h5>검색중입니다.</h5>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -127,14 +146,17 @@
       </div>
       <div v-if="bindedCodeList != ''">
         <div class="foodname-box mt-5 w-80 m-10">
-          <p style="font-size: 1.2rem">🥄 {{mealTime}}으로 먹은 음식</p>
+          <div class="mb-2">
+            <span style="font-size: 1.2rem">🥄 {{mealTime}}으로 먹은 음식</span>
+            <button class="btn-delete" @click="deleteFood()"><img src="https://cdn-icons-png.flaticon.com/512/6460/6460112.png" style="width: 25px"></button>
+          </div>
           <div v-for="(data, index) in bindedCodeList" :key="index" class="foodname-card">
              <span>{{data}}</span>
           </div>
         </div>
       </div>
       <div class="w-100 mt-3 text-center">
-        <button class="btn btn-primary btn-lg next-button" @click="saveData()">{{mealTime}} 저장하기</button>
+        <button class="btn btn-primary btn-lg next-button" @click="submitData()">{{mealTime}} 저장하기</button>
       </div>
     </div>
   </body>
@@ -142,10 +164,12 @@
 <script>
 /* eslint-disable */
 import VueHorizontalCalendar from 'vue-horizontal-calendar';
+import FadeLoader from 'vue-spinner/src/FadeLoader.vue'
 
 export default {
   components: {
-      VueHorizontalCalendar
+      VueHorizontalCalendar,
+      FadeLoader
   },
   data () {
     return {
@@ -165,6 +189,7 @@ export default {
       selectedFoodCode: [],
       sundayDate: "",
       foodname: "",
+      savedData: [],
       foodData: [],
       foodList: [],
       isEmpty: true,
@@ -173,7 +198,10 @@ export default {
       endMsg: "",
       pageNum: null,
       bindedCode: "",
-      bindedCodeList: []
+      bindedCodeList: [],
+      userMeal: {},
+      isLoading1: false,
+      isLoading2: false,
     }
   },
   watch: {
@@ -203,6 +231,20 @@ export default {
       }
       var datedata = new Date(this.sundayDate)
       this.getUserRecipe(datedata.getMonth() + 1)
+    },
+    selectedFoodCode () {
+      this.userMeal = { 
+        date : this.choosedDay.dateFormat.replaceAll('/','-'),
+        mealTime : this.mealTime,
+        food : []
+      }
+      for (var i=0; i < this.selectedFoodCode.length; i++) {
+        const foodData = {
+          foodCode : this.selectedFoodCode[i],
+          servingSize : 1
+        }
+        this.userMeal.food.push(foodData)
+      }
     }
   },
   setup () {},
@@ -214,22 +256,40 @@ export default {
     selectTime (index) {
       this.mealTime = index
       this.isEmpty = true
+      this.getSavedData()
     },
     // 날짜 선택
     dateChange(day) {
       this.choosedDay = day;
     },
+    // 저장된 식단 등록 정보 가져오기
+    async getSavedData () {
+      try {
+        const data = {
+          mealTime : this.mealTime,
+          date : this.choosedDay.dateFormat.replaceAll('/','-')          
+        }
+        const response = await this.$axios.get(`/food/userlist`, data, { withCredentials: true })
+        this.savedData = response.data
+        console.log(this.savedData)
+      } catch (err) {
+        console.log(err)
+      }
+    },
     // 음식 검색하기
     async searchFood () {
       this.foodList = []
       this.pageNum = 1
+      this.isLoading1 = true
       try{
         const response = await this.$axios.get(`http://localhost:3000/food/list?pageNum=${this.pageNum}&foodname=${this.foodname}`, { withCredentials: true })
         this.foodData = response.data
+        console.log(response.data)
         this.pageNum++
         for (var i=0; i<this.foodData['contents'].length; i++) {
           this.foodList.push(this.foodData['contents'][i])
         }
+        this.isLoading1 = false
       } catch (err) {
         console.log(err)
       }
@@ -249,6 +309,7 @@ export default {
       }
     },
     async searchMoreFood () {
+      this.isLoading2 = true
       try{
         const response = await this.$axios.get(`http://localhost:3000/food/list?pageNum=${this.pageNum}&foodname=${this.foodname}`, { withCredentials: true })
         this.foodData = response.data
@@ -256,6 +317,7 @@ export default {
         for (var i=0; i<this.foodData['contents'].length; i++) {
           this.foodList.push(this.foodData['contents'][i])
         }
+        this.isLoading2 = false
       } catch (err) {
         // location.reload()
       }
@@ -281,15 +343,6 @@ export default {
         }
       }catch(err){
         // location.reload()
-      }
-    },
-    selectWeek () {
-      this.weekRecipeList=[]
-      this.getUserRecipe()
-      for(var i=0; i<=this.monthRecipeList.length; i++) {
-        if (this.monthRecipeList[i].date == this.sundayDate) {
-          this.weekRecipeList.push(this.monthRecipeList[i].RecipeNutrient.foodName)
-        }
       }
     },
     //일요일 구하기
@@ -325,26 +378,27 @@ export default {
         }
       }
     },
-    async saveData () {
-      const userMeal = { 
-        date : this.choosedDay.dateFormat.replaceAll('/','-'),
-        mealTime : this.mealTime,
-        food : []
-      }
-      for (var i=0; i < this.selectedFoodCode.length; i++) {
-        const foodData = {
-          foodCode : this.selectedFoodCode[i],
-          servingSize : 1
-        }
-        userMeal.food.push(foodData)
-      }
-
+    // 식단 등록
+    async submitData () {
       try {
-        await this.$axios.put('http://localhost:3000/food/userlist', userMeal, { withCredentials: true })
+        await this.$axios.put(`http://localhost:3000/food/userlist`, this.userMeal, { withCredentials: true })
         console.log('yes')
         this.userMeal.food = []
       } catch (err) {
         // alert('다시 시도해주세요.')
+      }
+    },
+    // 끼니 일괄 삭제
+    async deleteFood () {
+      try {
+        const data = {
+          mealTime : this.mealTime,
+          date : this.choosedDay.dateFormat.replaceAll('/','-')          
+        }
+        await this.$axios.delete(`http://localhost:3000/food/userlist`, data, { withCredentials: true })
+        console.log("deleted success")
+      } catch (err) {
+        //pass
       }
     }
   }
@@ -414,6 +468,11 @@ body{
   font-size: 90%;
   padding: auto;
   margin: 3px;
+}
+.btn-delete {
+  float: right;
+  border: none;
+  background-color: transparent;
 }
 .next-button {
   font-size: 100%;
