@@ -197,7 +197,8 @@ export default {
 .navbar-mobile{
   height: 85px;
   width: 100%;
-  background-color: rgb(30, 30, 30);
+  padding: 0% 1%;
+  background:linear-gradient(#323232, #2a2a2a)
 }
 .navbtn-mobile {
   margin-left:none;

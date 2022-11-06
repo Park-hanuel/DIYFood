@@ -44,6 +44,17 @@
         </div>
       </div>
       <div>
+        <!-- Loading -->
+        <div style="width:100%">
+          <div v-if="isLoading" class="loading-container">
+            <div class="loading">
+              <Fade-loader />
+            </div>
+            <div class="loading-text">
+              <h5>데이터를 불러오고 있습니다.</h5>
+            </div>
+          </div>
+        </div>
         <div class="half-box">
           <div style="text-align:center; margin-bottom: 10px;">
             <h3>3대 영양소 섭취 비율</h3>
@@ -105,9 +116,11 @@
             <p>
               신체 정보로 계산한 <b>기초 대사량</b><br>
               <b>{{this.nutrientData.userInfo.basicMetabolicRate}}kcal</b>
+              <br>·
               <br><b>{{purpose}}</b>을(를)위한 <b>기초 대사량</b><br>
-              <b>{{parseInt(this.nutrientData.userInfo.basicMetabolicRate)}}kcal</b><br>
-              <b>BMI 지수</b>(체질량 지수)<br>
+              <b>{{parseInt(this.nutrientData.userInfo.basicMetabolicRate)}}kcal</b>
+              <br>·
+              <br><b>BMI 지수</b>(체질량 지수)<br>
               <b>{{parseInt(this.nutrientData.BMI)}} ({{this.nutrientData.BMIrate}})</b>
             </p>
             <table class="table" style="vertical-align: middle; text-align: center;">
@@ -193,6 +206,9 @@
             </a>
           </div>
         </div>
+        <div style="width: 100%;">
+          <button class="btn btn-primary btn-lg next-button" onclick="location.href='/mealplan'" >식단 계획하기</button>
+        </div>
       </div>
     </div>
     <div>
@@ -207,9 +223,10 @@
 import PieChart from '@/components/chart/Pie_recommended.vue'
 import PieUserChart from '@/components/chart/Pie_user.vue'
 import BarChart from '@/components/chart/Bar.vue'
+import FadeLoader from 'vue-spinner/src/FadeLoader.vue'
 
 export default {
-  components: { PieChart, PieUserChart, BarChart },
+  components: { PieChart, PieUserChart, BarChart, FadeLoader },
   data () {
     return {
       username: '',
@@ -226,7 +243,8 @@ export default {
       dateChecked: false,
       nutrientData: [],
       gender: '',
-      purpose: ''
+      purpose: '',
+      isLoading: false
     }
   },
   watch: {
@@ -334,10 +352,12 @@ export default {
     // 결과 가져오기
     async getNutrientData () {
       this.dateChecked = true
+      this.isLoading = true
       try {
         const response = await this.$axios.get(`http://localhost:3000/dietanalysis/analysis/result?startDate=${this.startDate}&endDate=${this.endDate}`, { withCredentials: true })
         this.nutrientData = response.data
         console.log(response.data)
+        this.isLoading = false
       } catch (err) {
         console.log(err)
       }
@@ -407,6 +427,10 @@ body{
 }
 .btn-custom {
   margin-bottom: 30px;
+}
+.next-button {
+  width: 50%;
+  margin: 5% 25% 5%;
 }
 .half-box {
   width: 100%;

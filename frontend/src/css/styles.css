@@ -12250,7 +12250,7 @@ section#MyPage form#MyPageForm :-ms-input-placeholder {
 }
 .recommand-box {
   width: 90%; 
-  margin: 3% 5%; 
+  margin: 3% 5% 0%; 
   display: inline-block; 
   text-align: center;
 }

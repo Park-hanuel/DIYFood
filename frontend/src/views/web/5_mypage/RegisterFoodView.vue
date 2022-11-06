@@ -382,7 +382,7 @@ export default {
     async submitData () {
       try {
         await this.$axios.put(`http://localhost:3000/food/userlist`, this.userMeal, { withCredentials: true })
-        console.log('yes')
+        alert(this.mealTime + ' 식단이 등록되었습니다.')
         this.userMeal.food = []
       } catch (err) {
         // alert('다시 시도해주세요.')
@@ -390,14 +390,19 @@ export default {
     },
     // 끼니 일괄 삭제
     async deleteFood () {
-      try {
-        const data = {
-          mealTime : this.mealTime,
-          date : this.choosedDay.dateFormat.replaceAll('/','-')          
-        }
-        await this.$axios.delete(`http://localhost:3000/food/userlist`, data, { withCredentials: true })
-        console.log("deleted success")
-      } catch (err) {
+      if (confirm(this.mealTime + " 식단을 일괄 삭제하시겠습니까?")) {
+        try {
+          const data = {
+            mealTime : this.mealTime,
+            date : this.choosedDay.dateFormat.replaceAll('/','-')          
+          }
+          await this.$axios.delete(`http://localhost:3000/food/userlist`, data, { withCredentials: true })
+          alert('삭제되었습니다.')
+          this.selectedFoodCode = []
+        } catch (err) {
+          //pass
+        }        
+      } else {
         //pass
       }
     }

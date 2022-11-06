@@ -343,7 +343,7 @@ export default {
     async submitData () {
       try {
         await this.$axios.put('http://localhost:3000/food/userlist', this.userMeal, { withCredentials: true })
-        console.log('yes')
+        alert(this.mealTime + ' 식단이 등록되었습니다.')
         this.userMeal.food = []
       } catch (err) {
         // alert('다시 시도해주세요.')
