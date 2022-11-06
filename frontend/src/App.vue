@@ -87,7 +87,7 @@
               </div>
             </div>
           </nav>
-          <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background-color: rgb(30, 30, 30);">
+          <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background:linear-gradient(rgb(50, 50, 50), rgb(30, 30, 30))">
             <div class="container-xxl">
               <a class="navbar-brand" href="/"><img src="@/assets/logo_white.png" alt="집밥김선생" style="width:210px; height:70px; margin-left: 15px;"/></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -165,7 +165,9 @@ export default {
 <style>
 @import "@/css/styles.css";
 @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
-
+.container-xxl {
+  max-width: 90%;
+}
 .navbtn-custom {
   color: #000000;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -198,7 +200,7 @@ export default {
   height: 85px;
   width: 100%;
   padding: 0% 1%;
-  background:linear-gradient(#323232, #2a2a2a)
+  background:linear-gradient(rgb(50, 50, 50), rgb(30, 30, 30))
 }
 .navbtn-mobile {
   margin-left:none;
