@@ -6,7 +6,7 @@ const FoodController = require('../controllers/food');
 router.get("/list", FoodController.getFoodList);
 
 router.get("/userlist", FoodController.getUserFoodList);
-router.post("/userlist", FoodController.setUserFoodList);
+router.put("/userlist", FoodController.setUserFoodList);
 router.delete("/userlist", FoodController.deleteUserFoodList);
 
 

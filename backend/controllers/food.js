@@ -61,7 +61,7 @@ const food = {
         const mealTime = req.body.mealTime;
         const date = req.body.date;
 
-        const foodList = await models.Usermeal.findAll(
+        const foodList = await models.UserMeal.findAll(
             { where : {
                 userId : userId,
                 mealTime : mealTime,
@@ -74,10 +74,9 @@ const food = {
     //사용자 리스트 저장 또는 업데이트
     setUserFoodList :async (req, res) => {
         const userId = res.locals.user.id;
-        const userMeal = req.body.userMeal;
-        
+        const userMeal = req.body;
         //삭제 후 새로 저장
-        await models.Usermeal.destroy(
+        await models.UserMeal.destroy(
           {where :  { 
             userId : userId,
             date : userMeal.date,
@@ -86,13 +85,13 @@ const food = {
     
         //foodCode들로 음식 리스트 찾기 where 조건으로
         // selectCode는 영문 포함 여부로 확인
-        for(food of userMeal.food){
-            const selectCode = 0;
+        for(const food of userMeal.food){
+            let selectCode = 0;
             if(isNaN(food.foodCode.charAt(0))){
                 selectCode = 1;
             }
-            await models.Usermeal.create({
-                foodCode : foodCode,
+            await models.UserMeal.create({
+                foodCode : food.foodCode,
                 date : userMeal.date,
                 mealTime : userMeal.mealTime,
                 servingSize : food.servingSize,
@@ -107,7 +106,7 @@ const food = {
         const userId = res.locals.user.id;
         const mealTime = req.body.mealTime;
         const date = req.body.date;
-        await models.Usermeal.destroy(
+        await models.UserMeal.destroy(
             { where : {
                 userId : userId,
                 mealTime : mealTime,

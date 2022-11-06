@@ -7,7 +7,7 @@
       </p>
       <p style="font-size:1.5em; font-weight:400;">
         식단 분석을 위해 식단 계획 이외에 섭취한 음식을 등록합니다.
-        {{finalData}}
+        selectedFoodCode = {{selectedFoodCode}}
       </p>
     </div>
     <div class="content-box">
@@ -87,7 +87,7 @@
               </div>
               <div v-else>
                 <table class="table" style="vertical-align: middle;">
-                  <thead style="position: sticky; top: 0px;background-color: #f0f0f0 !important;">
+                  <thead style="position: sticky; top: 0px; background-color: #f0f0f0 !important;">
                     <tr>
                       <th scope="col" style="width: 15%">품목명</th>
                       <th scope="col" style="width: 15%">제조사</th>
@@ -127,14 +127,14 @@
       </div>
       <div v-if="bindedCodeList != ''">
         <div class="foodname-box mt-5 w-80 m-10">
-          <p style="font-size: 1.2rem">🥄 {{choosedDay.year}}년 {{choosedDay.month}}월 {{choosedDay.date}}일 섭취한 음식</p>
+          <p style="font-size: 1.2rem">🥄 {{mealTime}}으로 먹은 음식</p>
           <div v-for="(data, index) in bindedCodeList" :key="index" class="foodname-card">
              <span>{{data}}</span>
           </div>
         </div>
       </div>
       <div class="w-100 mt-3 text-center">
-        <button class="btn btn-primary btn-lg next-button" @click="submitForm()">REGISTER</button>
+        <button class="btn btn-primary btn-lg next-button" @click="saveData()">{{mealTime}} 저장하기</button>
       </div>
     </div>
   </body>
@@ -173,8 +173,7 @@ export default {
       endMsg: "",
       pageNum: null,
       bindedCode: "",
-      bindedCodeList: [],
-      finalData: [],
+      bindedCodeList: []
     }
   },
   watch: {
@@ -235,14 +234,14 @@ export default {
         console.log(err)
       }
 
-      if (this.foodData['contents'].length === 0) {
+      if (this.foodList.length === 0) {
         this.isEmpty = true
         this.emptyMsg = "검색 결과가 없습니다."
       } else {
         this.isEmpty = false
       }
 
-      if (this.foodData['contents'].length < 19) {
+      if (this.foodList.length < 19) {
         this.isEnd = true
         this.endMsg = "더 이상 검색 결과가 없습니다."
       } else {
@@ -303,7 +302,7 @@ export default {
     // 음식 선택 -> 푸드네임리스트에 추가
     selectFood (i) {
       if (this.foodList[i].manufacturer == null) {
-        this.bindedCode = this.mealTime + " | " + this.foodList[i].foodName
+        this.bindedCode = this.foodList[i].foodName
         if (this.bindedCodeList.includes(this.bindedCode)) {
           for (var i=0; i<=this.bindedCodeList.length; i++) {
             if (this.bindedCodeList[i] == this.bindedCode) {
@@ -314,7 +313,7 @@ export default {
           this.bindedCodeList.push(this.bindedCode)
         }
       } else {
-        this.bindedCode = this.mealTime + " | " + this.foodList[i].foodName + " | " + this.foodList[i].manufacturer
+        this.bindedCode = this.foodList[i].foodName + " | " + this.foodList[i].manufacturer
         if (this.bindedCodeList.includes(this.bindedCode)) {
           for (var i=0; i<=this.bindedCodeList.length; i++) {
             if (this.bindedCodeList[i] == this.bindedCode) {
@@ -326,37 +325,26 @@ export default {
         }
       }
     },
-    async submitForm () {
-      var mealTime = ''
+    async saveData () {
+      const userMeal = { 
+        date : this.choosedDay.dateFormat.replaceAll('/','-'),
+        mealTime : this.mealTime,
+        food : []
+      }
       for (var i=0; i < this.selectedFoodCode.length; i++) {
-        if (this.bindedCodeList[i].slice(0, 2) == '아침') {
-          mealTime = '아침'
-        } else if (this.bindedCodeList[i].slice(0, 2) == '점심') {
-          mealTime = '점심'
-        } else if (this.bindedCodeList[i].slice(0, 2) == '저녁') {
-          mealTime = '저녁'
-        } else if (this.bindedCodeList[i].slice(0, 2) == '간식') {
-          mealTime = '간식'
-        } else {
-          mealTime = ''
+        const foodData = {
+          foodCode : this.selectedFoodCode[i],
+          servingSize : 1
         }
-        
-        const userMeal = { 
-          date : this.choosedDay.dateFormat.replaceAll('/','-') ,
-          mealTime : mealTime,
-          food : {
-            foodCode : this.selectedFoodCode[i],
-            servingSize : 1
-          }
-        }
-        this.finalData.push(userMeal)
+        userMeal.food.push(foodData)
+      }
 
-        try {
-          await this.$axios.put('http://localhost:3000//food/userlist', this.finalData, { withCredentials: true })
-          
-        } catch (err) {
-          // alert('다시 시도해주세요.')
-        }
+      try {
+        await this.$axios.put('http://localhost:3000/food/userlist', userMeal, { withCredentials: true })
+        console.log('yes')
+        this.userMeal.food = []
+      } catch (err) {
+        // alert('다시 시도해주세요.')
       }
     }
   }
@@ -426,6 +414,9 @@ body{
   font-size: 90%;
   padding: auto;
   margin: 3px;
+}
+.next-button {
+  font-size: 100%;
 }
 .search-btn {
   border-radius: 10px;
