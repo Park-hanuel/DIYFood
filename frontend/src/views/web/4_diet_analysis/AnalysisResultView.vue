@@ -116,7 +116,7 @@
             <p>
               <b>{{username}}</b>님의 신체 정보로 계산한 <b>기초 대사량</b>은
               <b>{{this.nutrientData.userInfo.basicMetabolicRate}}kcal</b>이고
-              <br><b>{{username}}</b>님의 목표인 <b>{{purpose}}</b>을(를) 이루기 위한 <b>기초 대사량</b>은 <b>{{parseInt(this.nutrientData.userInfo.basicMetabolicRate)}}kcal</b>입니다.
+              <br><b>{{username}}</b>님의 목표인 <b>{{purpose}}</b>을(를) 이루기 위한 <b>기초 대사량</b>은 <b>{{parseInt(this.nutrientData.userInfo.dailyNeedEnergy)}}kcal</b>입니다.
             </p>
             <p><b>{{username}}</b>님의 <b>BMI 지수</b>(체질량 지수)는 <b>{{parseInt(this.nutrientData.BMI)}}</b>이고 <b>{{this.nutrientData.BMIrate}}</b>입니다.</p>
             <table class="table" style="vertical-align: middle; text-align: center;">
@@ -143,7 +143,7 @@
                   <td>{{parseInt(this.nutrientData.averageNutrient.natrium)}}mg</td>
                   <td v-if="(this.nutrientData.dailyNeed.natrium) > this.nutrientData.averageNutrient.natrium">
                     {{100 - parseInt((this.nutrientData.averageNutrient.natrium / this.nutrientData.dailyNeed.natrium) * 100)}}% ↓</td>
-                  <td v-else>{{parseInt((this.nutrientData.sumENatrium / this.nutrientData.dailyNeed.natrium ) * 100) - 100}}% ↑</td>
+                  <td v-else>{{parseInt((this.nutrientData.averageNutrient.natrium / this.nutrientData.dailyNeed.natrium ) * 100) - 100}}% ↑</td>
                 </tr>
                 <tr>
                   <td>탄수화물</td>

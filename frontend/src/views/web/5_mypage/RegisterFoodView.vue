@@ -35,32 +35,32 @@
               <br>{{day_kor}}요일
             </span>
           </div>
-          <div v-if="mealTime == '아침'" class="mb-3">
-            <input type="button" class="btn btn-primary btn-lg btn-clicked" value="아침" @click="selectTime('아침')">
+          <div v-if="mealTime == '1'" class="mb-3">
+            <input type="button" class="btn btn-primary btn-lg btn-clicked" value="아침" @click="selectTime(1)">
           </div>
-          <div v-if="mealTime != '아침'" class="mb-3">
-            <input type="button" class="btn btn-primary btn-lg btn-meal" value="아침" @click="selectTime('아침')">
-          </div>
-
-          <div v-if="mealTime == '점심'" class="mb-3">
-            <input type="button" class="btn btn-primary btn-lg btn-clicked" value="점심" @click="selectTime('점심')">
-          </div>
-          <div v-if="mealTime != '점심'" class="mb-3">
-            <input type="button" class="btn btn-primary btn-lg btn-meal" value="점심" @click="selectTime('점심')">
+          <div v-if="mealTime != '1'" class="mb-3">
+            <input type="button" class="btn btn-primary btn-lg btn-meal" value="아침" @click="selectTime(1)">
           </div>
 
-          <div v-if="mealTime == '저녁'" class="mb-3">
-            <input type="button" class="btn btn-primary btn-lg btn-clicked" value="저녁" @click="selectTime('저녁')">
+          <div v-if="mealTime == '2'" class="mb-3">
+            <input type="button" class="btn btn-primary btn-lg btn-clicked" value="점심" @click="selectTime(2)">
           </div>
-          <div v-if="mealTime != '저녁'" class="mb-3">
-            <input type="button" class="btn btn-primary btn-lg btn-meal" value="저녁" @click="selectTime('저녁')">
+          <div v-if="mealTime != '2'" class="mb-3">
+            <input type="button" class="btn btn-primary btn-lg btn-meal" value="점심" @click="selectTime(2)">
           </div>
 
-          <div v-if="mealTime == '간식'" class="mb-3">
-            <input type="button" class="btn btn-primary btn-lg btn-clicked" value="간식" @click="selectTime('간식')">
+          <div v-if="mealTime == '3'" class="mb-3">
+            <input type="button" class="btn btn-primary btn-lg btn-clicked" value="저녁" @click="selectTime(3)">
           </div>
-          <div v-if="mealTime != '간식'" class="mb-3">
-            <input type="button" class="btn btn-primary btn-lg btn-meal" value="간식" @click="selectTime('간식')">
+          <div v-if="mealTime != '3'" class="mb-3">
+            <input type="button" class="btn btn-primary btn-lg btn-meal" value="저녁" @click="selectTime(3)">
+          </div>
+
+          <div v-if="mealTime == '4'" class="mb-3">
+            <input type="button" class="btn btn-primary btn-lg btn-clicked" value="간식" @click="selectTime(4)">
+          </div>
+          <div v-if="mealTime != '4'" class="mb-3">
+            <input type="button" class="btn btn-primary btn-lg btn-meal" value="간식" @click="selectTime(4)">
           </div>
 
         </div>
@@ -147,7 +147,7 @@
       <div v-if="bindedCodeList != ''">
         <div class="foodname-box mt-5 w-80 m-10">
           <div class="mb-2">
-            <span style="font-size: 1.2rem">🥄 {{mealTime}}으로 먹은 음식</span>
+            <span style="font-size: 1.2rem">🥄 {{mealTime_kor}}으로 먹은 음식</span>
             <button class="btn-delete" @click="deleteFood()"><img src="https://cdn-icons-png.flaticon.com/512/6460/6460112.png" style="width: 25px"></button>
           </div>
           <div v-for="(data, index) in bindedCodeList" :key="index" class="foodname-card">
@@ -156,7 +156,7 @@
         </div>
       </div>
       <div class="w-100 mt-3 text-center">
-        <button class="btn btn-primary btn-lg next-button" @click="submitData()">{{mealTime}} 저장하기</button>
+        <button class="btn btn-primary btn-lg next-button" @click="submitData()">{{mealTime_kor}} 저장하기</button>
       </div>
     </div>
   </body>
@@ -174,6 +174,7 @@ export default {
   data () {
     return {
       mealTime: "",
+      mealTime_kor: "",
       servingSize: "",
       choosedDay: {
         dateFormat: "",
@@ -256,7 +257,19 @@ export default {
     selectTime (index) {
       this.mealTime = index
       this.isEmpty = true
+      this.selectedFoodCode = []
+      this.bindedCodeList = []
       this.getSavedData()
+
+      if (this.mealTime == 1) {
+        this.mealTime_kor = '아침'
+      } else if (this.mealTime == 2) {
+        this.mealTime_kor = '점심'
+      } else if (this.mealTime == 3) {
+        this.mealTime_kor = '저녁'
+      } else {
+        this.mealTime_kor = '간식'
+      }
     },
     // 날짜 선택
     dateChange(day) {
@@ -265,11 +278,9 @@ export default {
     // 저장된 식단 등록 정보 가져오기
     async getSavedData () {
       try {
-        const data = {
-          mealTime : this.mealTime,
-          date : this.choosedDay.dateFormat.replaceAll('/','-')          
-        }
-        const response = await this.$axios.get(`/food/userlist`, data, { withCredentials: true })
+        const mealTime = this.mealTime
+        const date = this.choosedDay.dateFormat.replaceAll('/','-')         
+        const response = await this.$axios.get(`/food/userlist?mealTime=${mealTime}&date=${date}`, { withCredentials: true })
         this.savedData = response.data
         console.log(this.savedData)
       } catch (err) {
@@ -382,8 +393,8 @@ export default {
     async submitData () {
       try {
         await this.$axios.put(`http://localhost:3000/food/userlist`, this.userMeal, { withCredentials: true })
-        alert(this.mealTime + ' 식단이 등록되었습니다.')
         this.userMeal.food = []
+        alert('식단이 등록되었습니다.')
       } catch (err) {
         // alert('다시 시도해주세요.')
       }
@@ -392,11 +403,9 @@ export default {
     async deleteFood () {
       if (confirm(this.mealTime + " 식단을 일괄 삭제하시겠습니까?")) {
         try {
-          const data = {
-            mealTime : this.mealTime,
-            date : this.choosedDay.dateFormat.replaceAll('/','-')          
-          }
-          await this.$axios.delete(`http://localhost:3000/food/userlist`, data, { withCredentials: true })
+          const mealTime = this.mealTime
+          const date = this.choosedDay.dateFormat.replaceAll('/','-')          
+          await this.$axios.delete(`http://localhost:3000/food/userlist?mealTime=${mealTime}&date=${date}`, { withCredentials: true })
           alert('삭제되었습니다.')
           this.selectedFoodCode = []
         } catch (err) {
