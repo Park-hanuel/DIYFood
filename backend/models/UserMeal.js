@@ -5,7 +5,7 @@ module.exports = class UserMeal extends Sequelize.Model {
     return super.init(
       {
         foodCode: {
-          type: Sequelize.INTEGER,
+          type : Sequelize.STRING(30),
           allowNull: false,
         },
         date : {

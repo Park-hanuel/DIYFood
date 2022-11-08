@@ -58,8 +58,8 @@ const food = {
     //사용자 리스트 조회
     getUserFoodList : async (req, res) => {
         const userId = res.locals.user.id;
-        const mealTime = req.body.mealTime;
-        const date = req.body.date;
+        const mealTime = req.query.mealTime;
+        const date = req.query.date;
 
         const foodList = await models.UserMeal.findAll(
             { where : {
@@ -104,8 +104,8 @@ const food = {
     //식단 일괄 삭제
     deleteUserFoodList : async (req, res) => {
         const userId = res.locals.user.id;
-        const mealTime = req.body.mealTime;
-        const date = req.body.date;
+        const mealTime = req.query.mealTime;
+        const date = req.query.date;
         await models.UserMeal.destroy(
             { where : {
                 userId : userId,
