@@ -147,7 +147,7 @@
                   <td>{{parseInt(this.nutrientData.averageNutrient.natrium)}}mg</td>
                   <td v-if="(this.nutrientData.dailyNeed.natrium) > this.nutrientData.averageNutrient.natrium">
                     {{100 - parseInt((this.nutrientData.averageNutrient.natrium / this.nutrientData.dailyNeed.natrium) * 100)}}% ↓</td>
-                  <td v-else>{{parseInt((this.nutrientData.sumENatrium / this.nutrientData.dailyNeed.natrium ) * 100) - 100}}% ↑</td>
+                  <td v-else>{{parseInt((this.nutrientData.averageNutrient.natrium / this.nutrientData.dailyNeed.natrium ) * 100) - 100}}% ↑</td>
                 </tr>
                 <tr>
                   <td>탄수화물</td>

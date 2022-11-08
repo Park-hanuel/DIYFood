@@ -87,7 +87,7 @@
               </div>
             </div>
           </nav>
-          <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background:linear-gradient(rgb(50, 50, 50), rgb(30, 30, 30))">
+          <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background:rgb(50, 50, 50)">
             <div class="container-xxl">
               <a class="navbar-brand" href="/"><img src="@/assets/logo_white.png" alt="집밥김선생" style="width:210px; height:70px; margin-left: 15px;"/></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
