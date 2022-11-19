@@ -45,8 +45,8 @@
           <input v-if="this.categoryCode !== 400" type="button" class="btn btn-primary btn-lg btn-custom" value="과일류" @click="getPriceData(400)">
           <input v-if="this.categoryCode === 400" type="button" class="btn btn-clicked btn-lg btn-custom" value="과일류" @click="getPriceData(400)">
 
-          <input v-if="this.categoryCode !== 400" type="button" class="btn btn-primary btn-lg btn-custom" value="축산물" @click="getPriceData(500)">
-          <input v-if="this.categoryCode === 400" type="button" class="btn btn-clicked btn-lg btn-custom" value="축산물" @click="getPriceData(500)">
+          <input v-if="this.categoryCode !== 500" type="button" class="btn btn-primary btn-lg btn-custom" value="축산물" @click="getPriceData(500)">
+          <input v-if="this.categoryCode === 500" type="button" class="btn btn-clicked btn-lg btn-custom" value="축산물" @click="getPriceData(500)">
 
           <input v-if="this.categoryCode !== 600" type="button" class="btn btn-primary btn-lg btn-custom" value="수산물" @click="getPriceData(600)">
           <input v-if="this.categoryCode === 600" type="button" class="btn btn-clicked btn-lg btn-custom" value="수산물" @click="getPriceData(600)">

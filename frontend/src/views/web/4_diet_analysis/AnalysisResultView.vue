@@ -97,7 +97,7 @@
         </div>
         <div class="half-box"  style="border-left: 1px solid lightgray">
           <div style="text-align:center; ">
-            <h3>영양소 섭취 비교 그래프</h3>
+            <h3>영양소 섭취량 비교 그래프</h3>
             <BarChart
               :BasicMetabolicRate="this.nutrientData.userInfo.basicMetabolicRate"
               :dailyNeedCarbohydrate="this.nutrientData.dailyNeed.carbohydrate"
