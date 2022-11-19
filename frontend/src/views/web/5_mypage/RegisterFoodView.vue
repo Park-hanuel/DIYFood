@@ -280,9 +280,10 @@ export default {
       try {
         const mealTime = this.mealTime
         const date = this.choosedDay.dateFormat.replaceAll('/','-')         
-        const response = await this.$axios.get(`/food/userlist?mealTime=${mealTime}&date=${date}`, { withCredentials: true })
+        const response = await this.$axios.get(`http://localhost:3000/food/userlist?mealTime=${mealTime}&date=${date}`, { withCredentials: true })
         this.savedData = response.data
         console.log(this.savedData)
+        
       } catch (err) {
         console.log(err)
       }
@@ -391,6 +392,7 @@ export default {
     },
     // 식단 등록
     async submitData () {
+      alert('식단이 등록되었습니다.')
       try {
         await this.$axios.put(`http://localhost:3000/food/userlist`, this.userMeal, { withCredentials: true })
         this.userMeal.food = []

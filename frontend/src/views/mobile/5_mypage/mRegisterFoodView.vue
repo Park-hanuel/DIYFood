@@ -224,6 +224,8 @@ export default {
     selectTime (index) {
       this.mealTime = index
       this.isEmpty = true
+      this.selectedFoodCode = []
+      this.bindedCodeList = []
     },
     // 날짜 선택
     dateChange(day) {
