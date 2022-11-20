@@ -1,41 +1,35 @@
-var express = require('express');
-var router = express.Router();
-var mysql = require('mysql');
+const express = require('express');
+const router = express.Router();
 
-//DB 연결
-const port = 3306;
-var options = require('./option');
- 
-var loginData = {
-        host: options.storageConfig.HOST,
-        user: options.storageConfig.user,
-        password: options.storageConfig.password                                                         
-};
- 
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-  host: loginData.host,
-  port:3306,
-  user:loginData.user,
-  password:loginData.password,
-  database:'octodog'
+const ingredient = require('./ingredient');
+const user = require('./user')
+const recipe = require('./recipe')
+const dietanalysis = require('./dietanalysis');
+const food = require('./food');
+
+//해당 라우터 모든 요청에 대해 값 집어넣기
+router.use((req,res,next)=>{
+    res.locals.user = req.user;
+    next();
 })
-connection.connect();
 
-// user create
-// CREATE TABLE user ( 
-//   id int NOT NULL auto_increment PRIMARY KEY,
-//   email varchar(45) not null,
-//   name varchar(10) not null,
-//   reg_date varchar(45),
-//   password varchar(150) not null);
+router.get('/' ,(req,res,next) =>{
+    res.send('hi');
+})
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  connection.query('SELECT * from user', function (error, results, fields) {
-    if (error) console.log(error);
-    res.send(results);
-});
-});
+router.get('/islogin', (req, res)=>{
+    if(req.user == undefined){
+        res.send(false) ;
+    }else{
+        res.send(true);
+    }
+})
+
+router.use('/user', user);
+router.use('/ingredient',ingredient);
+router.use('/recipe', recipe);
+router.use('/dietanalysis', dietanalysis);
+router.use('/food', food);
+
 
 module.exports = router;

@@ -1,1 +1,7 @@
-backend/routes/config.json
+backend/config/
+backend/node_modules/
+frontend/node_modules/
+dist/*
+*.log
+
+backend/.env
