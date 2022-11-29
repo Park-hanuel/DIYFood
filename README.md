@@ -19,14 +19,12 @@
 <br>
 
 ## 📒 개발 환경 및 아키텍쳐
-![개발환경](https://user-images.githubusercontent.com/69072701/190056555-784ba3b3-92fe-4398-9308-0e85243c24e7.png)
+![MacBook Pro 14_ - 3](https://user-images.githubusercontent.com/107801496/204464634-a28b7a4a-623f-4e17-ae34-add0f493ef25.png)
 
 <br>
 
 ## 📒 주요 기능
-![Slide 16_9 - 1](https://user-images.githubusercontent.com/107801496/204459346-fc66892f-56d4-40ec-9730-83e6883f28cf.png)
-
-
+![Slide 16_9 - 1](https://user-images.githubusercontent.com/107801496/204464645-34254ed2-7a07-4e38-8dad-579e6f4b647d.png)
 
 <br>
 
