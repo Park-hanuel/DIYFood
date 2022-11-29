@@ -24,8 +24,8 @@
 <br>
 
 ## 📒 주요 기능
-![기능 설명 (1)](https://user-images.githubusercontent.com/69072701/190059091-bcda3486-d262-49f9-9e97-1c2ca598a32c.png)
-![기능 설명 (2)](https://user-images.githubusercontent.com/69072701/190059518-3c61d983-bfe7-4b3c-beee-32f001c63be6.png)
+![Slide 16_9 - 1](https://user-images.githubusercontent.com/107801496/204459346-fc66892f-56d4-40ec-9730-83e6883f28cf.png)
+
 
 
 <br>
