@@ -20,7 +20,7 @@ https://github.com/BobBob-3/DIYFood
 <br>
 
 ## 📒 주요 기능
-사용자에게 맞춤 식단 제공
+사용자에게 맞춤 식단 제공 <br>
 나의 건강 수치 비교
 
 <br>
