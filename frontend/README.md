@@ -1,4 +1,4 @@
-# diyfood_vue2
+# 식사의신
 
 ## Project setup
 ```
