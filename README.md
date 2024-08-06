@@ -14,12 +14,14 @@
 <br>
 
 ## 📒 개발 환경 및 아키텍쳐
-![MacBook Pro 14_ - 3](https://user-images.githubusercontent.com/107801496/204464634-a28b7a4a-623f-4e17-ae34-add0f493ef25.png)
+https://github.com/BobBob-3/DIYFood
+위 깃허브 오픈 소스가 활용되어 제작되었다.
 
 <br>
 
 ## 📒 주요 기능
-![Slide 16_9 - 1](https://user-images.githubusercontent.com/107801496/204464645-34254ed2-7a07-4e38-8dad-579e6f4b647d.png)
+사용자에게 맞춤 식단 제공
+나의 건강 수치 비교
 
 <br>
 
